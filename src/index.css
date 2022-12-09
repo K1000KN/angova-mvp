@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'IgraSans';
+    src: local('IgraSans'), url("./fonts/IgraSans.otf") format('truetype');;
+};
+@font-face {
+    font-family: 'Raleway';
+    src: local('Raleway'), url("./fonts/Raleway-Light.ttf") format('truetype');;
+};
+
+span{
+    font-family: 'Raleway' !important;
+}
