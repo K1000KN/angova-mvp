@@ -37,7 +37,7 @@ const useStyles = makeStyles({
 const RegistrationForm = ({open, handleClose}) => {
     const classes = useStyles();
     const paperStyle = { padding: '0 15px 40px 15px', width: 414,display: 'flex', flexDirection: 'column' }
-    const btnStyle = { marginTop: 10,width:'70%', marginLeft:"15%"}
+    const btnStyle = { marginTop: 10,width:'70%', marginLeft:"15%", backgroundColor:"#F49E4C"}
     const ageRegExp=/^\d+$/;
     const passwordRegExp=/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
 
@@ -110,7 +110,7 @@ const RegistrationForm = ({open, handleClose}) => {
                                         helperText={<ErrorMessage name='confirmPassword' />} required />
 
                                     <Button  onClick={handleClose} type='submit' style={btnStyle} variant='contained'
-                                        color='primary'>S'inscrire</Button>
+                                        >S'inscrire</Button>
                                 </Form>
                             )}
                         </Formik>

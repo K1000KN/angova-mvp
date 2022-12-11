@@ -128,13 +128,7 @@ ref
         <Typography variant="h5" style={{color: '#fff'}}>Video title</Typography>
       </Grid>
       <Grid item>
-        <Button 
-          onClick={onBookmark}
-          variant='contained' 
-          color='primary' 
-          startIcon={<BookmarkIcon/>}>
-            BookMark
-        </Button>
+       
       </Grid>
     </Grid>
     
@@ -158,6 +152,7 @@ ref
           <PrettoSlider
             min={0}
             max={100}
+            style={{color:"#F49E4C"}}
             value={played * 100}
             valueLabelDisplay="auto"
             valueLabelFormat={valueLabelFormat}
@@ -187,7 +182,7 @@ ref
             min={0} 
             max={100} 
             value={volume*100} 
-            style={{width: 100}}
+            style={{width: 100, color:"#F49E4C"}}
             onChange={onVolumeChange} 
             onChangeCommitted={onVolumeSeekUp}
             />
@@ -218,7 +213,7 @@ ref
             <Grid container direction='column-reverse'>
               {[0.5,1,1.5,2].map(rate=>(
               <Button onClick={()=>onPlaybackRateChange(rate)} variant='text'>
-                <Typography color={rate===playbackRate ? 'primary':'black'}>{rate}</Typography>
+                <Typography color={rate===playbackRate ? '#F49E4C':'black'}>{rate}</Typography>
               </Button>))}
             </Grid>
            
