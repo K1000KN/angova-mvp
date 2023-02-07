@@ -1,11 +1,13 @@
+import '../index.css'
 import React, {forwardRef} from 'react';
 import Typography from '@mui/material/Typography';
 import Grid from "@mui/material/Grid";
 import Button from '@mui/material/Button';
 import { withStyles, makeStyles } from "@mui/styles";
-import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { IconButton } from '@mui/material';
-import { PlayArrow, FastForward,  FastRewind, Pause, Fullscreen} from '@mui/icons-material';
+import Replay10Icon from '@mui/icons-material/Replay10';
+import Forward10Icon from '@mui/icons-material/Forward10';
+import { PlayArrow, Pause, Fullscreen} from '@mui/icons-material';
 import Slider from '@mui/material/Slider';
 import Popover from '@mui/material/Popover';
 import { VolumeUp, VolumeMute, VolumeDown } from '@mui/icons-material';
@@ -25,21 +27,6 @@ const useStyles = makeStyles({
       justifyContent: "space-between",
       zIndex: 1,
     },
-    controlIcons: {
-      color: "#777",
-      fontSize: 50,
-      transform: "scale(0.9)",
-      "&:hover":{
-        color:"#fff",
-        transform: "scale(1)"
-      }
-    },
-    bottomIcons: {
-      color: "#999",
-      "&:hover":{
-        color:"#fff"
-      }
-    }
     
 });
   
@@ -125,7 +112,7 @@ ref
     {/* Top control */}
     <Grid container direction='row' alignItems="center" justifyContent='space-between' style={{padding:16}}>
       <Grid item > 
-        <Typography variant="h5" style={{color: '#fff'}}>Video title</Typography>
+        <Typography className='titleVideo' style={{color: '#fff'}}>Session code n°1</Typography>
       </Grid>
       <Grid item>
        
@@ -134,21 +121,21 @@ ref
     
      {/* Middle control */}
      <Grid container direction='row' alignItems='center' justifyContent='center'>
-        <IconButton onClick={onRewind} className={classes.controlIcons}  aria-label="rewind">
-          <FastRewind fontSize='inherit'/>
-        </IconButton>
-        <IconButton onClick={onPlayPause} className={classes.controlIcons}  aria-label="rewind">
+        {/* <IconButton onClick={onRewind} className='controlIcons' aria-label="rewind">
+          <Replay10Icon style={{marginRight:30}} fontSize='inherit'/>
+        </IconButton> */}
+        <IconButton onClick={onPlayPause} className='controlIcons' aria-label="rewind">
           {playing ? (<Pause fontSize='inherit'/>) 
           : (<PlayArrow fontSize='inherit'/>)}
         </IconButton>
-        <IconButton onClick={onFastForward}  className={classes.controlIcons}  aria-label="rewind">
-          <FastForward fontSize='inherit'/>
-        </IconButton>
+        {/* <IconButton onClick={onFastForward}  style={{marginLeft:30}}className='controlIcons'  aria-label="rewind">
+          <Forward10Icon fontSize='inherit'/>
+        </IconButton> */}
      </Grid>
 
       {/* Bottom control */}
-      <Grid container direction='row' justifyContent='space-between' alignItems='center'style={{padding:16}}>
-        <Grid item xs={12}>
+      <Grid container direction='row' justifyContent='space-between' alignItems='center' className="bottomControlGrid">
+        <Grid item xs={12} className='sliderStyle'>
           <PrettoSlider
             min={0}
             max={100}
@@ -164,17 +151,17 @@ ref
         <Grid item>
           <Grid container direction='row'  alignItems='center' >
             
-            <IconButton onClick={onPlayPause} className={classes.bottomIcons}>
+            <IconButton onClick={onPlayPause} className="bottomIcons">
               {playing ? (<Pause fontSize='inherit'/>) 
               : (<PlayArrow fontSize='inherit'/>)}
             </IconButton>
-            <IconButton onClick={onMute} className={classes.bottomIcons}>
+            <IconButton onClick={onMute} className="bottomIcons">
                 {muted ? (
-                  <VolumeMute fontSize="large" />
+                  <VolumeMute fontSize='inherit' />
                 ) : volume > 0.5 ? (
-                  <VolumeUp fontSize="large" />
+                  <VolumeUp fontSize='inherit' />
                 ) : (
-                  <VolumeDown fontSize="large" />
+                  <VolumeDown fontSize='inherit' />
                 )}
             </IconButton>
            
@@ -182,21 +169,22 @@ ref
             min={0} 
             max={100} 
             value={volume*100} 
-            style={{width: 100, color:"#F49E4C"}}
+            className= 'volumeSlider'
             onChange={onVolumeChange} 
             onChangeCommitted={onVolumeSeekUp}
             />
 
-            <Button variant='text' style={{color:"#fff", marginLeft:16}}><Typography>{elapsedTime}/{totalDuration}</Typography></Button>
+            <Button variant='text' ><Typography className='duration'>{elapsedTime}/{totalDuration}</Typography></Button>
           </Grid>
           
         </Grid>
         <Grid item>
-          <Button onClick={handlePopover} variant='text' className={classes.bottomIcons}>
-            <Typography>{playbackRate}</Typography>
+          <Button  onClick={handlePopover} variant='text' className="buttonPlaybackRate">
+            <Typography className='typoResponsive'>{playbackRate}</Typography>
           </Button>
 
           <Popover
+            className='typoResponsive'
             id={id}
             open={open}
             anchorEl={anchorEl}
@@ -212,8 +200,8 @@ ref
           >
             <Grid container direction='column-reverse'>
               {[0.5,1,1.5,2].map(rate=>(
-              <Button onClick={()=>onPlaybackRateChange(rate)} variant='text'>
-                <Typography color={rate===playbackRate ? '#F49E4C':'black'}>{rate}</Typography>
+              <Button className='buttonPlaybackRate' onClick={()=>onPlaybackRateChange(rate)} variant='text'>
+                <Typography className='typoResponsive' color={rate===playbackRate ? '#F49E4C':'black'}>{rate}</Typography>
               </Button>))}
             </Grid>
            
@@ -221,9 +209,9 @@ ref
 
           <IconButton
             onClick={onToggleFullScreen}
-            className={classes.bottomIcons}
+            className="bottomIcons"
           > 
-            <Fullscreen fontSize='large'/>
+            <Fullscreen fontSize='inherit'/>
           </IconButton>
         </Grid>
       </Grid>

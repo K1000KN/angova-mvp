@@ -29,7 +29,7 @@ const format = (seconds) => {
   }
   return `${mm}:${ss}`;
 };
-
+ 
 let count = 0;
 
 function Player() {
@@ -47,9 +47,9 @@ function Player() {
 
   const playerRef = useRef(null);
   const playerContainerRef = useRef(null);
-  const canvasRef = useRef(null);
+  // const canvasRef = useRef(null);
   const controlsRef = useRef(null);
-  const [bookmarks, setBookmarks] = useState([])
+  // const [bookmarks, setBookmarks] = useState([])
   const handlePlayPause= ()=> {
     setState({...state, playing:!state.playing});
   };
@@ -102,25 +102,25 @@ function Player() {
     controlsRef.current.style.visibility = "visible";
     count = 0;
   }
-  const addBookmark = (changeState)=>{
-    const canvas = canvasRef.current;
-    canvas.width = 160;
-    canvas.height = 90;
+  // const addBookmark = (changeState)=>{
+  //   const canvas = canvasRef.current;
+  //   canvas.width = 160;
+  //   canvas.height = 90;
 
-    const ctx = canvas.getContext("2d");
+  //   const ctx = canvas.getContext("2d");
 
-    ctx.drawImage(playerRef.current.getInternalPlayer(),0,0, canvas.width, canvas.height);
-    const dataUri = canvas.toDataURL();
-    canvas.width = 0;
-    canvas.height = 0;
-    const bookmarksCopy = [...bookmarks];
-    bookmarksCopy.push({
-      time: playerRef.current.getCurrentTime(),
-      display: format(playerRef.current.getCurrentTime()),
-      image: dataUri,
-    });
-    setBookmarks(bookmarksCopy);
-  }
+  //   ctx.drawImage(playerRef.current.getInternalPlayer(),0,0, canvas.width, canvas.height);
+  //   const dataUri = canvas.toDataURL();
+  //   canvas.width = 0;
+  //   canvas.height = 0;
+  //   const bookmarksCopy = [...bookmarks];
+  //   bookmarksCopy.push({
+  //     time: playerRef.current.getCurrentTime(),
+  //     display: format(playerRef.current.getCurrentTime()),
+  //     image: dataUri,
+  //   });
+  //   setBookmarks(bookmarksCopy);
+  // }
   const currentTime = playerRef.current ? playerRef.current.getCurrentTime():'00:00';
   const duration = playerRef.current ? playerRef.current.getDuration() : "00:00";
 
@@ -129,7 +129,7 @@ function Player() {
   return (
     <>
      
-      <Container style={{marginTop:"6%", width:"95%"}}>
+      <Container style={{marginTop:"2%", width:"95%"}}>
         <div 
           ref={playerContainerRef}
           className={classes.playerWrapper}
@@ -137,7 +137,7 @@ function Player() {
         >
           <ReactPlayer
             ref={playerRef}
-            url= 'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8'
+            url= './code.mp4'
             width='100%'
             height='100%'
             playing = {playing}
@@ -172,10 +172,10 @@ function Player() {
           onSeekMouseUp={handleSeekMouseUp}
           elapsedTime = {elapsedTime}
           totalDuration = {totalDuration}
-          onBookmark = {addBookmark}
+          // onBookmark = {addBookmark}
          />
         </div>
-        <Grid container style={{marginTop: 20}} spacing={3}>
+        {/* <Grid container style={{marginTop: 20}} spacing={3}>
             {bookmarks.map((bookmark,index)=>(
               <Grid item key={index}>
                 <Paper onClick={()=> playerRef.current.seekTo(bookmark.time)}>
@@ -184,8 +184,8 @@ function Player() {
                 </Paper>
               </Grid>
             ))}
-        </Grid>
-        <canvas ref={canvasRef}/>
+        </Grid> */}
+        {/* <canvas ref={canvasRef}/> */}
       </Container>
     </>
   );

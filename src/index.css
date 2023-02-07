@@ -7,6 +7,366 @@
     src: local('Raleway'), url("./fonts/Raleway-Light.ttf") format('truetype');;
 };
 
+
+
 span{
     font-family: 'Raleway' !important;
+}
+.barItem {
+    color:"#000" ;
+    cursor: pointer;
+ }
+ 
+/* .barItem:hover {
+    background-color: 'red';
+ } */
+button[aria-label='Previous'] {
+    opacity: 1;
+    background-color: transparent;
+    
+}
+
+button[aria-label='Next'] {
+    opacity: 1;    
+    background-color: transparent;
+    
+}
+
+button {
+   
+    font-size: 1em;
+}
+.title{
+    font-size: clamp(26px, 5vw, 55px) !important;
+} 
+#title2{
+    font-size: clamp(17px, 3vw, 41px) !important;
+} 
+.title3{
+    font-size: clamp(15px, 3vw, 20px) !important;
+    font-family:'Raleway', 'Arial' !important;
+    font-weight: 600 !important;
+}
+.gridContainer{
+    padding-left:20px;
+    padding-right:30px;
+    margin-bottom: -10vh;
+}
+.codeDeLaRoute{
+    padding-top:60px;
+    padding-left:80px;
+}
+
+.styleFlag{ 
+    margin: 10px;
+    width:60px;
+}
+#descWrapper{
+    margin-top:42px;
+    padding-right:14%;
+}
+#descContainer{
+    margin-top:86px;
+    padding-left:20px;
+    padding-right:30px;
+}
+.scrollerPoint{
+    width:100%;
+    height:20vh;
+}
+.scrollerPoint2{
+    width:100%;
+    height:30px;
+}
+#callToAction{
+    font-size: clamp(19px, 3vw, 27px) !important;
+    margin-top:25vh; 
+    margin-bottom:10px;
+}
+.contactezNous{
+    margin-top:36px;
+    margin-bottom:7vh;
+    padding-left:20px;
+    padding-right:30px;
+}
+#titleContact{
+    margin-left: 14%;
+    margin-top: 31px;
+}
+#reviewCarousel{
+    width:65%;
+    margin-left:10%;
+    margin-top:10px
+}
+.nameReview{
+    font-size:clamp(20px, 3vw, 30px) !important;
+    margin-top:10vh !important;
+    color:white;
+}
+
+.descReview {
+    font-size:clamp(10px, 2vw, 13px) !important;
+    font-family:'Raleway', 'Arial';
+    padding-left:40px;
+    padding-right:40px;
+    color: black;
+    margin-top:8% !important;
+}
+#requestForm{
+    margin-top:110px;
+    padding-left:4%;
+}
+
+.titleVideo{
+    font-size:clamp(10px, 2vw, 1.5rem) !important;
+
+}
+
+.controlIcons{
+    color: rgb(150, 148, 148)!important;
+    font-size:clamp(25px, 4vw, 45px) !important;
+    transform: scale(0.9) !important;
+    
+}
+.controlIcons :hover{
+    color:#fff !important;
+    transform: scale(1) !important;
+}
+.sliderStyle{
+    height: 25px !important;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.bottomIcons{
+    font-size: clamp(17px, 4vw, 31px)!important;
+    color: rgb(150, 148, 148)!important;
+}
+.bottomIcons :hover{
+    color:#fff !important;
+}
+.buttonPlaybackRate{
+    color: rgb(150, 148, 148)!important;
+}
+.duration{
+    font-size: 20px!important;
+    color:#fff !important;
+    margin-left:16px !important;
+}
+.typoResponsive{
+    font-size: 20px!important;
+}
+.volumeSlider{
+    width: 100px !important;
+    color:#F49E4C !important;
+}
+.bottomControlGrid{
+    padding:16px;
+}
+.btnRegister{
+    width: 95%;
+    height: 65px;
+    background-color: rgb(244, 158, 76) !important;
+}
+
+.react-multi-carousel-list{
+    justify-content: center !important;
+}
+@media screen and (max-width:340px) {
+    .volumeSlider{
+        width: 50px !important;
+    }
+}
+
+@media screen and (max-width:700px) {
+    .btnRegister{
+        width: 69%;
+        height: 45px;
+        font-size: 10px !important;
+        font-weight: 600 !important;
+    }
+    
+    .react-multi-carousel-list{
+        justify-content: start !important;
+    }
+    .react-multi-carousel-item {
+        width: 60px !important;
+    
+    }
+}
+
+@media screen and (max-width:900px) {
+  
+    .typoResponsive{
+        font-size: 13px!important;
+    }
+    .duration{
+        font-size: 2.5vw!important;
+        color:#fff !important;
+        margin-left:0px !important;
+    }
+    .bottomControlGrid{
+        margin-top: -10px;
+        padding:16px;
+    }
+    .volumeSlider{
+        width: 69px !important;
+    }
+    .buttonPlaybackRate{
+        min-width: 0px !important;
+    }
+    #descWrapper{
+        margin-top:-65px !important;
+    }
+    #descContainer{
+        margin-top:42px !important;
+    }
+    .scrollerPoint{
+        height:6vh;
+    }
+    #callToAction{
+        margin-top:4vh !important;
+    }
+    .codeDeLaRoute{
+        padding-top: 50px !important;
+    }
+    #requestForm{
+        margin-top:0 !important;
+        padding-left:0 !important;
+    }
+}
+@media screen and (max-width:1200px) {
+    .react-multi-carousel-item {
+        width: 71px !important;
+    
+    }
+    .react-multiple-carousel__arrow--right {
+       display: hidden !important;
+    }
+    #callToAction{
+        margin-top:3vh;
+    }
+    .gridContainer{
+        padding:0px;
+        padding:0px;
+        margin: 0;
+    }
+    .styleFlag{ 
+        margin: 20px;
+        width:45px;
+    }
+    .codeDeLaRoute{
+        padding-top: 10px;
+        padding-left: 0;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center;
+        justify-content: center;
+    }
+    .contactezNous{
+        padding: 0;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center;
+        justify-content: center!important;
+        
+    }
+    #titleContact{
+       text-align: center!important;
+       margin: 0;
+    }
+    .contactWrapper{
+        width: 100vw !important;
+    }
+    #reviewCarousel{
+        width:100% !important;
+        margin-left:0 !important;
+       
+    }
+    .scrollerPoint{
+        height:10vh;
+    }
+}
+
+.bm-item {
+    display: inline-block;
+    /* Our sidebar item styling */
+    text-decoration: none;
+    margin-bottom: 34px !important;
+    color: #F49E4C;
+    transition: color 0.2s;
+    cursor: pointer;
+
+  }
+  .bm-menu-wrap{
+    width: 200px !important;
+    margin-top: -11px !important;
+  }
+  
+  .bm-item:hover {
+    color: white;
+  }
+  
+  .bm-burger-button {
+    position: fixed;
+    width: 36px;
+    height: 30px;
+    right: 36px;
+    top: 23px;
+  }
+  
+  /* Color/shape of burger icon bars */
+  .bm-burger-bars {
+    background: #F49E4C;
+  }
+  
+  /* Position and sizing of clickable cross button */
+  .bm-cross-button {
+    height: 24px;
+    width: 24px;
+  }
+  
+  /* Color/shape of close button cross */
+  .bm-cross {
+    background: #F49E4C;
+  }
+  
+  /* General sidebar styles */
+  .bm-menu {
+    background: #000;
+    padding: 2.5em 1.5em 0;
+    font-size: 1.15em;
+    
+  }
+  
+  /* Morph shape necessary with bubble or elastic */
+  .bm-morph-shape {
+    fill: #373a47;
+  }
+  
+  /* Wrapper for item list */
+  .bm-item-list {
+    color: #F49E4C;
+  }
+  
+  /* Styling of overlay */
+  .bm-overlay {
+    margin-top: -11px !important;
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+#overlayLangue{
+    width: 280px;
+    height: 320px;
+    position: absolute;
+    background-color: #FFFF;
+    border-radius: 10px;
+    border: solid rgba(216, 216, 216, 0.56) 2px;
+    margin-top: 385px;
+}
+  
+.flagPopup{
+    display: "flex";
+    align-items: "center";
+    padding:20px
 }

@@ -1,31 +1,12 @@
 import React from 'react'
-import { Grid, Paper, Button, Typography } from '@mui/material'
+import { Paper, Button } from '@mui/material'
 import { TextField } from '@mui/material'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import { makeStyles } from "@mui/styles";
-import { createTheme } from '@mui/material/styles';
-import { red } from '@mui/material/colors'
 
-const theme = createTheme();
 
 const useStyles = makeStyles({
-    root: {
-        margin: 0,
-        padding: theme.spacing(2),
-    },
-
-    closeButton: {
-        position: 'absolute',
-        right: theme.spacing(1),
-        top: theme.spacing(1),
-        color: theme.palette.grey[500],
-    },  
-    wrapperDialog:{
-        display:"flex",
-        flexDirection: "column",
-        alignItems: 'center',
-    },
     field: {
         marginTop:'6%',
     },
@@ -33,13 +14,13 @@ const useStyles = makeStyles({
 });
 const RegistrationForm = ({open, handleClose}) => {
     const classes = useStyles();
-    const paperStyle = { backgroundColor: "#F49E4C", padding: '40px 45px', width: "80%",display: 'flex', flexDirection: 'column', height:'65vh' }
+    const paperStyle = { backgroundColor: "#F49E4C", padding: '40px 45px', width: "80%",display: 'flex', flexDirection: 'column' }
     const btnStyle = {
-        marginTop: '10%',
         width:'70%', 
         marginLeft:"15%",
         backgroundColor:"#FFFF", 
         color:"#F49E4C", 
+        marginTop: 20
     }
 
     const initialValues = {
@@ -57,9 +38,18 @@ const RegistrationForm = ({open, handleClose}) => {
         alert(JSON.stringify(values), null, 2)
         props.resetForm()
     }
+    
 
     return (     
-        
+        <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            // Change the size to fit the parent element of this div
+            width: '100%',
+            height: '100%',
+        }}>
             <Paper elevation={0} style={paperStyle}>
                 
                 <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
@@ -122,7 +112,9 @@ const RegistrationForm = ({open, handleClose}) => {
                     )}
                 </Formik>
             </Paper>
-         
+            
+        </div>
+ 
     )
 }
 
