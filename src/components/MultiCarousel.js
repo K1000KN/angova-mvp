@@ -43,7 +43,7 @@ function MultiCarousel() {
                     max: 3000,
                     min: 1024
                     },
-                    items: 8,
+                    items: 9,
                 },
                 mobile: {
                     breakpoint: {
@@ -62,6 +62,7 @@ function MultiCarousel() {
                 }}
                 slidesToSlide={1}
             > 
+                <img src='../images/LSF.png' onClick={() => {showMarocArticle()}} className='styleFlag'/>
                 <img src='../images/maroc.png' onClick={() => {showMarocArticle()}} className='styleFlag'/>
                 <img src='../images/algerie.png' onClick={() => {showMarocArticle()}} className='styleFlag'/>
                 <img src='../images/tuni.png' onClick={() => {showMarocArticle()}} className='styleFlag'/>
@@ -69,7 +70,6 @@ function MultiCarousel() {
                 <img src='../images/turq.png' onClick={() => {showFrArticle()}} className='styleFlag'/>
                 <img src='../images/uk.png' onClick={() => {showUkArticle()}} className='styleFlag'/>
                 <img src='../images/albanie.png' onClick={() => {showFrArticle()}} className='styleFlag'/>
-                <img src='../images/roumanie.png' onClick={() => {showFrArticle()}} className='styleFlag'/>
             </Carousel>
        
         

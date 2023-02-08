@@ -356,17 +356,23 @@ button {
   }
 
 #overlayLangue{
-    width: 280px;
-    height: 320px;
+    width: 290px;
+    height: 324px;
     position: absolute;
     background-color: #FFFF;
     border-radius: 10px;
     border: solid rgba(216, 216, 216, 0.56) 2px;
-    margin-top: 385px;
+    margin-top: 390px;
+    display: none;
 }
   
 .flagPopup{
     display: "flex";
     align-items: "center";
-    padding:20px
+    padding:20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.flagPopup:hover {
+    background-color: #f49d4c7e;
 }

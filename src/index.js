@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Landing from './Landing';
-import Session from './Session';
+
 import reportWebVitals from './reportWebVitals';
 import './index.css';
 import {
@@ -9,11 +8,19 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import  Home  from './Home';
+import Session from './Session';
+import "./i18n";
+import Landing from './Landing';
 
+const SuspenseLayout = () => (
+  <React.Suspense fallback={<>...</>}>
+    <Landing />
+  </React.Suspense>
+);
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Landing/>,
+    element:<SuspenseLayout/>,
   },
   {
     path: "/home",
@@ -26,7 +33,7 @@ const router = createBrowserRouter([
 ]);
 ReactDOM.render(
   <React.StrictMode>
-     <RouterProvider router={router} />
+    <RouterProvider router={router} />  
   </React.StrictMode>,
   document.getElementById('root')
 );

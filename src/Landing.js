@@ -1,5 +1,6 @@
+import React, { useRef} from 'react';
+
 import './index.css';
-import React, {useRef} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Player from './components/Player';
 import Toolbar from '@mui/material/Toolbar';
@@ -19,14 +20,15 @@ import RequestForm from './components/RequestForm';
 import MultiCarousel from './components/MultiCarousel';
 import ReviewCard from './components/ReviewCard';
 import BurgerMenu from './components/BurgerMenu';
-
+import { useTranslation } from 'react-i18next';
 function Landing() {
-  
+  const { t, i18n } = useTranslation();
+ 
+ 
   const refCode = useRef(null);
   const refDesc = useRef(null);
   const refQuestion = useRef(null);
-
-  const theme = createTheme({
+   const theme = createTheme({
     typography: {
       fontFamily: ['IgraSans', 'Raleway', 'Arial'].join(','),
     },
@@ -42,6 +44,8 @@ function Landing() {
   
   const iconStyle ={color:'#F49E4C', stroke: "black",
   strokeWidth: 1, fontSize:30};
+
+ 
   
  
 
@@ -70,13 +74,11 @@ function Landing() {
     refQuestion.current?.scrollIntoView({behavior: 'smooth'});
   };
   
-  const changeBackgroundColor = () => {
-    document.getElementsByClassName("flagPopup").style.backgroundColor= "rgba(216, 216, 216, 0.56)";
-  };
+  
   return (
    
 
-    <>
+      
       <ThemeProvider theme={theme}>
         <CssBaseline />
 
@@ -113,42 +115,44 @@ function Landing() {
              
               sx={{ display: { xs: 'none', lg: 'block' }}}>
               <div   id="overlayGrid" style={{display: "flex", alignItems: "center", justifyContent: "center", width:'75%'}} >
-                <Toolbar> <Typography  variant="h7" style={{color:'black'}}>Langue du site :</Typography></Toolbar>
-                <img  style={{width:45, borderRadius: 5}} 
+                <Toolbar> <Typography  variant="h7" style={{color:'black'}}>{t('popup')}</Typography></Toolbar>
+                <img  style={{width:45, borderRadius:4}} 
                   src="./images/france2.png" 
                 />
               </div>
              
               <div id='overlayLangue'>
-                <div className='flagPopup' onMouseOver={ () => {
-                      document.getElementsByClassName("flagPopup").style.backgroundColor= "rgba(216, 216, 216, 0.56)";
-                    }}  style={{display: "flex", alignItems: "center", padding:20}}>
-                  <img  style={{width:35, borderRadius: 5}} 
+                <div className='flagPopup'
+                  onClick={()=>{i18n.changeLanguage("fr");}}
+                >
+                  <img  style={{width:35, borderRadius: 3}} 
                     src="./images/france2.png" 
                   />
                   <span style={{color:'black',marginLeft:24}}> Francais</span>
                 </div>
                 <div className='flagPopup' style={{display: "flex", alignItems: "center", padding:20}}>
-                  <img  style={{width:35, borderRadius: 5}} 
+                  <img  style={{width:35, borderRadius: 3}} 
                     src="./images/arabe.jpeg" 
                   />
                   <span style={{color:'black', marginLeft:24}}> Arabe</span>
                 </div>
                 <div className='flagPopup'  style={{display: "flex", alignItems: "center", padding:20}}>
-                  <img  style={{width:35, borderRadius: 5}} 
-                    src="./images/france2.png" 
+                  <img  style={{width:35, borderRadius: 3}} 
+                    src="./images/espagne2.png" 
                   />
                   <span style={{color:'black', marginLeft:24}}> Espagnol</span>
                 </div>
-                <div className='flagPopup' style={{display: "flex", alignItems: "center", padding:20}}>
-                  <img  style={{width:35, borderRadius: 5}} 
-                    src="./images/france2.png" 
+                <div className='flagPopup'
+                   onClick={()=>{i18n.changeLanguage("en");}}
+                >
+                  <img  style={{width:35, borderRadius: 3}} 
+                    src="./images/uk2.png" 
                   />
                   <span style={{color:'black', marginLeft:24}}> Anglais</span>
                 </div>
                 <div className='flagPopup'  style={{display: "flex", alignItems: "center", padding:20}}>
-                  <img  style={{width:35, borderRadius: 5}} 
-                    src="./images/france2.png" 
+                  <img  style={{width:35, borderRadius:3}} 
+                    src="./images/turc2.png" 
                   />
                   <span style={{color:'black', marginLeft:24}}> Turc</span>
                 </div>
@@ -274,8 +278,7 @@ function Landing() {
 
         </Grid>
       </ThemeProvider>
-    </>
+    
   );
 }
-
 export default Landing;
