@@ -1,4 +1,13 @@
 
+  .header-flag {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+  }
   .btn-section{
     background-color: #f49d4c53;
     border: 2px solid #F49E4C;
