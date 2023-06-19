@@ -317,7 +317,7 @@ function Landing() {
             </Grid>
             <Divider variant="middle" sx={{borderColor: "#FFFF",marginTop:"20px"}}/>
                       
-            <Typography style={{marginTop:"165px" ,marginBottom:"10px",color:'#FFFF', fontSize: 13, textAlign:'center'}} >Copywright Angova</Typography>
+            <Typography style={{marginTop:"165px" ,marginBottom:"10px",color:'#FFFF', fontSize: 13, textAlign:'center'}} >Copyright Angova</Typography>
             
           </Grid>
          
@@ -332,7 +332,7 @@ function Landing() {
             </Grid>
             <Divider variant="middle" sx={{borderColor: "#FFFF",marginTop:"10px", marginBottom:"10px"}}/>
                       
-            <Typography style={{marginTop:"10px",color:'#FFFF', fontSize: 13, textAlign:'center'}} >Copywright Angova</Typography>
+            <Typography style={{marginTop:"10px",color:'#FFFF', fontSize: 13, textAlign:'center'}} >Copyright Angova</Typography>
             
           </Grid>
         </Grid>
