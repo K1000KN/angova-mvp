@@ -234,10 +234,10 @@ function Landing() {
           </Grid>
           
         </Grid>
-        <RegistrationForm 
+        {/* <RegistrationForm 
          open= {openRegister}
          handleClose={handleCloseRegister}
-        />
+        /> */}
          <LoginForm 
          open= {openLogin}
          handleClose={handleCloseLogin}
