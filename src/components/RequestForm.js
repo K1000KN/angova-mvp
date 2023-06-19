@@ -4,6 +4,7 @@ import { TextField } from '@mui/material'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import { makeStyles } from "@mui/styles";
+import { useTranslation } from 'react-i18next';
 
 
 const useStyles = makeStyles({
@@ -13,6 +14,8 @@ const useStyles = makeStyles({
    
 });
 const RegistrationForm = ({open, handleClose}) => {
+    const { t } = useTranslation();
+    
     const classes = useStyles();
     const paperStyle = { backgroundColor: "#F49E4C", padding: '40px 45px', width: "80%",display: 'flex', flexDirection: 'column' }
     const btnStyle = {
@@ -29,8 +32,8 @@ const RegistrationForm = ({open, handleClose}) => {
         message: '',
     }
     const validationSchema = Yup.object().shape({
-        email: Yup.string().email("Entrer un email valide").required("Required"),
-        message: Yup.string().min(3, "Trop court").required("Required"),
+        email: Yup.string().email(`${t('email-input-verif')}`).required("Required"),
+        message: Yup.string().min(3,`${t('message-input-verif')}`).required("Required"),
 
     })
     const onSubmit = (values, props) => {
@@ -56,7 +59,7 @@ const RegistrationForm = ({open, handleClose}) => {
                     {(props) => (
                         <Form noValidate >
                             
-                            <Field className={classes.field} as={TextField} name='name' variant="filled" label='Nom' fullWidth
+                            <Field className={classes.field} as={TextField} name='name' variant="filled" label={t('input-form-name')} fullWidth
                                 error={props.errors.name && props.touched.name}
                                 color="warning"
                                 InputLabelProps={{
@@ -107,7 +110,7 @@ const RegistrationForm = ({open, handleClose}) => {
                             />
 
                             <Button  onClick={handleClose} sx={{ boxShadow: 0}} type='submit' style={btnStyle} variant='contained'
-                               >Envoyer</Button>
+                               > {t('input-form-send')}</Button>
                         </Form>
                     )}
                 </Formik>

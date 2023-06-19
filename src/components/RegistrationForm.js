@@ -10,10 +10,12 @@ import { makeStyles } from "@mui/styles";
 import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { createTheme } from '@mui/material/styles';
+import { useTranslation } from 'react-i18next';
 import {
     useNavigate    
 } from "react-router-dom";
 const theme = createTheme();
+
 
 const useStyles = makeStyles({
     root: {
@@ -39,6 +41,7 @@ const useStyles = makeStyles({
 const RegistrationForm = ({open, handleClose}) => {
     const navigate = useNavigate();
     const classes = useStyles();
+    const { t } = useTranslation();
     const paperStyle = { padding: '0 15px 40px 15px',display: 'flex', flexDirection: 'column' }
     const btnStyle = { marginTop: 10,width:'70%', marginLeft:"15%", backgroundColor:"#F49E4C"}
     const ageRegExp=/^\d+$/;
@@ -53,11 +56,11 @@ const RegistrationForm = ({open, handleClose}) => {
         confirmPassword:''
     }
     const validationSchema = Yup.object().shape({
-        name: Yup.string().min(3, "Trop court").required("Requis"),
-        firstname: Yup.string().min(3, "Trop court").required("Requis"),
-        email: Yup.string().email("Entrer un email valide").required("Requis"),
-        age:Yup.string().matches(ageRegExp,"Entrer un nombre"),
-        password: Yup.string().min(8, "Le nombre caractères minimum doit être de 8")
+        name: Yup.string().min(3, `${t('message-input-verif')}`).required("Requis"),
+        firstname: Yup.string().min(3, `${t('message-input-verif')}`).required("Requis"),
+        email: Yup.string().email(`${t('email-input-verif')}`).required("Requis"),
+        age:Yup.string().matches(ageRegExp,`${t('nb-input-verif')}`),
+        password: Yup.string().min(8, `${t('password-input-verif')}`)
         .matches(passwordRegExp,"Password must have one upper, lower case, number").required('Requis'),
         confirmPassword:Yup.string().oneOf([Yup.ref('password')],"Mots de passe ne correspondent pas").required('Requis')
     })
@@ -86,7 +89,7 @@ const RegistrationForm = ({open, handleClose}) => {
             
                 
                 <DialogTitle> 
-                    <Typography variant="h6">Inscription</Typography>
+                    <Typography variant="h6">{t('register-title')}</Typography>
                     <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
                         <CloseIcon />
                     </IconButton>
@@ -99,31 +102,31 @@ const RegistrationForm = ({open, handleClose}) => {
                                 {(props) => (
                                     <Form noValidate >
                                     
-                                        <Field className={classes.field} as={TextField} name='name' label='Nom' fullWidth
+                                        <Field className={classes.field} as={TextField} name='name' label={t('input-form-Lname')} fullWidth
                                             error={props.errors.name && props.touched.name}
                                             helperText={<ErrorMessage name='name' />} required />
 
-                                        <Field className={classes.field} as={TextField} name='firstname' label='Prénom' fullWidth
+                                        <Field className={classes.field} as={TextField} name='firstname' label={t('input-form-Fname')} fullWidth
                                             error={props.errors.firstname && props.touched.firstname}
                                             helperText={<ErrorMessage name='firstname' />} required />
 
-                                        <Field className={classes.field} as={TextField} name='age' label='Âge' type='number' fullWidth
+                                        <Field className={classes.field} as={TextField} name='age' label='Age' type='number' fullWidth
                                             />
 
                                         <Field className={classes.field} as={TextField} name='email' label='Email' fullWidth
                                             error={props.errors.email && props.touched.email}
                                             helperText={<ErrorMessage name='email' />} required />
 
-                                        <Field className={classes.field} as={TextField} name='password' label='Mot de passe' type='password' fullWidth
+                                        <Field className={classes.field} as={TextField} name='password' label={t('input-form-password')} type='password' fullWidth
                                             error={props.errors.password && props.touched.password}
                                             helperText={<ErrorMessage name='password' />} required />
 
-                                        <Field className={classes.field} as={TextField} name='confirmPassword' label='Confirmation du mot de passe' type='password' fullWidth
+                                        <Field className={classes.field} as={TextField} name='confirmPassword' label={t('input-form-confirm-password')} type='password' fullWidth
                                             error={props.errors.confirmPassword && props.touched.confirmPassword}
                                             helperText={<ErrorMessage name='confirmPassword' />} required />
 
                                         <Button   type='submit' style={btnStyle} variant='contained'
-                                            >S'inscrire</Button>
+                                            >{t('register-button')}</Button>
                                     </Form>
                                 )}
                             </Formik>

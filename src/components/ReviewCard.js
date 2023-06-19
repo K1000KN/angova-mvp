@@ -4,9 +4,10 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import StarIcon from '@mui/icons-material/Star';
 import Carousel from 'react-material-ui-carousel';
 import Typography from '@mui/material/Typography';
+import { useTranslation } from 'react-i18next';
 
 function ReviewCard() {
-    
+    const { t } = useTranslation();
     const carousselWapper= {  width:"100%", paddingTop: "20%" };
     const reviewImg ={
       width: "32%", zIndex:2, position:'absolute', marginTop:"-17%"
@@ -31,7 +32,7 @@ function ReviewCard() {
                 Laurie .F
             </Typography>
             <Typography className='descReview'>
-                “Plateforme claire, aucune surprise dans les tarifs et toute la formation, depuis la théorie à la pratique tout se déroule sans encombre. De plus, les enseignants de la conduite sont particulièrement à l'écoute, et patients ! "
+            {t('feedback-content-1')}
             </Typography>
             <div style={starReview}>
                 <StarIcon style={starFull}/>
@@ -49,7 +50,7 @@ function ReviewCard() {
                 Thierry .A
             </Typography>
             <Typography className='descReview'>
-                “Plateforme claire, aucune surprise dans les tarifs et toute la formation, depuis la théorie à la pratique tout se déroule sans encombre. De plus, les enseignants de la conduite sont particulièrement à l'écoute, et patients ! "
+            {t('feedback-content-2')}
 
             </Typography>
             <div style={starReview}>

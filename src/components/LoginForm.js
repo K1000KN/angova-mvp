@@ -13,6 +13,8 @@ import { createTheme } from '@mui/material/styles';
 import {
     useNavigate    
 } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
+
 const theme = createTheme();
 
 const useStyles = makeStyles({
@@ -37,6 +39,7 @@ const useStyles = makeStyles({
     }
 });
 const LoginForm = ({open, handleClose}) => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const classes = useStyles();
     const paperStyle = { padding: '0 15px 40px 15px', display: 'flex', flexDirection: 'column' }
@@ -48,7 +51,7 @@ const LoginForm = ({open, handleClose}) => {
     }
     const validationSchema = Yup.object().shape({
 
-        email: Yup.string().email("Entrer un email valide").required("Requis"),
+        email: Yup.string().email(`${t('email-input-verif')}`).required("Requis"),
         password: Yup.string().min(8, "Le nombre caractères minimum doit être de 8").required("Requis"),
     })
     const onSubmit = (values, props) => {
@@ -76,7 +79,7 @@ const LoginForm = ({open, handleClose}) => {
             
                 
                 <DialogTitle> 
-                    <Typography variant="h6">Connexion</Typography>
+                    <Typography variant="h6">{t('loginButton')}</Typography>
                     <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
                         <CloseIcon />
                     </IconButton>
@@ -95,12 +98,12 @@ const LoginForm = ({open, handleClose}) => {
                                             error={props.errors.email && props.touched.email}
                                             helperText={<ErrorMessage name='email' />} required />
 
-                                        <Field className={classes.field} as={TextField} name='password' label='Mot de passe' type='password' fullWidth
+                                        <Field className={classes.field} as={TextField} name='password' label={t('input-form-password')} type='password' fullWidth
                                             error={props.errors.password && props.touched.password}
                                             helperText={<ErrorMessage name='password' />} required />
                                     
                                         <Button sx={{textTransform: "none"}} type='submit' style={btnStyle} variant='contained'
-                                        >Connexion</Button>
+                                        >{t('loginButton')}</Button>
                                         
                                     
                                     </Form>

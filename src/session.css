@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@100;200;300;400;500;600;700;800&display=swap');
+
+
+.active-question-no {
+  font-size: 32px;
+  font-weight: 500;
+  color: #F49E4C;
+}
+
+.total-question {
+  font-size: 16px;
+  font-weight: 500;
+  color: #e0dee3;
+}
+
+.responsive {
+    width: 90%;
+    object-fit: contain;
+    height: auto;
+}
+.quizList {
+    margin: 0; /* To remove default bottom margin */ 
+    padding: 0; /* To remove default left padding */
+}
+.quizList>li {
+  text-decoration: none;
+  list-style: none;
+  color: #2d264b;
+  font-size: 16px;
+  background: #ffffff;
+  border: 1px solid #eaeaea;
+  border-radius: 16px;
+  padding: 11px;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+ul .selected-answer {
+  background: #f49d4c48;
+  border: 1px solid #F49E4C;
+}
+.quizButton{
+    border-top: 1px solid #dcdcdc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.quizButton > div > button {
+  background:  #F49E4C;
+  border-radius: 9px;
+  font-size: 18px;
+  color: #ffffff;
+  width: 200px;
+  height: 41px;
+  max-width: 150px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  
+}
+
+.quizButton > div > button:disabled {
+  background: #e7e8e9;
+  color: #9fa3a9;
+  cursor: not-allowed;
+}
+
+
+
+.result h3 {
+  font-size: 24px;
+  letter-spacing: 1.4px;
+  text-align: center;
+}
+
+.result p {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.result p span {
+  color: #F49E4C;
+  font-size: 22px;
+}

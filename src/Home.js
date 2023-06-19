@@ -75,7 +75,7 @@ function Home() {
         <CssBaseline />
 
       <div style={{width:'100%', display:'flex', alignItems:'center', justifyContent:'center', height:150}}>
-        <nav style={{
+        <Grid container direction="row" style={{
           width:'85%',
           backgroundColor:'#F49E4C',
           height:'60%', borderRadius:30,
@@ -84,20 +84,25 @@ function Home() {
           alignItems:'center',
           justifyContent:'center',
           color:'white'}}> 
-          <img className="flag" style={{width:45,marginRight:'35%', paddingBottom:25}} onClick={() => { setShow(true)}} src="./images/france.png" />
-          <img style={{ width:130}} alt='road' src='./images/logo2.png'/>
-          <Link style={{marginLeft:'35%'}} to="/profil">
-            <img style={{width:45, paddingTop:8}} src='./images/user.png' alt='profil' />
-          </Link> 
-        </nav>
+          <Grid item xs={4} sx={{display: 'flex' ,flexDirection:'column' ,alignItems:'start', paddingLeft:'5vw' }}> <img style={{width:45}} onClick={() => { setShow(true)}} src="./images/france.png" /> </Grid>
+          <Grid item xs={4} sx={{display:'flex' ,flexDirection:'column' ,alignItems:'center' }}> <img style={{ width:130}} alt='road' src='./images/logo2.png'/> </Grid>
+          <Grid item xs={4} sx={{display: 'flex' ,flexDirection:'column' ,alignItems:'end', paddingRight:'5vw'}}>
+            <Link to="/profil">
+              <img style={{width:45, marginTop: "9px"}} src='./images/user.png' alt='profil' />
+            </Link> 
+          </Grid>
+         
+        </Grid>
 
       </div>
         <Grid container direction="row" style={{height:"92vh"}}>
-            <Grid item xs={12} lg={3} style={{display:'flex',flexDirection:'column' ,alignItems:'end'}} >
+            <Grid item lg={3} sx={{flexDirection:'column' ,alignItems:'end' ,display: { xs: 'none', lg: 'flex' }}}>
               <button className='btn-section' ><img src='./home.png'alt='' style={{width:40, marginRight:15}}/><span className='btn-section-title' >SESSION DE CODE</span></button>
-
             </Grid>
-            <Grid item xs={8} >
+            <Grid item xs={12}  sx={{flexDirection:'column' ,alignItems:'center', display: { xs: 'flex', lg: 'none' }}} >
+              <button className='btn-section' ><img src='./home.png'alt='' style={{width:40, marginRight:15}}/><span className='btn-section-title' >SESSION DE CODE</span></button>
+            </Grid>
+            <Grid item xs={12} lg={8} >
               <Grid container direction="row" >
                 <Grid item xs={12} lg={4}style={{display:'flex', flexDirection:"column", alignItems:'center', marginTop:35}}  >
                   <a className="container" href='/session'>
