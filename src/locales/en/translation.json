@@ -33,6 +33,10 @@
     "input-form-Lname": "Last name",
     "register-title": "Registration",
     "register-button": "Sign up",
-    "video-title": "Code session n°1"
-
+    "video-title": "Code session n°1",
+    "register-content" : "To register, contact us at ",
+    "footer-1": "Traffic rules .",
+    "footer-2": " What we do .",
+    "footer-3": " Contact us",
+    "copyright": "© 2023 Angova. All rights reserved."
 }
