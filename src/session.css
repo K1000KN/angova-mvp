@@ -12,11 +12,42 @@
   font-weight: 500;
   color: #e0dee3;
 }
-
-.responsive {
-    width: 90%;
+#progressContainer{
+    height:6vh;
+    padding:15px;
+}
+.imgResponsive {
+    width: 100%;
     object-fit: contain;
     height: auto;
+}
+#imgContainer{
+    height:45vh;
+    padding: 20px 20px 50px 20px;
+    display:flex;
+    justify-content:center;
+}
+#quizContainer{
+    height:38vh;  
+    padding-left:20%;
+    padding-right:20%;
+    display: flex;
+    flex-direction: column; 
+    justify-content:center;
+}
+.quizButton{
+    height:10vh;
+    border-top: 1px solid #dcdcdc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#stepQuizz{
+    display: block;
+}
+#leaveMobileQuizz{
+    display: none;
 }
 .quizList {
     margin: 0; /* To remove default bottom margin */ 
@@ -39,12 +70,7 @@ ul .selected-answer {
   background: #f49d4c48;
   border: 1px solid #F49E4C;
 }
-.quizButton{
-    border-top: 1px solid #dcdcdc;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+
 .quizButton > div > button {
   background:  #F49E4C;
   border-radius: 9px;
@@ -81,4 +107,53 @@ ul .selected-answer {
 .result p span {
   color: #F49E4C;
   font-size: 22px;
+}
+@media (min-width:320px)  { /* smartphones, iPhone, portrait 480x320 phones */ }
+@media (min-width:641px)  { /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ }
+@media (min-width:961px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */ }
+@media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */ }
+
+/* smartphones, iPhone, portrait phones */
+@media only screen and (max-width: 600px) {
+    #progressContainer{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 0 0 19px;
+    }
+    .imgResponsive{
+        height: 100%;
+    }
+    .quizList>li {
+        font-size: 12px;
+    }
+    .quizButton > div > button {
+        width : 35vw;
+    }
+    #questionQuizz{
+        font-size: 14px;
+    }
+    #stepQuizz{
+        display: none;
+    }
+    #leaveMobileQuizz{
+        display: block;
+    }
+    #imgContainer{
+        height:35vh;
+        padding: 0 20px 0px 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+    }
+    #quizContainer{
+        height:50vh;
+        padding-left: 12%;
+        padding-right: 12%;
+        text-align: center;
+    }
+    .quizButton{
+        height:9vh;
+    }
 }

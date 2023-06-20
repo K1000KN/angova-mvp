@@ -74,16 +74,19 @@ function Home() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
 
-      <div style={{width:'100%', display:'flex', alignItems:'center', justifyContent:'center', height:150}}>
-        <Grid container direction="row" style={{
-          width:'85%',
-          backgroundColor:'#F49E4C',
-          height:'60%', borderRadius:30,
-          display:'flex', 
-          flexDirection:'row',
-          alignItems:'center',
-          justifyContent:'center',
-          color:'white'}}> 
+      <div id="navContainer">
+        <Grid container direction="row" 
+          sx={{display: { xs: 'none', lg: 'flex' }}}
+          style={{
+            width:'85%',
+            backgroundColor:'#F49E4C',
+            height:'60%', borderRadius:30,
+            flexDirection:'row',
+            alignItems:'center',
+            justifyContent:'center',
+            color:'white'
+          }}
+        > 
           <Grid item xs={4} sx={{display: 'flex' ,flexDirection:'column' ,alignItems:'start', paddingLeft:'5vw' }}> <img style={{width:45}} onClick={() => { setShow(true)}} src="./images/france.png" /> </Grid>
           <Grid item xs={4} sx={{display:'flex' ,flexDirection:'column' ,alignItems:'center' }}> <img style={{ width:130}} alt='road' src='./images/logo2.png'/> </Grid>
           <Grid item xs={4} sx={{display: 'flex' ,flexDirection:'column' ,alignItems:'end', paddingRight:'5vw'}}>
@@ -91,6 +94,28 @@ function Home() {
               <img style={{width:45, marginTop: "9px"}} src='./images/user.png' alt='profil' />
             </Link> 
           </Grid>
+         
+        </Grid>
+        <Grid container direction="row" 
+          sx={{display: { xs: 'flex', lg: 'none' }}}
+          style={{
+            width:'100%',
+            backgroundColor:'#F49E4C',
+            height:'100%', 
+            paddingTop:"2.5vh",
+            borderBottomLeftRadius:30,
+            borderBottomRightRadius:30,
+            color:'white'
+          }}
+        > 
+          <Grid item xs={4} sx={{display: 'flex' ,flexDirection:'column' ,alignItems:'start', paddingLeft:'5vw' }}> <img style={{width:45}} onClick={() => { setShow(true)}} src="./images/france.png" /> </Grid>
+          <Grid item xs={4} sx={{display:'flex' ,flexDirection:'column' ,alignItems:'center' }}> <img style={{ width:130}} alt='road' src='./images/logo2.png'/> </Grid>
+          <Grid item xs={4} sx={{display: 'flex' ,flexDirection:'column' ,alignItems:'end', paddingRight:'5vw'}}>
+            <Link to="/profil">
+              <img style={{width:45, marginTop: "9px"}} src='./images/user.png' alt='profil' />
+            </Link> 
+          </Grid>
+          <Grid item xs={12} sx={{display:'flex' ,flexDirection:'column' ,alignItems:'center' }}> Bienvenue Auto Ecole Aire de Conduite </Grid>
          
         </Grid>
 

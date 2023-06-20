@@ -5,7 +5,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import { quiz } from './data/questions'
 import ProgressBar from "./components/ProgressBar";
-
+import { IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 function Session() {
   const theme = createTheme({
@@ -16,9 +17,9 @@ function Session() {
   })
   const [completed, setCompleted] = useState(0);
 
-  useEffect(() => {
-    setInterval(() => setCompleted(Math.floor(Math.random() * 100) + 1), 2000);
-  }, []);
+  // useEffect(() => {
+  //   setInterval(() => setCompleted(Math.floor(Math.random() * 100) + 1), 2000);
+  // }, []);
 
   const [activeQuestion, setActiveQuestion] = useState(0)
   const [selectedAnswer, setSelectedAnswer] = useState('')
@@ -34,6 +35,7 @@ function Session() {
   const { question, choices, correctAnswer } = questions[activeQuestion]
 
   const onClickNext = () => {
+   
     setSelectedAnswerIndex(null)
     setResult((prev) =>
       selectedAnswer
@@ -50,7 +52,7 @@ function Session() {
       setActiveQuestion(0)
       setShowResult(true)
     }
-
+    setCompleted((((activeQuestion+1)/40)*100)*10);
   }
   const onClickPast = () => {
     setSelectedAnswerIndex(null)
@@ -82,30 +84,45 @@ function Session() {
   }
 
   const addLeadingZero = (number) => (number > 9 ? number : `0${number}`)
-
+  const handleLeave = () => {
+    console.log('ok');
+  };
   return (
     <>
      <ThemeProvider theme={theme}>
         <CssBaseline />
         {!showResult ? (
         <div>
-          <Grid item xs={12} style={{ height:"6vh", display:'flex', justifyContent:'center', padding:15}} >
-            <div style={{position:"absolute", marginRight:'60%'}}>
+          <Grid container direction="row" >
+            <Grid item sm={1.8}  sx={{display: { xs: 'none', sm: 'flex' }}} style={{ height:"6vh",paddingLeft: 18,paddingTop: 11}} >  
               <span className="active-question-no">
                 {addLeadingZero(activeQuestion + 1)}
               </span>
               <span className="total-question">
                 /{addLeadingZero(questions.length)}
-              </span>
-            </div>
-              <ProgressBar bgcolor={"#F49E4C"} completed={completed} />
+              </span>   
+                     
+            </Grid>
+            <Grid item xs={10} sm={7.8} id="progressContainer"  >         
+              <ProgressBar bgcolor={"#F49E4C"} completed={completed} />           
+            </Grid> 
+            <Grid item xs={2}  style={{ height:"6vh",display: "flex",justifyContent:"center", alignItems: "center"}} >  
+             
+              <div id='leaveQuizz'>
+                <IconButton aria-label="close"  onClick={handleLeave}>
+                  <CloseIcon style={{ color: '#F49E4C' }} />
+                </IconButton>
+              </div>               
+            </Grid>
           </Grid>
-          <Grid item xs={10} style={{ height:"45vh", display:'flex', justifyContent:'center', padding:15}} >
-            <img className='responsive' alt='road' src='./images/test_img.png'/>
+          
+          <Grid id="imgContainer" item xs={10} >
+            <img className='imgResponsive' alt='road' src='./images/test_img.png'/>
           </Grid>
-          <Grid item xs={12} style={{  height:"38vh",justifyContent:'center', paddingLeft:"20%", paddingRight:"20%"}} >
-              
-            <h7>{question}</h7>
+          <Grid item xs={12} id="quizContainer"  >
+            
+            <h7 id="questionQuizz">{question} </h7>
+            
             <div >
               <ul className='quizList'>
                 {choices.map((answer, index) => (
@@ -123,19 +140,19 @@ function Session() {
            
               
           </Grid>
-          <Grid className='quizButton' item xs={12} style={{ height:"10vh"}} >
+          <Grid className='quizButton' item xs={12}  >
             <div style={{alignItems:"center", width:"100%", display: "flex",alignItems: "center",justifyContent: "center"}}>
               <button              
                 onClick={onClickPast}
                 disabled={false}>
-               PASSER
+               Passer
               </button>
             </div>
             <div style={{alignItems:"center", width:"100%", display: "flex",alignItems: "center",justifyContent: "center"}}>
               <button              
                 onClick={onClickNext}
                 disabled={selectedAnswerIndex === null}>
-                {activeQuestion === questions.length - 1 ? 'Finish' : 'VALIDER'}
+                {activeQuestion === questions.length - 1 ? 'Finir' : 'Valider'}
               </button>
             </div>
            

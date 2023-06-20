@@ -95,7 +95,9 @@ const RegistrationForm = ({open, handleClose}) => {
                     </IconButton>
                 </DialogTitle>
                 <DialogContent>
-                    <Grid>
+                    {t('register-content')}
+                    Pour vous inscrire, contactez-nous au<b> 07.83.97.19.32</b>
+                    {/* <Grid>
                         <Paper elevation={0} style={paperStyle}>
                         
                             <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
@@ -131,7 +133,8 @@ const RegistrationForm = ({open, handleClose}) => {
                                 )}
                             </Formik>
                         </Paper>
-                    </Grid> 
+                    </Grid>  */}
+
                 </DialogContent>
                 </div>
             </Dialog>

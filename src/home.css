@@ -37,7 +37,13 @@
     cursor: pointer;
     
   }
-  
+  #navContainer{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height:150px
+  }
   /* The overlay effect (full height and width) - lays on top of the container and over the image */
   .overlay {
     position: absolute;
@@ -68,3 +74,6 @@
     -ms-transform: translate(-50%, -50%);
     text-align: center;
   }
+@media only screen and (max-width:641px)  {
+  
+}
