@@ -6,7 +6,7 @@
     "lgn4": "Inglés",
     "lgn5": "Turco",
     "loginButton": "Iniciar sesión",
-    "title-1.1.1": "código de circulación",
+    "title-1.1.1": "Código de circulación",
     "title-1.1.2": "traducido en el idioma de tu elección",
     "title-1.2": "Para más videos:",
     "registerButton": "Regístrate GRATIS",
@@ -38,5 +38,6 @@
     "footer-1": "Código de circulación .",
     "footer-2": " Lo que hacemos .",
     "footer-3": " Contáctanos",
-    "copyright": "© 2023 Angova. Todos los derechos reservados."
+    "copyright": "© 2023 Angova. Todos los derechos reservados.",
+    "burger-qa": "Alguna pregunta?"
 }
