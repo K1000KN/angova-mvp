@@ -148,7 +148,7 @@ function Landing() {
 
                 <div className='flagPopup'
                   onClick={()=>{
-                    i18n.changeLanguage("fr");
+                    i18n.changeLanguage("ar");
                     changeFlag("arabe");
                   }}
                 >
@@ -160,7 +160,7 @@ function Landing() {
 
                 <div className='flagPopup' 
                   onClick={()=>{
-                    i18n.changeLanguage("fr");
+                    i18n.changeLanguage("es");
                     changeFlag("espagne2");
                   }}
                 >
@@ -184,7 +184,7 @@ function Landing() {
 
                 <div className='flagPopup'  
                   onClick={()=>{
-                    i18n.changeLanguage("en");
+                    i18n.changeLanguage("tr");
                     changeFlag("turc2");
                   }}
                 >
@@ -315,13 +315,13 @@ function Landing() {
           </Grid>
           <Grid item md={8} sx={{marginTop: "14px", display:'flex', flexDirection:'column', justifyContent:'end',display: { xs: 'none', md: 'block' }}} >
             <Grid container direction="row" sx={flexCenter} >
-              <Typography style={sections} onClick={scrollToCode}> Code de la route&nbsp; . &nbsp;</Typography>
-              <Typography style={sections} onClick={scrollToDesc}> Ce que nous faisons&nbsp; . &nbsp;</Typography> 
-              <Typography style={sections} onClick={scrollToQuestion}> Contactez-nous</Typography> 
+              <Typography style={sections} onClick={scrollToCode}>{t("footer-1")}</Typography>
+              <Typography style={sections} onClick={scrollToDesc}>{t("footer-2")}</Typography> 
+              <Typography style={sections} onClick={scrollToQuestion}>{t("footer-3")}</Typography> 
             </Grid>
             <Divider variant="middle" sx={{borderColor: "#FFFF",marginTop:"20px"}}/>
                       
-            <Typography style={{marginTop:"165px" ,marginBottom:"10px",color:'#FFFF', fontSize: 13, textAlign:'center'}} >Copywright Angova</Typography>
+            <Typography style={{marginTop:"165px" ,marginBottom:"10px",color:'#FFFF', fontSize: 13, textAlign:'center'}} >{t("copyright")}</Typography>
             
           </Grid>
          
@@ -330,13 +330,13 @@ function Landing() {
           </Grid>
           <Grid item xs={12} sx={{marginTop:"10px", display:'flex', flexDirection:'column', justifyContent:'end',display: { xs: 'block', md: 'none' }}} >
             <Grid container direction="row" sx={flexCenter} >
-              <Typography style={sections} onClick={scrollToCode}> Code de la route&nbsp; . &nbsp;</Typography>
-              <Typography style={sections} onClick={scrollToDesc}> Ce que nous faisons&nbsp; . &nbsp;</Typography> 
-              <Typography style={sections} onClick={scrollToQuestion}> Contactez-nous</Typography> 
+              <Typography style={sections} onClick={scrollToCode}>{t("footer-1")}</Typography>
+              <Typography style={sections} onClick={scrollToDesc}>{t("footer-2")}</Typography> 
+              <Typography style={sections} onClick={scrollToQuestion}>{t("footer-3")}</Typography> 
             </Grid>
             <Divider variant="middle" sx={{borderColor: "#FFFF",marginTop:"10px", marginBottom:"10px"}}/>
                       
-            <Typography style={{marginTop:"10px",color:'#FFFF', fontSize: 13, textAlign:'center'}} >Copywright Angova</Typography>
+            <Typography style={{marginTop:"10px",color:'#FFFF', fontSize: 13, textAlign:'center'}} >{t("copyright")}</Typography>
             
           </Grid>
         </Grid>

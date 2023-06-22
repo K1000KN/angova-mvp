@@ -1,10 +1,10 @@
 {
     "popup": "Langue du site :",
-    "lgn1":"Francais",
-    "lgn2":"Arabe",
-    "lgn3":"Espagnol",
-    "lgn4":"Anglais",
-    "lgn5":"Turc",
+    "lgn1": "Francais",
+    "lgn2": "Arabe",
+    "lgn3": "Espagnol",
+    "lgn4": "Anglais",
+    "lgn5": "Turc",
     "loginButton": "Connexion",
     "title-1.1.1": "Code de la route",
     "title-1.1.2": "traduit dans la langue de votre choix",
@@ -21,10 +21,10 @@
     "title-1.3": "Donnez votre avis",
     "feedback-content-1": "Plateforme claire, aucune surprise dans les tarifs et toute la formation, depuis la théorie à la pratique tout se déroule sans encombre. De plus, les enseignants de la conduite sont particulièrement à l'écoute, et patients ! ",
     "feedback-content-2": "Plateforme claire, aucune surprise dans les tarifs et toute la formation, depuis la théorie à la pratique tout se déroule sans encombre. De plus, les enseignants de la conduite sont particulièrement à l'écoute, et patients ! ",
-    "email-input-verif":"Entrer un email valide",
-    "nb-input-verif":"Entrer un nombre",
-    "message-input-verif":"Trop court",
-    "password-input-verif":"Le nombre caractères minimum doit être de 8",
+    "email-input-verif": "Entrer un email valide",
+    "nb-input-verif": "Entrer un nombre",
+    "message-input-verif": "Trop court",
+    "password-input-verif": "Le nombre de caractères minimum doit être de 8",
     "input-form-name": "Nom",
     "input-form-send": "Envoyer",
     "input-form-password": "Mot de passe",
@@ -34,6 +34,10 @@
     "register-title": "Inscription",
     "register-button": "S'inscrire",
     "video-title": "Session code n°1",
-    "register-content" : "Pour vous inscrire, contactez-nous au"
-
+    "register-content": "Pour vous inscrire, contactez-nous au ",
+    "footer-1": "Code de la route .",
+    "footer-2": " Ce que nous faisons .",
+    "footer-3": " Contactez-nous",
+    "copyright": "© 2023 Angova. Tous droits réservés.",
+    "burger-qa": "Des questions?"
 }

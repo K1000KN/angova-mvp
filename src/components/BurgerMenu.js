@@ -3,7 +3,8 @@ import '../index.css';
 import { slide as Menu } from 'react-burger-menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';import Button from '@mui/material/Button';
+import Button from '@mui/material/Button';
+import { useTranslation } from 'react-i18next';
 
 
 
@@ -15,6 +16,7 @@ export default forwardRef (({
     t,
     i18n
 })=>{ 
+    const { t, i18n } = useTranslation();
     
     
     return (
@@ -113,7 +115,7 @@ export default forwardRef (({
                 sx={{textTransform: "none", boxShadow: 0}}
                 style={{ width:"100%", height:40, backgroundColor:'#F49E4C',marginTop:11,
                 borderRadius: 20}}
-                variant='contained' >Connexion
+                variant='contained' >{t("loginButton")}
             </Button>       
         </Menu>
       

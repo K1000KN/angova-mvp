@@ -4,6 +4,9 @@ import { initReactI18next } from "react-i18next";
 
 import translationEN from './locales/en/translation.json';
 import translationFR from './locales/fr/translation.json';
+import translationES from './locales/es/translation.json';
+import translationAR from './locales/ar/translation.json';
+import translationTR from './locales/tr/translation.json';
 
 // the translations
 const resources = {
@@ -12,7 +15,16 @@ const resources = {
   },
   fr: {
     translation: translationFR,
-  }
+  },
+  es: {
+    translation: translationES,
+  },
+  ar: {
+    translation: translationAR,
+  },
+  tr: {
+    translation: translationTR,
+  },
 }
 i18n
   .use(Backend)
