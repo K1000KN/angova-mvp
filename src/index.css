@@ -172,6 +172,58 @@ button {
 .react-multi-carousel-list{
     justify-content: center !important;
 }
+
+.bottomNav{
+    position: -webkit-fixed;
+    position: fixed;
+    bottom: 0;
+    width:100vw ; 
+    border-top: 2px solid #dcdcdc;
+    height: 58px !important;
+}
+.displayNavBott{
+    display: none !important;
+}
+.Mui-selected{
+    color: #ff8716  ! important;
+}
+
+#homeNavImgDiv {
+    width:60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position:absolute;
+    bottom: 46px ;
+    background-color:white; 
+    padding:6px;
+    border-radius:10px;
+}
+#homeNavImg {
+    width:40px;
+    margin-bottom: 5px;
+}
+
+#homeNavImgDiv:hover > #homeNavImg {
+    -ms-transform: scale(1.2); /* IE 9 */
+    -webkit-transform: scale(1.2); /* Safari 3-8 */
+    transform: scale(1.2);
+}
+
+#languageNavImg:hover {
+    -ms-transform: scale(1.2); /* IE 9 */
+    -webkit-transform: scale(1.2); /* Safari 3-8 */
+    transform: scale(1.2);
+    cursor: pointer;
+}
+#profilNavImg:hover {
+    -ms-transform: scale(1.2); /* IE 9 */
+    -webkit-transform: scale(1.2); /* Safari 3-8 */
+    transform: scale(1.2);
+}
+
+
 @media screen and (max-width:340px) {
     .volumeSlider{
         width: 50px !important;
@@ -286,6 +338,9 @@ button {
     .scrollerPoint{
         height:10vh;
     }
+    .displayNavBott{
+        display: flex !important;
+    }
 }
 
 .bm-item {
@@ -366,6 +421,25 @@ button {
     display: none;
 }
   
+#overlayLangueMobile{
+    width: 90%;
+    height: 344px;
+    position: absolute;
+    background-color: #FFFF;
+    border-radius: 10px;
+    border: solid rgba(216, 216, 216, 0.56) 2px;
+    margin-top: 409px;
+    display: none;
+    z-index: 2 !important;
+}
+#logoNavLanding{
+    width: 130px;
+}
+
+.menu-item {
+    z-index: 1 !important;
+}
+
 .flagPopup{
     display: "flex";
     align-items: "center";
@@ -375,4 +449,40 @@ button {
 }
 .flagPopup:hover {
     background-color: #f49d4c7e;
+}
+@media  only screen and (min-width: 600px)  and (max-height: 700px) and (orientation:landscape) {
+    #langueNavLanding{
+        display: none !important;
+    }
+    .flagPopup{
+        padding:20px;
+    }
+    .flagPopup>img {
+        width: 30px !important;
+    }
+    .flagPopup>span {
+        margin-left: 10px !important;
+        font-size: 11px !important;
+    }
+    #logoNavLanding{
+        width: 100px;
+    }
+}
+@media  only screen  and (max-width: 600px) and (orientation:portrait){
+    #logoNavLanding{
+        width: 100px;
+    }
+    #langueNavLanding{
+        display: none !important;
+    }
+    .flagPopup{     
+        padding:20px;
+    }
+    .flagPopup>img {
+        width: 30px !important;
+    }
+    .flagPopup>span {
+        margin-left: 10px !important;
+        font-size: 11px !important;
+    }
 }

@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import  Home  from './Home';
 import Session from './Session';
+import Profil from './Profil';
 import "./i18n";
 import Landing from './Landing';
 
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
   {
     path: "/session",
     element: <Session/>,
+  },
+  {
+    path: "/profil",
+    element: <Profil/>,
   },
 ]);
 ReactDOM.render(

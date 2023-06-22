@@ -7,9 +7,9 @@ export const quiz = {
       {
         question:
           'Which function is used to serialize an object into a JSON string in Javascript?',
-        choices: ['stringify()', 'parse()', 'convert()', 'None of the above'],
+        choices: ['A : Je double', 'B : Je sonne', 'C : Je sonne et je double', 'D : La reponse D'],
         type: 'MCQs',
-        correctAnswer: 'stringify()',
+        correctAnswer: 'stringifzgergzeryreyeryy()',
       },
       {
         question:

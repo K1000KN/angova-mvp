@@ -1,4 +1,5 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState } from 'react';
+import {  useNavigate    } from "react-router-dom";
 import './session.css';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -9,6 +10,7 @@ import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
 function Session() {
+  const navigate = useNavigate();
   const theme = createTheme({
     typography: {
       fontFamily: ['IgraSans', 'Raleway', 'Arial'].join(','),
@@ -85,7 +87,8 @@ function Session() {
 
   const addLeadingZero = (number) => (number > 9 ? number : `0${number}`)
   const handleLeave = () => {
-    console.log('ok');
+    navigate("/home");
+    
   };
   return (
     <>
@@ -106,7 +109,7 @@ function Session() {
             <Grid item xs={10} sm={7.8} id="progressContainer"  >         
               <ProgressBar bgcolor={"#F49E4C"} completed={completed} />           
             </Grid> 
-            <Grid item xs={2}  style={{ height:"6vh",display: "flex",justifyContent:"center", alignItems: "center"}} >  
+            <Grid item xs={2} id="leaveQuizzContainer"  style={{ height:"6vh",display: "flex",justifyContent:"center", alignItems: "center"}} >  
              
               <div id='leaveQuizz'>
                 <IconButton aria-label="close"  onClick={handleLeave}>
@@ -121,12 +124,12 @@ function Session() {
           </Grid>
           <Grid item xs={12} id="quizContainer"  >
             
-            <h7 id="questionQuizz">{question} </h7>
-            
+            <h7 id="questionQuizz">{question} </h7> 
             <div >
               <ul className='quizList'>
                 {choices.map((answer, index) => (
                   <li
+                  
                     onClick={() => onAnswerSelected(answer, index)}
                     key={answer}
                     className={
@@ -137,7 +140,6 @@ function Session() {
                 ))}
               </ul>
             </div>
-           
               
           </Grid>
           <Grid className='quizButton' item xs={12}  >
@@ -161,6 +163,10 @@ function Session() {
       ) : (
         <div className="result">
           <h3>Result</h3>
+          <div style={{alignItems:"center", width:"100%", display: "flex",alignItems: "center",justifyContent: "center"}}>
+              <img style={{ width:"50px"}} alt='road' src='./images/ok.gif'/>
+          </div>
+        
           <p>
             Total Question: <span>{questions.length}</span>
           </p>
@@ -173,6 +179,13 @@ function Session() {
           <p>
             Wrong Answers:<span> {result.wrongAnswers}</span>
           </p>
+          <div style={{alignItems:"center", width:"100%", display: "flex",alignItems: "center",justifyContent: "center"}}>
+            <button              
+              onClick={()=>{navigate("/home");}}
+            >
+              Continuer
+            </button>
+          </div>
         </div>
       )}
       

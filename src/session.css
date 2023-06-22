@@ -22,13 +22,13 @@
     height: auto;
 }
 #imgContainer{
-    height:45vh;
-    padding: 20px 20px 50px 20px;
+    height: 43vh;
+    padding: 20px 20px 26px 20px;
     display:flex;
     justify-content:center;
 }
 #quizContainer{
-    height:38vh;  
+    height:41vh;  
     padding-left:20%;
     padding-right:20%;
     display: flex;
@@ -102,8 +102,21 @@ ul .selected-answer {
 .result p {
   font-size: 16px;
   font-weight: 500;
+  padding-left: 20%;
 }
-
+.result > div > button {
+    background:  #F49E4C;
+    border-radius: 9px;
+    font-size: 18px;
+    color: #ffffff;
+    width: 200px;
+    height: 41px;
+    max-width: 150px;
+    margin-top: 20px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
 .result p span {
   color: #F49E4C;
   font-size: 22px;
@@ -114,7 +127,7 @@ ul .selected-answer {
 @media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */ }
 
 /* smartphones, iPhone, portrait phones */
-@media only screen and (max-width: 600px) {
+@media  only screen  and (max-width: 600px) and (orientation:portrait){
     #progressContainer{
         display: flex;
         justify-content: center;
@@ -149,11 +162,58 @@ ul .selected-answer {
     }
     #quizContainer{
         height:50vh;
-        padding-left: 12%;
-        padding-right: 12%;
+        padding-left: 10%;
+        padding-right: 10%;
         text-align: center;
     }
     .quizButton{
         height:9vh;
     }
+}
+@media  only screen and (min-width: 600px)  and (max-height: 700px) and (orientation:landscape) {
+    #questionQuizz{
+        font-size: 12px !important;
+        margin-top:2vh;
+        margin-bottom:2vh;
+    }
+    .quizList>li {
+        font-size: 10px;
+        margin: 0;
+        margin-left: 5px;
+        display: inline;
+    }
+    .active-question-no{
+        font-size: 16px;
+    }
+    .total-question{
+        font-size: 14px;
+    }
+    #progressContainer{
+        display: none !important;
+    }
+    #imgContainer {
+        height: 45vh;
+        padding: 6px 8px 6px 8px;
+        display: flex;
+        justify-content: center;
+    }
+    #quizContainer {
+        height: 32vh;
+        padding: 0;
+        justify-content: center;
+        align-items: center;
+    }
+    .quizButton > div > button {
+        height: 33px;
+        font-size: 15px;
+    }
+    .quizButton {
+        height: 16vh;
+    }
+    #leaveQuizzContainer{
+        position: absolute;
+        margin-left: 94%;
+        margin-top: 10px;
+    }
+    
 }

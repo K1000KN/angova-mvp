@@ -99,15 +99,19 @@ function Landing() {
                 scrollToQuestion={scrollToQuestion}
                 scrollToCode={scrollToCode}
                 handleClickOpenLogin={handleClickOpenLogin}
+                changeFlag ={changeFlag}
+                t={t}
+                i18n={i18n}
               />
             </Grid>
             <Grid item xs={4} md={4} >
-              <img style={{ width:130}} alt='road' src='./images/logo.png'/>
+              <img id="logoNavLanding" alt='road' src='./images/logo.png'/>
             </Grid>
            
             
           
             <Grid item  
+              id='langueNavLanding'
               style={{display: "flex", alignItems: "center", justifyContent: "center"}}
               onMouseOver={() => {
                 document.getElementById("overlayGrid").style.backgroundColor= "rgba(216, 216, 216, 0.56)";
@@ -305,7 +309,7 @@ function Landing() {
           </Grid>
         </Grid>
         
-        <Grid container direction='row'   xs ={12} style={{backgroundColor:'#000', height: "30vh"}}>
+        <Grid container direction='row'   xs ={12} style={{backgroundColor:'#000', height: "auto", padding:10}}>
           <Grid item xs={12}  md={2} sx={flexCenter}>
             <img style={{ width:160}} alt='road' src='./images/logo2.png'/>
           </Grid>
