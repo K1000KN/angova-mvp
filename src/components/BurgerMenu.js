@@ -21,8 +21,8 @@ export default forwardRef (({
     
     return (
         <Menu right>
-            <Typography className="menu-item"  onClick={scrollToCode} >Code de la route</Typography>
-            <Typography className="menu-item"  onClick={scrollToQuestion} >Des questions ?</Typography>
+            <Typography className="menu-item"  onClick={scrollToCode} >{t("title-1.1.1")}</Typography>
+            <Typography className="menu-item"  onClick={scrollToQuestion} >{t("burger-qa")}</Typography>
             <div   
              
               style={{display: "flex", alignItems: "center", justifyContent: "center"}}
@@ -120,4 +120,5 @@ export default forwardRef (({
         </Menu>
       
     ); 
+  
 })
