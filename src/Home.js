@@ -253,6 +253,8 @@ function Home() {
             </DialogContent>
           </div>
         </Dialog>{" "}
+        <BottomBar handleChange= {handleChange}
+         value={value}/>
       </ThemeProvider>
     </>
   );
