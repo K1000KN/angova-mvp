@@ -1,5 +1,4 @@
-import React, { useRef} from 'react';
-
+import React, {useState, useRef, useEffect} from 'react';
 import './index.css';
 import AppBar from '@mui/material/AppBar';
 import Player from './components/Player';
@@ -26,7 +25,12 @@ import BurgerMenu from './components/BurgerMenu';
 import { useTranslation } from 'react-i18next';
 function Landing() {
   const { t, i18n } = useTranslation();
- 
+  const arabicSquaredFlag = "./images/flag/squared/arabic.png";
+  const englishSquaredFlag = "./images/flag/squared/uk.png";
+  const frenchSquaredFlag = "./images/flag/squared/france.png";
+  const spanishSquaredFlag = "./images/flag/squared/spain.png";
+  const turkeyFlagSquared = "./images/flag/squared/turkey.png";
+
  
   const refCode = useRef(null);
   const refDesc = useRef(null);
@@ -52,7 +56,7 @@ function Landing() {
   const flexCenter = { display: "flex",alignItems: "center",justifyContent: "center"};
 
   
-  const [openLogin, setOpenLogin] = React.useState(false);
+  const [openLogin, setOpenLogin] =useState(false);
 
   const handleClickOpenLogin = () => {
     setOpenLogin(true);
@@ -61,7 +65,7 @@ function Landing() {
     setOpenLogin(false);
   };
 
-  const [openRegister, setOpenRegister] = React.useState(false);
+  const [openRegister, setOpenRegister] = useState(false);
   const handleClickOpenRegister = () => {
     setOpenRegister(true);
   };
@@ -79,10 +83,75 @@ function Landing() {
   };
   
   const changeFlag = (lgn) => {
-    console.log(lgn+".png")
-    document.getElementById("flagOfLanguage").src="./images/"+lgn+".png";
+    document.getElementById("flagOfLanguage").src = lgn;
+  };
+  const isChoosen = localStorage.getItem("hasChoosenLanguage");
+  if (isChoosen === null) {
+    localStorage.setItem("hasChoosenLanguage", false);
   }
-  
+
+  const setLanguage = (language) => {
+    localStorage.setItem("hasChoosenLanguage", true);
+    localStorage.setItem("language", language);
+
+    document.getElementById("overlayGrid").style.backgroundColor= "rgba(216, 216, 216, 0)";
+    document.getElementById("overlayLangue").style.display = "none";
+
+  };
+
+  const FlagPopup = ({ src, language, lng }) => (
+    <div
+      className="flagPopup"
+      onClick={() => {
+        i18n.changeLanguage(language);
+        changeFlag(src);
+        setLanguage(language);
+      }}
+    >
+      <img style={{ width: 35, borderRadius: 3 }} src={src} alt="flag" />
+      <span style={{ color: "black", marginLeft: 24 }}> {t("lgn" + lng)}</span>
+    </div>
+  );
+
+  const setLanguageImage = (language) => {
+    let src = null;
+    switch (language) {
+      case "fr":
+        src = frenchSquaredFlag;
+        break;
+      case "en":
+        src = englishSquaredFlag;
+        break;
+      case "es":
+        src = spanishSquaredFlag;
+        break;
+      case "ar":
+        src = arabicSquaredFlag;
+        break;
+      case "alg":
+        src = arabicSquaredFlag;
+        break;
+      case "maroc":
+        src = arabicSquaredFlag;
+        break;
+      case "tuni":
+        src = arabicSquaredFlag;
+        break;
+      case "tr":
+        src = turkeyFlagSquared;
+        break;
+      default:
+        src = null;
+        break;
+    }
+    return src;
+  };
+
+  useEffect(() => {
+    if (isChoosen === "true") {
+      i18n.changeLanguage(localStorage.getItem("language"));
+    }
+  }, [i18n,isChoosen]);
   return (
    
 
@@ -102,6 +171,7 @@ function Landing() {
                 changeFlag ={changeFlag}
                 t={t}
                 i18n={i18n}
+                setLanguageImage={setLanguageImage}
               />
             </Grid>
             <Grid item xs={4} md={4} >
@@ -111,90 +181,48 @@ function Landing() {
             
           
             <Grid item  
+            
               id='langueNavLanding'
-              style={{display: "flex", alignItems: "center", justifyContent: "center"}}
-              onMouseOver={() => {
-                document.getElementById("overlayGrid").style.backgroundColor= "rgba(216, 216, 216, 0.56)";
-                document.getElementById("overlayGrid").style.borderRadius= "10px";
-                document.getElementById("overlayLangue").style.display = "block";
-                //f49d4c5e
-              }} 
+             
+              
               onMouseLeave={() => {
                 document.getElementById("overlayGrid").style.backgroundColor= "rgba(216, 216, 216, 0)";
                 document.getElementById("overlayLangue").style.display = "none";
               }}  
               xs={5 } 
              
-              sx={{ display: { xs: 'none', lg: 'block' }}}>
-              <div   id="overlayGrid" style={{display: "flex", alignItems: "center", justifyContent: "center", width:'75%'}} >
+              sx={{ display: { xs: 'none', lg: 'flex' }}}
+               style={{alignItems: "center", justifyContent: "center"}}>
+              <div 
+                onMouseOver={() => {
+                  document.getElementById("overlayGrid").style.backgroundColor= "rgba(216, 216, 216, 0.56)";
+                  document.getElementById("overlayGrid").style.borderRadius= "10px";
+                  document.getElementById("overlayLangue").style.display = "block";
+                  //f49d4c5e
+                }}   
+                id="overlayGrid" 
+                style={{display: "flex", alignItems: "center", justifyContent: "center", width:'50%'}} >
+                
                 <Toolbar> <Typography  variant="h7" style={{color:'black'}}>{t('popup')}</Typography></Toolbar>
-                <img id='flagOfLanguage' style={{width:45, borderRadius:4}} 
-                  src="./images/france2.png" 
+                <img
+                  alt="flag"
+                  id="flagOfLanguage"
+                 
+                  src={
+                    localStorage.getItem("language") === null
+                      ? frenchSquaredFlag
+                      : setLanguageImage(localStorage.getItem("language"))
+                  }
                 />
               </div>
              
-              <div id='overlayLangue'>
-                <div className='flagPopup'
-                  onClick={()=>{
-                    i18n.changeLanguage("fr");
-                    changeFlag("france2");
-                  }}
-                >
-                  <img  style={{width:35, borderRadius: 3}} 
-                    src="./images/france2.png" 
-                  />
-                  <span style={{color:'black',marginLeft:24}}>  {t('lgn1')}</span>
-                </div>
-
-                <div className='flagPopup'
-                  onClick={()=>{
-                    i18n.changeLanguage("ar");
-                    changeFlag("arabe");
-                  }}
-                >
-                  <img  style={{width:35, borderRadius: 3}} 
-                    src="./images/arabe.png" 
-                  />
-                  <span style={{color:'black', marginLeft:24}}> {t('lgn2')}</span>
-                </div>
-
-                <div className='flagPopup' 
-                  onClick={()=>{
-                    i18n.changeLanguage("es");
-                    changeFlag("espagne2");
-                  }}
-                >
-                  <img  style={{width:35, borderRadius: 3}} 
-                    src="./images/espagne2.png" 
-                  />
-                  <span style={{color:'black', marginLeft:24}}> {t('lgn3')}</span>
-                </div>
-
-                <div className='flagPopup'
-                  onClick={()=>{
-                    i18n.changeLanguage("en");
-                    changeFlag("uk2");
-                  }}
-                >
-                  <img  style={{width:35, borderRadius: 3}} 
-                    src="./images/uk2.png" 
-                  />
-                  <span style={{color:'black', marginLeft:24}}> {t('lgn4')}</span>
-                </div>
-
-                <div className='flagPopup'  
-                  onClick={()=>{
-                    i18n.changeLanguage("tr");
-                    changeFlag("turc2");
-                  }}
-                >
-                  <img  style={{width:35, borderRadius:3}} 
-                    src="./images/turc2.png" 
-                  />
-                  <span style={{color:'black', marginLeft:24}}> {t('lgn5')}</span>
-                </div>
-                
-              </div> 
+              <div id="overlayLangue">
+                <FlagPopup src={frenchSquaredFlag} language="fr" lng="1" />
+                <FlagPopup src={arabicSquaredFlag} language="ar" lng="2" />
+                <FlagPopup src={spanishSquaredFlag} language="es" lng="3" />
+                <FlagPopup src={englishSquaredFlag} language="en" lng="4" />
+                <FlagPopup src={turkeyFlagSquared} language="tr" lng="5" />
+              </div>
             </Grid>
             
             

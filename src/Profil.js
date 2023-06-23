@@ -36,7 +36,7 @@ function Profil() {
   };
 
 
-  localStorage.setItem('langue', 'fr');
+  // localStorage.setItem('langue', 'fr');
   
 
   useEffect(()=>{
@@ -45,41 +45,41 @@ function Profil() {
   const handleClose = () => {
     setShow(false);
   };
-  const showUkArticle = async ()=> {
-    // setter
-    localStorage.setItem('langue', 'uk');
-    //localStorage.getItem('langue');
-  }
-  const showSpainArticle = async ()=> {
-    // setter
-    localStorage.setItem('langue', 'spain');
-    //localStorage.getItem('langue');
-  }
-  const showTurcArticle = async ()=> {
-    // setter
-    localStorage.setItem('langue', 'turc');
-    //localStorage.getItem('langue');
-  }
-  const showFrArticle = async ()=> {
-    // setter
-    localStorage.setItem('langue', 'fr');
-    //localStorage.getItem('langue');
-  }
-  const showMarocArticle = async ()=> {
-    // setter
-    localStorage.setItem('langue', 'maroc');
-    //localStorage.getItem('langue');
-  }
-  const showAlgArticle = async ()=> {
-    // setter
-    localStorage.setItem('langue', 'alg');
-    //localStorage.getItem('langue');
-  }
-  const showTuniArticle = async ()=> {
-    // setter
-    localStorage.setItem('langue', 'tuni');
-    //localStorage.getItem('langue');
-  }
+  // const showUkArticle = async ()=> {
+  //   // setter
+  //   localStorage.setItem('langue', 'uk');
+  //   //localStorage.getItem('langue');
+  // }
+  // const showSpainArticle = async ()=> {
+  //   // setter
+  //   localStorage.setItem('langue', 'spain');
+  //   //localStorage.getItem('langue');
+  // }
+  // const showTurcArticle = async ()=> {
+  //   // setter
+  //   localStorage.setItem('langue', 'turc');
+  //   //localStorage.getItem('langue');
+  // }
+  // const showFrArticle = async ()=> {
+  //   // setter
+  //   localStorage.setItem('langue', 'fr');
+  //   //localStorage.getItem('langue');
+  // }
+  // const showMarocArticle = async ()=> {
+  //   // setter
+  //   localStorage.setItem('langue', 'maroc');
+  //   //localStorage.getItem('langue');
+  // }
+  // const showAlgArticle = async ()=> {
+  //   // setter
+  //   localStorage.setItem('langue', 'alg');
+  //   //localStorage.getItem('langue');
+  // }
+  // const showTuniArticle = async ()=> {
+  //   // setter
+  //   localStorage.setItem('langue', 'tuni');
+  //   //localStorage.getItem('langue');
+  // }
 
   return (
    
@@ -109,7 +109,7 @@ function Profil() {
               </IconButton>
           </DialogTitle>
           <DialogContent>
-              <Grid container direction="row" style={{alignItems:'center', marginBottom:40}}>
+              {/* <Grid container direction="row" style={{alignItems:'center', marginBottom:40}}>
                 <Grid className="flagGrid" item xs ={4} style={{display:"flex", flexDirection:'column',alignItems:'center', marginTop:30}}>
                   <img className="flag" style={{width:"50%"}} onClick={() => {showFrArticle()}} src="./images/france.png" />
                 </Grid>
@@ -127,9 +127,9 @@ function Profil() {
                 </Grid>
                 <Grid className="flagGrid" item xs ={4} style={{display:"flex", flexDirection:'column',alignItems:'center', marginTop:30}}>
                   <img className="flag" style={{width:"50%"}} onClick={() => {showTurcArticle()}} src="./images/turq.png" />
-                </Grid>
+                </Grid> 
                 
-              </Grid> 
+              </Grid> */}
           </DialogContent>
           </div>
         </Dialog>
