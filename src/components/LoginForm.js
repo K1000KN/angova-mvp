@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid, Paper, Button, Typography } from "@mui/material";
-import { TextField } from "@mui/material";
+import { TextField, Switch } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Dialog from "@mui/material/Dialog";
@@ -12,6 +12,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { createTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import axios from "axios";
 
 const theme = createTheme();
 
@@ -55,20 +56,52 @@ const LoginForm = ({ open, handleClose }) => {
   const initialValues = {
     email: "",
     password: "",
+    userType: "étudiant",
   };
   const validationSchema = Yup.object().shape({
     email: Yup.string()
       .email(`${t("email-input-verif")}`)
       .required("Requis"),
     password: Yup.string()
-      .min(8, "Le nombre caractères minimum doit être de 8")
+      .min(8, "Le nombre de caractères minimum doit être de 8")
       .required("Requis"),
   });
-  const onSubmit = (values, props) => {
-    alert(JSON.stringify(values), null, 2);
-    props.resetForm();
-    handleClose();
-    navigate("/home");
+
+  const [userType, setUserType] = useState(initialValues.userType);
+
+  const handleUserTypeChange = () => {
+    setUserType(userType === "étudiant" ? "autoecole" : "étudiant");
+  };
+
+  const onSubmit = async (values, props) => {
+    try {
+      let endpoint = "";
+
+      switch (userType) {
+        case "étudiant":
+          endpoint = "http://localhost:3001/api/v1/user/login";
+          break;
+        case "autoecole":
+          endpoint = "http://localhost:3001/api/v1/manager/login";
+          break;
+        default:
+          // Handle invalid user type
+          return;
+      }
+
+      const response = await axios.post(endpoint, values);
+      const { token } = response.data;
+
+      // Store the token and userType in local storage
+      localStorage.setItem("token", token);
+
+      props.resetForm();
+
+      navigate("/home");
+    } catch (error) {
+      console.error("Error:", error);
+      // Handle error state or display an error message
+    }
   };
 
   return (
@@ -78,7 +111,6 @@ const LoginForm = ({ open, handleClose }) => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        // Change the size to fit the parent element of this div
         width: "100%",
         height: "100%",
       }}
@@ -127,6 +159,28 @@ const LoginForm = ({ open, handleClose }) => {
                         helperText={<ErrorMessage name="password" />}
                         required
                       />
+
+                      <div className={classes.field}>
+                        <Typography component="div">
+                          <Grid
+                            component="label"
+                            container
+                            alignItems="center"
+                            spacing={1}
+                          >
+                            <Grid item>{t("étudiant")}</Grid>
+                            <Grid item>
+                              <Switch
+                                checked={userType === "autoecole"}
+                                onChange={handleUserTypeChange}
+                                name="userType"
+                                color="warning"
+                              />
+                            </Grid>
+                            <Grid item>{t("autoecole")}</Grid>
+                          </Grid>
+                        </Typography>
+                      </div>
 
                       <Button
                         sx={{ textTransform: "none" }}
