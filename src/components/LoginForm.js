@@ -94,6 +94,7 @@ const LoginForm = ({ open, handleClose }) => {
       props.resetForm();
 
       if (values.isAdmin) {
+        console.log("isAdmin");
         navigate("/backoffice");
       } else {
         navigate("/home");
