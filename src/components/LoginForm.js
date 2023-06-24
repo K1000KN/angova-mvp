@@ -1,6 +1,13 @@
-import React, { useState } from "react";
-import { Grid, Paper, Button, Typography } from "@mui/material";
-import { TextField, Switch } from "@mui/material";
+import React from "react";
+import {
+  Grid,
+  Paper,
+  Button,
+  Typography,
+  FormControlLabel,
+  Checkbox,
+} from "@mui/material";
+import { TextField } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Dialog from "@mui/material/Dialog";
@@ -56,48 +63,41 @@ const LoginForm = ({ open, handleClose }) => {
   const initialValues = {
     email: "",
     password: "",
-    userType: "étudiant",
+    isAdmin: false,
   };
   const validationSchema = Yup.object().shape({
     email: Yup.string()
       .email(`${t("email-input-verif")}`)
       .required("Requis"),
     password: Yup.string()
-      .min(8, "Le nombre de caractères minimum doit être de 8")
+      .min(0, "Le nombre caractères minimum doit être de 8")
       .required("Requis"),
+    isAdmin: Yup.boolean().required("Requis"), // Added validation for isAdmin field
   });
-
-  const [userType, setUserType] = useState(initialValues.userType);
-
-  const handleUserTypeChange = () => {
-    setUserType(userType === "étudiant" ? "autoecole" : "étudiant");
-  };
 
   const onSubmit = async (values, props) => {
     try {
       let endpoint = "";
 
-      switch (userType) {
-        case "étudiant":
-          endpoint = "http://localhost:3001/api/v1/user/login";
-          break;
-        case "autoecole":
-          endpoint = "http://localhost:3001/api/v1/manager/login";
-          break;
-        default:
-          // Handle invalid user type
-          return;
+      if (values.isAdmin === true) {
+        endpoint = "http://localhost:3001/api/v1/admin/login";
+      } else {
+        endpoint = "http://localhost:3001/api/v1/user/login";
       }
 
       const response = await axios.post(endpoint, values);
       const { token } = response.data;
 
-      // Store the token and userType in local storage
+      // Store the token and isAdmin in local storage
       localStorage.setItem("token", token);
 
       props.resetForm();
 
-      navigate("/home");
+      if (values.isAdmin) {
+        navigate("/backoffice");
+      } else {
+        navigate("/home");
+      }
     } catch (error) {
       console.error("Error:", error);
       // Handle error state or display an error message
@@ -111,6 +111,7 @@ const LoginForm = ({ open, handleClose }) => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
+        // Change the size to fit the parent element of this div
         width: "100%",
         height: "100%",
       }}
@@ -160,27 +161,17 @@ const LoginForm = ({ open, handleClose }) => {
                         required
                       />
 
-                      <div className={classes.field}>
-                        <Typography component="div">
-                          <Grid
-                            component="label"
-                            container
-                            alignItems="center"
-                            spacing={1}
-                          >
-                            <Grid item>{t("étudiant")}</Grid>
-                            <Grid item>
-                              <Switch
-                                checked={userType === "autoecole"}
-                                onChange={handleUserTypeChange}
-                                name="userType"
-                                color="warning"
-                              />
-                            </Grid>
-                            <Grid item>{t("autoecole")}</Grid>
-                          </Grid>
-                        </Typography>
-                      </div>
+                      <FormControlLabel
+                        className={classes.field}
+                        control={
+                          <Field
+                            as={Checkbox}
+                            name="isAdmin"
+                            checked={props.values.isAdmin}
+                          />
+                        }
+                        label={t("vous êtes un admin?")}
+                      />
 
                       <Button
                         sx={{ textTransform: "none" }}
