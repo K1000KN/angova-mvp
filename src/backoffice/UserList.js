@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 import { Group as GroupIcon } from "@mui/icons-material";
 
-import EditForm from "./EditForm";
+import EditForm from "../EditForm";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -68,7 +68,7 @@ const UserList = () => {
           },
         }
       );
-      console.log(response.data);
+      console.log("Status: ", response.status);
       fetchUsers();
       setOpenDeleteDialog(false);
     } catch (error) {

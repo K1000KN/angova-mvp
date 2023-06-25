@@ -1,12 +1,12 @@
 import "./index.css";
 import "./home.css";
 import React, { useState, useEffect } from "react";
-import {  useNavigate    } from "react-router-dom";
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import BottomBar  from './components/BottomBar';
-import NavbarComponent  from './components/Navbar';
+import { useNavigate } from "react-router-dom";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import BottomBar from "./components/BottomBar";
+import NavbarComponent from "./components/Navbar";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Dialog from "@mui/material/Dialog";
@@ -37,15 +37,14 @@ function Home() {
     },
   });
   const [show, setShow] = useState(false);
-  const [value, setValue] = React.useState('code');
+  const [value, setValue] = React.useState("code");
   const navigate = useNavigate();
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    if(newValue == "profil"){
+    if (newValue === "profil") {
       navigate("/profil");
     }
   };
-
 
   useEffect(() => {
     // we use this effect to see the language dialog
@@ -56,10 +55,8 @@ function Home() {
       localStorage.setItem("hasChoosenLanguage", false);
     }
     if (hasLanguagePicked === "true") {
-      console.log("has already choose language");
       setShow(false);
     } else {
-      console.log("has not choose language");
       setLanguageImage("earth");
       setShow(true);
     }
@@ -139,7 +136,6 @@ function Home() {
     return (
       <img
         className="languageNavImg"
-       
         onClick={() => {
           setShow(true);
         }}
@@ -148,21 +144,55 @@ function Home() {
       />
     );
   };
-  
+
   return (
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-
-        <NavbarComponent setShow= {setShow} page={value} setLanguageImage={setLanguageImage}/>
-        <Grid id="sessionContainer" container direction="row" style={{height:"94vh"}}>
-          <Grid item lg={3} sx={{flexDirection:'column' ,alignItems:'end' ,display: { xs: 'none', lg: 'flex' }}}>
-            <button className='btn-section' ><img src='./home.png'alt='' style={{width:40, marginRight:15}}/><span className='btn-section-title' >Session de code</span></button>
+        <NavbarComponent
+          setShow={setShow}
+          page={value}
+          setLanguageImage={setLanguageImage}
+        />
+        <Grid
+          id="sessionContainer"
+          container
+          direction="row"
+          style={{ height: "94vh" }}
+        >
+          <Grid
+            item
+            lg={3}
+            sx={{
+              flexDirection: "column",
+              alignItems: "end",
+              display: { xs: "none", lg: "flex" },
+            }}
+          >
+            <button className="btn-section">
+              <img
+                src="./home.png"
+                alt=""
+                style={{ width: 40, marginRight: 15 }}
+              />
+              <span className="btn-section-title">Session de code</span>
+            </button>
           </Grid>
-          
-          <Grid item xs={12} lg={8} >
-            <Grid container direction="row" >
-              <Grid item xs={12} sm={6} lg={4}style={{display:'flex', flexDirection:"column", alignItems:'center', marginTop:35}}  >
+
+          <Grid item xs={12} lg={8}>
+            <Grid container direction="row">
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                lg={4}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  marginTop: 35,
+                }}
+              >
                 <Card
                   sx={{
                     maxWidth: 345,
@@ -172,15 +202,15 @@ function Home() {
                         // msTransform: "scale(1.5)", /* IE 9 */
                         // webkitTransform: "scale(1.5)", /* Safari 3-8 */
                         // transform: "scale(1.5)"
-                        backgroundSize: "120%"
-                      }
-                    }
+                        backgroundSize: "120%",
+                      },
+                    },
                   }}
                 >
                   <CardMedia
                     component="img"
-                    image='./images/session1.png'
-                    className='imgSessionHome'
+                    image="./images/session1.png"
+                    className="imgSessionHome"
                     alt="session"
                     // Add this if you want the hover on the image only and remove the above hover
                     sx={{
@@ -188,22 +218,28 @@ function Home() {
                       "&:hover": {
                         backgroundSize: "120%",
                         cursor: "pointer",
-                      }
+                      },
                     }}
-                    onClick={()=>{
+                    onClick={() => {
                       navigate("/session");
-                    }} 
+                    }}
                   />
                   {/* <div>
                     <img src="./images/play.png" />
                   </div> */}
                   <CardContent>
-                    <Typography sx={{fontWeight:600, display: "flex", justifyContent:"center"}}  variant="h7" >
-                      Session 1   
+                    <Typography
+                      sx={{
+                        fontWeight: 600,
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                      variant="h7"
+                    >
+                      Session 1
                     </Typography>
-                   
                   </CardContent>
-                </Card>                
+                </Card>
               </Grid>
             </Grid>
           </Grid>
@@ -253,8 +289,7 @@ function Home() {
             </DialogContent>
           </div>
         </Dialog>{" "}
-        <BottomBar handleChange= {handleChange}
-         value={value}/>
+        <BottomBar handleChange={handleChange} value={value} />
       </ThemeProvider>
     </>
   );

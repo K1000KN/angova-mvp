@@ -6,8 +6,8 @@ import { CssBaseline } from "@mui/material";
 import Landing from "./Landing";
 import Home from "./Home";
 import Session from "./Session";
-import Profil from "./Profil";
-import Dashboard from "./Dashboard";
+import UserProfile from "./UserProfile";
+import Dashboard from "./backoffice/Dashboard";
 import NotFound from "./components/NotFound"; // Import your 404 component
 import reportWebVitals from "./reportWebVitals";
 import "./index.css";
@@ -21,12 +21,8 @@ const PrivateRoute = ({ path, roles, children }) => {
   const isAuthenticated = token !== null;
   const userRole = token ? jwt(token).role : null;
 
-  console.log(userRole);
-  console.log(roles);
-  console.log(isAuthenticated);
-
   if (isAuthenticated && roles && roles.includes(userRole)) {
-    return children; // Render the children directly
+    return children;
   } else {
     return <Navigate to="/" replace />;
   }
@@ -59,7 +55,7 @@ const App = () => {
             path="/profil"
             element={
               <PrivateRoute roles={["user", "manager", "admin"]}>
-                <Profil />
+                <UserProfile />
               </PrivateRoute>
             }
           />

@@ -78,7 +78,7 @@ const EditForm = ({ open, handleClose, userId, fetchUsers, user }) => {
           },
         }
       );
-      console.log(response.data); // Assuming the response contains data you want to handle
+      console.log("Status: ", response.status);
       handleClose();
       fetchUsers();
     } catch (error) {
