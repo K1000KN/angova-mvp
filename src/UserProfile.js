@@ -41,8 +41,6 @@ const UserProfile = () => {
 
   const logout = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("hasChoosenLanguage");
-    localStorage.removeItem("language");
     navigate("/");
   };
 

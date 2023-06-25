@@ -366,7 +366,6 @@ button {
 
   }
   .bm-menu-wrap{
-    width: 200px !important;
     top:  0!important;
   }
   
@@ -463,8 +462,8 @@ button {
 }
 
 .flagPopup{
-    display: "flex";
-    align-items: "center";
+    display: flex;
+    align-items: center;
     padding:20px;
     border-radius: 10px;
     cursor: pointer;

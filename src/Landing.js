@@ -21,8 +21,9 @@ import RequestForm from "./components/RequestForm";
 import MultiCarousel from "./components/MultiCarousel";
 import ReviewCard from "./components/ReviewCard";
 import BurgerMenu from "./components/BurgerMenu";
-
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+
 function Landing() {
   const { t, i18n } = useTranslation();
   const arabicSquaredFlag = "./images/flag/squared/arabic.png";
@@ -30,7 +31,9 @@ function Landing() {
   const frenchSquaredFlag = "./images/flag/squared/france.png";
   const spanishSquaredFlag = "./images/flag/squared/spain.png";
   const turkeyFlagSquared = "./images/flag/squared/turkey.png";
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
   const refCode = useRef(null);
   const refDesc = useRef(null);
   const refQuestion = useRef(null);
@@ -39,13 +42,6 @@ function Landing() {
       fontFamily: ["IgraSans", "Raleway", "Arial"].join(","),
     },
   });
-  const appItem = {
-    color: "#000",
-    cursor: "pointer",
-    "&:hover": {
-      color: "#F49E4C",
-    },
-  };
 
   const iconStyle = {
     color: "#F49E4C",
@@ -62,7 +58,10 @@ function Landing() {
   };
 
   const [openLogin, setOpenLogin] = useState(false);
-
+  const handleGoToApp = () => {
+    setIsLoggedIn(false);
+    navigate("/home");
+  };
   const handleClickOpenLogin = () => {
     setOpenLogin(true);
   };
@@ -156,7 +155,13 @@ function Landing() {
     if (isChoosen === "true") {
       i18n.changeLanguage(localStorage.getItem("language"));
     }
-  }, [i18n, isChoosen]);
+    if (token) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, [i18n, isChoosen, token]);
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -182,6 +187,8 @@ function Landing() {
               t={t}
               i18n={i18n}
               setLanguageImage={setLanguageImage}
+              handleGoToApp={handleGoToApp}
+              isLoggedIn={isLoggedIn}
             />
           </Grid>
           <Grid item xs={4} md={4}>
@@ -245,20 +252,43 @@ function Landing() {
           </Grid>
 
           <Grid item xs={2} sx={{ display: { xs: "none", lg: "block" } }}>
-            <Button
-              onClick={handleClickOpenLogin}
-              sx={{ textTransform: "none", boxShadow: 0 }}
-              style={{
-                width: "10vw",
-                height: 40,
-                backgroundColor: "#F49E4C",
-                marginTop: 11,
-                borderRadius: 20,
-              }}
-              variant="contained"
-            >
-              {t("loginButton")}
-            </Button>
+            {isLoggedIn ? (
+              <Button
+                onClick={handleGoToApp}
+                sx={{
+                  textTransform: "none",
+                  boxShadow: 0,
+                }}
+                style={{
+                  width: "12vw",
+                  height: 40,
+                  backgroundColor: "#F49E4C",
+                  marginTop: 11,
+                  borderRadius: 20,
+                }}
+                variant="contained"
+              >
+                {t("AppButton")}
+              </Button>
+            ) : (
+              <Button
+                onClick={handleClickOpenLogin}
+                sx={{
+                  textTransform: "none",
+                  boxShadow: 0,
+                }}
+                style={{
+                  width: "10vw",
+                  height: 40,
+                  backgroundColor: "#F49E4C",
+                  marginTop: 11,
+                  borderRadius: 20,
+                }}
+                variant="contained"
+              >
+                {t("loginButton")}
+              </Button>
+            )}
           </Grid>
         </Grid>
       </AppBar>
@@ -426,11 +456,10 @@ function Landing() {
           item
           md={8}
           sx={{
-            marginTop: "14px",
-            display: "flex",
+            marginTop: "15px",
             flexDirection: "column",
             justifyContent: "end",
-            display: { xs: "none", md: "block" },
+            display: { xs: "none", md: "block", lg: "flex" },
           }}
         >
           <Grid container direction="row" sx={flexCenter}>
@@ -478,10 +507,9 @@ function Landing() {
           xs={12}
           sx={{
             marginTop: "10px",
-            display: "flex",
             flexDirection: "column",
             justifyContent: "end",
-            display: { xs: "block", md: "none" },
+            display: { xs: "block", md: "none", lg: "flex" },
           }}
         >
           <Grid container direction="row" sx={flexCenter}>
