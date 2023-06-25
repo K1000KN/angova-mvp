@@ -73,6 +73,20 @@ export default forwardRef(
         </Typography>
         <div id="overlayBurgerWrapper" xs={5}>
           <div
+            onMouseOver={() => {
+              document.getElementById(
+                "overlayGridMobile"
+              ).style.backgroundColor = "rgba(216, 216, 216, 0.56)";
+              document.getElementById("overlayGridMobile").style.borderRadius =
+                "10px";
+            }}
+            onMouseLeave={() => {
+              document.getElementById(
+                "overlayGridMobile"
+              ).style.backgroundColor = "rgba(216, 216, 216, 0)";
+              document.getElementById("overlayGridMobile").style.borderRadius =
+                "0px";
+            }}
             onClick={() => {
               document.getElementById(
                 "overlayGridMobile"

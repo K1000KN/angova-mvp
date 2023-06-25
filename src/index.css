@@ -428,24 +428,24 @@ button {
 
 #overlayLangue{
     width: 290px;
-    height: 344px;
     position: absolute;
     background-color: #FFFF;
     border-radius: 10px;
     border: solid rgba(216, 216, 216, 0.56) 2px;
-    margin-top: 409px;
+    margin-top: 315px;
+    display: none;
     
 }
   
 #overlayLangueMobile{
     width: 72%;
-    height: 401px;
     position: absolute;
     background-color: #FFFF;
     border-radius: 10px;
     border: solid rgba(216, 216, 216, 0.56) 2px;
     z-index: 2 !important;
     display: none;
+    flex-direction: column;
 }
 #popUpLangueMobile{
     width: 90%;
@@ -469,14 +469,18 @@ button {
 .flagPopup{
     display: flex;
     align-items: center;
-    padding:20px;
     border-radius: 10px;
     cursor: pointer;
+    height: 50px;
+    padding-left: 30px;
 }
 .flagPopup:hover {
     background-color: #f49d4c7e;
 }
 
+.flagPopup > span {
+    margin-left: 40px;
+}
 #flagOfLanguage{
     width: 45px;
     border-radius: 4px;
@@ -486,22 +490,23 @@ button {
         width: 30px !important;
         margin-left: 4px;
     }
-    .flagPopup{
+    /* .flagPopup{
         padding:20px;
-    }
+    } */
     .flagPopup>img {
         width: 30px !important;
     }
     .flagPopup>span {
-        margin-left: 10px !important;
+        
         font-size: 11px !important;
     }
     #overlayGridMobile{
         display: flex;
         align-items: center;
-        justify-content: center; 
+        justify-content: space-around;
         width:100%;
         padding: 8px;
+        
     }
 }
 @media  only screen and (min-width: 600px){
@@ -517,20 +522,20 @@ button {
         width: 30px !important;
         margin-left: 4px;
     }
-    .flagPopup{
+    /* .flagPopup{
         padding:20px;
-    }
+    } */
     .flagPopup>img {
         width: 30px !important;
     }
     .flagPopup>span {
-        margin-left: 10px !important;
+        
         font-size: 11px !important;
     }
     #overlayGridMobile{
         display: flex;
         align-items: center;
-        justify-content: center; 
+        justify-content: space-around;
         width:100%;
         padding: 8px;
     }
@@ -582,14 +587,14 @@ button {
     #langueNavLanding{
         display: none !important;
     }
-    .flagPopup{     
+    /* .flagPopup{     
         padding:20px;
-    }
+    } */
     .flagPopup>img {
         width: 30px !important;
     }
     .flagPopup>span {
-        margin-left: 10px !important;
+        
         font-size: 11px !important;
     }
     
