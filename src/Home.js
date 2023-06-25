@@ -16,10 +16,7 @@ import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import { Link } from "react-router-dom";
-// import { set } from "date-fns";
-
-// const theme = createTheme();
+import { makeStyles } from "@mui/styles";
 
 function Home() {
   const franceRoundedFlag = "./images/flag/rounded/france.png";
@@ -34,6 +31,29 @@ function Home() {
   const theme = createTheme({
     typography: {
       fontFamily: ["IgraSans", "Raleway", "Arial"].join(","),
+    },
+  });
+
+  const useStyles = makeStyles({
+    flagNav: {
+      width: "50%",
+      cursor: "pointer",
+      transition: "filter 0.3s, transform 0.3s",
+      "&:hover": {
+        filter: "brightness(80%)",
+        transform: "scale(1.1)",
+      },
+    },
+    languageText: {
+      marginTop: 10,
+      color: "#888",
+      fontSize: 12,
+      fontWeight: "bold",
+      opacity: 0,
+      transition: "opacity 0.3s",
+    },
+    languageTextVisible: {
+      opacity: 1,
     },
   });
   const [show, setShow] = useState(false);
@@ -75,29 +95,51 @@ function Home() {
     handleClose();
   };
 
-  const Flag = ({ src, language }) => (
-    <Grid
-      item
-      xs={4}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        marginTop: 30,
-      }}
-    >
-      <img
-        className="flagNav"
-        style={{ width: "50%" }}
-        onClick={() => {
-          setLanguage(language);
-        }}
-        src={src}
-        alt="flag"
-      />
-    </Grid>
-  );
+  const Flag = ({ src, language }) => {
+    const classes = useStyles();
+    const [isLanguageVisible, setLanguageVisible] = useState(false);
 
+    const handleClick = () => {
+      setLanguage(language);
+    };
+
+    const handleMouseEnter = () => {
+      setLanguageVisible(true);
+    };
+
+    const handleMouseLeave = () => {
+      setLanguageVisible(false);
+    };
+
+    return (
+      <Grid
+        item
+        xs={4}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          marginTop: 30,
+        }}
+      >
+        <img
+          className={classes.flagNav}
+          onClick={handleClick}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          src={src}
+          alt="flag"
+        />
+        <div
+          className={`${classes.languageText} ${
+            isLanguageVisible ? classes.languageTextVisible : ""
+          }`}
+        >
+          {language}
+        </div>
+      </Grid>
+    );
+  };
   const setLanguageImage = (language) => {
     let src = null;
     switch (language) {

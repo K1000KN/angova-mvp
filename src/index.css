@@ -211,17 +211,22 @@ button {
     transform: scale(1.2);
 }
 
-.languageNavImg:hover {
-    -ms-transform: scale(1.2); /* IE 9 */
-    -webkit-transform: scale(1.2); /* Safari 3-8 */
-    transform: scale(1.2);
-    cursor: pointer;
-}
 .languageNavImg {
     width:45px;
     bottom: 50px;
     position: absolute;
+    transition: 0.2s;
 }
+
+.languageNavImg:hover {
+    -ms-transform: scale(1.1); /* IE 9 */
+    -webkit-transform: scale(1.1); /* Safari 3-8 */
+    transform: scale(1.1);
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+
 #profilNavImg:hover {
     -ms-transform: scale(1.2); /* IE 9 */
     -webkit-transform: scale(1.2); /* Safari 3-8 */
@@ -315,10 +320,10 @@ button {
         padding:0px;
         margin: 0;
     }
-    .styleFlag{ 
+    /* .styleFlag{ 
         margin: 20px;
         width:45px;
-    }
+    } */
     .codeDeLaRoute{
         padding-top: 10px;
         padding-left: 0;

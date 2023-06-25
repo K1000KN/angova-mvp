@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { makeStyles } from "@mui/styles";
 import {
   Box,
   Button,
@@ -31,6 +32,29 @@ const UserProfile = () => {
   const navigate = useNavigate();
   const [value, setValue] = React.useState("profil");
   const [show, setShow] = useState(false);
+
+  const useStyles = makeStyles({
+    flagNav: {
+      width: "50%",
+      cursor: "pointer",
+      transition: "filter 0.3s, transform 0.3s",
+      "&:hover": {
+        filter: "brightness(80%)",
+        transform: "scale(1.1)",
+      },
+    },
+    languageText: {
+      marginTop: 10,
+      color: "#888",
+      fontSize: 12,
+      fontWeight: "bold",
+      opacity: 0,
+      transition: "opacity 0.3s",
+    },
+    languageTextVisible: {
+      opacity: 1,
+    },
+  });
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -73,28 +97,51 @@ const UserProfile = () => {
     handleClose();
   };
 
-  const Flag = ({ src, language }) => (
-    <Grid
-      item
-      xs={4}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        marginTop: 30,
-      }}
-    >
-      <img
-        className="flagNav"
-        style={{ width: "50%" }}
-        onClick={() => {
-          setLanguage(language);
+  const Flag = ({ src, language }) => {
+    const classes = useStyles();
+    const [isLanguageVisible, setLanguageVisible] = useState(false);
+
+    const handleClick = () => {
+      setLanguage(language);
+    };
+
+    const handleMouseEnter = () => {
+      setLanguageVisible(true);
+    };
+
+    const handleMouseLeave = () => {
+      setLanguageVisible(false);
+    };
+
+    return (
+      <Grid
+        item
+        xs={4}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          marginTop: 30,
         }}
-        src={src}
-        alt="flag"
-      />
-    </Grid>
-  );
+      >
+        <img
+          className={classes.flagNav}
+          onClick={handleClick}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          src={src}
+          alt="flag"
+        />
+        <div
+          className={`${classes.languageText} ${
+            isLanguageVisible ? classes.languageTextVisible : ""
+          }`}
+        >
+          {language}
+        </div>
+      </Grid>
+    );
+  };
 
   const [isEditing, setIsEditing] = useState(false);
 

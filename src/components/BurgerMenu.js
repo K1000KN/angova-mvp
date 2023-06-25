@@ -145,10 +145,8 @@ export default forwardRef(
               boxShadow: 0,
             }}
             style={{
-              width: "14vw",
-              height: 40,
               backgroundColor: "#F49E4C",
-              marginTop: 11,
+              marginTop: 10,
               borderRadius: 20,
             }}
             variant="contained"

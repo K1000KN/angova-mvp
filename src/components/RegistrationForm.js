@@ -140,7 +140,6 @@ const RegistrationForm = ({ open, handleClose }) => {
               <b> 07.83.97.19.32</b>
             </Link>
             <br />
-            <br />
             <Link href="mailto:mail@angova.com">
               <EmailIcon
                 style={{
