@@ -149,11 +149,7 @@ function Home() {
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <NavbarComponent
-          setShow={setShow}
-          page={value}
-          setLanguageImage={setLanguageImage}
-        />
+        <NavbarComponent page={value} setLanguageImage={setLanguageImage} />
         <Grid
           id="sessionContainer"
           container

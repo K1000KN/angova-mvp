@@ -16,6 +16,9 @@ import NavbarComponent from "./components/Navbar";
 import BottomBar from "./components/BottomBar";
 import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
+import { decodeToken } from "react-jwt";
+import axios from "axios";
+
 const UserProfile = () => {
   const franceRoundedFlag = "./images/flag/rounded/france.png";
   const englishRoundedFlag = "./images/flag/rounded/uk.png";
@@ -34,6 +37,13 @@ const UserProfile = () => {
     if (newValue !== "profil") {
       navigate("/home");
     }
+  };
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("hasChoosenLanguage");
+    localStorage.removeItem("language");
+    navigate("/");
   };
 
   useEffect(() => {
@@ -89,12 +99,6 @@ const UserProfile = () => {
   );
 
   const [isEditing, setIsEditing] = useState(false);
-  const [userInfo, setUserInfo] = useState({
-    name: "John Doe",
-    email: "johndoe@example.com",
-    age: 25,
-    bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-  });
 
   const theme = useTheme();
 
@@ -105,14 +109,6 @@ const UserProfile = () => {
   const handleSaveClick = () => {
     setIsEditing(false);
     // Perform API call or update the user information in some way
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setUserInfo((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
   };
 
   const setLanguageImage = (language) => {
@@ -162,82 +158,138 @@ const UserProfile = () => {
     );
   };
 
+  const token = localStorage.getItem("token");
+  const [user, setUser] = useState(null);
+  const [isUserFetched, setIsUserFetched] = useState(false);
+
+  useEffect(() => {
+    const getCurrentUser = async () => {
+      const decodedToken = decodeToken(token);
+      const id = decodedToken.id;
+      const role = decodedToken.role;
+      console.log(role);
+      let endpoint = `http://localhost:3001/api/v1/user/${id}`;
+
+      if (role === "admin") {
+        endpoint = `http://localhost:3001/api/v1/admin/${id}`;
+      } else if (role === "manager") {
+        endpoint = `http://localhost:3001/api/v1/manager/${id}`;
+      }
+
+      try {
+        const response = await axios.get(endpoint, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log(response.data);
+        setUser(response.data);
+        setIsUserFetched(true);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    if (token && !isUserFetched) {
+      getCurrentUser();
+    }
+  }, [token, isUserFetched]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUser((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <NavbarComponent
-        setShow={setShow}
-        page={value}
-        setLanguageImage={setLanguageImage}
-      />
-      <Grid
-        id="sessionContainer"
-        container
-        direction="row"
-        style={{ height: "94vh" }}
-      >
-        <Box sx={{ maxWidth: 400, mx: "auto" }}>
-          <Typography variant="h4" gutterBottom>
-            {isEditing ? "Edit User Information" : "User Information"}
-          </Typography>
-          <TextField
-            fullWidth
-            id="name"
-            name="name"
-            label="Name"
-            value={userInfo.name}
-            onChange={handleInputChange}
-            disabled={!isEditing}
-            margin="normal"
-            variant="outlined"
-          />
-          <TextField
-            fullWidth
-            id="email"
-            name="email"
-            label="Email"
-            value={userInfo.email}
-            onChange={handleInputChange}
-            disabled={!isEditing}
-            margin="normal"
-            variant="outlined"
-          />
-          <TextField
-            fullWidth
-            id="age"
-            name="age"
-            label="Age"
-            type="number"
-            value={userInfo.age}
-            onChange={handleInputChange}
-            disabled={!isEditing}
-            margin="normal"
-            variant="outlined"
-          />
-          <TextField
-            fullWidth
-            id="bio"
-            name="bio"
-            label="Bio"
-            multiline
-            rows={4}
-            value={userInfo.bio}
-            onChange={handleInputChange}
-            disabled={!isEditing}
-            margin="normal"
-            variant="outlined"
-          />
-          {isEditing ? (
-            <Button variant="contained" onClick={handleSaveClick}>
-              Save
-            </Button>
-          ) : (
-            <Button variant="contained" onClick={handleEditClick}>
-              Edit
-            </Button>
-          )}
-        </Box>
-      </Grid>
+      <NavbarComponent page={value} setLanguageImage={setLanguageImage} />
+      {user && (
+        <Grid
+          id="sessionContainer"
+          container
+          direction="row"
+          style={{ height: "94vh" }}
+        >
+          <Box sx={{ maxWidth: 400, mx: "auto" }}>
+            <Typography variant="h4" gutterBottom>
+              {isEditing ? "Editer mon profil" : "Mon profil"}
+            </Typography>
+            <TextField
+              fullWidth
+              id="name"
+              name="name"
+              label="Name"
+              value={user.username}
+              onChange={handleInputChange}
+              disabled={!isEditing}
+              margin="normal"
+              variant="outlined"
+            />
+            <TextField
+              fullWidth
+              id="email"
+              name="email"
+              label="Email"
+              value={user.email}
+              onChange={handleInputChange}
+              disabled={!isEditing}
+              margin="normal"
+              variant="outlined"
+            />
+            <TextField
+              fullWidth
+              id="age"
+              name="age"
+              label="Age"
+              type="number"
+              value={(Math.random() * (100 - 18) + 18).toFixed(0)}
+              onChange={handleInputChange}
+              disabled={!isEditing}
+              margin="normal"
+              variant="outlined"
+            />
+            <TextField
+              fullWidth
+              id="bio"
+              name="bio"
+              label="Bio"
+              multiline
+              rows={4}
+              value={user.roles[0].name}
+              onChange={handleInputChange}
+              disabled={!isEditing}
+              margin="normal"
+              variant="outlined"
+            />
+            <Grid
+              container
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginTop: 2,
+              }}
+            >
+              {isEditing ? (
+                <Button variant="contained" onClick={handleSaveClick}>
+                  Save
+                </Button>
+              ) : (
+                <Button variant="contained" onClick={handleEditClick}>
+                  Edit
+                </Button>
+              )}
+
+              <Button variant="contained" onClick={logout} color="error">
+                Logout
+              </Button>
+            </Grid>
+          </Box>
+        </Grid>
+      )}
       <Dialog fullWidth maxWidth="sm" open={show} onClose={handleClose}>
         <div
           style={{
