@@ -13,15 +13,15 @@ export const quiz = {
         "C : Je sonne et je double",
         "D : La reponse D",
       ],
-      type: "MCQs",
-      correctAnswer: "stringifzgergzeryreyeryy()",
+      correctAnswer: [3],
+      explaination: "La reponse D est la bonne réponse car ...",
     },
     {
       question:
         "Which of the following keywords is used to define a variable in Javascript?",
       choices: ["var", "let", "var and let", "None of the above"],
-      type: "MCQs",
-      correctAnswer: "var and let",
+      correctAnswer: [3],
+      explaination: "La reponse D est la bonne réponse car ...",
     },
     {
       question:
@@ -32,14 +32,14 @@ export const quiz = {
         "window.alert",
         "All of the above",
       ],
-      type: "MCQs",
-      correctAnswer: "All of the above",
+      correctAnswer: [0, 3],
+      explaination: "La reponse D est la bonne réponse car ...",
     },
     {
       question: "How can a datatype be declared to be a constant type?",
       choices: ["const", "var", "let", "constant"],
-      type: "MCQs",
-      correctAnswer: "const",
+      correctAnswer: [1, 3],
+      explaination: "La reponse D est la bonne réponse car ...",
     },
   ],
 };

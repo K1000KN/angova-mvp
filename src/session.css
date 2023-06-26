@@ -66,10 +66,26 @@
   cursor: pointer;
 }
 
+ul .correct-answer {
+    background: #62f44c48!important;
+    border: 1px solid #62f44c48!important;
+  }
+
+  ul .wrong-answer {
+    background: #f44c4c48!important;
+    border: 1px solid #f44c4c48!important;
+  }
+
+
 ul .selected-answer {
   background: #f49d4c48;
   border: 1px solid #F49E4C;
 }
+
+
+
+
+
 
 .quizButton > div > button {
   background:  #F49E4C;
