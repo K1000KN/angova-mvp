@@ -76,7 +76,7 @@ const Session = () => {
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const playAudioResponse = () => {
     let audioSrc =
-      "https://upnow-prod.ff45e40d1a1c8f7e7de4e976d0c9e555.r2.cloudflarestorage.com/Wz37iLOI6af22lRY2hza3O958kC3/6429315b-1f69-4a3f-9992-3f11281705bd?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=cdd12e35bbd220303957dc5603a4cc8e%2F20230626%2Fauto%2Fs3%2Faws4_request&X-Amz-Date=20230626T164808Z&X-Amz-Expires=43200&X-Amz-Signature=4a8715c59f93ca8e7f524a98c16d59249f7dde2b8f24666a51762d8c327a4b20&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3B%20filename%3D%22House%20DarkChil.mp3%22";
+      "https://whyp.it/tracks/106593/2023-code-de-la-route-permis-de-conduire-nouvelle-40-questions-dexamen?token=pyKDQ";
     const audio = new Audio(audioSrc);
 
     if (isPlayingAudio) {
@@ -85,9 +85,6 @@ const Session = () => {
       setIsPlayingAudio(true);
 
       audio.play();
-      audio.ended.then(() => {
-        setIsPlayingAudio(false);
-      });
     }
   };
   const verifyAnswer = (indices) => {
@@ -246,20 +243,69 @@ const Session = () => {
               />
             </Grid>
             <Grid item xs={12} id="quizContainer">
-              <h7 id="questionQuizz">{questions}</h7>
+              {questions && questions.length > 1 ? (
+                <>
+                  <h7 id="questionQuizz">{questions[0]}</h7>
+                  <br />
+                  <h7 id="questionQuizz">{questions[1]}</h7>
+                </>
+              ) : (
+                <>
+                  <h7 id="questionQuizz">{questions}</h7>
+                </>
+              )}
               <div>
+                {questions && questions.length > 1 ? (
+                  <>
+                    <ul className="quizList">
+                      {choices.slice(0, 2).map((answer, index) => (
+                        <li
+                          onClick={() => onAnswerSelected(index)}
+                          key={answer}
+                          className={
+                            isAnswerSelected(index) ? "selected-answer" : null
+                          }
+                        >
+                          {answer}
+                        </li>
+                      ))}
+                    </ul>
+
+                    <h7 id="questionQuizz">{questions[2]}</h7>
+                    {questions && questions.length > 1 ? (
+                      <ul className="quizList">
+                        {choices.slice(2, 4).map((answer, index) => (
+                          <li
+                            onClick={() => onAnswerSelected(index + 2)}
+                            key={answer}
+                            className={
+                              isAnswerSelected(index + 2)
+                                ? "selected-answer"
+                                : null
+                            }
+                          >
+                            {answer}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
+                  </>
+                ) : null}
+
                 <ul className="quizList">
-                  {choices.map((answer, index) => (
-                    <li
-                      onClick={() => onAnswerSelected(index)}
-                      key={answer}
-                      className={
-                        isAnswerSelected(index) ? "selected-answer" : null
-                      }
-                    >
-                      {answer}
-                    </li>
-                  ))}
+                  {questions &&
+                    questions.length === 1 &&
+                    choices.map((answer, index) => (
+                      <li
+                        onClick={() => onAnswerSelected(index)}
+                        key={answer}
+                        className={
+                          isAnswerSelected(index) ? "selected-answer" : null
+                        }
+                      >
+                        {answer}
+                      </li>
+                    ))}
                 </ul>
               </div>
             </Grid>
