@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -12,25 +12,26 @@ import NotFound from "./components/NotFound";
 import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 import "./i18n";
-import jwt from "jwt-decode";
+import jwt_decode from "jwt-decode";
 
 const theme = createTheme();
 
 const PrivateRoute = ({ path, roles, children }) => {
   const token = localStorage.getItem("token");
-  const isAuthenticated = token !== null;
-  const userRole = token ? jwt(token).role : null;
+  const refreshToken = localStorage.getItem("refreshToken");
+  const isAuthenticated = !!token;
+  const userRole = token ? jwt_decode(token).role : null;
 
   const navigate = useNavigate();
-  const tokenIsExpired = (token) => {
-    const decodedToken = jwt(token);
+
+  const tokenIsExpired = () => {
+    const decodedToken = jwt_decode(token);
     const currentTime = Date.now() / 1000;
     return decodedToken.exp < currentTime;
   };
 
   const refreshAccessToken = async () => {
     try {
-      const refreshToken = localStorage.getItem("refreshToken");
       const endpoint = `http://localhost:3001/api/v1/${userRole}/refresh-token`; // Endpoint based on user role
 
       // Call your backend API to refresh the access token
@@ -45,14 +46,13 @@ const PrivateRoute = ({ path, roles, children }) => {
         throw new Error("Failed to refresh access token");
       }
 
-      const data = await response.json();
-      const { token } = data;
+      const { token: newToken } = await response.json();
 
       // Update the access token in local storage
-      localStorage.setItem("token", token);
+      localStorage.setItem("token", newToken);
 
       // Return the new access token
-      return token;
+      return newToken;
     } catch (error) {
       console.error("Error refreshing access token", error);
       // Handle refresh token error (e.g., redirect to login page)
@@ -60,31 +60,49 @@ const PrivateRoute = ({ path, roles, children }) => {
     }
   };
 
-  if (isAuthenticated && roles && roles.includes(userRole)) {
-    return children;
-  } else if (!isAuthenticated) {
-    // Redirect to login page if not authenticated
-    navigate("/", { replace: true });
-    return null;
-  } else if (tokenIsExpired(token)) {
-    // Access token expired, refresh it
-    refreshAccessToken()
-      .then((newToken) => {
-        // Update the access token in local storage
-        localStorage.setItem("token", newToken);
-        // Reload the current page to reflect the new token
-        window.location.reload();
-      })
-      .catch((error) => {
-        // Handle refresh token error (e.g., redirect to login page)
-        navigate("/", { replace: true });
-      });
-    return null;
-  } else {
+  useEffect(() => {
+    if (isAuthenticated && roles && roles.includes(userRole)) {
+      return;
+    }
+
+    if (!isAuthenticated) {
+      // Redirect to login page if not authenticated
+      navigate("/", { replace: true });
+      return;
+    }
+
+    if (tokenIsExpired()) {
+      // Access token expired, refresh it
+      refreshAccessToken()
+        .then((newToken) => {
+          // Update the access token in local storage
+          localStorage.setItem("token", newToken);
+          // Reload the current page to reflect the new token
+          window.location.reload();
+        })
+        .catch((error) => {
+          // Handle refresh token error (e.g., redirect to login page)
+          navigate("/", { replace: true });
+        });
+      return;
+    }
+
     // User role not authorized
     navigate("/", { replace: true });
-    return null;
-  }
+  }, [
+    isAuthenticated,
+    roles,
+    userRole,
+    refreshToken,
+    token,
+    path,
+    children,
+    navigate,
+    refreshAccessToken,
+    tokenIsExpired,
+  ]);
+
+  return isAuthenticated && roles && roles.includes(userRole) ? children : null;
 };
 
 const App = () => {

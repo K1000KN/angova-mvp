@@ -21,17 +21,20 @@ const turkeyFlagSquared = "./images/flag/squared/turkey.png";
 const theme = createTheme();
 
 export default forwardRef(
-  ({
-    scrollToQuestion,
-    scrollToCode,
-    handleClickOpenLogin,
-    changeFlag,
-    t,
-    i18n,
-    setLanguageImage,
-    handleGoToApp,
-    isLoggedIn,
-  }) => {
+  (
+    {
+      scrollToQuestion,
+      scrollToCode,
+      handleClickOpenLogin,
+      changeFlag,
+      t,
+      i18n,
+      setLanguageImage,
+      handleGoToApp,
+      isLoggedIn,
+    },
+    ref
+  ) => {
     const [openPopUp, setOpenPopUp] = useState(false);
 
     const handleClickOpenPopUp = () => {

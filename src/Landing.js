@@ -161,7 +161,7 @@ function Landing() {
       setIsLoggedIn(false);
     }
   }, [i18n, isChoosen, token]);
-
+  
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -308,6 +308,7 @@ function Landing() {
           <Typography className="title">{t("title-1.1.1")} </Typography>
           <Typography id="title2">{t("title-1.1.2")}</Typography>
           <Grid
+            item
             container
             direction="column"
             justifyContent="center"
@@ -448,6 +449,7 @@ function Landing() {
         direction="row"
         xs={12}
         style={{ backgroundColor: "#000", height: "auto", padding: 10 }}
+        item
       >
         <Grid item xs={12} md={2} sx={flexCenter}>
           <img style={{ width: 160 }} alt="road" src="./images/logo2.png" />

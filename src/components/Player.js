@@ -32,13 +32,13 @@ let count = 0;
 function Player() {
   const classes = useStyles();
   const [state, setState] = useState({
+    played: 0,
     playing: true,
     muted: true,
     volume: 0.5,
     playbackRate: 1.0,
     seeking: false,
   });
-  // eslint-disable-next-line no-unused-vars
   const { playing, muted, volume, playbackRate, played, seeking } = state;
 
   const playerRef = useRef(null);
