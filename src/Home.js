@@ -17,7 +17,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { makeStyles } from "@mui/styles";
-
+import { session1 } from "./data/sessions/fr/session_1.js";
+import { session2 } from "./data/sessions/fr/session_2.js";
 function Home() {
   const franceRoundedFlag = "./images/flag/rounded/france.png";
   const englishRoundedFlag = "./images/flag/rounded/uk.png";
@@ -65,6 +66,7 @@ function Home() {
       navigate("/profil");
     }
   };
+  const sessions = [session1, session2];
 
   useEffect(() => {
     // we use this effect to see the language dialog
@@ -218,7 +220,7 @@ function Home() {
           </Grid>
 
           <Grid item xs={12} lg={8}>
-            <Grid container direction="row">
+            <Grid>
               <Grid
                 item
                 xs={12}
@@ -226,58 +228,53 @@ function Home() {
                 lg={4}
                 style={{
                   display: "flex",
-                  flexDirection: "column",
+                  flexDirection: "row",
                   alignItems: "center",
                   marginTop: 35,
+                  justifyContent: "space-around",
                 }}
               >
-                <Card
-                  sx={{
-                    maxWidth: 345,
-                    "&:hover": {
-                      ".MuiCardMedia-root": {
-                        filter: "brightness(70%)",
-                        // msTransform: "scale(1.5)", /* IE 9 */
-                        // webkitTransform: "scale(1.5)", /* Safari 3-8 */
-                        // transform: "scale(1.5)"
-                        backgroundSize: "120%",
-                      },
-                    },
-                  }}
-                >
-                  <CardMedia
-                    component="img"
-                    image="./images/session1.png"
-                    className="imgSessionHome"
-                    alt="session"
-                    // Add this if you want the hover on the image only and remove the above hover
+                {sessions.map((session) => (
+                  <Card
                     sx={{
-                      transition: "all 0.2s ease",
                       "&:hover": {
-                        backgroundSize: "120%",
-                        cursor: "pointer",
+                        ".MuiCardMedia-root": {
+                          filter: "brightness(70%)",
+                          backgroundSize: "120%",
+                        },
                       },
                     }}
-                    onClick={() => {
-                      navigate("/session");
-                    }}
-                  />
-                  {/* <div>
-                    <img src="./images/play.png" />
-                  </div> */}
-                  <CardContent>
-                    <Typography
+                  >
+                    <CardMedia
+                      component="img"
+                      image={session.image}
+                      className="imgSessionHome"
+                      alt="session"
                       sx={{
-                        fontWeight: 600,
-                        display: "flex",
-                        justifyContent: "center",
+                        transition: "all 0.2s ease",
+                        "&:hover": {
+                          backgroundSize: "120%",
+                          cursor: "pointer",
+                        },
                       }}
-                      variant="h7"
-                    >
-                      Session 1
-                    </Typography>
-                  </CardContent>
-                </Card>
+                      onClick={() => {
+                        navigate(`/session/${session.id}`);
+                      }}
+                    />
+                    <CardContent>
+                      <Typography
+                        sx={{
+                          fontWeight: 600,
+                          display: "flex",
+                          justifyContent: "center",
+                        }}
+                        variant="h7"
+                      >
+                        {session.title}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                ))}
               </Grid>
             </Grid>
           </Grid>

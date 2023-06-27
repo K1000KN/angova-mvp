@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./session.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 import { session1 } from "./data/sessions/fr/session_1";
+import { session2 } from "./data/sessions/fr/session_2";
 import ProgressBar from "./components/ProgressBar";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
@@ -55,6 +56,7 @@ const Session = () => {
     },
   });
   const classes = useStyles();
+  const { id } = useParams();
 
   const [completed, setCompleted] = useState(0);
 
@@ -126,7 +128,33 @@ const Session = () => {
     return true;
   };
 
-  const { quizz } = session1;
+  let sessionData;
+
+  switch (id) {
+    case "1":
+      sessionData = session1;
+      break;
+    case "2":
+      sessionData = session2;
+      break;
+    // case "3":
+    //   sessionData = session3;
+    //   break;
+    // case "4":
+    //   sessionData = session4;
+    //   break;
+    // case "5":
+    //   sessionData = session5;
+    //   break;
+    // case "6":
+    //   sessionData = session6;
+    //   break;
+    default:
+      // Handle invalid session ID
+      return <div>Invalid session ID</div>;
+  }
+
+  const { quizz } = sessionData;
   const { questions, choices, correctAnswer, explaination } =
     quizz[activeQuestion];
 
@@ -239,7 +267,7 @@ const Session = () => {
               <img
                 className="imgResponsive"
                 alt="road"
-                src="./images/test_img.png"
+                src="../images/test_img.png"
               />
             </Grid>
             <Grid item xs={12} id="quizContainer">
@@ -369,7 +397,11 @@ const Session = () => {
                 justifyContent: "center",
               }}
             >
-              <img style={{ width: "50px" }} alt="road" src="./images/ok.gif" />
+              <img
+                style={{ width: "50px" }}
+                alt="road"
+                src="../images/ok.gif"
+              />
             </div>
 
             <p>

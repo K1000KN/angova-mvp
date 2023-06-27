@@ -121,7 +121,7 @@ const App = () => {
             }
           />
           <Route
-            path="/session"
+            path="/session/:id"
             element={
               <PrivateRoute roles={["user", "manager", "admin"]}>
                 <Session />
