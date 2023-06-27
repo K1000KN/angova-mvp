@@ -4,11 +4,10 @@ import "./session.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
-import { quiz } from "./data/questions";
+import { session1 } from "./data/sessions/fr/session_1";
 import ProgressBar from "./components/ProgressBar";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { session1 } from "./data/sessions/fr/session_1";
 import {
   Dialog,
   DialogContent,
@@ -130,12 +129,12 @@ const Session = () => {
     return true;
   };
 
-  const { questions } = session1;
-  const { question, choices, correctAnswer, explaination } =
-    questions[activeQuestion];
+  const { quizz } = session1;
+  const { questions, choices, correctAnswer, explaination } =
+    quizz[activeQuestion];
 
   const onClickNext = () => {
-    if (activeQuestion !== questions.length - 1) {
+    if (activeQuestion !== quizz.length - 1) {
       setActiveQuestion((prev) => prev + 1);
       setSelectedAnswerIndices([]);
       setShowExplanation(false);
@@ -143,7 +142,7 @@ const Session = () => {
       setActiveQuestion(0);
       setShowResult(true);
     }
-    setCompleted(((activeQuestion + 1) / questions.length) * 100);
+    setCompleted(((activeQuestion + 1) / quizz.length) * 100);
   };
 
   const onAnswerSelected = (index) => {
@@ -214,7 +213,7 @@ const Session = () => {
                   {addLeadingZero(activeQuestion + 1)}
                 </span>
                 <span className="total-question">
-                  /{addLeadingZero(questions.length)}
+                  /{addLeadingZero(quizz.length)}
                 </span>
               </Grid>
               <Grid item xs={10} sm={7.8} id="progressContainer">
@@ -247,7 +246,7 @@ const Session = () => {
               />
             </Grid>
             <Grid item xs={12} id="quizContainer">
-              <h7 id="questionQuizz">{question}</h7>
+              <h7 id="questionQuizz">{questions}</h7>
               <div>
                 <ul className="quizList">
                   {choices.map((answer, index) => (
@@ -303,7 +302,7 @@ const Session = () => {
                   }}
                   disabled={selectedAnswerIndices.length === 0}
                 >
-                  {activeQuestion === questions.length - 1 && showResult
+                  {activeQuestion === quizz.length - 1 && showResult
                     ? "Finish"
                     : showExplanation
                     ? "Next"
@@ -328,7 +327,7 @@ const Session = () => {
             </div>
 
             <p>
-              Total Question: <span>{questions.length}</span>
+              Total Question: <span>{quizz.length}</span>
             </p>
             <p>
               Total Score:<span> {result.score}</span>

@@ -30,15 +30,14 @@ const PrivateRoute = ({ path, roles, children }) => {
 
   const refreshAccessToken = async () => {
     try {
+      const refreshToken = localStorage.getItem("refreshToken");
       const endpoint = `http://localhost:3001/api/v1/${userRole}/refresh-token`; // Endpoint based on user role
 
       // Call your backend API to refresh the access token
       const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          refreshToken: localStorage.getItem("refreshToken"),
-        }),
+        body: JSON.stringify({ refreshToken }),
       });
 
       if (!response.ok) {
