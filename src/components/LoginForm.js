@@ -76,6 +76,9 @@ const LoginForm = ({ open, handleClose }) => {
   });
 
   const onSubmit = async (values, props) => {
+    console.log('ok')
+
+
     try {
       let endpoint = "";
 

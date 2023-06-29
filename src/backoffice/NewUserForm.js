@@ -113,6 +113,7 @@ const NewUserForm = ({ open, handleClose }) => {
   }, []);
 
   const onSubmit = async (values, props) => {
+    console.log('ok')
     const token = localStorage.getItem("token");
 
     let response;

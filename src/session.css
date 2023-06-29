@@ -23,7 +23,6 @@
 }
 #imgContainer{
     height: 43vh;
-    padding: 20px 20px 26px 20px;
     display:flex;
     justify-content:center;
 }
@@ -170,7 +169,6 @@ ul .selected-answer {
     }
     #imgContainer{
         height:35vh;
-        padding: 0 20px 0px 20px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -209,7 +207,6 @@ ul .selected-answer {
     }
     #imgContainer {
         height: 45vh;
-        padding: 6px 8px 6px 8px;
         display: flex;
         justify-content: center;
     }

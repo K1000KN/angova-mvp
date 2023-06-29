@@ -21,18 +21,11 @@ const ProgressBar = (props) => {
      
     }
   
-    const labelStyles = {
-        padding: "4px 10px 2px 7px",
-        display: "block",
-        color: 'white',
-        fontWeight: 'bold',
-        fontSize:9
-    }
   
     return (
       <div style={containerStyles}>
         <div style={fillerStyles}>
-          <span style={labelStyles}>{`${completed}%`}</span>
+          
         </div>
       </div>
     );

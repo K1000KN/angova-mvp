@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 import "./session.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -7,8 +7,9 @@ import Grid from "@mui/material/Grid";
 import { session1 } from "./data/sessions/fr/session_1";
 import { session2 } from "./data/sessions/fr/session_2";
 import ProgressBar from "./components/ProgressBar";
-import { IconButton } from "@mui/material";
+import { IconButton,Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { PlayArrow, VolumeOff } from '@mui/icons-material';
 import {
   Dialog,
   DialogContent,
@@ -19,8 +20,58 @@ import {
 import VolumeMuteIcon from "@mui/icons-material/VolumeMute";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import { makeStyles } from "@mui/styles";
+import PlayerSession from "./components/PlayerSession";
 
 const Session = () => {
+
+  const [completed, setCompleted] = useState(0);
+
+  const [activeQuestion, setActiveQuestion] = useState(0);
+  const [selectedAnswerIndices, setSelectedAnswerIndices] = useState([]);
+  const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
+
+  const [openDialog, setOpenDialog] = useState(false); // State for controlling the dialog visibility
+
+  const [showResult, setShowResult] = useState(false);
+  const [result, setResult] = useState({
+    score: 0,
+    correctAnswers: 0,
+    wrongAnswers: 0,
+  });
+
+  const [showExplanation, setShowExplanation] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [autoPlay, setIsAutoPlay] = useState(true);
+
+  const audio = new Audio( "../session/audio/fr/q1.mp3");
+
+  useEffect(() => {
+    playAudio();
+    // Code à exécuter lorsque la question change
+    if (isPlaying && !autoPlay) {
+      
+      audio.play();
+      return () => {
+        audio.pause();
+        audio.currentTime = 0;
+      };
+    }
+  }, [activeQuestion, isPlaying]);
+
+
+  const playAudio = async () => {
+    if(autoPlay){
+      audio.play()
+      .catch(error => {
+        console.error('Error autoplaying audio:', error);
+        setIsAutoPlay(false);
+        // Handle autoplay error here (e.g., show a UI element to manually play the audio)
+      });
+    }
+  
+    
+  };
+
   const navigate = useNavigate();
   const theme = createTheme({
     typography: {
@@ -58,37 +109,9 @@ const Session = () => {
   const classes = useStyles();
   const { id } = useParams();
 
-  const [completed, setCompleted] = useState(0);
+  
+  
 
-  const [activeQuestion, setActiveQuestion] = useState(0);
-  const [selectedAnswerIndices, setSelectedAnswerIndices] = useState([]);
-  const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
-
-  const [openDialog, setOpenDialog] = useState(false); // State for controlling the dialog visibility
-  const [dialogContent, setDialogContent] = useState(""); // State for the dialog content
-
-  const [showResult, setShowResult] = useState(false);
-  const [result, setResult] = useState({
-    score: 0,
-    correctAnswers: 0,
-    wrongAnswers: 0,
-  });
-
-  const [showExplanation, setShowExplanation] = useState(false);
-  const [isPlayingAudio, setIsPlayingAudio] = useState(false);
-  const playAudioResponse = () => {
-    let audioSrc =
-      "https://whyp.it/tracks/106593/2023-code-de-la-route-permis-de-conduire-nouvelle-40-questions-dexamen?token=pyKDQ";
-    const audio = new Audio(audioSrc);
-
-    if (isPlayingAudio) {
-      // audio.pause();
-    } else {
-      setIsPlayingAudio(true);
-
-      audio.play();
-    }
-  };
   const verifyAnswer = (indices) => {
     const isCorrect = arraysEqual(indices, correctAnswer);
     highlightCorrectAnswers(indices);
@@ -155,7 +178,7 @@ const Session = () => {
   }
 
   const { quizz } = sessionData;
-  const { questions, choices, correctAnswer, explaination } =
+  const { questions, choices, correctAnswer, explaination, assets } =
     quizz[activeQuestion];
 
   const onClickNext = () => {
@@ -221,6 +244,16 @@ const Session = () => {
     setSelectedAnswerIndex(null);
     onClickNext();
   };
+
+ 
+  const handleToggleAudio = () => {
+    audio.pause();
+    audio.currentTime = 0;
+    setIsAutoPlay(false);
+    setIsPlaying(!isPlaying);
+  };
+
+ 
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -264,11 +297,7 @@ const Session = () => {
             </Grid>
 
             <Grid id="imgContainer" item xs={10}>
-              <img
-                className="imgResponsive"
-                alt="road"
-                src="../images/test_img.png"
-              />
+              <PlayerSession type={assets.type} content={assets.img}/>
             </Grid>
             <Grid item xs={12} id="quizContainer">
               {questions && questions.length > 1 ? (
@@ -357,6 +386,7 @@ const Session = () => {
                   Explications
                 </button>
               </div>
+              
               <div
                 style={{
                   alignItems: "center",
@@ -366,6 +396,7 @@ const Session = () => {
                   justifyContent: "center",
                 }}
               >
+                    { autoPlay && !isPlaying  ? (<button onClick={handleToggleAudio}>'Mute' </button>): <button onClick={handleToggleAudio}>Play </button>}
                 <button
                   onClick={() => {
                     if (showExplanation) {
@@ -434,7 +465,7 @@ const Session = () => {
           <DialogContent>{explaination}</DialogContent>
           <DialogActions>
             <button
-              onClick={playAudioResponse}
+              //onClick={playAudioResponse}
               className={classes.orangeTonalBtn}
             >
               <VolumeUpIcon />
