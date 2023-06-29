@@ -245,7 +245,7 @@ const Session = () => {
     onClickNext();
   };
 
- 
+  
   const handleToggleAudio = () => {
     audio.pause();
     audio.currentTime = 0;
