@@ -7,18 +7,15 @@ import Grid from "@mui/material/Grid";
 import { session1 } from "./data/sessions/fr/session_1";
 import { session2 } from "./data/sessions/fr/session_2";
 import ProgressBar from "./components/ProgressBar";
-import { IconButton,Button } from "@mui/material";
+import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { PlayArrow, VolumeOff } from '@mui/icons-material';
+import { VolumeUp, VolumeOff } from '@mui/icons-material';
 import {
   Dialog,
   DialogContent,
   DialogTitle,
   DialogActions,
 } from "@mui/material";
-
-import VolumeMuteIcon from "@mui/icons-material/VolumeMute";
-import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import { makeStyles } from "@mui/styles";
 import PlayerSession from "./components/PlayerSession";
 
@@ -40,38 +37,30 @@ const Session = () => {
   });
 
   const [showExplanation, setShowExplanation] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [autoPlay, setIsAutoPlay] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [audioSrc, setAudioSrc] = useState("");
 
   const audio = new Audio( "../session/audio/fr/q1.mp3");
 
-  useEffect(() => {
-    playAudio();
-    // Code à exécuter lorsque la question change
-    if (isPlaying && !autoPlay) {
-      
-      audio.play();
+  useEffect(() => {    
+   
+    if (isPlaying) {
+      //var audio = new Audio( audioSrc);
+      //console.log(audioSrc);
+      audio.play().catch(error => {
+        console.error('Error autoplaying audio:', error);
+        setIsPlaying(false);
+        // Handle autoplay error here (e.g., show a UI element to manually play the audio)
+      });
       return () => {
         audio.pause();
         audio.currentTime = 0;
       };
     }
-  }, [activeQuestion, isPlaying]);
+  }, [activeQuestion, isPlaying,audioSrc]);
 
 
-  const playAudio = async () => {
-    if(autoPlay){
-      audio.play()
-      .catch(error => {
-        console.error('Error autoplaying audio:', error);
-        setIsAutoPlay(false);
-        // Handle autoplay error here (e.g., show a UI element to manually play the audio)
-      });
-    }
-  
-    
-  };
-
+ 
   const navigate = useNavigate();
   const theme = createTheme({
     typography: {
@@ -247,9 +236,7 @@ const Session = () => {
 
   
   const handleToggleAudio = () => {
-    audio.pause();
-    audio.currentTime = 0;
-    setIsAutoPlay(false);
+   
     setIsPlaying(!isPlaying);
   };
 
@@ -297,9 +284,13 @@ const Session = () => {
             </Grid>
 
             <Grid id="imgContainer" item xs={10}>
-              <PlayerSession type={assets.type} content={assets.img}/>
+              <PlayerSession type={assets.type} content={assets.img} setAudioSrc={setAudioSrc} audioQuestion={assets.question} audioExplaination={assets.explaination}/>
+              
             </Grid>
             <Grid item xs={12} id="quizContainer">
+              <div style={{width: '100%',paddingLeft: '94%'}}>
+                <button className={classes.orangeTonalBtn} onClick={handleToggleAudio}>  { !isPlaying   ? <VolumeOff /> : <VolumeUp />}</button>
+              </div>
               {questions && questions.length > 1 ? (
                 <>
                   <h7 id="questionQuizz">{questions[0]}</h7>
@@ -317,7 +308,14 @@ const Session = () => {
                     <ul className="quizList">
                       {choices.slice(0, 2).map((answer, index) => (
                         <li
-                          onClick={() => onAnswerSelected(index)}
+                          onClick={() =>{
+                            if(showExplanation){
+                              return null;
+                            }else{
+                              onAnswerSelected(index)
+                            }
+                            
+                          } }
                           key={answer}
                           className={
                             isAnswerSelected(index) ? "selected-answer" : null
@@ -333,7 +331,13 @@ const Session = () => {
                       <ul className="quizList">
                         {choices.slice(2, 4).map((answer, index) => (
                           <li
-                            onClick={() => onAnswerSelected(index + 2)}
+                            onClick={() =>{ 
+                              if(showExplanation){
+                                return null;
+                              }else{
+                                onAnswerSelected(index + 2)
+                              }} 
+                            }
                             key={answer}
                             className={
                               isAnswerSelected(index + 2)
@@ -354,7 +358,13 @@ const Session = () => {
                     questions.length === 1 &&
                     choices.map((answer, index) => (
                       <li
-                        onClick={() => onAnswerSelected(index)}
+                        onClick={() =>{ 
+                          if(showExplanation){
+                            return null;
+                          }else{
+                            onAnswerSelected(index )
+                          }}
+                        }
                         key={answer}
                         className={
                           isAnswerSelected(index) ? "selected-answer" : null
@@ -396,7 +406,7 @@ const Session = () => {
                   justifyContent: "center",
                 }}
               >
-                    { autoPlay && !isPlaying  ? (<button onClick={handleToggleAudio}>'Mute' </button>): <button onClick={handleToggleAudio}>Play </button>}
+                 
                 <button
                   onClick={() => {
                     if (showExplanation) {
@@ -468,7 +478,7 @@ const Session = () => {
               //onClick={playAudioResponse}
               className={classes.orangeTonalBtn}
             >
-              <VolumeUpIcon />
+              <VolumeUp />
             </button>
             <button
               onClick={closeExplanationDialogAndNext}

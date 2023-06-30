@@ -220,21 +220,21 @@ function Home() {
           </Grid>
 
           <Grid item xs={12} lg={8}>
-            <Grid>
+            <Grid   style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginTop: 35,
+                }}> 
+              {sessions.map((session) => (
               <Grid
                 item
                 xs={12}
                 sm={6}
                 lg={4}
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  marginTop: 35,
-                  justifyContent: "space-around",
-                }}
+                
               >
-                {sessions.map((session) => (
+               
                   <Card
                     sx={{
                       "&:hover": {
@@ -274,8 +274,8 @@ function Home() {
                       </Typography>
                     </CardContent>
                   </Card>
-                ))}
-              </Grid>
+                
+              </Grid>))}
             </Grid>
           </Grid>
         </Grid>
