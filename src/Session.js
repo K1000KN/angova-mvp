@@ -251,6 +251,9 @@ const Session = () => {
         <CssBaseline />
         {!showResult ? (
           <div>
+            <div  className="scroll-container">
+
+            
             <Grid container direction="row">
               <Grid
                 item
@@ -380,7 +383,8 @@ const Session = () => {
                 </ul>
               </div>
             </Grid>
-            <Grid className="quizButton" item xs={12}>
+            </div>
+            <Grid className="quizButton bottomNav" item xs={12}>
               <div
                 style={{
                   alignItems: "center",
