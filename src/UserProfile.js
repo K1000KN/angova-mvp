@@ -419,7 +419,10 @@ const UserProfile = () => {
                 </Button>
               )}
 
-              <Button variant="contained" onClick={logout} color="error">
+              <Button variant="contained" onClick={{}} color="error">
+                Suppression
+              </Button>
+              <Button variant="contained" onClick={logout} color="primary">
                 Deconnexion
               </Button>
             </Grid> 
