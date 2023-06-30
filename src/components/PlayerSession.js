@@ -20,14 +20,11 @@ var PlayerSession = ({ type, content, setAudioSrc, audioQuestion, audioExplainat
     }, [type, content]);
 
     let render;
-    if (type === "img") {
-        const currentSource = content[currentSourceIndex];
-        render = <img className="imgResponsive" alt="road" src={currentSource} />;
     
-    } else {
-        render = <video autoPlay={true} className="imgResponsive" src={content}/>
-    }
-
+    const currentSource = content[currentSourceIndex];
+    render = <img className="imgResponsive" alt="road" src={currentSource} />;
+    
+    
 
     return (
         <> 

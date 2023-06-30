@@ -1,11 +1,12 @@
-export const session1 = {
+export const session1FR = {
   id: 1,
   topic: "Session",
   totalquestions: 40,
   perQuestionScore: 1,
-  image: "./images/session1.png",
+  image:"../session/img/q1.jpeg",
   title: "Session 1",
   description: "Session 1",
+  language: "fr",
 
   quizz: [
     {
@@ -17,7 +18,6 @@ export const session1 = {
         "Où s’arrêter à un stop ?    Lorsque j’arrive à un stop, l'arrêt dans tous les cas est obligatoire à hauteur de la ligne d'effet, placée de manière à ce que je puisse voir correctement l’intersection avant de repartir.",
       assets: {
         img: ["../session/img/q1.jpeg"],
-       
         question: "../session/audio/fr/q1.mp3",
         explaination: "../session/audio/fr/exp1.mp3",
       },

@@ -17,7 +17,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { makeStyles } from "@mui/styles";
-import { session1 } from "./data/sessions/fr/session_1.js";
+import { session1FR } from "./data/sessions/fr/session_1.js";
 import { session2 } from "./data/sessions/fr/session_2.js";
 function Home() {
   const franceRoundedFlag = "./images/flag/rounded/france.png";
@@ -66,7 +66,7 @@ function Home() {
       navigate("/profil");
     }
   };
-  const sessions = [session1, session2];
+  const sessions = [session1FR, session2];
 
   useEffect(() => {
     // we use this effect to see the language dialog

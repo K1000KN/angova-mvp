@@ -4,8 +4,9 @@ import "./session.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
-import { session1 } from "./data/sessions/fr/session_1";
-import { session2 } from "./data/sessions/fr/session_2";
+import { session1FR } from "./data/sessions/fr/session_1";
+import { session1ES } from "./data/sessions/es/session_1";
+// import { session2 } from "./data/sessions/fr/session_2";
 import ProgressBar from "./components/ProgressBar";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
@@ -40,13 +41,12 @@ const Session = () => {
   const [isPlaying, setIsPlaying] = useState(true);
   const [audioSrc, setAudioSrc] = useState("");
 
-  const audio = new Audio( "../session/audio/fr/q1.mp3");
+  //const audio = new Audio( "../session/audio/fr/q1.mp3");
 
   useEffect(() => {    
    
     if (isPlaying) {
-      //var audio = new Audio( audioSrc);
-      //console.log(audioSrc);
+      var audio = new Audio( audioSrc);
       audio.play().catch(error => {
         console.error('Error autoplaying audio:', error);
         setIsPlaying(false);
@@ -106,14 +106,14 @@ const Session = () => {
     highlightCorrectAnswers(indices);
 
     if (isCorrect) {
-      console.log("correct");
+     
       setResult((prevResult) => ({
         ...prevResult,
         score: prevResult.score + 1,
         correctAnswers: prevResult.correctAnswers + 1,
       }));
     } else {
-      console.log("wrong");
+     
       highlightWrongAnswers(indices);
 
       setResult((prevResult) => ({
@@ -144,11 +144,16 @@ const Session = () => {
 
   switch (id) {
     case "1":
-      sessionData = session1;
+      if( localStorage.getItem("language")==="fr"){
+        sessionData = session1FR;
+      }
+      if( localStorage.getItem("language")==="es"){
+        sessionData = session1ES;
+      }
       break;
-    case "2":
-      sessionData = session2;
-      break;
+    // case "2":
+    //   sessionData = session2;
+    //   break;
     // case "3":
     //   sessionData = session3;
     //   break;
@@ -213,7 +218,6 @@ const Session = () => {
   };
 
   const highlightWrongAnswers = (indices) => {
-    console.log("indices", indices);
 
     const answerListItems = document.querySelectorAll(".quizList li");
     answerListItems.forEach((item, index) => {
@@ -285,7 +289,7 @@ const Session = () => {
 
             <Grid id="imgContainer" item xs={10}>
               <PlayerSession type={assets.type} content={assets.img} setAudioSrc={setAudioSrc} audioQuestion={assets.question} audioExplaination={assets.explaination}/>
-              
+            
             </Grid>
             <Grid item xs={12} id="quizContainer">
               <div style={{width: '100%',paddingLeft: '94%'}}>
