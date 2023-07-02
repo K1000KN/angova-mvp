@@ -22,7 +22,7 @@ import {
 } from "@mui/material";
 import * as Yup from "yup";
 import { useTranslation } from "react-i18next";
-import { useTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import NavbarComponent from "./components/Navbar";
 import BottomBar from "./components/BottomBar";
@@ -224,13 +224,6 @@ const UserProfile = () => {
           },
         }
       );
-
-      const normalUsers = response.data.filter(
-        (user) =>
-          !user.roles.some(
-            (role) => role.name === "admin" || role.name === "manager"
-          )
-      );
       const managerId = decodedToken.id;
       const userFromManager = response.data.filter(
         (user) =>
@@ -242,7 +235,7 @@ const UserProfile = () => {
       console.error("Error:", error);
       // Handle error state or display an error message
     }
-  }, [token]);
+  }, [decodedToken.id, token]);
 
   useEffect(() => {
     fetchUsers();
@@ -341,22 +334,6 @@ const UserProfile = () => {
     setOpenDialog(true);
   };
 
-  const handleRegistrationSubmit = () => {
-    if (
-      registrationData.name.trim() !== "" &&
-      registrationData.email.trim() !== ""
-    ) {
-      const newUser = {
-        name: registrationData.name,
-        email: registrationData.email,
-      };
-      const updatedUsers = [...usersList, newUser];
-      setUsers(updatedUsers);
-      setRegistrationData({ name: "", email: "" });
-      setOpenDialog(false);
-    }
-  };
-
   const handleCloseDialog = () => {
     setRegistrationData({ name: "", email: "" });
     setOpenDialog(false);
@@ -423,7 +400,6 @@ const UserProfile = () => {
       setUsers([...usersList, user]);
       props.resetForm();
       handleClose();
-      navigate("/home");
       console.log(response);
     } catch (error) {
       console.error("Error:", error);
