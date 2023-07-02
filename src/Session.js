@@ -182,7 +182,7 @@ const Session = () => {
             marginTop: "20px",
           }}
         >
-          Invalid session ID or language not supported
+          Invalid session ID
         </Typography>
       );
   }
