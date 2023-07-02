@@ -4,14 +4,14 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import {
   Box,
   Button,
-  Paper, 
-  Table, 
+  Paper,
+  Table,
   TableBody,
-  TableCell, 
-  TableContainer, 
-  TableHead, 
-  TableRow, 
-  TextField,  
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TextField,
   Typography,
   Grid,
   Dialog,
@@ -30,7 +30,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
 import { decodeToken } from "react-jwt";
 import axios from "axios";
-import { AddCircleOutline, Delete } from '@mui/icons-material';
+import { AddCircleOutline, Delete } from "@mui/icons-material";
 import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme();
@@ -164,7 +164,6 @@ const UserProfile = () => {
 
   const [isEditing, setIsEditing] = useState(false);
 
-
   const handleEditClick = () => {
     setIsEditing(true);
   };
@@ -231,7 +230,7 @@ const UserProfile = () => {
       const decodedToken = decodeToken(token);
       const id = decodedToken.id;
       const role = decodedToken.role;
-     
+
       let endpoint = `http://localhost:3001/api/v1/user/${id}`;
       setRoleUser(role);
       if (role === "admin") {
@@ -246,7 +245,7 @@ const UserProfile = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        
+
         setUser(response.data);
         setIsUserFetched(true);
       } catch (error) {
@@ -267,89 +266,93 @@ const UserProfile = () => {
     }));
   };
 
-
-
   const [usersList, setUsers] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
-  const [registrationData, setRegistrationData] = useState({ name: '', email: '' });
-  
-    const handleDeleteUser = (index) => {
-      const updatedUsers = [...usersList];
-      updatedUsers.splice(index, 1);
+  const [registrationData, setRegistrationData] = useState({
+    name: "",
+    email: "",
+  });
+
+  const handleDeleteUser = (index) => {
+    const updatedUsers = [...usersList];
+    updatedUsers.splice(index, 1);
+    setUsers(updatedUsers);
+  };
+
+  const handleAddUser = () => {
+    setOpenDialog(true);
+  };
+
+  const handleRegistrationSubmit = () => {
+    if (
+      registrationData.name.trim() !== "" &&
+      registrationData.email.trim() !== ""
+    ) {
+      const newUser = {
+        name: registrationData.name,
+        email: registrationData.email,
+      };
+      const updatedUsers = [...usersList, newUser];
       setUsers(updatedUsers);
-    };
-  
-    const handleAddUser = () => {
-      setOpenDialog(true);
-    };
-  
-    const handleRegistrationSubmit = () => {
-      if (registrationData.name.trim() !== '' && registrationData.email.trim() !== '') {
-        const newUser = {
-          name: registrationData.name,
-          email: registrationData.email,
-        };
-        const updatedUsers = [...usersList, newUser];
-        setUsers(updatedUsers);
-        setRegistrationData({ name: '', email: '' });
-        setOpenDialog(false);
-      }
-    };
-  
-    const handleCloseDialog = () => {
-      setRegistrationData({ name: '', email: '' });
+      setRegistrationData({ name: "", email: "" });
       setOpenDialog(false);
-    };
-    const paperStyle = {
-      padding: "0 15px 40px 15px",
-      display: "flex",
-      flexDirection: "column",
-    };
-    const btnStyle = {
-      marginTop: 10,
-      width: "70%",
-      marginLeft: "15%",
-      backgroundColor: "#F49E4C",
-    };
-    const ageRegExp = /^\d+$/;
-    const passwordRegExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
-  
-    const initialValues = {
-      name: "",
-      firstname: "",
-      age: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    };
-    const validationSchema = Yup.object().shape({
-      name: Yup.string()
-        .min(3, `${t("message-input-verif")}`)
-        .required("Requis"),
-      firstname: Yup.string()
-        .min(3, `${t("message-input-verif")}`)
-        .required("Requis"),
-      email: Yup.string()
-        .email(`${t("email-input-verif")}`)
-        .required("Requis"),
-      age: Yup.string().matches(ageRegExp, `${t("nb-input-verif")}`),
-      password: Yup.string()
-        .min(8, `${t("password-input-verif")}`)
-        .matches(
-          passwordRegExp,
-          "Password must have one upper, lower case, number"
-        )
-        .required("Requis"),
-      confirmPassword: Yup.string()
-        .oneOf([Yup.ref("password")], "Mots de passe ne correspondent pas")
-        .required("Requis"),
-    });
-    const onSubmit = (values, props) => {
-      alert(JSON.stringify(values), null, 2);
-      props.resetForm();
-      handleClose();
-      navigate("/home");
-    };
+    }
+  };
+
+  const handleCloseDialog = () => {
+    setRegistrationData({ name: "", email: "" });
+    setOpenDialog(false);
+  };
+  const paperStyle = {
+    padding: "0 15px 40px 15px",
+    display: "flex",
+    flexDirection: "column",
+  };
+  const btnStyle = {
+    marginTop: 10,
+    width: "70%",
+    marginLeft: "15%",
+    backgroundColor: "#F49E4C",
+  };
+  const ageRegExp = /^\d+$/;
+  const passwordRegExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
+
+  const initialValues = {
+    name: "",
+    firstname: "",
+    age: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  };
+  const validationSchema = Yup.object().shape({
+    name: Yup.string()
+      .min(3, `${t("message-input-verif")}`)
+      .required("Requis"),
+    firstname: Yup.string()
+      .min(3, `${t("message-input-verif")}`)
+      .required("Requis"),
+    email: Yup.string()
+      .email(`${t("email-input-verif")}`)
+      .required("Requis"),
+    age: Yup.string().matches(ageRegExp, `${t("nb-input-verif")}`),
+    password: Yup.string()
+      .min(8, `${t("password-input-verif")}`)
+      .matches(
+        passwordRegExp,
+        "Password must have one upper, lower case, number"
+      )
+      .required("Requis"),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref("password")], "Mots de passe ne correspondent pas")
+      .required("Requis"),
+  });
+  const onSubmit = (values, props) => {
+    alert(JSON.stringify(values), null, 2);
+    props.resetForm();
+    handleClose();
+    navigate("/home");
+  };
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -359,11 +362,10 @@ const UserProfile = () => {
           id="sessionContainer"
           container
           direction="row"
-          style={{ height: "94vh",overflow: "auto",maxHeight: "90vh"}}
+          style={{ height: "94vh", overflow: "auto", maxHeight: "90vh" }}
         >
-       
           <Box sx={{ maxWidth: "75%", mx: "auto" }}>
-            <Typography variant="h4" gutterBottom sx={{marginTop:"30px"}}>
+            <Typography variant="h4" gutterBottom sx={{ marginTop: "30px" }}>
               {isEditing ? "Editer mon profil" : "Mon profil"}
             </Typography>
             <TextField
@@ -400,13 +402,14 @@ const UserProfile = () => {
               margin="normal"
               variant="outlined"
             />
-            
+
             <Grid
               container
               sx={{
                 display: "flex",
                 justifyContent: "space-between",
                 marginTop: 2,
+                gap: 2,
               }}
             >
               {isEditing ? (
@@ -419,19 +422,19 @@ const UserProfile = () => {
                 </Button>
               )}
 
-              <Button variant="contained" onClick={{}} color="error">
+              <Button variant="contained" onClick={() => {}} color="error">
                 Suppression
               </Button>
               <Button variant="contained" onClick={logout} color="primary">
                 Deconnexion
               </Button>
-            </Grid> 
+            </Grid>
             {roleUser === "manager" ? (
               <>
-                <Typography variant="h4" sx={{marginTop:"30px"}}>
+                <Typography variant="h4" sx={{ marginTop: "30px" }}>
                   Ajouter un utilisateur
                 </Typography>
-                <Paper sx={{marginTop:"30px", marginBottom: "30px"}}>
+                <Paper sx={{ marginTop: "30px", marginBottom: "30px" }}>
                   <TableContainer>
                     <Table>
                       <TableHead>
@@ -447,7 +450,9 @@ const UserProfile = () => {
                             <TableCell>{user.name}</TableCell>
                             <TableCell>{user.name}</TableCell>
                             <TableCell>
-                              <IconButton onClick={() => handleDeleteUser(index)}>
+                              <IconButton
+                                onClick={() => handleDeleteUser(index)}
+                              >
                                 <Delete />
                               </IconButton>
                             </TableCell>
@@ -456,8 +461,18 @@ const UserProfile = () => {
                       </TableBody>
                     </Table>
                   </TableContainer>
-                  <div style={{ display: 'flex', justifyContent: 'center', padding: '1rem' }}>
-                    <IconButton onClick={handleAddUser}  variant="contained" color="primary">
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      padding: "1rem",
+                    }}
+                  >
+                    <IconButton
+                      onClick={handleAddUser}
+                      variant="contained"
+                      color="primary"
+                    >
                       <AddCircleOutline />
                     </IconButton>
                   </div>
@@ -465,60 +480,121 @@ const UserProfile = () => {
                   <Dialog open={openDialog} onClose={handleCloseDialog}>
                     <DialogTitle>Inscription</DialogTitle>
                     <DialogContent>
-                    <Grid>
+                      <Grid>
                         <Paper elevation={0} style={paperStyle}>
-                        
-                            <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
-                                {(props) => (
-                                    <Form noValidate >
-                                    
-                                        <Field className={classes.field} as={TextField} name='name' label={t('input-form-Lname')} fullWidth
-                                            error={props.errors.name && props.touched.name}
-                                            helperText={<ErrorMessage name='name' />} required />
+                          <Formik
+                            initialValues={initialValues}
+                            validationSchema={validationSchema}
+                            onSubmit={onSubmit}
+                          >
+                            {(props) => (
+                              <Form noValidate>
+                                <Field
+                                  className={classes.field}
+                                  as={TextField}
+                                  name="name"
+                                  label={t("input-form-Lname")}
+                                  fullWidth
+                                  error={
+                                    props.errors.name && props.touched.name
+                                  }
+                                  helperText={<ErrorMessage name="name" />}
+                                  required
+                                />
 
-                                        <Field className={classes.field} as={TextField} name='firstname' label={t('input-form-Fname')} fullWidth
-                                            error={props.errors.firstname && props.touched.firstname}
-                                            helperText={<ErrorMessage name='firstname' />} required />
+                                <Field
+                                  className={classes.field}
+                                  as={TextField}
+                                  name="firstname"
+                                  label={t("input-form-Fname")}
+                                  fullWidth
+                                  error={
+                                    props.errors.firstname &&
+                                    props.touched.firstname
+                                  }
+                                  helperText={<ErrorMessage name="firstname" />}
+                                  required
+                                />
 
-                                        <Field className={classes.field} as={TextField} name='age' label='Age' type='number' fullWidth
-                                            />
+                                <Field
+                                  className={classes.field}
+                                  as={TextField}
+                                  name="age"
+                                  label="Age"
+                                  type="number"
+                                  fullWidth
+                                />
 
-                                        <Field className={classes.field} as={TextField} name='email' label='Email' fullWidth
-                                            error={props.errors.email && props.touched.email}
-                                            helperText={<ErrorMessage name='email' />} required />
+                                <Field
+                                  className={classes.field}
+                                  as={TextField}
+                                  name="email"
+                                  label="Email"
+                                  fullWidth
+                                  error={
+                                    props.errors.email && props.touched.email
+                                  }
+                                  helperText={<ErrorMessage name="email" />}
+                                  required
+                                />
 
-                                        <Field className={classes.field} as={TextField} name='password' label={t('input-form-password')} type='password' fullWidth
-                                            error={props.errors.password && props.touched.password}
-                                            helperText={<ErrorMessage name='password' />} required />
+                                <Field
+                                  className={classes.field}
+                                  as={TextField}
+                                  name="password"
+                                  label={t("input-form-password")}
+                                  type="password"
+                                  fullWidth
+                                  error={
+                                    props.errors.password &&
+                                    props.touched.password
+                                  }
+                                  helperText={<ErrorMessage name="password" />}
+                                  required
+                                />
 
-                                        <Field className={classes.field} as={TextField} name='confirmPassword' label={t('input-form-confirm-password')} type='password' fullWidth
-                                            error={props.errors.confirmPassword && props.touched.confirmPassword}
-                                            helperText={<ErrorMessage name='confirmPassword' />} required />
+                                <Field
+                                  className={classes.field}
+                                  as={TextField}
+                                  name="confirmPassword"
+                                  label={t("input-form-confirm-password")}
+                                  type="password"
+                                  fullWidth
+                                  error={
+                                    props.errors.confirmPassword &&
+                                    props.touched.confirmPassword
+                                  }
+                                  helperText={
+                                    <ErrorMessage name="confirmPassword" />
+                                  }
+                                  required
+                                />
 
-                                        <Button   type='submit' style={btnStyle} variant='contained'
-                                            >{t('register-button')}</Button>
-                                    </Form>
-                                )}
-                            </Formik>
+                                <Button
+                                  type="submit"
+                                  style={btnStyle}
+                                  variant="contained"
+                                >
+                                  {t("register-button")}
+                                </Button>
+                              </Form>
+                            )}
+                          </Formik>
                         </Paper>
-                    </Grid> 
+                      </Grid>
                     </DialogContent>
                     <DialogActions>
                       <Button onClick={handleCloseDialog} color="primary">
                         Cancel
                       </Button>
-                      
                     </DialogActions>
                   </Dialog>
-                </Paper> 
+                </Paper>
               </>
-              ) : (
-                <>
-                  
-                </>
-              )}
+            ) : (
+              <></>
+            )}
           </Box>
-           
         </Grid>
       )}
       <Dialog fullWidth maxWidth="sm" open={show} onClose={handleClose}>
