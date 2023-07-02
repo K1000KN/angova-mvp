@@ -45,7 +45,7 @@ const UserProfile = () => {
   const earthFlag = "./images/flag/rounded/earth.png";
   const spainRoundedFlag = "./images/flag/rounded/spain.png";
   const navigate = useNavigate();
-  const [value, setValue] = React.useState("profil");
+  const [value, setValue] = useState("profil");
   const [show, setShow] = useState(false);
 
   const useStyles = makeStyles({
@@ -85,6 +85,53 @@ const UserProfile = () => {
   const logout = () => {
     localStorage.removeItem("token");
     navigate("/");
+  };
+
+  const setLanguageImage = (language) => {
+    let src = null;
+    switch (language) {
+      case "earth":
+        src = earthFlag;
+        break;
+      case "fr":
+        src = franceRoundedFlag;
+        break;
+      case "en":
+        src = englishRoundedFlag;
+        break;
+      case "es":
+        src = spainRoundedFlag;
+        break;
+      case "ar":
+        src = moroccoRoundedFlag;
+        break;
+      case "alg":
+        src = algeriaRoundedFlag;
+        break;
+      case "maroc":
+        src = moroccoRoundedFlag;
+        break;
+      case "tuni":
+        src = tuniRoundedFlag;
+        break;
+      case "tr":
+        src = turkeyRoundedFlag;
+        break;
+      default:
+        src = null;
+        break;
+    }
+
+    return (
+      <img
+        className="languageNavImg"
+        onClick={() => {
+          setShow(true);
+        }}
+        src={src}
+        alt={language}
+      />
+    );
   };
 
   useEffect(() => {
@@ -162,6 +209,8 @@ const UserProfile = () => {
     );
   };
 
+  /// Editing profile
+
   const [isEditing, setIsEditing] = useState(false);
 
   const handleEditClick = () => {
@@ -171,53 +220,6 @@ const UserProfile = () => {
   const handleSaveClick = () => {
     setIsEditing(false);
     // Perform API call or update the user information in some way
-  };
-
-  const setLanguageImage = (language) => {
-    let src = null;
-    switch (language) {
-      case "earth":
-        src = earthFlag;
-        break;
-      case "fr":
-        src = franceRoundedFlag;
-        break;
-      case "en":
-        src = englishRoundedFlag;
-        break;
-      case "es":
-        src = spainRoundedFlag;
-        break;
-      case "ar":
-        src = moroccoRoundedFlag;
-        break;
-      case "alg":
-        src = algeriaRoundedFlag;
-        break;
-      case "maroc":
-        src = moroccoRoundedFlag;
-        break;
-      case "tuni":
-        src = tuniRoundedFlag;
-        break;
-      case "tr":
-        src = turkeyRoundedFlag;
-        break;
-      default:
-        src = null;
-        break;
-    }
-
-    return (
-      <img
-        className="languageNavImg"
-        onClick={() => {
-          setShow(true);
-        }}
-        src={src}
-        alt={language}
-      />
-    );
   };
 
   const token = localStorage.getItem("token");
@@ -271,6 +273,7 @@ const UserProfile = () => {
   const [registrationData, setRegistrationData] = useState({
     name: "",
     email: "",
+    age: null,
   });
 
   const handleDeleteUser = (index) => {
@@ -396,7 +399,7 @@ const UserProfile = () => {
               name="age"
               label="Age"
               type="number"
-              value={(Math.random() * (100 - 18) + 18).toFixed(0)}
+              value={user.age}
               onChange={handleInputChange}
               disabled={!isEditing}
               margin="normal"
@@ -429,7 +432,8 @@ const UserProfile = () => {
                 Deconnexion
               </Button>
             </Grid>
-            {roleUser === "manager" ? (
+
+              {roleUser === "manager" ? (
               <>
                 <Typography variant="h4" sx={{ marginTop: "30px" }}>
                   Ajouter un utilisateur
