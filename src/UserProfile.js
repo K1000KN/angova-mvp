@@ -252,7 +252,7 @@ const UserProfile = () => {
   const handleSaveClick = () => {
     setIsEditing(false);
     if (roleUser === "manager") {
-      updateUserManager();
+      updateManager();
     }
     if (roleUser === "user") {
       updateUser();
@@ -260,15 +260,22 @@ const UserProfile = () => {
   };
   const updateUser = async () => {
     const id = decodedToken.id;
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+
     const endpoint = `http://localhost:3001/api/v1/user/${id}`;
-    const response = await axios.put(endpoint, user);
+    const response = await axios.put(endpoint, user, { headers });
     console.log(response);
   };
 
-  const updateUserManager = async () => {
+  const updateManager = async () => {
     const id = decodedToken.id;
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
     const endpoint = `http://localhost:3001/api/v1/manager/${id}`;
-    const response = await axios.put(endpoint, user);
+    const response = await axios.put(endpoint, user, { headers });
     console.log(response);
   };
   const [user, setUser] = useState(null);
