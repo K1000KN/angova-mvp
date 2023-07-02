@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 import { Group as GroupIcon } from "@mui/icons-material";
 
-import EditForm from "../EditForm";
+import EditForm from "./EditForm";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);

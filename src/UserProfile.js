@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { makeStyles } from "@mui/styles";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import {
@@ -36,6 +36,10 @@ import { createTheme } from "@mui/material/styles";
 const theme = createTheme();
 
 const UserProfile = () => {
+  const token = localStorage.getItem("token");
+  const decodedToken = decodeToken(token);
+
+  /// Flags
   const franceRoundedFlag = "./images/flag/rounded/france.png";
   const englishRoundedFlag = "./images/flag/rounded/uk.png";
   const algeriaRoundedFlag = "./images/flag/rounded/algeria.png";
@@ -134,9 +138,8 @@ const UserProfile = () => {
     );
   };
 
+  // Check if the user has already picked a language
   useEffect(() => {
-    // we use this effect to see the language dialog
-    // only if the user has not choose a language
     const hasLanguagePicked = localStorage.getItem("hasChoosenLanguage");
 
     if (hasLanguagePicked === null) {
@@ -209,6 +212,42 @@ const UserProfile = () => {
     );
   };
 
+  /// List Manager Users
+
+  const fetchUsers = useCallback(async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3001/api/v1/user/all",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const normalUsers = response.data.filter(
+        (user) =>
+          !user.roles.some(
+            (role) => role.name === "admin" || role.name === "manager"
+          )
+      );
+      const managerId = decodedToken.id;
+      const userFromManager = response.data.filter(
+        (user) =>
+          user.roles.some((role) => role.name === "user") &&
+          user.manager === managerId
+      );
+      setUsers(userFromManager);
+    } catch (error) {
+      console.error("Error:", error);
+      // Handle error state or display an error message
+    }
+  }, [token]);
+
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
+
   /// Editing profile
 
   const [isEditing, setIsEditing] = useState(false);
@@ -219,10 +258,26 @@ const UserProfile = () => {
 
   const handleSaveClick = () => {
     setIsEditing(false);
-    // Perform API call or update the user information in some way
+    if (roleUser === "manager") {
+      updateUserManager();
+    }
+    if (roleUser === "user") {
+      updateUser();
+    }
+  };
+  const updateUser = async () => {
+    const id = decodedToken.id;
+    const endpoint = `http://localhost:3001/api/v1/user/${id}`;
+    const response = await axios.put(endpoint, user);
+    console.log(response);
   };
 
-  const token = localStorage.getItem("token");
+  const updateUserManager = async () => {
+    const id = decodedToken.id;
+    const endpoint = `http://localhost:3001/api/v1/manager/${id}`;
+    const response = await axios.put(endpoint, user);
+    console.log(response);
+  };
   const [user, setUser] = useState(null);
   const [isUserFetched, setIsUserFetched] = useState(false);
   const [roleUser, setRoleUser] = useState("");
@@ -350,12 +405,31 @@ const UserProfile = () => {
       .oneOf([Yup.ref("password")], "Mots de passe ne correspondent pas")
       .required("Requis"),
   });
-  const onSubmit = (values, props) => {
-    alert(JSON.stringify(values), null, 2);
-    props.resetForm();
-    handleClose();
-    navigate("/home");
+
+  const onSubmitAddNewUser = async (values, props) => {
+    const user = {
+      username: values.name,
+      // firstname: values.firstname,
+      // age: values.age,
+      email: values.email,
+      password: values.password,
+    };
+    try {
+      const endpoint = `http://localhost:3001/api/v1/manager/create`;
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+      const response = await axios.post(endpoint, user, { headers });
+      setUsers([...usersList, user]);
+      props.resetForm();
+      handleClose();
+      navigate("/home");
+      console.log(response);
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -373,8 +447,8 @@ const UserProfile = () => {
             </Typography>
             <TextField
               fullWidth
-              id="name"
-              name="name"
+              id="username"
+              name="username"
               label="Name"
               value={user.username}
               onChange={handleInputChange}
@@ -393,18 +467,18 @@ const UserProfile = () => {
               margin="normal"
               variant="outlined"
             />
-            <TextField
+            {/* <TextField
               fullWidth
               id="age"
               name="age"
               label="Age"
               type="number"
-              value={user.age}
+              value={0}
               onChange={handleInputChange}
               disabled={!isEditing}
               margin="normal"
               variant="outlined"
-            />
+            /> */}
 
             <Grid
               container
@@ -433,7 +507,7 @@ const UserProfile = () => {
               </Button>
             </Grid>
 
-              {roleUser === "manager" ? (
+            {roleUser === "manager" ? (
               <>
                 <Typography variant="h4" sx={{ marginTop: "30px" }}>
                   Ajouter un utilisateur
@@ -449,10 +523,10 @@ const UserProfile = () => {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {usersList.map((user, index) => (
+                        {usersList.map((element, index) => (
                           <TableRow key={index}>
-                            <TableCell>{user.name}</TableCell>
-                            <TableCell>{user.name}</TableCell>
+                            <TableCell>{element.username}</TableCell>
+                            <TableCell>{element.email}</TableCell>
                             <TableCell>
                               <IconButton
                                 onClick={() => handleDeleteUser(index)}
@@ -489,7 +563,7 @@ const UserProfile = () => {
                           <Formik
                             initialValues={initialValues}
                             validationSchema={validationSchema}
-                            onSubmit={onSubmit}
+                            onSubmit={onSubmitAddNewUser}
                           >
                             {(props) => (
                               <Form noValidate>
