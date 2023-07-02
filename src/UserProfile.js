@@ -325,11 +325,6 @@ const UserProfile = () => {
 
   const [usersList, setUsers] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
-  const [registrationData, setRegistrationData] = useState({
-    name: "",
-    email: "",
-    age: null,
-  });
 
   const handleDeleteUser = (index) => {
     const updatedUsers = [...usersList];
@@ -342,7 +337,6 @@ const UserProfile = () => {
   };
 
   const handleCloseDialog = () => {
-    setRegistrationData({ name: "", email: "" });
     setOpenDialog(false);
   };
   const paperStyle = {
@@ -406,7 +400,7 @@ const UserProfile = () => {
       const response = await axios.post(endpoint, user, { headers });
       setUsers([...usersList, user]);
       props.resetForm();
-      handleClose();
+      handleCloseDialog();
       console.log(response);
     } catch (error) {
       console.error("Error:", error);
