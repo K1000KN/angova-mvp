@@ -137,8 +137,7 @@ const Session = () => {
     case "1":
       if (localStorage.getItem("language") === "fr") {
         sessionData = session1FR;
-      }
-      if (localStorage.getItem("language") === "es") {
+      } else if (localStorage.getItem("language") === "es") {
         sessionData = session1ES;
       } else {
         return (
