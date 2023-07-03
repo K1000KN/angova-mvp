@@ -39,7 +39,7 @@ function Player() {
     playbackRate: 1.0,
     seeking: false,
   });
-  const { playing, muted, volume, playbackRate, played, seeking } = state;
+  const { playing, muted, volume, playbackRate, played } = state;
 
   const playerRef = useRef(null);
   const playerContainerRef = useRef(null);

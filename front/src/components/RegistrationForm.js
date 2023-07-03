@@ -1,8 +1,9 @@
 import React from "react";
-import { Grid, Paper, Button, Typography, Link, Icon } from "@mui/material";
-import { TextField } from "@mui/material";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+// import { Grid, Paper, Button, Typography, Link, Icon } from "@mui/material";
+import { Typography, Link } from "@mui/material";
+// import { TextField } from "@mui/material";
+// import { Formik, Form, Field, ErrorMessage } from "formik";
+// import * as Yup from "yup";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -11,7 +12,7 @@ import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { createTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import CallIcon from "@mui/icons-material/Call";
 import EmailIcon from "@mui/icons-material/Email";
 
@@ -39,59 +40,59 @@ const useStyles = makeStyles({
   },
 });
 const RegistrationForm = ({ open, handleClose }) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const classes = useStyles();
   const { t } = useTranslation();
-  const paperStyle = {
-    padding: "0 15px 40px 15px",
-    display: "flex",
-    flexDirection: "column",
-  };
-  const btnStyle = {
-    marginTop: 10,
-    width: "70%",
-    marginLeft: "15%",
-    backgroundColor: "#F49E4C",
-  };
-  const ageRegExp = /^\d+$/;
-  const passwordRegExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
+  // const paperStyle = {
+  //   padding: "0 15px 40px 15px",
+  //   display: "flex",
+  //   flexDirection: "column",
+  // };
+  // const btnStyle = {
+  //   marginTop: 10,
+  //   width: "70%",
+  //   marginLeft: "15%",
+  //   backgroundColor: "#F49E4C",
+  // };
+  // const ageRegExp = /^\d+$/;
+  // const passwordRegExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
 
-  const initialValues = {
-    name: "",
-    firstname: "",
-    age: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  };
-  const validationSchema = Yup.object().shape({
-    name: Yup.string()
-      .min(3, `${t("message-input-verif")}`)
-      .required("Requis"),
-    firstname: Yup.string()
-      .min(3, `${t("message-input-verif")}`)
-      .required("Requis"),
-    email: Yup.string()
-      .email(`${t("email-input-verif")}`)
-      .required("Requis"),
-    age: Yup.string().matches(ageRegExp, `${t("nb-input-verif")}`),
-    password: Yup.string()
-      .min(8, `${t("password-input-verif")}`)
-      .matches(
-        passwordRegExp,
-        "Password must have one upper, lower case, number"
-      )
-      .required("Requis"),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password")], "Mots de passe ne correspondent pas")
-      .required("Requis"),
-  });
-  const onSubmit = (values, props) => {
-    alert(JSON.stringify(values), null, 2);
-    props.resetForm();
-    handleClose();
-    navigate("/home");
-  };
+  // const initialValues = {
+  //   name: "",
+  //   firstname: "",
+  //   age: "",
+  //   email: "",
+  //   password: "",
+  //   confirmPassword: "",
+  // };
+  // const validationSchema = Yup.object().shape({
+  //   name: Yup.string()
+  //     .min(3, `${t("message-input-verif")}`)
+  //     .required("Requis"),
+  //   firstname: Yup.string()
+  //     .min(3, `${t("message-input-verif")}`)
+  //     .required("Requis"),
+  //   email: Yup.string()
+  //     .email(`${t("email-input-verif")}`)
+  //     .required("Requis"),
+  //   age: Yup.string().matches(ageRegExp, `${t("nb-input-verif")}`),
+  //   password: Yup.string()
+  //     .min(8, `${t("password-input-verif")}`)
+  //     .matches(
+  //       passwordRegExp,
+  //       "Password must have one upper, lower case, number"
+  //     )
+  //     .required("Requis"),
+  //   confirmPassword: Yup.string()
+  //     .oneOf([Yup.ref("password")], "Mots de passe ne correspondent pas")
+  //     .required("Requis"),
+  // });
+  // const onSubmit = (values, props) => {
+  //   alert(JSON.stringify(values), null, 2);
+  //   props.resetForm();
+  //   handleClose();
+  //   navigate("/home");
+  // };
 
   return (
     <div
