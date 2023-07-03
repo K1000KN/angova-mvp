@@ -1,0 +1,32 @@
+{
+    "version": 2,
+    "builds": [
+        {
+            "src": "front/package.json",
+            "use": "@vercel/static-build",
+            "config": {
+                "distDir": "front/build"
+            }
+        },
+        {
+            "src": "back/server.js",
+            "use": "@vercel/node"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/api/(.*)",
+            "dest": "back/server.js"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "front/build/$1"
+        }
+    ],
+    "env": {
+        "SALT_KEY": "key",
+        "DB_URI": "mongodb://localhost:27017/mydb",
+        "PORT": "3001",
+        "NODE_ENV": "production"
+    }
+}
