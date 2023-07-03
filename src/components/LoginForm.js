@@ -20,6 +20,7 @@ import { createTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 const theme = createTheme();
 
@@ -76,27 +77,22 @@ const LoginForm = ({ open, handleClose }) => {
   });
 
   const onSubmit = async (values, props) => {
-    console.log('ok')
-
+    console.log("ok");
 
     try {
-      let endpoint = "";
-
-      if (values.isAdmin === true) {
-        endpoint = "http://localhost:3001/api/v1/admin/login";
-      } else {
-        endpoint = "http://localhost:3001/api/v1/user/login";
-      }
+      let endpoint = "http://localhost:3001/api/v1/auth/login";
 
       const response = await axios.post(endpoint, values);
       const { token } = response.data;
+      const decodedToken = jwt_decode(token);
+      const role = decodedToken.role;
 
       // Store the token and isAdmin in local storage
       localStorage.setItem("token", token);
 
       props.resetForm();
 
-      if (values.isAdmin) {
+      if (role === "admin") {
         navigate("/backoffice");
       } else {
         navigate("/home");
@@ -161,18 +157,6 @@ const LoginForm = ({ open, handleClose }) => {
                         error={props.errors.password && props.touched.password}
                         helperText={<ErrorMessage name="password" />}
                         required
-                      />
-
-                      <FormControlLabel
-                        className={classes.field}
-                        control={
-                          <Field
-                            as={Checkbox}
-                            name="isAdmin"
-                            checked={props.values.isAdmin}
-                          />
-                        }
-                        label={t("vous êtes un admin?")}
                       />
 
                       <Button
