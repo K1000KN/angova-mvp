@@ -18,6 +18,7 @@ import {
   DialogContent,
   DialogTitle,
   DialogActions,
+  DialogContentText,
   IconButton,
 } from "@mui/material";
 import * as Yup from "yup";
@@ -51,6 +52,10 @@ const UserProfile = () => {
   const navigate = useNavigate();
   const [value, setValue] = useState("profil");
   const [show, setShow] = useState(false);
+  const [showDeleteProfileDialog, setShowDeleteProfileDialog] = useState(false);
+  const [selectedUserToBeDeleted, setSelectedUserToBeDeleted] = useState(null);
+  const [showDeleteFromUsersDialog, setShowDeleteFromUsersDialog] =
+    useState(false);
 
   const useStyles = makeStyles({
     flagNav: {
@@ -91,6 +96,63 @@ const UserProfile = () => {
     navigate("/");
   };
 
+  const closeDeleteFromUsersDialog = () => {
+    setShowDeleteFromUsersDialog(false);
+  };
+
+  const openDeleteFromUsersDialog = (id) => {
+    setShowDeleteFromUsersDialog(true);
+    setSelectedUserToBeDeleted(id);
+  };
+
+  const openDeleteProfileDialog = () => {
+    setShowDeleteProfileDialog(true);
+  };
+
+  const closeDeleteProfileDialog = () => {
+    setShowDeleteProfileDialog(false);
+  };
+
+  const deleteUser = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await axios.delete(
+        `http://localhost:3001/api/v1/user/${selectedUserToBeDeleted}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        console.log("User deleted");
+        setShowDeleteFromUsersDialog(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteProfile = async () => {
+    const token = localStorage.getItem("token");
+    const decodedToken = decodeToken(token);
+    const role = decodedToken.role;
+    try {
+      const response = await axios.delete(
+        `http://localhost:3001/api/v1/${role}/${decodedToken.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        logout();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const setLanguageImage = (language) => {
     let src = null;
     switch (language) {
@@ -326,10 +388,19 @@ const UserProfile = () => {
   const [usersList, setUsers] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
 
-  const handleDeleteUser = (index) => {
-    const updatedUsers = [...usersList];
-    updatedUsers.splice(index, 1);
-    setUsers(updatedUsers);
+  const handleDeleteUser = async (index, id) => {
+    try {
+      await axios.delete(`http://localhost:3001/api/v1/user/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const newUsers = [...usersList];
+      newUsers.splice(index, 1);
+      setUsers(newUsers);
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   const handleAddUser = () => {
@@ -476,7 +547,11 @@ const UserProfile = () => {
                 </Button>
               )}
 
-              <Button variant="contained" onClick={() => {}} color="error">
+              <Button
+                variant="contained"
+                onClick={openDeleteProfileDialog}
+                color="error"
+              >
                 Suppression
               </Button>
               <Button variant="contained" onClick={logout} color="primary">
@@ -506,7 +581,9 @@ const UserProfile = () => {
                             <TableCell>{element.email}</TableCell>
                             <TableCell>
                               <IconButton
-                                onClick={() => handleDeleteUser(index)}
+                                onClick={() =>
+                                  openDeleteFromUsersDialog(element._id)
+                                }
                               >
                                 <Delete />
                               </IconButton>
@@ -652,6 +729,7 @@ const UserProfile = () => {
           </Box>
         </Grid>
       )}
+      {/* CHOSE LANGUAGE  */}
       <Dialog fullWidth maxWidth="sm" open={show} onClose={handleClose}>
         <div
           style={{
@@ -694,6 +772,49 @@ const UserProfile = () => {
           </DialogContent>
         </div>
       </Dialog>{" "}
+      {/* DELETE MY ACCOUNT MODAL */}
+      <Dialog open={showDeleteProfileDialog} onClose={closeDeleteProfileDialog}>
+        <DialogTitle>Suppression du compte</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Voulez-vous vraiment supprimer votre compte ?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeDeleteProfileDialog} color="primary">
+            Annuler
+          </Button>
+          <Button onClick={deleteProfile} color="primary" autoFocus>
+            Supprimer
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {/* DELETE USER LIST ACCOUNTS MODAL */}
+      <Dialog
+        open={showDeleteFromUsersDialog}
+        onClose={closeDeleteFromUsersDialog}
+      >
+        <DialogTitle>Suppression du compte</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Voulez-vous vraiment supprimer cet utilisateur ?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeDeleteFromUsersDialog} color="primary">
+            Annuler
+          </Button>
+          <Button
+            onClick={async () => {
+              deleteUser(selectedUserToBeDeleted);
+            }}
+            color="primary"
+            autoFocus
+          >
+            Supprimer
+          </Button>
+        </DialogActions>
+      </Dialog>
       <BottomBar handleChange={handleChange} value={value} />
     </ThemeProvider>
   );
