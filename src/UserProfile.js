@@ -113,26 +113,6 @@ const UserProfile = () => {
     setShowDeleteProfileDialog(false);
   };
 
-  const deleteUser = async () => {
-    const token = localStorage.getItem("token");
-    try {
-      const response = await axios.delete(
-        `http://localhost:3001/api/v1/user/${selectedUserToBeDeleted}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (response.status === 200) {
-        console.log("User deleted");
-        setShowDeleteFromUsersDialog(false);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const deleteProfile = async () => {
     const token = localStorage.getItem("token");
     const decodedToken = decodeToken(token);
@@ -388,21 +368,6 @@ const UserProfile = () => {
   const [usersList, setUsers] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
 
-  const handleDeleteUser = async (index, id) => {
-    try {
-      await axios.delete(`http://localhost:3001/api/v1/user/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const newUsers = [...usersList];
-      newUsers.splice(index, 1);
-      setUsers(newUsers);
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
-
   const handleAddUser = () => {
     setOpenDialog(true);
   };
@@ -475,6 +440,31 @@ const UserProfile = () => {
       console.log(response);
     } catch (error) {
       console.error("Error:", error);
+    }
+  };
+
+  const deleteUser = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await axios.delete(
+        `http://localhost:3001/api/v1/user/${selectedUserToBeDeleted}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        const newUsers = [...usersList];
+        const index = newUsers.findIndex(
+          (user) => user._id === selectedUserToBeDeleted
+        );
+        newUsers.splice(index, 1);
+        setUsers(newUsers);
+        setShowDeleteFromUsersDialog(false);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
