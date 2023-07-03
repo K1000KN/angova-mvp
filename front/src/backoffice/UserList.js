@@ -21,6 +21,7 @@ import { Group as GroupIcon } from "@mui/icons-material";
 import EditForm from "./EditForm";
 
 const UserList = () => {
+  const apiUrl = process.env.REACT_APP_API_URL;
   const [users, setUsers] = useState([]);
   const [editUserId, setEditUserId] = useState("");
   const [openEditDialog, setOpenEditDialog] = useState(false);
@@ -34,14 +35,11 @@ const UserList = () => {
 
   const fetchUsers = useCallback(async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:3001/api/v1/user/all",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get(`${apiUrl}/user/all`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setUsers(response.data);
     } catch (error) {
       console.error("Error:", error);
@@ -61,7 +59,7 @@ const UserList = () => {
   const handleConfirmDelete = async () => {
     try {
       const response = await axios.delete(
-        `http://localhost:3001/api/v1/user/delete/${deleteUserId}`,
+        `${apiUrl}/user/delete/${deleteUserId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

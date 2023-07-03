@@ -31,10 +31,11 @@ const PrivateRoute = ({ path, roles, children }) => {
 
   const navigate = useNavigate();
   const location = useLocation();
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const refreshAccessToken = useCallback(async () => {
     try {
-      const endpoint = `http://localhost:3001/api/v1/${userRole}/refresh-token`; // Endpoint based on user role
+      const endpoint = `${apiUrl}/${userRole}/refresh-token`; // Endpoint based on user role
 
       // Call your backend API to refresh the access token
       const response = await fetch(endpoint, {

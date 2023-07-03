@@ -46,6 +46,8 @@ const useStyles = makeStyles({
   },
 });
 const LoginForm = ({ open, handleClose }) => {
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   const { t } = useTranslation();
   const navigate = useNavigate();
   const classes = useStyles();
@@ -80,7 +82,7 @@ const LoginForm = ({ open, handleClose }) => {
     console.log("ok");
 
     try {
-      let endpoint = "http://localhost:3001/api/v1/auth/login";
+      let endpoint = `${apiUrl}/auth/login`;
 
       const response = await axios.post(endpoint, values);
       const { token } = response.data;

@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 
 const EditForm = ({ open, handleClose, userId, fetchUsers, user }) => {
+  const apiUrl = process.env.REACT_APP_API_URL;
   const [editUsername, setEditUsername] = useState("");
   const [editEmail, setEditEmail] = useState("");
   const [editReferent, setEditReferent] = useState("");
@@ -30,14 +31,11 @@ const EditForm = ({ open, handleClose, userId, fetchUsers, user }) => {
   useEffect(() => {
     const fetchUsersByRole = async (role) => {
       try {
-        const response = await axios.get(
-          "http://localhost:3001/api/v1/user/all",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await axios.get(`${apiUrl}/user/all`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         const filteredUsers = response.data.filter((user) =>
           user.roles.some((r) => r.name === role)
@@ -64,7 +62,7 @@ const EditForm = ({ open, handleClose, userId, fetchUsers, user }) => {
       let isUser = user.roles.some((role) => role.name === "user");
 
       const response = await axios.patch(
-        `http://localhost:3001/api/v1/user/${userId}`,
+        `${apiUrl}/user/${userId}`,
         {
           username: editUsername,
           email: editEmail,

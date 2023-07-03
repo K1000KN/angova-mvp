@@ -36,6 +36,8 @@ const useStyles = makeStyles({
 });
 
 const NewUserForm = ({ open, handleClose }) => {
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   const classes = useStyles();
   const { t } = useTranslation();
   const paperStyle = {
@@ -86,14 +88,11 @@ const NewUserForm = ({ open, handleClose }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const fetchAllUsers = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:3001/api/v1/user/all",
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const response = await axios.get(`${apiUrl}/user/all`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       const admins = response.data.filter(
         (user) => user.roles[0].name === "admin"
       );
@@ -113,13 +112,13 @@ const NewUserForm = ({ open, handleClose }) => {
   }, []);
 
   const onSubmit = async (values, props) => {
-    console.log('ok')
+    console.log("ok");
     const token = localStorage.getItem("token");
 
     let response;
     if (values.role === "admin") {
       response = await axios.post(
-        "http://localhost:3001/api/v1/admin/create",
+        `${apiUrl}/admin/create`,
         {
           username: values.name,
           email: values.email,
@@ -134,7 +133,7 @@ const NewUserForm = ({ open, handleClose }) => {
       );
     } else {
       response = await axios.post(
-        "http://localhost:3001/api/v1/user/create",
+        `${apiUrl}/user/create`,
         {
           username: values.name,
           email: values.email,

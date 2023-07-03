@@ -5,6 +5,7 @@ import axios from "axios";
 import { decodeToken } from "react-jwt";
 
 const NavbarComponent = ({ page, setLanguageImage }) => {
+  const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem("token");
   const [user, setUser] = useState(null);
   const [isUserFetched, setIsUserFetched] = useState(false);
@@ -15,12 +16,12 @@ const NavbarComponent = ({ page, setLanguageImage }) => {
       const id = decodedToken.id;
       const role = decodedToken.role;
       console.log(role);
-      let endpoint = `http://localhost:3001/api/v1/user/${id}`;
+      let endpoint = `${apiUrl}/user/${id}`;
 
       if (role === "admin") {
-        endpoint = `http://localhost:3001/api/v1/admin/${id}`;
+        endpoint = `${apiUrl}/admin/${id}`;
       } else if (role === "manager") {
-        endpoint = `http://localhost:3001/api/v1/manager/${id}`;
+        endpoint = `${apiUrl}/manager/${id}`;
       }
 
       try {

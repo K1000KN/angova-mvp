@@ -37,6 +37,7 @@ import { createTheme } from "@mui/material/styles";
 const theme = createTheme();
 
 const UserProfile = () => {
+  const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem("token");
   const decodedToken = decodeToken(token);
 
@@ -119,7 +120,7 @@ const UserProfile = () => {
     const role = decodedToken.role;
     try {
       const response = await axios.delete(
-        `http://localhost:3001/api/v1/${role}/${decodedToken.id}`,
+        `${apiUrl}/${role}/${decodedToken.id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -258,14 +259,11 @@ const UserProfile = () => {
 
   const fetchUsers = useCallback(async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:3001/api/v1/user/all",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get(`${apiUrl}/user/all`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const managerId = decodedToken.id;
       const userFromManager = response.data.filter(
         (user) =>
@@ -306,7 +304,7 @@ const UserProfile = () => {
       Authorization: `Bearer ${token}`,
     };
 
-    const endpoint = `http://localhost:3001/api/v1/user/${id}`;
+    const endpoint = `${apiUrl}/user/${id}`;
     const response = await axios.put(endpoint, user, { headers });
     console.log(response);
   };
@@ -316,7 +314,7 @@ const UserProfile = () => {
     const headers = {
       Authorization: `Bearer ${token}`,
     };
-    const endpoint = `http://localhost:3001/api/v1/manager/${id}`;
+    const endpoint = `${apiUrl}/manager/${id}`;
     const response = await axios.put(endpoint, user, { headers });
     console.log(response);
   };
@@ -330,12 +328,12 @@ const UserProfile = () => {
       const id = decodedToken.id;
       const role = decodedToken.role;
 
-      let endpoint = `http://localhost:3001/api/v1/user/${id}`;
+      let endpoint = `${apiUrl}/user/${id}`;
       setRoleUser(role);
       if (role === "admin") {
-        endpoint = `http://localhost:3001/api/v1/admin/${id}`;
+        endpoint = `${apiUrl}/admin/${id}`;
       } else if (role === "manager") {
-        endpoint = `http://localhost:3001/api/v1/manager/${id}`;
+        endpoint = `${apiUrl}/manager/${id}`;
       }
 
       try {
@@ -429,7 +427,7 @@ const UserProfile = () => {
       password: values.password,
     };
     try {
-      const endpoint = `http://localhost:3001/api/v1/manager/create`;
+      const endpoint = `${apiUrl}/manager/create`;
       const headers = {
         Authorization: `Bearer ${token}`,
       };
@@ -447,7 +445,7 @@ const UserProfile = () => {
     const token = localStorage.getItem("token");
     try {
       const response = await axios.delete(
-        `http://localhost:3001/api/v1/user/${selectedUserToBeDeleted}`,
+        `${apiUrl}/user/${selectedUserToBeDeleted}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
