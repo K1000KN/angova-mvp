@@ -230,7 +230,7 @@ function Home() {
               }}
             >
               {sessions.map((session) => (
-                <Grid item xs={12} sm={6} lg={4}>
+                <Grid item xs={12} sm={6} lg={4} key={session.id}>
                   <Card
                     sx={{
                       "&:hover": {

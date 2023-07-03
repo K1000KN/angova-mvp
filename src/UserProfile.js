@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { makeStyles } from "@mui/styles";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import {
@@ -18,11 +18,12 @@ import {
   DialogContent,
   DialogTitle,
   DialogActions,
+  DialogContentText,
   IconButton,
 } from "@mui/material";
 import * as Yup from "yup";
 import { useTranslation } from "react-i18next";
-import { useTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import NavbarComponent from "./components/Navbar";
 import BottomBar from "./components/BottomBar";
@@ -36,6 +37,10 @@ import { createTheme } from "@mui/material/styles";
 const theme = createTheme();
 
 const UserProfile = () => {
+  const token = localStorage.getItem("token");
+  const decodedToken = decodeToken(token);
+
+  /// Flags
   const franceRoundedFlag = "./images/flag/rounded/france.png";
   const englishRoundedFlag = "./images/flag/rounded/uk.png";
   const algeriaRoundedFlag = "./images/flag/rounded/algeria.png";
@@ -45,8 +50,12 @@ const UserProfile = () => {
   const earthFlag = "./images/flag/rounded/earth.png";
   const spainRoundedFlag = "./images/flag/rounded/spain.png";
   const navigate = useNavigate();
-  const [value, setValue] = React.useState("profil");
+  const [value, setValue] = useState("profil");
   const [show, setShow] = useState(false);
+  const [showDeleteProfileDialog, setShowDeleteProfileDialog] = useState(false);
+  const [selectedUserToBeDeleted, setSelectedUserToBeDeleted] = useState(null);
+  const [showDeleteFromUsersDialog, setShowDeleteFromUsersDialog] =
+    useState(false);
 
   const useStyles = makeStyles({
     flagNav: {
@@ -87,9 +96,112 @@ const UserProfile = () => {
     navigate("/");
   };
 
+  const closeDeleteFromUsersDialog = () => {
+    setShowDeleteFromUsersDialog(false);
+  };
+
+  const openDeleteFromUsersDialog = (id) => {
+    setShowDeleteFromUsersDialog(true);
+    setSelectedUserToBeDeleted(id);
+  };
+
+  const openDeleteProfileDialog = () => {
+    setShowDeleteProfileDialog(true);
+  };
+
+  const closeDeleteProfileDialog = () => {
+    setShowDeleteProfileDialog(false);
+  };
+
+  const deleteUser = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await axios.delete(
+        `http://localhost:3001/api/v1/user/${selectedUserToBeDeleted}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        console.log("User deleted");
+        setShowDeleteFromUsersDialog(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteProfile = async () => {
+    const token = localStorage.getItem("token");
+    const decodedToken = decodeToken(token);
+    const role = decodedToken.role;
+    try {
+      const response = await axios.delete(
+        `http://localhost:3001/api/v1/${role}/${decodedToken.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        logout();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const setLanguageImage = (language) => {
+    let src = null;
+    switch (language) {
+      case "earth":
+        src = earthFlag;
+        break;
+      case "fr":
+        src = franceRoundedFlag;
+        break;
+      case "en":
+        src = englishRoundedFlag;
+        break;
+      case "es":
+        src = spainRoundedFlag;
+        break;
+      case "ar":
+        src = moroccoRoundedFlag;
+        break;
+      case "alg":
+        src = algeriaRoundedFlag;
+        break;
+      case "maroc":
+        src = moroccoRoundedFlag;
+        break;
+      case "tuni":
+        src = tuniRoundedFlag;
+        break;
+      case "tr":
+        src = turkeyRoundedFlag;
+        break;
+      default:
+        src = null;
+        break;
+    }
+
+    return (
+      <img
+        className="languageNavImg"
+        onClick={() => {
+          setShow(true);
+        }}
+        src={src}
+        alt={language}
+      />
+    );
+  };
+
+  // Check if the user has already picked a language
   useEffect(() => {
-    // we use this effect to see the language dialog
-    // only if the user has not choose a language
     const hasLanguagePicked = localStorage.getItem("hasChoosenLanguage");
 
     if (hasLanguagePicked === null) {
@@ -162,6 +274,37 @@ const UserProfile = () => {
     );
   };
 
+  /// List Manager Users
+
+  const fetchUsers = useCallback(async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3001/api/v1/user/all",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const managerId = decodedToken.id;
+      const userFromManager = response.data.filter(
+        (user) =>
+          user.roles.some((role) => role.name === "user") &&
+          user.manager === managerId
+      );
+      setUsers(userFromManager);
+    } catch (error) {
+      console.error("Error:", error);
+      // Handle error state or display an error message
+    }
+  }, [decodedToken.id, token]);
+
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
+
+  /// Editing profile
+
   const [isEditing, setIsEditing] = useState(false);
 
   const handleEditClick = () => {
@@ -170,57 +313,33 @@ const UserProfile = () => {
 
   const handleSaveClick = () => {
     setIsEditing(false);
-    // Perform API call or update the user information in some way
-  };
-
-  const setLanguageImage = (language) => {
-    let src = null;
-    switch (language) {
-      case "earth":
-        src = earthFlag;
-        break;
-      case "fr":
-        src = franceRoundedFlag;
-        break;
-      case "en":
-        src = englishRoundedFlag;
-        break;
-      case "es":
-        src = spainRoundedFlag;
-        break;
-      case "ar":
-        src = moroccoRoundedFlag;
-        break;
-      case "alg":
-        src = algeriaRoundedFlag;
-        break;
-      case "maroc":
-        src = moroccoRoundedFlag;
-        break;
-      case "tuni":
-        src = tuniRoundedFlag;
-        break;
-      case "tr":
-        src = turkeyRoundedFlag;
-        break;
-      default:
-        src = null;
-        break;
+    if (roleUser === "manager") {
+      updateManager();
     }
+    if (roleUser === "user") {
+      updateUser();
+    }
+  };
+  const updateUser = async () => {
+    const id = decodedToken.id;
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
 
-    return (
-      <img
-        className="languageNavImg"
-        onClick={() => {
-          setShow(true);
-        }}
-        src={src}
-        alt={language}
-      />
-    );
+    const endpoint = `http://localhost:3001/api/v1/user/${id}`;
+    const response = await axios.put(endpoint, user, { headers });
+    console.log(response);
   };
 
-  const token = localStorage.getItem("token");
+  const updateManager = async () => {
+    const id = decodedToken.id;
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    const endpoint = `http://localhost:3001/api/v1/manager/${id}`;
+    const response = await axios.put(endpoint, user, { headers });
+    console.log(response);
+  };
   const [user, setUser] = useState(null);
   const [isUserFetched, setIsUserFetched] = useState(false);
   const [roleUser, setRoleUser] = useState("");
@@ -268,39 +387,27 @@ const UserProfile = () => {
 
   const [usersList, setUsers] = useState([]);
   const [openDialog, setOpenDialog] = useState(false);
-  const [registrationData, setRegistrationData] = useState({
-    name: "",
-    email: "",
-  });
 
-  const handleDeleteUser = (index) => {
-    const updatedUsers = [...usersList];
-    updatedUsers.splice(index, 1);
-    setUsers(updatedUsers);
+  const handleDeleteUser = async (index, id) => {
+    try {
+      await axios.delete(`http://localhost:3001/api/v1/user/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const newUsers = [...usersList];
+      newUsers.splice(index, 1);
+      setUsers(newUsers);
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   const handleAddUser = () => {
     setOpenDialog(true);
   };
 
-  const handleRegistrationSubmit = () => {
-    if (
-      registrationData.name.trim() !== "" &&
-      registrationData.email.trim() !== ""
-    ) {
-      const newUser = {
-        name: registrationData.name,
-        email: registrationData.email,
-      };
-      const updatedUsers = [...usersList, newUser];
-      setUsers(updatedUsers);
-      setRegistrationData({ name: "", email: "" });
-      setOpenDialog(false);
-    }
-  };
-
   const handleCloseDialog = () => {
-    setRegistrationData({ name: "", email: "" });
     setOpenDialog(false);
   };
   const paperStyle = {
@@ -347,12 +454,30 @@ const UserProfile = () => {
       .oneOf([Yup.ref("password")], "Mots de passe ne correspondent pas")
       .required("Requis"),
   });
-  const onSubmit = (values, props) => {
-    alert(JSON.stringify(values), null, 2);
-    props.resetForm();
-    handleClose();
-    navigate("/home");
+
+  const onSubmitAddNewUser = async (values, props) => {
+    const user = {
+      username: values.name,
+      // firstname: values.firstname,
+      // age: values.age,
+      email: values.email,
+      password: values.password,
+    };
+    try {
+      const endpoint = `http://localhost:3001/api/v1/manager/create`;
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+      const response = await axios.post(endpoint, user, { headers });
+      setUsers([...usersList, user]);
+      props.resetForm();
+      handleCloseDialog();
+      console.log(response);
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -370,8 +495,8 @@ const UserProfile = () => {
             </Typography>
             <TextField
               fullWidth
-              id="name"
-              name="name"
+              id="username"
+              name="username"
               label="Name"
               value={user.username}
               onChange={handleInputChange}
@@ -390,18 +515,18 @@ const UserProfile = () => {
               margin="normal"
               variant="outlined"
             />
-            <TextField
+            {/* <TextField
               fullWidth
               id="age"
               name="age"
               label="Age"
               type="number"
-              value={(Math.random() * (100 - 18) + 18).toFixed(0)}
+              value={0}
               onChange={handleInputChange}
               disabled={!isEditing}
               margin="normal"
               variant="outlined"
-            />
+            /> */}
 
             <Grid
               container
@@ -422,13 +547,18 @@ const UserProfile = () => {
                 </Button>
               )}
 
-              <Button variant="contained" onClick={() => {}} color="error">
+              <Button
+                variant="contained"
+                onClick={openDeleteProfileDialog}
+                color="error"
+              >
                 Suppression
               </Button>
               <Button variant="contained" onClick={logout} color="primary">
                 Deconnexion
               </Button>
             </Grid>
+
             {roleUser === "manager" ? (
               <>
                 <Typography variant="h4" sx={{ marginTop: "30px" }}>
@@ -445,13 +575,15 @@ const UserProfile = () => {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {usersList.map((user, index) => (
+                        {usersList.map((element, index) => (
                           <TableRow key={index}>
-                            <TableCell>{user.name}</TableCell>
-                            <TableCell>{user.name}</TableCell>
+                            <TableCell>{element.username}</TableCell>
+                            <TableCell>{element.email}</TableCell>
                             <TableCell>
                               <IconButton
-                                onClick={() => handleDeleteUser(index)}
+                                onClick={() =>
+                                  openDeleteFromUsersDialog(element._id)
+                                }
                               >
                                 <Delete />
                               </IconButton>
@@ -485,7 +617,7 @@ const UserProfile = () => {
                           <Formik
                             initialValues={initialValues}
                             validationSchema={validationSchema}
-                            onSubmit={onSubmit}
+                            onSubmit={onSubmitAddNewUser}
                           >
                             {(props) => (
                               <Form noValidate>
@@ -597,6 +729,7 @@ const UserProfile = () => {
           </Box>
         </Grid>
       )}
+      {/* CHOSE LANGUAGE  */}
       <Dialog fullWidth maxWidth="sm" open={show} onClose={handleClose}>
         <div
           style={{
@@ -639,6 +772,49 @@ const UserProfile = () => {
           </DialogContent>
         </div>
       </Dialog>{" "}
+      {/* DELETE MY ACCOUNT MODAL */}
+      <Dialog open={showDeleteProfileDialog} onClose={closeDeleteProfileDialog}>
+        <DialogTitle>Suppression du compte</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Voulez-vous vraiment supprimer votre compte ?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeDeleteProfileDialog} color="primary">
+            Annuler
+          </Button>
+          <Button onClick={deleteProfile} color="primary" autoFocus>
+            Supprimer
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {/* DELETE USER LIST ACCOUNTS MODAL */}
+      <Dialog
+        open={showDeleteFromUsersDialog}
+        onClose={closeDeleteFromUsersDialog}
+      >
+        <DialogTitle>Suppression du compte</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Voulez-vous vraiment supprimer cet utilisateur ?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeDeleteFromUsersDialog} color="primary">
+            Annuler
+          </Button>
+          <Button
+            onClick={async () => {
+              deleteUser(selectedUserToBeDeleted);
+            }}
+            color="primary"
+            autoFocus
+          >
+            Supprimer
+          </Button>
+        </DialogActions>
+      </Dialog>
       <BottomBar handleChange={handleChange} value={value} />
     </ThemeProvider>
   );

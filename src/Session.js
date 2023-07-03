@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./session.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -10,18 +10,18 @@ import { session1ES } from "./data/sessions/es/session_1";
 import ProgressBar from "./components/ProgressBar";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { VolumeUp, VolumeOff } from '@mui/icons-material';
+import { VolumeUp, VolumeOff } from "@mui/icons-material";
 import {
   Dialog,
   DialogContent,
   DialogTitle,
   DialogActions,
+  Typography,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import PlayerSession from "./components/PlayerSession";
 
 const Session = () => {
-
   const [completed, setCompleted] = useState(0);
 
   const [activeQuestion, setActiveQuestion] = useState(0);
@@ -43,12 +43,11 @@ const Session = () => {
 
   //const audio = new Audio( "../session/audio/fr/q1.mp3");
 
-  useEffect(() => {    
-   
+  useEffect(() => {
     if (isPlaying) {
-      var audio = new Audio( audioSrc);
-      audio.play().catch(error => {
-        console.error('Error autoplaying audio:', error);
+      var audio = new Audio(audioSrc);
+      audio.play().catch((error) => {
+        console.error("Error autoplaying audio:", error);
         setIsPlaying(false);
         // Handle autoplay error here (e.g., show a UI element to manually play the audio)
       });
@@ -57,10 +56,8 @@ const Session = () => {
         audio.currentTime = 0;
       };
     }
-  }, [activeQuestion, isPlaying,audioSrc]);
+  }, [activeQuestion, isPlaying, audioSrc]);
 
-
- 
   const navigate = useNavigate();
   const theme = createTheme({
     typography: {
@@ -98,22 +95,17 @@ const Session = () => {
   const classes = useStyles();
   const { id } = useParams();
 
-  
-  
-
   const verifyAnswer = (indices) => {
     const isCorrect = arraysEqual(indices, correctAnswer);
     highlightCorrectAnswers(indices);
 
     if (isCorrect) {
-     
       setResult((prevResult) => ({
         ...prevResult,
         score: prevResult.score + 1,
         correctAnswers: prevResult.correctAnswers + 1,
       }));
     } else {
-     
       highlightWrongAnswers(indices);
 
       setResult((prevResult) => ({
@@ -141,14 +133,26 @@ const Session = () => {
   };
 
   let sessionData;
-
   switch (id) {
     case "1":
-      if( localStorage.getItem("language")==="fr"){
+      if (localStorage.getItem("language") === "fr") {
         sessionData = session1FR;
-      }
-      if( localStorage.getItem("language")==="es"){
+      } else if (localStorage.getItem("language") === "es") {
         sessionData = session1ES;
+      } else {
+        return (
+          <Typography
+            sx={{
+              color: "#F49E4C",
+              fontSize: "20px",
+              fontWeight: "bold",
+              textAlign: "center",
+              marginTop: "20px",
+            }}
+          >
+            Language not supported
+          </Typography>
+        );
       }
       break;
     // case "2":
@@ -168,10 +172,22 @@ const Session = () => {
     //   break;
     default:
       // Handle invalid session ID
-      return <div>Invalid session ID</div>;
+      return (
+        <Typography
+          sx={{
+            color: "#F49E4C",
+            fontSize: "20px",
+            fontWeight: "bold",
+            textAlign: "center",
+            marginTop: "20px",
+          }}
+        >
+          Invalid session ID
+        </Typography>
+      );
   }
 
-  const { quizz } = sessionData;
+  let { quizz } = sessionData;
   const { questions, choices, correctAnswer, explaination, assets } =
     quizz[activeQuestion];
 
@@ -218,7 +234,6 @@ const Session = () => {
   };
 
   const highlightWrongAnswers = (indices) => {
-
     const answerListItems = document.querySelectorAll(".quizList li");
     answerListItems.forEach((item, index) => {
       if (indices.includes(index)) {
@@ -238,91 +253,151 @@ const Session = () => {
     onClickNext();
   };
 
-  
   const handleToggleAudio = () => {
-   
     setIsPlaying(!isPlaying);
   };
 
- 
   return (
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         {!showResult ? (
           <div>
-            <div  className="scroll-container">
+            <div className="scroll-container">
+              <Grid container direction="row">
+                <Grid
+                  item
+                  sm={1.8}
+                  sx={{ display: { xs: "none", sm: "flex" } }}
+                  style={{ height: "6vh", paddingLeft: 18, paddingTop: 11 }}
+                >
+                  <span className="active-question-no">
+                    {addLeadingZero(activeQuestion + 1)}
+                  </span>
+                  <span className="total-question">
+                    /{addLeadingZero(quizz.length)}
+                  </span>
+                </Grid>
+                <Grid item xs={10} sm={7.8} id="progressContainer">
+                  <ProgressBar bgcolor={"#F49E4C"} completed={completed} />
+                </Grid>
+                <Grid
+                  item
+                  xs={2}
+                  id="leaveQuizzContainer"
+                  style={{
+                    height: "6vh",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <div id="leaveQuizz">
+                    <IconButton aria-label="close" onClick={handleLeave}>
+                      <CloseIcon style={{ color: "#F49E4C" }} />
+                    </IconButton>
+                  </div>
+                </Grid>
+              </Grid>
 
-            
-            <Grid container direction="row">
-              <Grid
-                item
-                sm={1.8}
-                sx={{ display: { xs: "none", sm: "flex" } }}
-                style={{ height: "6vh", paddingLeft: 18, paddingTop: 11 }}
-              >
-                <span className="active-question-no">
-                  {addLeadingZero(activeQuestion + 1)}
-                </span>
-                <span className="total-question">
-                  /{addLeadingZero(quizz.length)}
-                </span>
+              <Grid id="imgContainer" item xs={10}>
+                <PlayerSession
+                  type={assets.type}
+                  content={assets.img}
+                  setAudioSrc={setAudioSrc}
+                  audioQuestion={assets.question}
+                  audioExplaination={assets.explaination}
+                />
               </Grid>
-              <Grid item xs={10} sm={7.8} id="progressContainer">
-                <ProgressBar bgcolor={"#F49E4C"} completed={completed} />
-              </Grid>
-              <Grid
-                item
-                xs={2}
-                id="leaveQuizzContainer"
-                style={{
-                  height: "6vh",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <div id="leaveQuizz">
-                  <IconButton aria-label="close" onClick={handleLeave}>
-                    <CloseIcon style={{ color: "#F49E4C" }} />
-                  </IconButton>
+              <Grid item xs={12} id="quizContainer">
+                <div style={{ width: "100%", paddingLeft: "94%" }}>
+                  <button
+                    className={classes.orangeTonalBtn}
+                    onClick={handleToggleAudio}
+                  >
+                    {" "}
+                    {!isPlaying ? <VolumeOff /> : <VolumeUp />}
+                  </button>
                 </div>
-              </Grid>
-            </Grid>
-
-            <Grid id="imgContainer" item xs={10}>
-              <PlayerSession type={assets.type} content={assets.img} setAudioSrc={setAudioSrc} audioQuestion={assets.question} audioExplaination={assets.explaination}/>
-            
-            </Grid>
-            <Grid item xs={12} id="quizContainer">
-              <div style={{width: '100%',paddingLeft: '94%'}}>
-                <button className={classes.orangeTonalBtn} onClick={handleToggleAudio}>  { !isPlaying   ? <VolumeOff /> : <VolumeUp />}</button>
-              </div>
-              {questions && questions.length > 1 ? (
-                <>
-                  <h7 id="questionQuizz">{questions[0]}</h7>
-                  <br />
-                  <h7 id="questionQuizz">{questions[1]}</h7>
-                </>
-              ) : (
-                <>
-                  <h7 id="questionQuizz">{questions}</h7>
-                </>
-              )}
-              <div>
                 {questions && questions.length > 1 ? (
                   <>
-                    <ul className="quizList">
-                      {choices.slice(0, 2).map((answer, index) => (
-                        <li
-                          onClick={() =>{
-                            if(showExplanation){
-                              return null;
-                            }else{
-                              onAnswerSelected(index)
+                    <Typography variant="h7" id="questionQuizz">
+                      {questions[0]}
+                    </Typography>
+                    <br />
+                    <Typography variant="h7" id="questionQuizz">
+                      {questions[1]}
+                    </Typography>
+                  </>
+                ) : (
+                  <>
+                    <Typography variant="h7" id="questionQuizz">
+                      {questions}
+                    </Typography>
+                  </>
+                )}
+                <div>
+                  {questions && questions.length > 1 ? (
+                    <>
+                      <ul className="quizList">
+                        {choices.slice(0, 2).map((answer, index) => (
+                          <li
+                            onClick={() => {
+                              if (showExplanation) {
+                                return null;
+                              } else {
+                                onAnswerSelected(index);
+                              }
+                            }}
+                            key={answer}
+                            className={
+                              isAnswerSelected(index) ? "selected-answer" : null
                             }
-                            
-                          } }
+                          >
+                            {answer}
+                          </li>
+                        ))}
+                      </ul>
+
+                      <h7 id="questionQuizz">{questions[2]}</h7>
+                      {questions && questions.length > 1 ? (
+                        <ul className="quizList">
+                          {choices.slice(2, 4).map((answer, index) => (
+                            <li
+                              onClick={() => {
+                                if (showExplanation) {
+                                  return null;
+                                } else {
+                                  onAnswerSelected(index + 2);
+                                }
+                              }}
+                              key={answer}
+                              className={
+                                isAnswerSelected(index + 2)
+                                  ? "selected-answer"
+                                  : null
+                              }
+                            >
+                              {answer}
+                            </li>
+                          ))}
+                        </ul>
+                      ) : null}
+                    </>
+                  ) : null}
+
+                  <ul className="quizList">
+                    {questions &&
+                      questions.length === 1 &&
+                      choices.map((answer, index) => (
+                        <li
+                          onClick={() => {
+                            if (showExplanation) {
+                              return null;
+                            } else {
+                              onAnswerSelected(index);
+                            }
+                          }}
                           key={answer}
                           className={
                             isAnswerSelected(index) ? "selected-answer" : null
@@ -331,58 +406,9 @@ const Session = () => {
                           {answer}
                         </li>
                       ))}
-                    </ul>
-
-                    <h7 id="questionQuizz">{questions[2]}</h7>
-                    {questions && questions.length > 1 ? (
-                      <ul className="quizList">
-                        {choices.slice(2, 4).map((answer, index) => (
-                          <li
-                            onClick={() =>{ 
-                              if(showExplanation){
-                                return null;
-                              }else{
-                                onAnswerSelected(index + 2)
-                              }} 
-                            }
-                            key={answer}
-                            className={
-                              isAnswerSelected(index + 2)
-                                ? "selected-answer"
-                                : null
-                            }
-                          >
-                            {answer}
-                          </li>
-                        ))}
-                      </ul>
-                    ) : null}
-                  </>
-                ) : null}
-
-                <ul className="quizList">
-                  {questions &&
-                    questions.length === 1 &&
-                    choices.map((answer, index) => (
-                      <li
-                        onClick={() =>{ 
-                          if(showExplanation){
-                            return null;
-                          }else{
-                            onAnswerSelected(index )
-                          }}
-                        }
-                        key={answer}
-                        className={
-                          isAnswerSelected(index) ? "selected-answer" : null
-                        }
-                      >
-                        {answer}
-                      </li>
-                    ))}
-                </ul>
-              </div>
-            </Grid>
+                  </ul>
+                </div>
+              </Grid>
             </div>
             <Grid className="quizButton bottomNav" item xs={12}>
               <div
@@ -390,7 +416,6 @@ const Session = () => {
                   alignItems: "center",
                   width: "100%",
                   display: "flex",
-                  alignItems: "center",
                   justifyContent: "center",
                 }}
               >
@@ -404,17 +429,15 @@ const Session = () => {
                   Explications
                 </button>
               </div>
-              
+
               <div
                 style={{
                   alignItems: "center",
                   width: "100%",
                   display: "flex",
-                  alignItems: "center",
                   justifyContent: "center",
                 }}
               >
-                 
                 <button
                   onClick={() => {
                     if (showExplanation) {
@@ -442,7 +465,6 @@ const Session = () => {
                 alignItems: "center",
                 width: "100%",
                 display: "flex",
-                alignItems: "center",
                 justifyContent: "center",
               }}
             >
@@ -470,7 +492,6 @@ const Session = () => {
                 alignItems: "center",
                 width: "100%",
                 display: "flex",
-                alignItems: "center",
                 justifyContent: "center",
               }}
             >

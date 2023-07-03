@@ -1,6 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import Landing from "./Landing";
@@ -23,14 +30,9 @@ const PrivateRoute = ({ path, roles, children }) => {
   const userRole = token ? jwt_decode(token).role : null;
 
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const tokenIsExpired = () => {
-    const decodedToken = jwt_decode(token);
-    const currentTime = Date.now() / 1000;
-    return decodedToken.exp < currentTime;
-  };
-
-  const refreshAccessToken = async () => {
+  const refreshAccessToken = useCallback(async () => {
     try {
       const endpoint = `http://localhost:3001/api/v1/${userRole}/refresh-token`; // Endpoint based on user role
 
@@ -58,12 +60,19 @@ const PrivateRoute = ({ path, roles, children }) => {
       // Handle refresh token error (e.g., redirect to login page)
       throw error;
     }
-  };
+  }, [refreshToken, userRole]);
+
+  const tokenIsExpired = useCallback(() => {
+    const decodedToken = jwt_decode(token);
+    const currentTime = Date.now() / 1000;
+    return decodedToken.exp < currentTime;
+  }, [token]);
 
   useEffect(() => {
     if (isAuthenticated && roles && roles.includes(userRole)) {
       return;
     }
+    console.log("PrivateRoute", isAuthenticated, roles, userRole);
 
     if (!isAuthenticated) {
       // Redirect to login page if not authenticated
@@ -102,7 +111,11 @@ const PrivateRoute = ({ path, roles, children }) => {
     tokenIsExpired,
   ]);
 
-  return isAuthenticated && roles && roles.includes(userRole) ? children : null;
+  return isAuthenticated && roles && roles.includes(userRole) ? (
+    children
+  ) : (
+    <Navigate to="/" state={{ from: location }} replace />
+  );
 };
 
 const App = () => {
