@@ -1,0 +1,21 @@
+{
+    "version": 2,
+    "builds": [
+        {
+            "src": "index.js",
+            "use": "@vercel/node"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/api/.*",
+            "dest": "index.js"
+        }
+    ],
+    "env": {
+        "SALT_KEY": "$SALT_KEY",
+        "DB_URI": "$DB_URI",
+        "PORT": "$PORT",
+        "NODE_ENV": "$NODE_ENV"
+    }
+}
