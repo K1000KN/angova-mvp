@@ -51,7 +51,7 @@ export const createManager = async (req, res) => {
     if (existingManager) {
       return res.status(409).send({ message: "Manager already exists" });
     }
-    const hashedPassword = await bcrypt.hash(password.toString());
+    const hashedPassword = await bcrypt.hash(password, 10);
     const managerRole = await Role.findOne({ name: "manager" });
 
     if (!managerRole) {
