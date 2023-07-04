@@ -46,14 +46,17 @@ export const createManager = async (req, res) => {
     let adminId = decoded.id;
 
     const { username, email, password } = req.body;
-
+    const managerRole = await Role.findOne({ name: "manager" });
     const existingManager = await User.findOne({ email });
     if (existingManager) {
       return res.status(409).send({ message: "Manager already exists" });
     }
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const managerRole = await Role.findOne({ name: "manager" });
-
+    bcrypt.getSalt(10, function(err, salt){
+      bcrypt.hash(password, salt, function(err, hashedPassword){
+        if(err) {
+          console.log(err);
+        }
+        password = hashedPassword;
     if (!managerRole) {
       return res.status(500).send({ message: "Manager role not found" });
     }
@@ -64,6 +67,8 @@ export const createManager = async (req, res) => {
       roles: [managerRole._id],
       admin: adminId,
     });
+  })
+})
     await manager.save();
     res.status(201).send(manager);
   } catch (err) {
