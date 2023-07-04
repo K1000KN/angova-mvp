@@ -75,7 +75,7 @@ export const session1ES = {
     },
     {
       id: 6,
-      questions: ["El M.M.A. es:"],
+      questions: ["El (P.T.A.C) es:"],
       choices: [
         "A el peso máximo autorizado en circulación",
         "B el peso máximo autorizado en carga"
