@@ -5,7 +5,7 @@ import User from "../models/User.js";
 
 dotenv.config();
 
-const DB_URI = process.env.DB_URI;
+const DB_URI = "mongodb+srv://k1000kn:Rl46xFSRiPpxLQH3@cluster0.uuvbfg3.mongodb.net"
 
 mongoose
   .connect(DB_URI, {
