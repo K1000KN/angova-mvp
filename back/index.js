@@ -14,7 +14,7 @@ const app = express();
 
 const PORT = 3001;
 const cors = process.env.CORS;
-app.use(cors({ origin: cors }));
+app.use("*", cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
