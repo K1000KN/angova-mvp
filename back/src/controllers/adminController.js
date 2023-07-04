@@ -6,6 +6,9 @@ import jwt from "jsonwebtoken";
 
 dotenv.config();
 
+const adminSecretKey = process.env.SALT_KEY;
+
+
 /// fonction pour creer l'admin
 export const createAdmin = async (req, res) => {
   try {
