@@ -10,7 +10,7 @@ import { validateAdminToken } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.post("/admin/createAdmin", validateAdminToken, createAdmin);
+router.post("/admin/createAdmin", createAdmin);
 router.post("/admin/createManager", validateAdminToken, createManager);
 router.post("/admin/createUser", validateAdminToken, createUserFromAdmin);
 router.get("/admin/:id", getAdminById);
