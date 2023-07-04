@@ -85,6 +85,7 @@ export const getAdminById = async (req, res) => {
   }
 };
 
+
 ///fonction to create user
 export const createUserFromAdmin = async (req, res) => {
   try {
@@ -135,4 +136,4 @@ export const createUserFromAdmin = async (req, res) => {
 
 export const testApi = async (req, res) => {
   res.status(200).send({ message: "API is working" });
-};
+}

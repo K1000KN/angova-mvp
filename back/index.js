@@ -13,8 +13,8 @@ import authentificationRoutes from "./src/routes/authentificationRoutes.js";
 const app = express();
 
 const PORT = 3001;
-
-app.use(cors({ origin: "http://localhost:3000" }));
+const cors = process.env.CORS;
+app.use(cors({ origin: cors }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
