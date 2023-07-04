@@ -13,13 +13,6 @@ import authentificationRoutes from "./src/routes/authentificationRoutes.js";
 const app = express();
 
 const PORT = 3001;
-const cors = process.env.CORS;
-app.use(cors(
-  {
-    origin: "*",
-    credentials: true,
-  }
-));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
