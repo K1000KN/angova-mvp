@@ -66,7 +66,6 @@ const LoginForm = ({ open, handleClose }) => {
   const initialValues = {
     email: "",
     password: "",
-    isAdmin: false,
   };
   const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -75,7 +74,6 @@ const LoginForm = ({ open, handleClose }) => {
     password: Yup.string()
       .min(0, "Le nombre caractères minimum doit être de 8")
       .required("Requis"),
-    isAdmin: Yup.boolean().required("Requis"), // Added validation for isAdmin field
   });
 
   const onSubmit = async (values, props) => {
@@ -89,7 +87,6 @@ const LoginForm = ({ open, handleClose }) => {
       const decodedToken = jwt_decode(token);
       const role = decodedToken.role;
 
-      // Store the token and isAdmin in local storage
       localStorage.setItem("token", token);
 
       props.resetForm();
