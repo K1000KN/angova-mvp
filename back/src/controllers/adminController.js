@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 import dotenv from "dotenv";
 import User from "../models/User.js";
 import Role from "../models/Role.js";
+import jwt from "jsonwebtoken";
 
 dotenv.config();
 
