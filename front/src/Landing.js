@@ -494,7 +494,7 @@ function Landing() {
         </Grid>
 
         <Grid item xs={12} md={2} sx={flexCenter}>
-          <img
+          {/* <img
             style={{ width: 35, marginRight: "10px" }}
             alt="road"
             src="./images/tiktok.png"
@@ -502,7 +502,7 @@ function Landing() {
           <InstagramIcon
             sx={{ color: "#FFFF", fontSize: 35, marginRight: "10px" }}
           />{" "}
-          <LinkedInIcon sx={{ color: "#FFFF", fontSize: 35 }} />
+          <LinkedInIcon sx={{ color: "#FFFF", fontSize: 35 }} /> */}
         </Grid>
         
       </Grid>

@@ -119,7 +119,7 @@ export default forwardRef(
         >
           <Grid item>
             <Typography className="titleVideo" style={{ color: "#fff" }}>
-              Session code n°1
+              
             </Typography>
           </Grid>
           <Grid item></Grid>
