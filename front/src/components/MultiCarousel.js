@@ -62,13 +62,13 @@ const flags = [
     },
     isAvailable: false,
   },
-  {
-    src: "../../images/flag/rounded/lsf.png",
-    onClick: () => {
-      // Handle showing LSF article
-    },
-    isAvailable: true,
-  },
+  // {
+  //   src: "../../images/flag/rounded/lsf.png",
+  //   onClick: () => {
+  //     // Handle showing LSF article
+  //   },
+  //   isAvailable: false,
+  // },
   {
     src: "../../images/flag/rounded/albania.png",
     onClick: () => {
