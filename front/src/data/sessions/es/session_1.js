@@ -13,11 +13,11 @@ export const session1ES = {
       questions: ["Me detengo:"],
       choices: ["A en el nivel de la señal", "B en el nivel de la línea"],
      correctAnswer: [1],
-      explanation: "¿Dónde detenerme en un stop? Cuando llego a un stop, la parada es obligatoria en todos los casos en el nivel de la línea de detención, colocada de manera que pueda ver correctamente la intersección antes de seguir adelante.",
+      explaination: "¿Dónde detenerme en un stop? Cuando llego a un stop, la parada es obligatoria en todos los casos en el nivel de la línea de detención, colocada de manera que pueda ver correctamente la intersección antes de seguir adelante.",
       assets: {
         img: ["../session/q1/q1.jpeg"],
         question: "../session/q1/es/q1.mp3",
-        explanation: "../session/q1/es/exp1.mp3"
+        explaination: "../session/q1/es/exp1.mp3"
       }
     },
     
@@ -30,11 +30,11 @@ export const session1ES = {
         "C un paso de peatones"
       ],
      correctAnswer: [0],
-      explanation: "¿Qué indica este panel? ¡El final de una zona peatonal! Esta área estaba reservada para el tránsito de peatones. Tenían prioridad sobre los vehículos que tenían permiso para circular allí (servicio local, reparto, etc.). Las reglas generales de circulación vuelven a aplicarse.",
+      explaination: "¿Qué indica este panel? ¡El final de una zona peatonal! Esta área estaba reservada para el tránsito de peatones. Tenían prioridad sobre los vehículos que tenían permiso para circular allí (servicio local, reparto, etc.). Las reglas generales de circulación vuelven a aplicarse.",
       assets: {
         img: ["../session/q2/q2.jpeg"],
         question: "../session/q2/es/q2.mp3",
-        explanation: "../session/q2/es/exp2.mp3"
+        explaination: "../session/q2/es/exp2.mp3"
       }
     },
     {
@@ -42,11 +42,11 @@ export const session1ES = {
       questions: ["A 100 km/h, el campo de visión es de aproximadamente:"],
       choices: ["A 45°", "B 75°", "C 90°"],
       correctAnswer: [0],
-      explanation: "¿En función de qué varía el campo de visión? La edad, algunas enfermedades y la velocidad. A 100 km/h, el campo de visión es de aproximadamente 45°. A 130 km/h, es de aproximadamente 30°.",
+      explaination: "¿En función de qué varía el campo de visión? La edad, algunas enfermedades y la velocidad. A 100 km/h, el campo de visión es de aproximadamente 45°. A 130 km/h, es de aproximadamente 30°.",
       assets: {
         img: ["../session/q3/q3.jpeg"],
         question: "../session/q3/es/q3.mp3",
-        explanation: "../session/q3/es/exp3.mp3"
+        explaination: "../session/q3/es/exp3.mp3"
       }
     },
     {
@@ -54,11 +54,11 @@ export const session1ES = {
       questions: ['Con una "rueda de galleta", conduzco a un máximo de:'],
       choices: ["A 50 km/h", "B 80 km/h", "C 100 km/h"],
      correctAnswer: [1],
-      explanation: '¿Qué es una "rueda de galleta"? Es una rueda de repuesto que es más estrecha que una rueda "convencional". La instalo después de un pinchazo. Con este tipo de rueda, no debo superar los 80 km/h y debo ir al taller lo antes posible para reemplazarla por una rueda "convencional".',
+      explaination: '¿Qué es una "rueda de galleta"? Es una rueda de repuesto que es más estrecha que una rueda "convencional". La instalo después de un pinchazo. Con este tipo de rueda, no debo superar los 80 km/h y debo ir al taller lo antes posible para reemplazarla por una rueda "convencional".',
       assets: {
         img: ["../session/q4/q4.jpeg"],
         question: "../session/q4/es/q4.mp3",
-        explanation: "../session/q4/es/exp4.mp3"
+        explaination: "../session/q4/es/exp4.mp3"
       }
     },
     {
@@ -66,11 +66,11 @@ export const session1ES = {
       questions: ["En esta situación:"],
       choices: ["A Reduzco la velocidad", "B Acelero"],
      correctAnswer: [0],
-      explanation: "¿Por qué el conductor que está detrás de mí hace luces? Para que acelere. Me acerco a una curva peligrosa. A pesar de la presión del conductor detrás de mí, reduzco la velocidad para abordar la curva de manera segura.",
+      explaination: "¿Por qué el conductor que está detrás de mí hace luces? Para que acelere. Me acerco a una curva peligrosa. A pesar de la presión del conductor detrás de mí, reduzco la velocidad para abordar la curva de manera segura.",
       assets: {
         img: ["../session/q5/q5_1.jpeg", "../session/q5/q5_2.jpeg"],
         question: "../session/q5/es/q5.mp3",
-        explanation: "../session/q5/es/exp5.mp3"
+        explaination: "../session/q5/es/exp5.mp3"
       }
     },
     {
@@ -81,11 +81,11 @@ export const session1ES = {
         "B el peso máximo autorizado en carga"
       ],
      correctAnswer: [1],
-      explanation: "¿Qué significa M.M.A.? Masa Máxima Autorizada. Es el peso máximo de mi vehículo incluyendo la carga. Si supero el M.M.A. indicado en el certificado de matrícula, estoy sujeto a una multa considerable y la inmovilización de mi vehículo. Además, los riesgos de accidentes son significativos.",
+      explaination: "¿Qué significa M.M.A.? Masa Máxima Autorizada. Es el peso máximo de mi vehículo incluyendo la carga. Si supero el M.M.A. indicado en el certificado de matrícula, estoy sujeto a una multa considerable y la inmovilización de mi vehículo. Además, los riesgos de accidentes son significativos.",
       assets: {
         img: ["../session/q6/q6.jpeg"],
         question: "../session/q6/es/q6.mp3",
-        explanation: "../session/q6/es/exp6.mp3"
+        explaination: "../session/q6/es/exp6.mp3"
       }
     },
     {
@@ -98,11 +98,11 @@ export const session1ES = {
         "D para descansar"
       ],
      correctAnswer: [1],
-      explanation: "¿Qué indica la señalización? Indica un lugar de detención de emergencia a 200 metros. Como su nombre lo indica, solo puedo detenerme allí en caso de emergencia (avería, malestar, etc.). En ningún caso debo utilizar el arcén de emergencia o un lugar de detención de emergencia para hacer una llamada 'no urgente'. Puedo descansar, hacer un picnic o llamar por teléfono en áreas de descanso o servicio. ¡Aprovecharé para relajarme y tomar un café!",
+      explaination: "¿Qué indica la señalización? Indica un lugar de detención de emergencia a 200 metros. Como su nombre lo indica, solo puedo detenerme allí en caso de emergencia (avería, malestar, etc.). En ningún caso debo utilizar el arcén de emergencia o un lugar de detención de emergencia para hacer una llamada 'no urgente'. Puedo descansar, hacer un picnic o llamar por teléfono en áreas de descanso o servicio. ¡Aprovecharé para relajarme y tomar un café!",
       assets: {
         img: ["../session/q7/q7.jpeg"],
         question: "../session/q7/es/q7.mp3",
-        explanation: "../session/q7/es/exp7.mp3"
+        explaination: "../session/q7/es/exp7.mp3"
       }
     },
     {
@@ -114,11 +114,11 @@ export const session1ES = {
       ],
       choices: ["A Sí", "B No", "C Sí", "D No"],
      correctAnswer: [1, 3],
-      explanation: "¿Cuáles son los riesgos al abrir una puerta? Puede obstaculizar el tráfico de otros usuarios. En el lado de la acera, los peatones pueden ser molestados. En el lado de la carretera, los coches, bicicletas, etc. pueden ser molestados. Esto puede hacer que tengan que cambiar de trayectoria o frenar. El riesgo de accidente es alto. Por lo tanto, verifico en el espejo retrovisor exterior y en el punto ciego la ausencia de usuarios en el lado de la puerta que voy a abrir. Al abrir la puerta con la mano contraria, naturalmente me giro ligeramente y verifico el punto ciego.",
+      explaination: "¿Cuáles son los riesgos al abrir una puerta? Puede obstaculizar el tráfico de otros usuarios. En el lado de la acera, los peatones pueden ser molestados. En el lado de la carretera, los coches, bicicletas, etc. pueden ser molestados. Esto puede hacer que tengan que cambiar de trayectoria o frenar. El riesgo de accidente es alto. Por lo tanto, verifico en el espejo retrovisor exterior y en el punto ciego la ausencia de usuarios en el lado de la puerta que voy a abrir. Al abrir la puerta con la mano contraria, naturalmente me giro ligeramente y verifico el punto ciego.",
       assets: {
         img: ["../session/q8/q8.jpeg"],
         question: "../session/q8/es/q8.mp3",
-        explanation: "../session/q8/es/exp8.mp3"
+        explaination: "../session/q8/es/exp8.mp3"
       }
     },
     {
@@ -129,11 +129,11 @@ export const session1ES = {
         "B Activo el sistema de seguridad infantil"
       ],
      correctAnswer: [1],
-      explanation: "¿Cómo garantizar la seguridad de los pasajeros niños? Cuando los niños están bien instalados y abrochados en su asiento, en la parte trasera de mi vehículo, garantizo su seguridad activando el sistema de seguridad infantil. No necesito desactivar el airbag del pasajero en este caso.",
+      explaination: "¿Cómo garantizar la seguridad de los pasajeros niños? Cuando los niños están bien instalados y abrochados en su asiento, en la parte trasera de mi vehículo, garantizo su seguridad activando el sistema de seguridad infantil. No necesito desactivar el airbag del pasajero en este caso.",
       assets: {
         img: ["../session/q9/q9.jpeg"],
         question: "../session/q9/es/q9.mp3",
-        explanation: "../session/q9/es/exp9.mp3"
+        explaination: "../session/q9/es/exp9.mp3"
       }
     },
     {
@@ -141,11 +141,11 @@ export const session1ES = {
       questions: ["La distancia de detención es igual a la distancia recorrida durante el tiempo de frenado:"],
       choices: ["A Sí", "B No"],
      correctAnswer: [1],
-      explanation: "¿Qué es la distancia de detención? Es la distancia recorrida desde el momento en que detecto el obstáculo hasta el momento en que mi vehículo se detiene. La distancia de detención incluye, por lo tanto, la distancia recorrida durante el tiempo de reacción y la distancia de frenado.",
+      explaination: "¿Qué es la distancia de detención? Es la distancia recorrida desde el momento en que detecto el obstáculo hasta el momento en que mi vehículo se detiene. La distancia de detención incluye, por lo tanto, la distancia recorrida durante el tiempo de reacción y la distancia de frenado.",
       assets: {
-        img: ["../session/q/q10.jpeg"],
+        img: ["../session/q10/q10.jpeg"],
         question: "../session/q10/es/q10.mp3",
-        explanation: "../session/q10/es/exp10.mp3"
+        explaination: "../session/q10/es/exp10.mp3"
       }
     },
     {
@@ -158,7 +158,7 @@ export const session1ES = {
      correctAnswer: [0],
       explaination: "¿Qué indica esta señal? El fin de todas las prohibiciones previamente señalizadas para los vehículos en movimiento. Permanezco atento y aplico las normas generales de circulación (posición en la vía, límite de velocidad, etc).",
       assets: {
-        img: ["../session/q/q11.jpeg"],
+        img: ["../session/q11/q11.jpeg"],
         question: "../session/q11/fr/q11.mp3",
         explaination: "../session/q11/fr/exp11.mp3"
       }
@@ -167,7 +167,7 @@ export const session1ES = {
       id: 12,
       questions: ["Una motocicleta extiende su pierna como una señal de:"],
       choices: ["A Agradecimiento", "B Descontento"],
-     correctAnswer: [0],
+      correctAnswer: [0],
       explaination: "¿Qué está haciendo? Este gesto es muy común. Es una señal de agradecimiento fácil de hacer para los motociclistas. Cuando facilito el paso a un motociclista al mantenerme a la derecha, por ejemplo. Cuando entiendo su deseo de adelantarme, él me agradece por tener en cuenta sus dificultades.",
       assets: {
         img: ["../session/q12/q12.jpeg"],
@@ -185,7 +185,7 @@ export const session1ES = {
      correctAnswer: [0],
       explaination: "¿Qué está sucediendo? La señal indica que mi carril será eliminado en 400 m. Debo cambiar de carril. Si cambio de carril de inmediato, la distancia de seguridad con el vehículo negro será insuficiente. Reduzco la velocidad para aumentarla. Me ubicaré en el carril a mi izquierda cuando la distancia de seguridad sea suficiente.",
       assets: {
-        img: ["../session/q/q13.jpeg"],
+        img: ["../session/q13/q13.jpeg"],
         question: "../session/q13/fr/q13.mp3",
         explaination: "../session/q13/fr/exp13.mp3"
       }
@@ -202,7 +202,7 @@ export const session1ES = {
      correctAnswer: [1, 2],
       explaination: "¿Qué está sucediendo? Me acerco a la salida del túnel. Mantengo las luces de cruce durante el tiempo que dure el paso por el túnel. Y reduzco la velocidad para permitir que mis ojos se acostumbren al cambio de luminosidad.",
       assets: {
-        img: ["../session/q/q14.jpeg"],
+        img: ["../session/q14/q14.jpeg"],
         question: "../session/q14/fr/q14.mp3",
         explaination: "../session/q14/fr/exp14.mp3"
       }
@@ -214,7 +214,7 @@ export const session1ES = {
      correctAnswer: [1],
       explaination: "¿Qué está sucediendo? Hay una máquina de mantenimiento en acción en el carril derecho. Ajusto mi comportamiento y velocidad para reducir el riesgo de accidente. Continúo adelantando en este carril. Al adelantar la máquina, me acercaré al borde izquierdo de mi carril sin cruzar la línea central.",
       assets: {
-        img: ["../session/q/q15.jpeg"],
+        img: ["../session/q15/q15.jpeg"],
         question: "../session/q15/fr/q15.mp3",
         explaination: "../session/q15/fr/exp15.mp3"
       }
@@ -251,7 +251,7 @@ export const session1ES = {
      correctAnswer: [0, 3],
       explaination: "¿Qué es el ESP? Este sistema actúa sobre la dirección del vehículo para evitar una salida de trayectoria. Mejora el control de la trayectoria y evita los derrapes.",
       assets: {
-        img: ["../session/q/q17.jpeg"],
+        img: ["../session/q17/q17.jpeg"],
         question: "../session/q17/fr/q17.mp3",
         explaination: "../session/q17/fr/exp17.mp3"
       }
@@ -473,11 +473,11 @@ export const session1ES = {
         "D Los ciclistas"
       ],
      correctAnswer: [1, 3],
-      explanation: "¿Qué indica esta señal? Un carril verde que se encuentra a la derecha de la calzada. Es un carril reservado para la circulación de usuarios no motorizados. Por lo tanto, los ciclomotores no pueden circular por él.",
+      explaination: "¿Qué indica esta señal? Un carril verde que se encuentra a la derecha de la calzada. Es un carril reservado para la circulación de usuarios no motorizados. Por lo tanto, los ciclomotores no pueden circular por él.",
       assets: {
         img: ["../session/q31/q31.jpeg"],
         question: "../session/q31/es/q31.mp3",
-        explanation: "../session/q31/es/exp31.mp3"
+        explaination: "../session/q31/es/exp31.mp3"
       }
     },
     {
@@ -489,11 +489,11 @@ export const session1ES = {
         "C Alternar los días de uso del vehículo"
       ],
      correctAnswer: [1],
-      explanation: "¿Qué es la intermodalidad? Es cuando utilizo varios modos de transporte para realizar un viaje. Este sistema permite reducir los atascos de tráfico, la contaminación acústica y atmosférica en la ciudad. Se trata de áreas, principalmente ubicadas en las entradas de las ciudades, que permiten utilizar un estacionamiento para aparcar mi vehículo durante el día y utilizar el transporte público.",
+      explaination: "¿Qué es la intermodalidad? Es cuando utilizo varios modos de transporte para realizar un viaje. Este sistema permite reducir los atascos de tráfico, la contaminación acústica y atmosférica en la ciudad. Se trata de áreas, principalmente ubicadas en las entradas de las ciudades, que permiten utilizar un estacionamiento para aparcar mi vehículo durante el día y utilizar el transporte público.",
       assets: {
         img: ["../session/q32/q32.jpeg"],
         question: "../session/q32/es/q32.mp3",
-        explanation: "../session/q32/es/exp32.mp3"
+        explaination: "../session/q32/es/exp32.mp3"
       }
     },
     {
@@ -503,11 +503,11 @@ export const session1ES = {
       ],
       choices: ["A Sí", "B No"],
      correctAnswer: [1],
-      explanation: "¿Dónde debe sentarse mi hijo de 9 años? La regla es clara, un niño menor de 10 años debe sentarse en la parte trasera del vehículo en un elevador adecuado para su morfología. El hecho de que se aburra no es una excusa válida para sentarse en el asiento delantero, ya que sería potencialmente peligroso para su seguridad.",
+      explaination: "¿Dónde debe sentarse mi hijo de 9 años? La regla es clara, un niño menor de 10 años debe sentarse en la parte trasera del vehículo en un elevador adecuado para su morfología. El hecho de que se aburra no es una excusa válida para sentarse en el asiento delantero, ya que sería potencialmente peligroso para su seguridad.",
       assets: {
         img: ["../session/q33/q33.jpeg"],
         question: "../session/q33/es/q33.mp3",
-        explanation: "../session/q33/es/exp33.mp3"
+        explaination: "../session/q33/es/exp33.mp3"
       }
     },
     {
@@ -517,11 +517,11 @@ export const session1ES = {
       ],
       choices: ["A Izquierdo", "B Central", "C Derecho"],
      correctAnswer: [1],
-      explanation: "¿Qué indica la señalización? Las flechas luminosas sobre los carriles indican los carriles abiertos y cerrados al tráfico. La flecha naranja indica que el carril derecho se cerrará al tráfico. Debo circular por el carril más a la derecha en mi dirección. Me quedo en el carril central.",
+      explaination: "¿Qué indica la señalización? Las flechas luminosas sobre los carriles indican los carriles abiertos y cerrados al tráfico. La flecha naranja indica que el carril derecho se cerrará al tráfico. Debo circular por el carril más a la derecha en mi dirección. Me quedo en el carril central.",
       assets: {
         img: ["../session/q34/q34_1.jpeg","../session/q34/q34_2.jpeg"],
         question: "../session/q34/es/q34.mp3",
-        explanation: "../session/q34/es/exp34.mp3"
+        explaination: "../session/q34/es/exp34.mp3"
       }
     },
     {
@@ -533,11 +533,11 @@ export const session1ES = {
         "C Me quedo detrás del ciclista"
       ],
      correctAnswer: [2],
-      explanation: "¿Cómo debo actuar en esta situación? El ciclista que circula delante de mí se mantiene a la derecha, lo que me permite adelantarlo. Sin embargo, al realizar este adelantamiento, debo asegurarme de no correr ningún riesgo. Hay un vehículo que se acerca de frente. No es el momento de desviarme hacia la izquierda, ya que podría haber una colisión con ese vehículo. No es necesario hacer sonar el claxon, ya que no hay un peligro inmediato.",
+      explaination: "¿Cómo debo actuar en esta situación? El ciclista que circula delante de mí se mantiene a la derecha, lo que me permite adelantarlo. Sin embargo, al realizar este adelantamiento, debo asegurarme de no correr ningún riesgo. Hay un vehículo que se acerca de frente. No es el momento de desviarme hacia la izquierda, ya que podría haber una colisión con ese vehículo. No es necesario hacer sonar el claxon, ya que no hay un peligro inmediato.",
       assets: {
         img: ["../session/q35/q35.jpeg"],
         question: "../session/q35/es/q35.mp3",
-        explanation: "../session/q35/es/exp35.mp3"
+        explaination: "../session/q35/es/exp35.mp3"
       }
     },
     {
@@ -545,11 +545,11 @@ export const session1ES = {
       questions: ["Hago sonar el claxon:"],
       choices: ["A Sí", "B No"],
      correctAnswer: [1],
-      explanation: "¿Qué debo hacer? El tractor ocupa gran parte de mi carril. Me está prohibido cruzar o pisar la línea continua central para adelantarlo. Reduzco la velocidad para mantener una distancia de seguridad suficiente y esperar a poder adelantarlo de forma segura.",
+      explaination: "¿Qué debo hacer? El tractor ocupa gran parte de mi carril. Me está prohibido cruzar o pisar la línea continua central para adelantarlo. Reduzco la velocidad para mantener una distancia de seguridad suficiente y esperar a poder adelantarlo de forma segura.",
       assets: {
         img: ["../session/q36/q36.jpeg"],
         question: "../session/q36/es/q36.mp3",
-        explanation: "../session/q36/es/exp36.mp3"
+        explaination: "../session/q36/es/exp36.mp3"
       }
     },
     {
@@ -564,11 +564,11 @@ export const session1ES = {
         "D Daños por colisión"
       ],
      correctAnswer: [2, 3],
-      explanation: "¿Cuál es la garantía mínima obligatoria? La Responsabilidad Civil. Cubre los daños materiales y personales causados a terceros. Si quiero que los daños de mi vehículo sean cubiertos en caso de una colisión de la cual soy responsable, debo tener la garantía de 'Todo riesgo' o 'Daños por colisión'.",
+      explaination: "¿Cuál es la garantía mínima obligatoria? La Responsabilidad Civil. Cubre los daños materiales y personales causados a terceros. Si quiero que los daños de mi vehículo sean cubiertos en caso de una colisión de la cual soy responsable, debo tener la garantía de 'Todo riesgo' o 'Daños por colisión'.",
       assets: {
         img: ["../session/q37/q37.jpeg"],
         question: "../session/q37/es/q37.mp3",
-        explanation: "../session/q37/es/exp37.mp3"
+        explaination: "../session/q37/es/exp37.mp3"
       }
     },
     {
@@ -578,11 +578,11 @@ export const session1ES = {
       ],
       choices: ["A Sí", "B No"],
      correctAnswer: [0],
-      explanation: "¿Cuáles son las consecuencias de hacer una llamada telefónica? Puedo tardar más tiempo en captar las señales de tráfico y molestar a otros usuarios. Conducir con un teléfono móvil en la mano o utilizando un kit de manos libres está prohibido (multa de 135€ y pérdida de 3 puntos del carné).",
+      explaination: "¿Cuáles son las consecuencias de hacer una llamada telefónica? Puedo tardar más tiempo en captar las señales de tráfico y molestar a otros usuarios. Conducir con un teléfono móvil en la mano o utilizando un kit de manos libres está prohibido (multa de 135€ y pérdida de 3 puntos del carné).",
       assets: {
         img: ["../session/q38/q38.jpeg"],
         question: "../session/q38/es/q38.mp3",
-        explanation: "../session/q38/es/exp38.mp3"
+        explaination: "../session/q38/es/exp38.mp3"
       }
     },
     {
@@ -592,11 +592,11 @@ export const session1ES = {
       ],
       choices: ["A Sí", "B No"],
      correctAnswer: [0],
-      explanation: "¿Cuál es la periodicidad de la inspección técnica? Debe realizarse antes del cuarto año de circulación del vehículo y luego cada dos años. Si no cumplo con esta fecha límite, me expongo a una multa de cuarta clase y a la inmovilización del vehículo.",
+      explaination: "¿Cuál es la periodicidad de la inspección técnica? Debe realizarse antes del cuarto año de circulación del vehículo y luego cada dos años. Si no cumplo con esta fecha límite, me expongo a una multa de cuarta clase y a la inmovilización del vehículo.",
       assets: {
         img: ["../session/q39/q39.jpeg"],
         question: "../session/q39/es/q39.mp3",
-        explanation: "../session/q39/es/exp39.mp3"
+        explaination: "../session/q39/es/exp39.mp3"
       }
     },
     {
@@ -608,11 +608,11 @@ export const session1ES = {
         "C Acelero"
       ],
      correctAnswer: [1],
-      explanation: "¿Qué debo hacer al cambiar de dirección? Advierto a los usuarios que encuentro. Ajusto la velocidad y me posiciono correctamente. Enciendo los intermitentes izquierdos para indicar mi intención de cambiar de dirección al usuario que me sigue.",
+      explaination: "¿Qué debo hacer al cambiar de dirección? Advierto a los usuarios que encuentro. Ajusto la velocidad y me posiciono correctamente. Enciendo los intermitentes izquierdos para indicar mi intención de cambiar de dirección al usuario que me sigue.",
       assets: {
         img: ["../session/q40/q40_1.jpeg","../session/q40/q40_2.jpeg"],
         question: "../session/q40/es/q40.mp3",
-        explanation: "../session/q40/es/exp40.mp3"
+        explaination: "../session/q40/es/exp40.mp3"
       }
     }
   ],

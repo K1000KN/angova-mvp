@@ -504,47 +504,7 @@ function Landing() {
           />{" "}
           <LinkedInIcon sx={{ color: "#FFFF", fontSize: 35 }} />
         </Grid>
-        <Grid
-          item
-          xs={12}
-          sx={{
-            marginTop: "10px",
-            flexDirection: "column",
-            justifyContent: "end",
-            display: { xs: "block", md: "none", lg: "flex" },
-          }}
-        >
-          <Grid container direction="row" sx={flexCenter}>
-            <Typography style={sections} onClick={scrollToCode}>
-              {t("footer-1")}
-            </Typography>
-            <Typography style={sections} onClick={scrollToDesc}>
-              {t("footer-2")}
-            </Typography>
-            <Typography style={sections} onClick={scrollToQuestion}>
-              {t("footer-3")}
-            </Typography>
-          </Grid>
-          <Divider
-            variant="middle"
-            sx={{
-              borderColor: "#FFFF",
-              marginTop: "10px",
-              marginBottom: "10px",
-            }}
-          />
-
-          <Typography
-            style={{
-              marginTop: "10px",
-              color: "#FFFF",
-              fontSize: 13,
-              textAlign: "center",
-            }}
-          >
-            {t("copyright")}
-          </Typography>
-        </Grid>
+        
       </Grid>
     </ThemeProvider>
   );

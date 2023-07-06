@@ -1,4 +1,4 @@
-export const session2 = {
+export const session2FR = {
   id: 2,
   topic: "Session",
   totalquestions: 40,
@@ -10,14 +10,17 @@ export const session2 = {
   quizz: [
     {
       id: 41,
-      questions: ["Le geste de la cycliste m'indique :"],
+      questions: [" " ,"J'entre sur :","Je vais rencontrer :"],
       choices: [
-        "A qu'elle va doubler la voiture noire par la droite",
-        "B qu'elle tourne à droite",
+        "A une autoroute",
+        "B une route à accès réglementé",
+        "C des automobilistes uniquement",
+        "D des véhicules pouvant circuler à allure soutenue (rapidement)",
       ],
-      correctAnswer: [1],
+      correctAnswer: [1,3],
       explaination:
-        "Que signifie le geste de la cycliste ? N’ayant aucun clignotant ni feux stop, un cycliste ne peut communiquer que par gestes. Ici, la cycliste a tourné la tête pour contrôler la présence d’un véhicule à l’arrière puis a indiqué la droite avec son bras. Cela signifie qu'elle va donc tourner dans la prochaine rue à droite. Il est possible qu’elle se déporte légèrement sur la gauche pour ne pas trop serrer son virage. Je reste prudent et derrière elle.",
+        `Qu'indiquent ces panneaux ? Celui du haut signale une route à accès réglementé. L'autre signale une fin d'autoroute.
+        Sur ces deux types de routes, seuls les voitures, les camions ou encore les motos peuvent circuler.`,
       assets: {
         img: ["../session/q41/q41.jpeg"],
         
@@ -690,5 +693,6 @@ export const session2 = {
         explaination: "../session/q80/fr/exp80.mp3",
       },
     }
+    
   ],
 };

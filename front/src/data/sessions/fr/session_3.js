@@ -1,4 +1,4 @@
-export const session2 = {
+export const session3FR = {
     id: 3,
     topic: "Session",
     totalquestions: 40,

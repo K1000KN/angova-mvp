@@ -18,7 +18,9 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { makeStyles } from "@mui/styles";
 import { session1FR } from "./data/sessions/fr/session_1.js";
-import { session2 } from "./data/sessions/fr/session_2.js";
+import { session2FR } from "./data/sessions/fr/session_2.js";
+import { session3FR } from "./data/sessions/fr/session_3";
+
 function Home() {
   const franceRoundedFlag = "./images/flag/rounded/france.png";
   const englishRoundedFlag = "./images/flag/rounded/uk.png";
@@ -66,7 +68,7 @@ function Home() {
       navigate("/profil");
     }
   };
-  const sessions = [session1FR, session2];
+  const sessions = [session1FR, session2FR,session3FR];
 
   useEffect(() => {
     // we use this effect to see the language dialog
@@ -221,16 +223,19 @@ function Home() {
 
           <Grid item xs={12} lg={8}>
             <Grid
+              container
+              flexDirection="row"
               style={{
-                display: "flex",
-                flexDirection: "row",
                 alignItems: "center",
-                margin: 30,
-                gap: 20,
+                marginTop: 30,
+                paddingLeft: 20,
+                paddingRight:20,
+                gap:30,
+                justifyContent:"center"
               }}
             >
               {sessions.map((session) => (
-                <Grid item xs={12} sm={6} lg={4} key={session.id}>
+                <Grid item xs={12} sm={5} lg={3.7} key={session.id}>
                   <Card
                     sx={{
                       "&:hover": {

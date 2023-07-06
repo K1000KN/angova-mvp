@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from 'react';
 
-var PlayerSession = ({ type, content, setAudioSrc, audioQuestion, audioExplaination }) => {
+var PlayerSession = ({  content, setAudioSrc,setExpAudioSrc, audioQuestion, audioExplaination }) => {
     const [currentSourceIndex, setCurrentSourceIndex] = useState(0);
   
     useEffect(() => {
         let intervalId;
-        setAudioSrc(audioQuestion)
-        if (type === "img" && content.length > 1) {
+        setAudioSrc(audioQuestion);
+        setExpAudioSrc(audioExplaination)
+        if ( content.length > 1) {
             intervalId = setInterval(() => {
                 setCurrentSourceIndex(prevIndex => (prevIndex === 0 ? 1 : 0));
             }, 1000);
@@ -17,7 +18,7 @@ var PlayerSession = ({ type, content, setAudioSrc, audioQuestion, audioExplainat
         return () => {
             clearInterval(intervalId);
         };
-    }, [type, content]);
+    }, [ content]);
 
     let render;
     
