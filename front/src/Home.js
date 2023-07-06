@@ -30,6 +30,7 @@ function Home() {
   const turkeyRoundedFlag = "./images/flag/rounded/turkey.png";
   const earthFlag = "./images/flag/rounded/earth.png";
   const spainRoundedFlag = "./images/flag/rounded/spain.png";
+  const ukraineRoundedFlag = "./images/flag/rounded/ukraine.png";
 
   const theme = createTheme({
     typography: {
@@ -68,7 +69,7 @@ function Home() {
       navigate("/profil");
     }
   };
-  const sessions = [session1FR, session2FR,session3FR];
+  const sessions = [session1FR, session2FR, session3FR];
 
   useEffect(() => {
     // we use this effect to see the language dialog
@@ -174,6 +175,9 @@ function Home() {
       case "tr":
         src = turkeyRoundedFlag;
         break;
+      case "ukr":
+        src = ukraineRoundedFlag;
+        break;
       default:
         src = null;
         break;
@@ -229,9 +233,9 @@ function Home() {
                 alignItems: "center",
                 marginTop: 30,
                 paddingLeft: 20,
-                paddingRight:20,
-                gap:30,
-                justifyContent:"center"
+                paddingRight: 20,
+                gap: 30,
+                justifyContent: "center",
               }}
             >
               {sessions.map((session) => (

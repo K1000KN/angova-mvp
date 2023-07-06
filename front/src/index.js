@@ -120,6 +120,14 @@ const PrivateRoute = ({ path, roles, children }) => {
 };
 
 const App = () => {
+  // TODO RTL support
+
+  // let language = localStorage.getItem("language");
+  // useEffect(() => {
+  //   if (language === "ar") {
+  //     document.getElementsByTagName("html")[0].setAttribute("dir", "rtl");
+  //   }
+  // }, [language]);
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
