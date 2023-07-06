@@ -89,8 +89,8 @@ function Landing() {
   const changeFlag = (lgn) => {
     document.getElementById("flagOfLanguage").src = lgn;
   };
-  const isChoosen = localStorage.getItem("hasChoosenLanguage");
-  if (isChoosen === null) {
+  const isLanguageChoosen = localStorage.getItem("hasChoosenLanguage");
+  if (isLanguageChoosen === null) {
     localStorage.setItem("hasChoosenLanguage", false);
   }
 
@@ -152,7 +152,7 @@ function Landing() {
   };
 
   useEffect(() => {
-    if (isChoosen === "true") {
+    if (isLanguageChoosen === "true") {
       i18n.changeLanguage(localStorage.getItem("language"));
     }
     if (token) {
@@ -160,8 +160,8 @@ function Landing() {
     } else {
       setIsLoggedIn(false);
     }
-  }, [i18n, isChoosen, token]);
-  
+  }, [i18n, isLanguageChoosen, token]);
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -318,6 +318,7 @@ function Landing() {
 
             <Player />
           </Grid>
+
           <Typography id="callToAction">{t("title-1.2")}</Typography>
 
           <Button
@@ -504,7 +505,6 @@ function Landing() {
           />{" "}
           <LinkedInIcon sx={{ color: "#FFFF", fontSize: 35 }} /> */}
         </Grid>
-        
       </Grid>
     </ThemeProvider>
   );

@@ -50,6 +50,8 @@ const UserProfile = () => {
   const turkeyRoundedFlag = "./images/flag/rounded/turkey.png";
   const earthFlag = "./images/flag/rounded/earth.png";
   const spainRoundedFlag = "./images/flag/rounded/spain.png";
+  const ukraineRoundedFlag = "./images/flag/rounded/ukraine.png";
+
   const navigate = useNavigate();
   const [value, setValue] = useState("profil");
   const [show, setShow] = useState(false);
@@ -163,6 +165,9 @@ const UserProfile = () => {
         break;
       case "tr":
         src = turkeyRoundedFlag;
+        break;
+      case "ukr":
+        src = ukraineRoundedFlag;
         break;
       default:
         src = null;
