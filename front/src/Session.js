@@ -6,7 +6,12 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 import { session1FR } from "./data/sessions/fr/session_1";
 import { session1ES } from "./data/sessions/es/session_1";
-// import { session2 } from "./data/sessions/fr/session_2";
+
+import { session2ES } from "./data/sessions/es/session_2";
+import { session2FR } from "./data/sessions/fr/session_2";
+
+import { session3ES } from "./data/sessions/es/session_3";
+import { session3FR } from "./data/sessions/fr/session_3";
 import ProgressBar from "./components/ProgressBar";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
@@ -40,11 +45,13 @@ const Session = () => {
   const [showExplanation, setShowExplanation] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
   const [audioSrc, setAudioSrc] = useState("");
+  const [expAudioSrc, setExpAudioSrc] = useState("");
+  const [isPlayingExp, setIsPlayingExp] = useState(false);
 
   //const audio = new Audio( "../session/audio/fr/q1.mp3");
 
   useEffect(() => {
-    if (isPlaying) {
+    if (isPlaying && isPlayingExp ===false) {
       var audio = new Audio(audioSrc);
       audio.play().catch((error) => {
         console.error("Error autoplaying audio:", error);
@@ -56,7 +63,19 @@ const Session = () => {
         audio.currentTime = 0;
       };
     }
-  }, [activeQuestion, isPlaying, audioSrc]);
+    if (isPlayingExp && isPlaying ===false) {
+      var audioExp = new Audio(expAudioSrc);
+      audioExp.play().catch((error) => {
+        console.error("Error autoplaying audio:", error);
+        setIsPlayingExp(false);
+        // Handle autoplay error here (e.g., show a UI element to manually play the audio)
+      });
+      return () => {
+        audioExp.pause();
+        audioExp.currentTime = 0;
+      };
+    }
+  }, [activeQuestion, isPlaying, audioSrc, isPlayingExp, expAudioSrc]);
 
   const navigate = useNavigate();
   const theme = createTheme({
@@ -78,7 +97,12 @@ const Session = () => {
       border: "none",
       cursor: "pointer",
     },
-
+    closeButton: {
+      position: "absolute !important",
+      right: theme.spacing(1),
+      top: theme.spacing(1),
+      color: theme.palette.grey[500],
+    },
     orangeTonalBtn: {
       background: "#ffffff",
       borderRadius: "9px",
@@ -155,13 +179,49 @@ const Session = () => {
         );
       }
       break;
-    // case "2":
-    //   sessionData = session2;
-    //   break;
-    // case "3":
-    //   sessionData = session3;
-    //   break;
-    // case "4":
+    case "2":
+      if (localStorage.getItem("language") === "fr") {
+        sessionData = session2FR;
+      } else if (localStorage.getItem("language") === "es") {
+        sessionData = session2ES;
+      } else {
+        return (
+          <Typography
+            sx={{
+              color: "#F49E4C",
+              fontSize: "20px",
+              fontWeight: "bold",
+              textAlign: "center",
+              marginTop: "20px",
+            }}
+          >
+            Language not supported
+          </Typography>
+        );
+      }
+      break;
+    case "3":
+      if (localStorage.getItem("language") === "fr") {
+        sessionData = session3FR;
+      } else if (localStorage.getItem("language") === "es") {
+        sessionData = session3ES;
+      } else {
+        return (
+          <Typography
+            sx={{
+              color: "#F49E4C",
+              fontSize: "20px",
+              fontWeight: "bold",
+              textAlign: "center",
+              marginTop: "20px",
+            }}
+          >
+            Language not supported
+          </Typography>
+        );
+      }
+      break;
+    case "4":
     //   sessionData = session4;
     //   break;
     // case "5":
@@ -188,6 +248,7 @@ const Session = () => {
   }
 
   let { quizz } = sessionData;
+  console.log(quizz[activeQuestion].explaination);
   const { questions, choices, correctAnswer, explaination, assets } =
     quizz[activeQuestion];
 
@@ -254,9 +315,18 @@ const Session = () => {
   };
 
   const handleToggleAudio = () => {
+    setIsPlayingExp(false);
     setIsPlaying(!isPlaying);
   };
+  const handleToggleAudioExp = () => {
+   
+    setIsPlaying(false); 
+    setIsPlayingExp(!isPlayingExp);
+  };
 
+  const handleClose= () => {
+    setOpenDialog(false);
+  };
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -302,9 +372,9 @@ const Session = () => {
 
               <Grid id="imgContainer" item xs={10}>
                 <PlayerSession
-                  type={assets.type}
                   content={assets.img}
                   setAudioSrc={setAudioSrc}
+                  setExpAudioSrc={setExpAudioSrc}
                   audioQuestion={assets.question}
                   audioExplaination={assets.explaination}
                 />
@@ -449,17 +519,17 @@ const Session = () => {
                   disabled={selectedAnswerIndices.length === 0}
                 >
                   {activeQuestion === quizz.length - 1 && showResult
-                    ? "Finish"
+                    ? "Finir"
                     : showExplanation
-                    ? "Next"
-                    : "Submit"}
+                    ? "Suivant"
+                    : "Valider"}
                 </button>
               </div>
             </Grid>
           </div>
         ) : (
           <div className="result">
-            <h3>Result</h3>
+            <h3>Resultat</h3>
             <div
               style={{
                 alignItems: "center",
@@ -476,16 +546,16 @@ const Session = () => {
             </div>
 
             <p>
-              Total Question: <span>{quizz.length}</span>
+              Total des questions: <span>{quizz.length}</span>
             </p>
             <p>
-              Total Score:<span> {result.score}</span>
+              Score:<span> {result.score}</span>
             </p>
             <p>
-              Correct Answers:<span> {result.correctAnswers}</span>
+              Bonne réponse:<span> {result.correctAnswers}</span>
             </p>
             <p>
-              Wrong Answers:<span> {result.wrongAnswers}</span>
+              Mauvaise réponse:<span> {result.wrongAnswers}</span>
             </p>
             <div
               style={{
@@ -499,21 +569,29 @@ const Session = () => {
             </div>
           </div>
         )}
-        <Dialog open={openDialog}>
-          <DialogTitle>Explications</DialogTitle>
+        <Dialog open={openDialog} onClose={handleClose}>
+          <DialogTitle>Explications  
+            <IconButton
+              aria-label="close"
+              className={classes.closeButton}
+              onClick={handleClose}
+            >
+              <CloseIcon />
+            </IconButton>
+          </DialogTitle>
           <DialogContent>{explaination}</DialogContent>
           <DialogActions>
             <button
-              //onClick={playAudioResponse}
+              onClick={handleToggleAudioExp}
               className={classes.orangeTonalBtn}
             >
-              <VolumeUp />
+              {!isPlayingExp ? <VolumeOff /> : <VolumeUp />}
             </button>
             <button
               onClick={closeExplanationDialogAndNext}
               className={classes.orangeBtn}
             >
-              Next
+              Suivant
             </button>
           </DialogActions>
         </Dialog>

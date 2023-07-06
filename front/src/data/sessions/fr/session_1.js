@@ -169,7 +169,7 @@ export const session1FR = {
       explaination:
         "Qu'est-ce que la distance d'arrêt ?  C'est la distance parcourue entre le moment où je détecte l'obstacle et le moment où mon véhicule s'arrête. La distance d'arrêt comprend donc la distance parcourue pendant le temps de réaction et la distance de freinage.",
       assets: {
-        img: ["../session/q/q10.jpeg"],
+        img: ["../session/q10/q10.jpeg"],
        
         question: "../session/q10/fr/q10.mp3",
         explaination: "../session/q10/fr/exp10.mp3",
@@ -186,7 +186,7 @@ export const session1FR = {
       explaination:
         "Qu'indique ce panneau ?  La fin de toutes les interdictions précédemment signalées aux véhicules en mouvement. Je reste vigilant et applique les règles de circulation générales (position sur la chaussée, limitation de vitesse, etc).",
       assets: {
-        img: ["../session/q/q11.jpeg"],
+        img: ["../session/q11/q11.jpeg"],
        
         question: "../session/q11/fr/q11.mp3",
         explaination: "../session/q11/fr/exp11.mp3",
@@ -217,7 +217,7 @@ export const session1FR = {
       explaination:
         "Que se passe-t-il ?  Le panneau signale que ma voie va être supprimée dans 400 m. Je dois changer de voie. Si je change de voie immédiatement la distance de sécurité avec le véhicule noir sera insuffisante. Je ralentis pour l'augmenter. Je me placerai dans la voie à ma gauche quand la distance de sécurité sera suffisante.",
       assets: {
-        img: ["../session/q/q13.jpeg"],
+        img: ["../session/q13/q13.jpeg"],
        
         question: "../session/q13/fr/q13.mp3",
         explaination: "../session/q13/fr/exp13.mp3",
@@ -236,7 +236,7 @@ export const session1FR = {
       explaination:
         "Que se passe-t-il ?  J'approche de la sortie du tunnel. Je garde les feux de croisement le temps de la traversée du tunnel. Et je ralentis pour permettre à mes yeux de s'habituer au changement de luminosité.",
       assets: {
-        img: ["../session/q/q14.jpeg"],
+        img: ["../session/q14/q14.jpeg"],
        
         question: "../session/q14/fr/q14.mp3",
         explaination: "../session/q14/fr/exp14.mp3",
@@ -250,7 +250,7 @@ export const session1FR = {
       explaination:
         "Que se passe-t-il ?  Un engin d'entretien est en action sur la voie de droite. J'adapte mon comportement et l'allure, pour limiter le risque d'accident. Je continue le dépassement en restant dans cette voie. En dépassant l'engin, je serrerai le bord gauche de ma voie, sans chevaucher le zébra central.",
       assets: {
-        img: ["../session/q/q15.jpeg"],
+        img: ["../session/q15/q15.jpeg"],
        
         question: "../session/q15/fr/q15.mp3",
         explaination: "../session/q15/fr/exp15.mp3",
@@ -292,7 +292,7 @@ export const session1FR = {
       explaination:
         "Qu'est-ce que l'ESP ?  Ce système agit sur la direction du véhicule pour éviter une sortie de trajectoire. Il améliore donc le contrôle de la trajectoire et évite les dérapages.",
       assets: {
-        img: ["../session/q/q17.jpeg"],
+        img: ["../session/q17/q17.jpeg"],
        
         question: "../session/q17/fr/q17.mp3",
         explaination: "../session/q17/fr/exp17.mp3",
