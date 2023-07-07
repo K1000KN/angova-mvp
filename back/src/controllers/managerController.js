@@ -31,10 +31,11 @@ export const createUser = async (req, res) => {
     const authorizationHeader = req.headers.authorization;
     const token = authorizationHeader.split(" ")[1];
     const decoded = jwt.verify(token, adminSecretKey);
+   
     let managerId = decoded.id;
 
     const manager = await User.findById(managerId);
-
+ console.log(manager);
     if (!userRole) {
       return res.status(500).send({ message: "Role not found" });
     }

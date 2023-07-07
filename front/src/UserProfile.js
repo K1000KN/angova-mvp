@@ -275,6 +275,7 @@ const UserProfile = () => {
           user.roles.some((role) => role.name === "user") &&
           user.manager === managerId
       );
+      console.log(userFromManager);
       setUsers(userFromManager);
     } catch (error) {
       console.error("Error:", error);
@@ -424,28 +425,28 @@ const UserProfile = () => {
       .required("Requis"),
   });
 
-  const onSubmitAddNewUser = async (values, props) => {
-    const user = {
-      username: values.name,
-      // firstname: values.firstname,
-      // age: values.age,
-      email: values.email,
-      password: values.password,
-    };
-    try {
-      const endpoint = `${apiUrl}/manager/create`;
-      const headers = {
-        Authorization: `Bearer ${token}`,
-      };
-      const response = await axios.post(endpoint, user, { headers });
-      setUsers([...usersList, user]);
-      props.resetForm();
-      handleCloseDialog();
-      console.log(response);
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
+  // const onSubmitAddNewUser = async (values, props) => {
+  //   const user = {
+  //     username: values.name,
+  //     // firstname: values.firstname,
+  //     // age: values.age,
+  //     email: values.email,
+  //     password: values.password,
+  //   };
+  //   try {
+  //     const endpoint = `${apiUrl}/manager/create`;
+  //     const headers = {
+  //       Authorization: `Bearer ${token}`,
+  //     };
+  //     const response = await axios.post(endpoint, user, { headers });
+  //     setUsers([...usersList, user]);
+  //     props.resetForm();
+  //     handleCloseDialog();
+  //     console.log(response);
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   }
+  // };
 
   const deleteUser = async () => {
     const token = localStorage.getItem("token");
@@ -603,7 +604,7 @@ const UserProfile = () => {
                     </IconButton>
                   </div>
 
-                  <Dialog open={openDialog} onClose={handleCloseDialog}>
+                  {/* <Dialog open={openDialog} onClose={handleCloseDialog}>
                     <DialogTitle>Inscription</DialogTitle>
                     <DialogContent>
                       <Grid>
@@ -714,8 +715,8 @@ const UserProfile = () => {
                         Cancel
                       </Button>
                     </DialogActions>
-                  </Dialog>
-                </Paper>
+                  </Dialog>*/}
+                </Paper> 
               </>
             ) : (
               <></>
