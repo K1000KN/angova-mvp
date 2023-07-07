@@ -29,7 +29,7 @@ function ReviewCard() {
             <img src='./images/femme.png' alt="femme" style={reviewImg}/>
             <Grid container  direction='column'  alignItems='center'  style={reviewCard}>
             <Typography className='nameReview'>
-                Laurie .F
+                Auto-école <br/>Aire de conduite
             </Typography>
             <Typography className='descReview'>
             {t('feedback-content-1')}
