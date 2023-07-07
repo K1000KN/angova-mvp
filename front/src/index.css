@@ -251,10 +251,10 @@ button {
     .react-multi-carousel-list{
         justify-content: start !important;
     }
-    .react-multi-carousel-item {
+    /* .react-multi-carousel-item {
         width: 60px !important;
     
-    }
+    } */
 }
 
 @media screen and (max-width:900px) {
@@ -304,11 +304,11 @@ button {
         padding-bottom: 18px;
         position: relative !important;
     }
-    
+/*     
     .react-multi-carousel-item {
         width: 71px !important;
     
-    }
+    } */
     .react-multiple-carousel__arrow--right {
        display: hidden !important;
     }
