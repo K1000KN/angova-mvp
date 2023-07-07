@@ -5,8 +5,9 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import { makeStyles } from "@mui/styles";
 import { useTranslation } from 'react-i18next';
+import axios from "axios";
 
-
+const apiUrl = process.env.REACT_APP_API_URL;
 const useStyles = makeStyles({
     field: {
         marginTop:'6%',
@@ -37,8 +38,19 @@ const RegistrationForm = ({open, handleClose}) => {
 
     })
     const onSubmit = (values, props) => {
+        console.log(values);
 
-        alert(JSON.stringify(values), null, 2)
+        axios.post(`${apiUrl}/contact`, values)
+        .then(response => {
+          // La requête a réussi
+          
+          props.resetForm();
+        })
+        .catch(error => {
+          // La requête a échoué
+          console.error(error);
+         
+        });
         props.resetForm()
     }
     
