@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import userRoutes from "./src/routes/userRoutes.js";
 import managerRoutes from "./src/routes/managerRoutes.js";
 import adminRoutes from "./src/routes/adminRoutes.js";
+import contactRoutes from "./src/routes/contactRoutes.js";
 
 dotenv.config();
 // init the database connection
@@ -17,6 +18,7 @@ app.use(cors({ origin: "*" }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use("/api/v1", contactRoutes);
 app.use("/api/v1", userRoutes);
 app.use("/api/v1", managerRoutes);
 app.use("/api/v1", adminRoutes);
