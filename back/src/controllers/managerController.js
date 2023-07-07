@@ -3,15 +3,31 @@ import dotenv from "dotenv";
 import User from "../models/User.js";
 import Role from "../models/Role.js";
 import jwt from "jsonwebtoken";
+import stripe from 'stripe';
 dotenv.config();
 
 const adminSecretKey = process.env.SALT_KEY;
 
+
+const stripeInstance = new stripe('sk_test_51NRF6LBHkhDIYYSv8MovkjYod1A4Q8rTUF9r51cVuivtz2UzCXBWCBOtYutiNK2chlavX04uxCsyXpo2OsmWHLP600cy1ZXdM3');
 ///fonction to create user
+
 export const createUser = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
-    const userRole = await Role.findOne({ name: "user" });
+    const { user, paymentMethod, selectedPackage } = req.body;
+    console.log()
+    const paymentIntent = await stripeInstance.paymentIntents.create({
+      amount: selectedPackage.totalPrice * 100, // Stripe utilise les montants en centimes
+      currency: 'eur', // Remplacez par votre devise souhaitée
+      payment_method: paymentMethod.id,
+      confirm: true,
+    });
+    // Vérifiez si le paiement a été réussi
+    if (paymentIntent.status !== 'succeeded') {
+      return res.status(500).json({ error: 'Échec du paiement.' });
+    }
+    console.log(paymentIntent.status);
+    const userRole = await Role.findOne({ name: 'user' });
     const authorizationHeader = req.headers.authorization;
     const token = authorizationHeader.split(" ")[1];
     const decoded = jwt.verify(token, adminSecretKey);
@@ -36,16 +52,15 @@ export const createUser = async (req, res) => {
         .send({ message: "At least one valid role is required" });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({
-      username,
-      email,
+    const hashedPassword = await bcrypt.hash(user.password, 10);
+    const newUser = new User({
+      username: user.username,
+      email: user.email,
       password: hashedPassword,
       roles: assignedRoles.map((role) => role._id),
-      manager: manager._id,
     });
-
-    await user.save();
+    console.log(newUser);
+    await newUser.save();
 
     const userWithRoles = await User.findById(user._id).populate(
       "roles",

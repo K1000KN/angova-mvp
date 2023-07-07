@@ -372,7 +372,8 @@ const UserProfile = () => {
   const [openDialog, setOpenDialog] = useState(false);
 
   const handleAddUser = () => {
-    setOpenDialog(true);
+    //setOpenDialog(true);
+    navigate("/add_user");
   };
 
   const handleCloseDialog = () => {
