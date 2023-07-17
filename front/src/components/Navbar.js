@@ -92,9 +92,12 @@ const NavbarComponent = ({ page, setLanguageImage }) => {
             }}
           >
             <Link to="/home">
-              <div id="homeNavImgDiv">
-                <img id="homeNavImg" src="./images/home.png" alt="profil" />
-              </div>
+              <img
+                id="profilNavImg"
+                src="./images/code_route.png"
+                style={{ width: 45, position: "absolute", bottom: 55 }}
+                alt="profil"
+              />
             </Link>
           </Grid>
         ) : (

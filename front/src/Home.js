@@ -39,6 +39,49 @@ function Home() {
   });
 
   const useStyles = makeStyles({
+    container: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: 30,
+      paddingLeft: 20,
+      paddingRight: 20,
+      gap: 30,
+    },
+    card: {
+      position: 'relative',
+      transition: 'background-color 0.3s',
+      '&:hover': {
+        backgroundColor: 'rgba(0, 0, 0, 0.2)',
+      },
+    },
+    cardMedia: {
+      height: '100%',
+      transition: 'all 0.2s ease',
+      '&:hover': {
+        backgroundSize: '120%',
+        cursor: 'pointer',
+      },
+    },
+    slide2: {
+      position: 'absolute',
+      bottom: 0,
+      left: 0,
+      width: '100%',
+      padding: '8px',
+      backgroundColor: 'rgba(0, 0, 0, 0.8)',
+      color: '#fff',
+      transition: 'transform 0.3s ease',
+      transform: 'translateY(100%)',
+      '&.active': {
+        transform: 'translateY(0)',
+      },
+    },
+    slide2Title: {
+      fontWeight: 600,
+      color: "#F49E4C",
+      textAlign: 'center',
+    },
     flagNav: {
       width: "50%",
       cursor: "pointer",
@@ -99,9 +142,13 @@ function Home() {
     localStorage.setItem("hasChoosenLanguage", true);
     handleClose();
   };
-
+  const [hoveredCard, setHoveredCard] = useState(null);
+  const classes = useStyles();
+  const handleHover = (id) => {
+    setHoveredCard(id);
+  };
   const Flag = ({ src, language }) => {
-    const classes = useStyles();
+  
     const [isLanguageVisible, setLanguageVisible] = useState(false);
 
     const handleClick = () => {
@@ -115,6 +162,7 @@ function Home() {
     const handleMouseLeave = () => {
       setLanguageVisible(false);
     };
+   
 
     return (
       <Grid
@@ -194,7 +242,18 @@ function Home() {
       />
     );
   };
-
+  const Slide = ({ active, title }) => {
+    const classes = useStyles();
+  
+    return (
+      <div className={`${classes.slide2} ${active ? 'active' : ''}`}>
+        <Typography variant="h6" className={classes.slide2Title}>
+          {title}
+        </Typography>
+      </div>
+    );
+  };
+  
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -217,67 +276,49 @@ function Home() {
           >
             <button className="btn-section">
               <img
-                src="./home.png"
+                src="./images/code_route.png"
                 alt=""
                 style={{ width: 40, marginRight: 15 }}
               />
-              <span className="btn-section-title">Session de code</span>
+              <span className="btn-section-title">Code de la route</span>
+            </button>
+
+            <button className="btn-section">
+              <img
+                src="./images/quizz.png"
+                alt=""
+                style={{ width: 40, marginRight: 15 }}
+              />
+              <span className="btn-section-title">Quizz</span>
             </button>
           </Grid>
 
           <Grid item xs={12} lg={8}>
-            <Grid
-              container
-              flexDirection="row"
-              style={{
-                alignItems: "center",
-                marginTop: 30,
-                paddingLeft: 20,
-                paddingRight: 20,
-                gap: 30,
-                justifyContent: "center",
-              }}
-            >
+            <Grid container flexDirection="row" className={classes.container}>
               {sessions.map((session) => (
                 <Grid item xs={12} sm={5} lg={3.7} key={session.id}>
                   <Card
-                    sx={{
-                      "&:hover": {
-                        ".MuiCardMedia-root": {
-                          filter: "brightness(70%)",
-                          backgroundSize: "120%",
-                        },
-                      },
+                    onClick={() => {
+                      navigate(`/session/${session.id}`);
                     }}
+                    className={classes.card}
+                    onMouseEnter={() => handleHover(session.id)}
+                    onMouseLeave={() => handleHover(null)}
                   >
                     <CardMedia
                       component="img"
+                      height="100%"
                       image={session.image}
-                      className="imgSessionHome"
                       alt="session"
-                      sx={{
-                        transition: "all 0.2s ease",
-                        "&:hover": {
-                          backgroundSize: "120%",
-                          cursor: "pointer",
-                        },
-                      }}
-                      onClick={() => {
-                        navigate(`/session/${session.id}`);
-                      }}
+                      className={classes.cardMedia}
                     />
-                    <CardContent>
-                      <Typography
-                        sx={{
-                          fontWeight: 600,
-                          display: "flex",
-                          justifyContent: "center",
-                        }}
-                        variant="h7"
-                      >
+                    <div
+                      className={`${classes.slide2} ${hoveredCard === session.id ? 'active' : ''}`}
+                    >
+                      <Typography variant="h6" className={classes.slide2Title}>
                         {session.title}
                       </Typography>
-                    </CardContent>
+                    </div>
                   </Card>
                 </Grid>
               ))}
@@ -328,7 +369,7 @@ function Home() {
               </Grid>
             </DialogContent>
           </div>
-        </Dialog>{" "}
+        </Dialog>
         <BottomBar handleChange={handleChange} value={value} />
       </ThemeProvider>
     </>

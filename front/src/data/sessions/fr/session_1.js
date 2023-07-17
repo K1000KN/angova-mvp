@@ -15,7 +15,7 @@ export const session1FR = {
       choices: ["A au niveau du panneau", "B au niveau de la ligne"],
       correctAnswer: [1],
       explaination:
-        "Où s’arrêter à un stop ?    Lorsque j’arrive à un stop, l'arrêt dans tous les cas est obligatoire à hauteur de la ligne d'effet, placée de manière à ce que je puisse voir correctement l’intersection avant de repartir.",
+        "Où s’arrêter à un stop ? Lorsque j’arrive à un stop, l'arrêt dans tous les cas est obligatoire à hauteur de la ligne d'effet, placée de manière à ce que je puisse voir correctement l’intersection avant de repartir.",
       assets: {
         img: ["../session/q1/q1.jpeg"],
         question: "../session/q1/fr/q1.mp3",

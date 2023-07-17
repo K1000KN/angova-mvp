@@ -23,7 +23,7 @@ import jwt_decode from "jwt-decode";
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import AddUserPage from './AddUser';
-
+import DashboardAutoPage from "./DashboardAuto";
 const theme = createTheme();
 
 const PrivateRoute = ({ path, roles, children }) => {
@@ -144,6 +144,15 @@ const App = () => {
             element={
               <PrivateRoute roles={["user", "manager", "admin"]}>
                 <Home />
+              </PrivateRoute>
+            }
+          />
+           <Route
+            path="/dashboard_auto"
+            element={
+              <PrivateRoute roles={["manager", "admin"]}>
+                
+                <DashboardAutoPage />
               </PrivateRoute>
             }
           />
