@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
   selectedCard: {
     borderColor: '#000000',
-    backgroundColor: '#A6FFBD'
+    backgroundColor: '#f7c99e',
   },
   button: {
     backgroundColor: '#00000',
@@ -181,8 +181,13 @@ const AddUserPage = () => {
                   variant="outlined"
                   className={`${classes.card} ${selectedPackageIndex === index ? classes.selectedCard : ''}`}
                   onClick={() => handlePackageSelection(index)}
-                >
+                >{selectedPackageIndex === index && (
+                    <IconButton sx={{position:"absolute", color:"green"}} aria-label="Selected">
+                      <CheckCircleOutline />
+                    </IconButton>
+                  )}
                   <CardContent>
+                  
                     <Typography variant="h6" component="div" align="center">
                       {subscriptionPackage.name}
                     </Typography>
@@ -205,11 +210,7 @@ const AddUserPage = () => {
                       </Typography>
                     </div>
                     </CardContent>
-                  {selectedPackageIndex === index && (
-                    <IconButton color="primary" aria-label="Selected">
-                      <CheckCircleOutline />
-                    </IconButton>
-                  )}
+                 
                 </Card>
               </Grid>
             ))}

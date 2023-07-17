@@ -35,14 +35,13 @@ export const createUser = async (req, res) => {
     let managerId = decoded.id;
 
     const manager = await User.findById(managerId);
- console.log(manager);
     if (!userRole) {
       return res.status(500).send({ message: "Role not found" });
     }
 
     const assignedRoles = [];
 
-    if (!managerId) {
+    if (!manager) {
       return res.status(500).send({ message: "Manager not found" });
     }
     assignedRoles.push(userRole);
@@ -59,6 +58,7 @@ export const createUser = async (req, res) => {
       email: user.email,
       password: hashedPassword,
       roles: assignedRoles.map((role) => role._id),
+      manager: managerId
     });
     console.log(newUser);
     await newUser.save();

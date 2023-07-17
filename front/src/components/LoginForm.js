@@ -31,7 +31,7 @@ const useStyles = makeStyles({
   },
 
   closeButton: {
-    position: "absolute",
+    position: "absolute !important",
     right: theme.spacing(1),
     top: theme.spacing(1),
     color: theme.palette.grey[500],
@@ -115,8 +115,7 @@ const LoginForm = ({ open, handleClose }) => {
     >
       <Dialog fullWidth maxWidth="sm" open={open} onClose={handleClose}>
         <div className={classes.wrapperDialog}>
-          <DialogTitle>
-            <Typography variant="h6">{t("loginButton")}</Typography>
+          <DialogTitle>{t("loginButton")}
             <IconButton
               aria-label="close"
               className={classes.closeButton}
@@ -125,6 +124,7 @@ const LoginForm = ({ open, handleClose }) => {
               <CloseIcon />
             </IconButton>
           </DialogTitle>
+          
           <DialogContent>
             <Grid>
               <Paper elevation={0} style={paperStyle}>
