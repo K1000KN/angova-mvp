@@ -15,7 +15,6 @@ const stripeInstance = new stripe('sk_test_51NRF6LBHkhDIYYSv8MovkjYod1A4Q8rTUF9r
 export const createUser = async (req, res) => {
   try {
     const { user, paymentMethod, selectedPackage } = req.body;
-    console.log()
     const paymentIntent = await stripeInstance.paymentIntents.create({
       amount: selectedPackage.totalPrice * 100, // Stripe utilise les montants en centimes
       currency: 'eur', // Remplacez par votre devise souhaitée
@@ -26,7 +25,6 @@ export const createUser = async (req, res) => {
     if (paymentIntent.status !== 'succeeded') {
       return res.status(500).json({ error: 'Échec du paiement.' });
     }
-    console.log(paymentIntent.status);
     const userRole = await Role.findOne({ name: 'user' });
     const authorizationHeader = req.headers.authorization;
     const token = authorizationHeader.split(" ")[1];
@@ -60,7 +58,7 @@ export const createUser = async (req, res) => {
       roles: assignedRoles.map((role) => role._id),
       manager: managerId
     });
-    console.log(newUser);
+   
     await newUser.save();
 
     const userWithRoles = await User.findById(user._id).populate(

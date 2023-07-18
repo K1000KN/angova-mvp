@@ -51,26 +51,20 @@ export const createManager = async (req, res) => {
     if (existingManager) {
       return res.status(409).send({ message: "Manager already exists" });
     }
-    bcrypt.getSalt(10, function(err, salt){
-      bcrypt.hash(password, salt, function(err, hashedPassword){
-        if(err) {
-          console.log(err);
-        }
-        password = hashedPassword;
+
     if (!managerRole) {
       return res.status(500).send({ message: "Manager role not found" });
     }
-    const manager = new User({
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newManager = new User({
       username,
       email,
       password: hashedPassword,
       roles: [managerRole._id],
       admin: adminId,
     });
-  })
-})
-    await manager.save();
-    res.status(201).send(manager);
+    await newManager.save();
+    res.status(201).send(newManager);
   } catch (err) {
     console.error(err);
     res.status(500).send({ message: "Failed to register admin" });

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import UserList from "./UserList";
 import NewUserForm from "./NewUserForm";
 import {
@@ -13,8 +13,11 @@ import {
 
 import LogoutIcon from "@mui/icons-material/Logout";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import axios from "axios";
 
 const Dashboard = () => {
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   const btnStyle = {
     display: "flex",
     justifyContent: "center",
@@ -45,7 +48,7 @@ const Dashboard = () => {
   };
 
   return (
-    <Container sx={{ marginTop: "2rem" }}>
+    <Container sx={{ marginTop: "2rem", marginBottom: "2rem" }}>
       <Grid container spacing={3} alignItems="center">
         <Grid item xs={12} sm={6}>
           <Typography variant="h4" sx={{ marginBottom: "0.5rem" }}>
@@ -105,6 +108,7 @@ const Dashboard = () => {
       <NewUserForm
         open={registrationOpen}
         handleClose={handleRegistrationClose}
+        
       />
     </Container>
   );

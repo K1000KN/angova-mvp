@@ -1,5 +1,5 @@
-import React, {useState,useEffect} from "react";
-import { Grid, Paper, Button, MenuItem } from "@mui/material";
+import React from "react";
+import { Grid, Paper, Button, Typography, MenuItem } from "@mui/material";
 import { TextField, Select } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -20,9 +20,8 @@ const useStyles = makeStyles({
     margin: 0,
     padding: theme.spacing(2),
   },
-
   closeButton: {
-    position: "absolute !important",
+    position: "absolute",
     right: theme.spacing(1),
     top: theme.spacing(1),
     color: theme.palette.grey[500],
@@ -36,7 +35,8 @@ const useStyles = makeStyles({
     marginTop: 8,
   },
 });
-const NewUserForm = ({ open, handleClose }) => {
+
+const NewUserForm = ({ open, handleClose, managers, admins }) => {
   const apiUrl = process.env.REACT_APP_API_URL;
 
   const { t } = useTranslation();
@@ -55,6 +55,8 @@ const NewUserForm = ({ open, handleClose }) => {
   
   const initialValues = {
     name: "",
+    firstname: "",
+    age: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -67,125 +69,89 @@ const NewUserForm = ({ open, handleClose }) => {
     name: Yup.string()
       .min(3, `${t("message-input-verif")}`)
       .required("Requis"),
+    firstname: Yup.string()
+      .min(3, `${t("message-input-verif")}`)
+      .required("Requis"),
     email: Yup.string()
       .email(`${t("email-input-verif")}`)
       .required("Requis"),
-    password: Yup.string()
-      .min(8, `${t("password-input-verif")}`)
-      .matches(
-        passwordRegExp,
-        "Password must have one upper, lower case, number"
-      )
+      password: Yup.string()
+      .min(0, "Le nombre caractères minimum doit être de 8")
       .required("Requis"),
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password")], "Mots de passe ne correspondent pas")
       .required("Requis"),
   });
 
-
-
-  const [managers, setManagers] = useState([]);
-  const [admins, setAdmins] = useState([]);
-
-  const fetchAllUsers = async () => {
-    try {
-      const response = await axios.get(`${apiUrl}/user/all`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      const admins = response.data.filter(
-        (user) => user.roles[0].name === "admin"
-      );
-
-      const managers = response.data.filter(
-        (user) => user.roles[0].name === "manager"
-      );
-      setAdmins(admins);
-      setManagers(managers);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchAllUsers();
-  }, []);
+ 
   const onSubmit = async (values, props) => {
+    console.log("fezf");
+    const token = localStorage.getItem("token");
 
-    try {
+    let response;
 
-      const token = localStorage.getItem("token");
-
-      let response;
-  
-      if (values.role === "manager") {
-        response = await axios.post(
-          `${apiUrl}/admin/createManager`,
-          {
-            username: values.name,
-            email: values.email,
-            password: values.password,
-            roles: [values.role],
-            admin: values.role === "admin" ? values.admin : undefined,
+    if (values.role === "manager") {
+      response = await axios.post(
+        `${apiUrl}/admin/createManager`,
+        {
+          username: values.name,
+          email: values.email,
+          password: values.password,
+          roles: [values.role],
+          admin: values.role === "admin" ? values.admin : undefined,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
           },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-      } 
-  
-      if (values.role === "admin") {
-        response = await axios.post(
-          `${apiUrl}/admin/create`,
-          {
-            username: values.name,
-            email: values.email,
-            password: values.password,
-            roles: [values.role],
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-      } else {
-        response = await axios.post(
-          `${apiUrl}/user/create`,
-          {
-            username: values.name,
-            email: values.email,
-            password: values.password,
-            roles: [values.role],
-            managerId: values.role === "user" ? values.manager : undefined,
-            adminId: values.role === "manager" ? values.admin : undefined,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-      }
-      if (response.status === 200 || response.status === 201) {
-        props.resetForm();     
-        // /// await new promise to wait for the resetForm to finish
-        // await new Promise((resolve) => setTimeout(resolve, 500));
-        // /// refresh the users list
-        // fetchAllUsers();
-        handleClose();
-        window.location.reload();
-      } else {
-        console.log(response);
-       
-      }
+        }
+      );
+    } else
 
-    } catch (error) {
-      console.error("Error:", error);
-      // Handle error state or display an error message
+    if (values.role === "admin") {
+      response = await axios.post(
+        `${apiUrl}/admin/create`,
+        {
+          username: values.name,
+          email: values.email,
+          password: values.password,
+          roles: [values.role],
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    } else {
+      response = await axios.post(
+        `${apiUrl}/user/create`,
+        {
+          username: values.name,
+          email: values.email,
+          password: values.password,
+          roles: [values.role],
+          managerId: values.role === "user" ? values.manager : undefined,
+          adminId: values.role === "manager" ? values.admin : undefined,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    }
+    if (response.status === 200 || response.status === 201) {
+      props.resetForm();
+      // /// await new promise to wait for the resetForm to finish
+      // await new Promise((resolve) => setTimeout(resolve, 500));
+      // /// refresh the users list
+      // fetchAllUsers();
+
+      handleClose();
+    } else {
+      console.log(response);
+     
     }
   };
 
@@ -202,7 +168,8 @@ const NewUserForm = ({ open, handleClose }) => {
     >
       <Dialog fullWidth maxWidth="sm" open={open} onClose={handleClose}>
         <div className={classes.wrapperDialog}>
-          <DialogTitle>{t("Enregistrement")}
+          <DialogTitle>
+            <Typography >{t("Enregistrement")}</Typography>
             <IconButton
               aria-label="close"
               className={classes.closeButton}
@@ -211,7 +178,6 @@ const NewUserForm = ({ open, handleClose }) => {
               <CloseIcon />
             </IconButton>
           </DialogTitle>
-          
           <DialogContent>
             <Grid>
               <Paper elevation={0} style={paperStyle}>
