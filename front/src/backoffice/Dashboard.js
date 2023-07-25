@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import UserList from "./UserList";
 import NewUserForm from "./NewUserForm";
+import NavbarComponent from "../components/Navbar";
 import {
   Box,
   Button,
@@ -13,11 +14,8 @@ import {
 
 import LogoutIcon from "@mui/icons-material/Logout";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import axios from "axios";
 
 const Dashboard = () => {
-  const apiUrl = process.env.REACT_APP_API_URL;
-
   const btnStyle = {
     display: "flex",
     justifyContent: "center",
@@ -48,69 +46,76 @@ const Dashboard = () => {
   };
 
   return (
-    <Container sx={{ marginTop: "2rem", marginBottom: "2rem" }}>
-      <Grid container spacing={3} alignItems="center">
-        <Grid item xs={12} sm={6}>
-          <Typography variant="h4" sx={{ marginBottom: "0.5rem" }}>
-            Dashboard
-          </Typography>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: isMobileOrTablet ? "center" : "flex-end",
-              alignItems: "center",
-              padding: isMobileOrTablet ? "1rem" : "0",
-              flexDirection: isMobileOrTablet ? "column" : "row",
-              marginBottom: "1rem",
-            }}
-          >
-            {isMobileOrTablet ? (
-              <>
-                <Button onClick={handleRegistrationOpen} sx={btnStyle}>
-                  <PersonAddIcon />
-                </Button>
-                <Container sx={{ width: "1rem" }} />
-                <Button onClick={handleLogout} sx={btnStyle}>
-                  <LogoutIcon />
-                </Button>
-              </>
-            ) : (
-              <>
-                <Button
-                  onClick={handleRegistrationOpen}
-                  sx={{
-                    ...btnStyle,
-                    width: "18rem",
-                    fontSize: "0.8rem",
-                  }}
-                >
-                  Nouvel utilisateur
-                  <PersonAddIcon sx={{ marginLeft: "0.5rem" }} />
-                </Button>
-                <Button
-                  onClick={handleLogout}
-                  sx={{
-                    ...btnStyle,
-                    marginLeft: "1rem",
-                    width: "5rem",
-                  }}
-                >
-                  <LogoutIcon />
-                </Button>
-              </>
-            )}
-          </Box>
-        </Grid>
+    <>
+      <Grid container>
+        {/* Render the specific navbar for admin on the /backoffice page */}
+        <NavbarComponent
+          page="backoffice"
+          setLanguageImage={(language) => {
+            /* Implement the setLanguageImage function here */
+          }}
+        />
       </Grid>
-      <UserList />
-      <NewUserForm
-        open={registrationOpen}
-        handleClose={handleRegistrationClose}
-        
-      />
-    </Container>
+
+      <Container sx={{ marginTop: "2rem", padding: "2rem" }}>
+        <Grid container spacing={3} alignItems="center">
+          <Grid item xs={12} sm={6}></Grid>
+          <Grid item xs={12} sm={6}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: isMobileOrTablet ? "center" : "flex-end",
+                alignItems: "center",
+                padding: isMobileOrTablet ? "1rem" : "0",
+                flexDirection: isMobileOrTablet ? "column" : "row",
+                marginBottom: "1rem",
+              }}
+            >
+              {isMobileOrTablet ? (
+                <>
+                  <Button onClick={handleRegistrationOpen} sx={btnStyle}>
+                    <PersonAddIcon />
+                  </Button>
+                  <Container sx={{ width: "1rem" }} />
+                  <Button onClick={handleLogout} sx={btnStyle}>
+                    <LogoutIcon />
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button
+                    onClick={handleRegistrationOpen}
+                    sx={{
+                      ...btnStyle,
+                      width: "18rem",
+                      fontSize: "0.8rem",
+                    }}
+                  >
+                    Nouvel utilisateur
+                    <PersonAddIcon sx={{ marginLeft: "0.5rem" }} />
+                  </Button>
+                  <Button
+                    onClick={handleLogout}
+                    sx={{
+                      ...btnStyle,
+                      marginLeft: "1rem",
+                      width: "5rem",
+                    }}
+                  >
+                    <LogoutIcon />
+                  </Button>
+                </>
+              )}
+            </Box>
+          </Grid>
+        </Grid>
+        <UserList />
+        <NewUserForm
+          open={registrationOpen}
+          handleClose={handleRegistrationClose}
+        />
+      </Container>
+    </>
   );
 };
 
