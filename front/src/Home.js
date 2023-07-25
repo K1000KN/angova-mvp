@@ -40,47 +40,47 @@ function Home() {
 
   const useStyles = makeStyles({
     container: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
+      display: "flex",
+      justifyContent: "flex-start",
+      alignItems: "center",
       marginTop: 30,
       paddingLeft: 20,
       paddingRight: 20,
       gap: 30,
     },
     card: {
-      position: 'relative',
-      transition: 'background-color 0.3s',
-      '&:hover': {
-        backgroundColor: 'rgba(0, 0, 0, 0.2)',
+      position: "relative",
+      transition: "background-color 0.3s",
+      "&:hover": {
+        backgroundColor: "rgba(0, 0, 0, 0.2)",
       },
     },
     cardMedia: {
-      height: '100%',
-      transition: 'all 0.2s ease',
-      '&:hover': {
-        backgroundSize: '120%',
-        cursor: 'pointer',
+      height: "100%",
+      transition: "all 0.2s ease",
+      "&:hover": {
+        backgroundSize: "120%",
+        cursor: "pointer",
       },
     },
     slide2: {
-      position: 'absolute',
+      position: "absolute",
       bottom: 0,
       left: 0,
-      width: '100%',
-      padding: '8px',
-      backgroundColor: 'rgba(0, 0, 0, 0.8)',
-      color: '#fff',
-      transition: 'transform 0.3s ease',
-      transform: 'translateY(100%)',
-      '&.active': {
-        transform: 'translateY(0)',
+      width: "100%",
+      padding: "8px",
+      backgroundColor: "rgba(0, 0, 0, 0.8)",
+      color: "#fff",
+      transition: "transform 0.3s ease",
+      transform: "translateY(100%)",
+      "&.active": {
+        transform: "translateY(0)",
       },
     },
     slide2Title: {
       fontWeight: 600,
       color: "#F49E4C",
-      textAlign: 'center',
+      textAlign: "center",
     },
     flagNav: {
       width: "50%",
@@ -148,7 +148,6 @@ function Home() {
     setHoveredCard(id);
   };
   const Flag = ({ src, language }) => {
-  
     const [isLanguageVisible, setLanguageVisible] = useState(false);
 
     const handleClick = () => {
@@ -162,7 +161,6 @@ function Home() {
     const handleMouseLeave = () => {
       setLanguageVisible(false);
     };
-   
 
     return (
       <Grid
@@ -244,16 +242,16 @@ function Home() {
   };
   const Slide = ({ active, title }) => {
     const classes = useStyles();
-  
+
     return (
-      <div className={`${classes.slide2} ${active ? 'active' : ''}`}>
+      <div className={`${classes.slide2} ${active ? "active" : ""}`}>
         <Typography variant="h6" className={classes.slide2Title}>
           {title}
         </Typography>
       </div>
     );
   };
-  
+
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -263,7 +261,7 @@ function Home() {
           id="sessionContainer"
           container
           direction="row"
-          style={{ height: "94vh" }}
+          style={{ height: "89vh" }}
         >
           <Grid
             item
@@ -313,7 +311,9 @@ function Home() {
                       className={classes.cardMedia}
                     />
                     <div
-                      className={`${classes.slide2} ${hoveredCard === session.id ? 'active' : ''}`}
+                      className={`${classes.slide2} ${
+                        hoveredCard === session.id ? "active" : ""
+                      }`}
                     >
                       <Typography variant="h6" className={classes.slide2Title}>
                         {session.title}
