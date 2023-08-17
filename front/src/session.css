@@ -173,6 +173,7 @@ ul .answer {
     }
     .quizList>li {
         font-size: 12px;
+        display: flex;
     }
     .quizButton > div > button {
         width : 35vw;
@@ -214,6 +215,7 @@ ul .answer {
     .quizList>li {
         font-size: 10px;
         margin: 0;
+
     }
     .active-question-no{
         font-size: 16px;

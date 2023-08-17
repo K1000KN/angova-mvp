@@ -8,7 +8,6 @@ dotenv.config();
 
 const adminSecretKey = process.env.SALT_KEY;
 
-
 /// fonction pour creer l'admin
 export const createAdmin = async (req, res) => {
   try {
@@ -76,7 +75,6 @@ export const getAdminById = async (req, res) => {
   try {
     const { id } = req.params;
     const user = await User.findById(id).populate("roles", "name");
-    user.password = undefined;
 
     if (!user) {
       return res.status(404).send({ message: "Admin not found" });
@@ -87,7 +85,6 @@ export const getAdminById = async (req, res) => {
     res.status(500).send({ message: "Failed to retrieve admin" });
   }
 };
-
 
 ///fonction to create user
 export const createUserFromAdmin = async (req, res) => {
@@ -139,4 +136,4 @@ export const createUserFromAdmin = async (req, res) => {
 
 export const testApi = async (req, res) => {
   res.status(200).send({ message: "API is working" });
-}
+};

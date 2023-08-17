@@ -383,17 +383,18 @@ const Session = () => {
                 </div>
                 {questions && questions.length > 1 ? (
                   <>
-                    <Typography variant="h7" id="questionQuizz">
+                    <Typography variant="h6" id="questionQuizz">
                       {questions[0]}
                     </Typography>
                     <br />
-                    <Typography variant="h7" id="questionQuizz">
+                    <br />
+                    <Typography variant="h6" id="questionQuizz">
                       {questions[1]}
                     </Typography>
                   </>
                 ) : (
                   <>
-                    <Typography variant="h7" id="questionQuizz">
+                    <Typography variant="h6" id="questionQuizz">
                       {questions}
                     </Typography>
                   </>
@@ -416,10 +417,26 @@ const Session = () => {
                               isAnswerSelected(index) ? "selected-answer" : null
                             }
                           >
+                            <span
+                              className="answer-index"
+                              style={{
+                                marginRight: "10px",
+                                fontWeight: "bold",
+                              }}
+                            >
+                              {index === 0
+                                ? "A"
+                                : index === 1
+                                ? "B"
+                                : index === 2
+                                ? "C"
+                                : "D"}
+                            </span>
                             {answer}
                           </li>
                         ))}
                       </ul>
+                      <br />
 
                       <h7 id="questionQuizz">{questions[2]}</h7>
                       {questions && questions.length > 1 ? (
@@ -440,6 +457,15 @@ const Session = () => {
                                   : null
                               }
                             >
+                              <span
+                                className="answer-index"
+                                style={{
+                                  marginRight: "10px",
+                                  fontWeight: "bold",
+                                }}
+                              >
+                                {index === 0 ? "C" : "D"}
+                              </span>
                               {answer}
                             </li>
                           ))}
@@ -465,6 +491,18 @@ const Session = () => {
                             isAnswerSelected(index) ? "selected-answer" : null
                           }
                         >
+                          <span
+                            className="answer-index"
+                            style={{ marginRight: "10px", fontWeight: "bold" }}
+                          >
+                            {index === 0
+                              ? "A"
+                              : index === 1
+                              ? "B"
+                              : index === 2
+                              ? "C"
+                              : "D"}
+                          </span>
                           {answer}
                         </li>
                       ))}
