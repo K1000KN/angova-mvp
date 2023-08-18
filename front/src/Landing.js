@@ -227,7 +227,7 @@ function Landing() {
             >
               <Toolbar>
                 {" "}
-                <Typography variant="h7" style={{ color: "black" }}>
+                <Typography variant="h6" style={{ color: "black" }}>
                   {t("popup")}
                 </Typography>
               </Toolbar>
