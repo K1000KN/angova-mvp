@@ -528,7 +528,7 @@ const Session = () => {
                   }}
                   disabled={!showExplanation}
                 >
-                  Explications
+                  {t("explications")}
                 </button>
               </div>
 
@@ -608,7 +608,7 @@ const Session = () => {
         )}
         <Dialog open={openDialog} onClose={handleClose}>
           <DialogTitle>
-            Explications
+            {t("explications")}
             <IconButton
               aria-label="close"
               className={classes.closeButton}

@@ -43,8 +43,9 @@
     "burger-qa": "Des questions?",
     "available": "Disponible",
     "comingSoon": "Arrive bientôt!",
-        "suivant": "Suivant",
-        "precedent": "Précédent",
-        "finir": "Finir",
-        "valider": "Valider"
+    "suivant": "Suivant",
+    "precedent": "Précédent",
+    "finir": "Finir",
+    "valider": "Valider",
+    "explications": "Explications"
 }
