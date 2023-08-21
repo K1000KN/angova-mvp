@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { decodeToken } from "react-jwt";
 import { Typography } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 const NavbarComponent = ({ page, setLanguageImage }) => {
+  const { t } = useTranslation();
   const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem("token");
   const [user, setUser] = useState(null);
@@ -162,7 +164,7 @@ const NavbarComponent = ({ page, setLanguageImage }) => {
         </Grid>
 
         <Grid item xs={12} id="welcomeHome" sx={{ marginBottom: "1vh" }}>
-          Bienvenue {user && user.username}
+          {user && user.username}
         </Grid>
       </Grid>
     </div>

@@ -8,11 +8,11 @@ dotenv.config();
 const app = express();
 
 const PORT = 3001;
-const DB_URI = process.env.DB_URI;
+const MONGODB_URI = process.env.MONGODB_URI;
 const adminSecretKey = process.env.SALT_KEY;
 // Connect to MongoDB
 mongoose
-  .connect(DB_URI, {
+  .connect(MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

@@ -5,10 +5,10 @@ import User from "../models/User.js";
 
 dotenv.config();
 
-const DB_URI = process.env.DB_URI;
+const MONGODB_URI = process.env.MONGODB_URI;
 
 mongoose
-  .connect(DB_URI, {
+  .connect(MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     family: 4,
