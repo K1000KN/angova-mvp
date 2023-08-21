@@ -20,8 +20,10 @@ import { makeStyles } from "@mui/styles";
 import { session1FR } from "./data/sessions/fr/session_1.js";
 import { session2FR } from "./data/sessions/fr/session_2.js";
 import { session3FR } from "./data/sessions/fr/session_3";
+import { useTranslation } from "react-i18next";
 
 function Home() {
+  const { t } = useTranslation();
   const franceRoundedFlag = "./images/flag/rounded/france.png";
   const englishRoundedFlag = "./images/flag/rounded/uk.png";
   const algeriaRoundedFlag = "./images/flag/rounded/algeria.png";
@@ -278,7 +280,7 @@ function Home() {
                 alt=""
                 style={{ width: 40, marginRight: 15 }}
               />
-              <span className="btn-section-title">Code de la route</span>
+              <span className="btn-section-title">{t("code de la route")}</span>
             </button>
 
             <button className="btn-section">
@@ -335,7 +337,7 @@ function Home() {
           >
             <DialogTitle>
               <Typography variant="h5" style={{ fontWeight: 700 }}>
-                Choisir la langue du code de la route
+                {t("choisir la langue du code de la route")}
               </Typography>
               <IconButton
                 aria-label="close"
