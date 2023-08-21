@@ -25,8 +25,10 @@ import {
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import PlayerSession from "./components/PlayerSession";
+import { useTranslation } from "react-i18next";
 
 const Session = () => {
+  const { t } = useTranslation();
   const [completed, setCompleted] = useState(0);
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [selectedAnswerIndices, setSelectedAnswerIndices] = useState([]);
@@ -554,10 +556,10 @@ const Session = () => {
                   disabled={selectedAnswerIndices.length === 0}
                 >
                   {activeQuestion === quizz.length - 1 && showResult
-                    ? "Finir"
+                    ? t("finir")
                     : showExplanation
-                    ? "Suivant"
-                    : "Valider"}
+                    ? t("suivant")
+                    : t("valider")}
                 </button>
               </div>
             </Grid>
@@ -627,7 +629,7 @@ const Session = () => {
               onClick={closeExplanationDialogAndNext}
               className={classes.orangeBtn}
             >
-              Suivant
+              {t("suivant")}
             </button>
           </DialogActions>
         </Dialog>

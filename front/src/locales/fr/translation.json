@@ -42,5 +42,9 @@
     "copyright": "© 2023 Angova. Tous droits réservés.",
     "burger-qa": "Des questions?",
     "available": "Disponible",
-    "comingSoon": "Arrive bientôt!"
+    "comingSoon": "Arrive bientôt!",
+        "suivant": "Suivant",
+        "precedent": "Précédent",
+        "finir": "Finir",
+        "valider": "Valider"
 }
