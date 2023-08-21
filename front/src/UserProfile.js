@@ -622,7 +622,7 @@ const UserProfile = () => {
         >
           <DialogTitle>
             <Typography variant="h5" style={{ fontWeight: 700 }}>
-              {t("choisir la langue du code de la route")}
+              {t("choisir-la-langue-du-code-de-la-route")}
             </Typography>
             <IconButton
               aria-label="close"
