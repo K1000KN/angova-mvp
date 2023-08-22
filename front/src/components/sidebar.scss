@@ -1,24 +1,21 @@
 // $gradient-bg: linear-gradient( 94.3deg,  rgba(30,30,30,1) 10.9%, rgba(81,84,115,1) 87.1% );
 // $sidebar-bg-color: $gradient-bg;
-$sidebar-bg-color: #1d1d1d;
-$submenu-bg-color: rgba(255, 255, 255, 0.05);
-$submenu-bg-color-collapsed: rgba(29, 29, 29, 0.95);
-$sidebar-color: #adadad;
-$highlight-color: #d8d8d8;
-$icon-bg-color: rgba(255, 255, 255, 0.05);
+
+$highlight-color: #bb3eb5;
 $icon-size: 35px;
 $breakpoint-md: 768px; // Adjust the value according to your needs
 
 
 .app {
   height: 100vh;
- 
   display: flex;
   position: relative;
   
   .btn-toggle {
     cursor: pointer;
     display: none;
+    padding: 10px;
+    color: #4691CD;
   }
 
 
@@ -103,6 +100,7 @@ $breakpoint-md: 768px; // Adjust the value according to your needs
   }
 }
 
+
 .badge {
   padding: 3px 6px;
   font-size: 9px;
@@ -121,6 +119,6 @@ $breakpoint-md: 768px; // Adjust the value according to your needs
     background: #ffd331;
   }
 }
-.custom-sidebar {
-    border-right: 2px solid red; /* Adjust the width and color as desired */
-  }
+
+
+  

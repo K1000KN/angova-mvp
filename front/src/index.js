@@ -23,7 +23,7 @@ import jwt_decode from "jwt-decode";
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import AddUserPage from './AddUser';
-import DashboardAutoPage from "./DashboardAuto";
+import DashboardAutoPage from "./dashboard/DashboardAuto";
 const theme = createTheme();
 
 const PrivateRoute = ({ path, roles, children }) => {
