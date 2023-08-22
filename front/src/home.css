@@ -7,11 +7,13 @@
   height:55px; 
   margin-top:40px;
   padding-right: 20px;
+  cursor: pointer;
 }
 .btn-section-title{
   font-size:14px;
   font-weight:700;
   color: #eb7201; 
+  
 }
   .header-flag {
     display: flex;

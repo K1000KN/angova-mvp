@@ -1,13 +1,7 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { Sidebar, Menu, MenuItem,SubMenu } from "react-pro-sidebar";
 import "./sidebar.scss";
-import { FaBars } from "react-icons/fa";
-import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
-import ReceiptRoundedIcon from "@mui/icons-material/ReceiptRounded";
-import BarChartRoundedIcon from "@mui/icons-material/BarChartRounded";
-import TimelineRoundedIcon from "@mui/icons-material/TimelineRounded";
-import BubbleChartRoundedIcon from "@mui/icons-material/BubbleChartRounded";
 import WalletRoundedIcon from "@mui/icons-material/WalletRounded";
 import AccountBalanceRoundedIcon from "@mui/icons-material/AccountBalanceRounded";
 import SavingsRoundedIcon from "@mui/icons-material/SavingsRounded";
@@ -15,87 +9,111 @@ import MonetizationOnRoundedIcon from "@mui/icons-material/MonetizationOnRounded
 import SettingsApplicationsRoundedIcon from "@mui/icons-material/SettingsApplicationsRounded";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import ShieldRoundedIcon from "@mui/icons-material/ShieldRounded";
-import NotificationsRoundedIcon from "@mui/icons-material/NotificationsRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
-import {
-  FaAngleDoubleLeft,
-  FaAngleDoubleRight,
+import CloseIcon from '@mui/icons-material/Close';
 
-} from 'react-icons/fa';
+const SideNavigation = ({ toggled,handleToggleSidebar, setPage}) => {
+  const [isMobile, setIsMobile] = useState(false);
 
-const SideNavigation = () => {
-  const [collapsed, setCollapsed] = useState(false);
-  const [toggled, setToggled] = useState(false);
-  const handleCollapsedChange = () => {
-    setCollapsed(!collapsed);
-  };
  
 
-
-  const handleToggleSidebar = (value) => {
-    setToggled(value);
+  const sidebarMobileStyles = {
+    backgroundColor: "white"
   };
 
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.matchMedia("(max-width: 768px)").matches);
+    };
+
+    // Vérifier l'état mobile au chargement de la page
+    checkIsMobile();
+
+    // Ajouter un écouteur pour détecter les changements d'état mobile
+    window.addEventListener("resize", checkIsMobile);
+
+    // Nettoyer l'écouteur lors du démontage du composant
+    return () => {
+      window.removeEventListener("resize", checkIsMobile);
+    };
+  }, []);
+
+ 
   return (
-    <div className={`app ${toggled ? 'toggled' : ''}`}>
-    <Sidebar
-      className="custom-sidebar"
-      collapsed={collapsed}
-      toggled={toggled}
-      onToggle={handleToggleSidebar}
-      breakPoint="md">
-      <Menu  >
-      {collapsed ? (
-            <MenuItem
-              icon={<FaAngleDoubleRight />}
-              onClick={handleCollapsedChange}
-            ></MenuItem>
-          ) : (
-            <MenuItem
-              suffix={<FaAngleDoubleLeft />}
-              onClick={handleCollapsedChange}
+    
+      <Sidebar
+        className="custom-sidebar"
+        onBackdropClick={handleToggleSidebar}
+        toggled={toggled}
+        onToggle={handleToggleSidebar}
+        style={sidebarMobileStyles} // Apply the custom styles here
+        breakPoint="md">
+        <Menu  
+          menuItemStyles={{
+            button: {
+              color: '#4691CD'
+            },
+          }}
+        >
+        
+        {isMobile ? (
+          <MenuItem suffix={<CloseIcon />} onClick={handleToggleSidebar}>
+            <div
+              style={{
+                padding: '9px',
+                textTransform: 'uppercase',
+                fontWeight: 'bold',
+                fontSize: 15,
+                letterSpacing: '1px'
+              }}
             >
-              <div
-                style={{
-                  padding: '9px',
-                  textTransform: 'uppercase',
-                  fontWeight: 'bold',
-                  fontSize: 15,
-                  letterSpacing: '1px'
-                }}
-              >
-                Pro Sidebar
-              </div>
+              <img
+              
+                style={{ width: 100 }}
+                alt="road"
+                src="./images/logo.png"
+              />
+            </div>
+          </MenuItem>
+        ):( 
+          <MenuItem onClick={handleToggleSidebar}>
+            <div
+              style={{
+                padding: '9px',
+                textTransform: 'uppercase',
+                fontWeight: 'bold',
+                fontSize: 15,
+                letterSpacing: '1px'
+              }}
+            >
+              <img            
+                style={{ width: 120 }}
+                alt="road"
+                src="./images/logo.png"
+              />
+            </div>
+          </MenuItem>
+        )}
+            
+          <MenuItem onClick={()=>{setPage('home')}} 
+            icon={<GridViewRoundedIcon />} > Dashboard </MenuItem>
+          
+          <SubMenu label="Wallet" icon={<AccountBalanceRoundedIcon />}>
+            <MenuItem icon={<WalletRoundedIcon />}  onClick={()=>{setPage('payment')}} >
+              Mon portefeuille
             </MenuItem>
-          )}
-        <MenuItem icon={<GridViewRoundedIcon />}> Dashboard </MenuItem>
-        <MenuItem icon={<ReceiptRoundedIcon />}> Invoices </MenuItem>
-        <SubMenu label="Charts" icon={<BarChartRoundedIcon />}>
-          <MenuItem icon={<TimelineRoundedIcon />}> Timeline Chart </MenuItem>
-          <MenuItem icon={<BubbleChartRoundedIcon />}>Bubble Chart</MenuItem>
-        </SubMenu>
-        <SubMenu label="Wallets" icon={<WalletRoundedIcon />}>
-          <MenuItem icon={<AccountBalanceRoundedIcon />}>
-            Current Wallet
-          </MenuItem>
-          <MenuItem icon={<SavingsRoundedIcon />}>Savings Wallet</MenuItem>
-        </SubMenu>
-        <MenuItem icon={<MonetizationOnRoundedIcon />}>Transactions</MenuItem>
-        <SubMenu label="Settings" icon={<SettingsApplicationsRoundedIcon />}>
-          <MenuItem icon={<AccountCircleRoundedIcon />}> Account </MenuItem>
-          <MenuItem icon={<ShieldRoundedIcon />}> Privacy </MenuItem>
-          <MenuItem icon={<NotificationsRoundedIcon />}>
-            Notifications
-          </MenuItem>
-        </SubMenu>
-        <MenuItem icon={<LogoutRoundedIcon />}> Logout </MenuItem>
-      </Menu>
-    </Sidebar>
-    <div className="btn-toggle" onClick={() => handleToggleSidebar(true)}>
-          <FaBars />
-        </div>
-    <h1>WELCOME TO QUICKPAY</h1>
-  </div>
+            <MenuItem icon={<SavingsRoundedIcon />}>Nouvelles accès</MenuItem>
+          </SubMenu>
+          <MenuItem icon={<MonetizationOnRoundedIcon />}>Transactions</MenuItem>
+          <SubMenu label="Settings" icon={<SettingsApplicationsRoundedIcon />}>
+            <MenuItem icon={<AccountCircleRoundedIcon />}> Account </MenuItem>
+            <MenuItem icon={<ShieldRoundedIcon />}> Privacy </MenuItem>
+          </SubMenu>
+          <MenuItem icon={<LogoutRoundedIcon />}> Déconnexion </MenuItem>
+        </Menu>
+      </Sidebar>
+      
+
   );
 };
 export default SideNavigation;

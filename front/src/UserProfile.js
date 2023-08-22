@@ -374,7 +374,7 @@ const UserProfile = () => {
 
   const handleAddUser = () => {
     //setOpenDialog(true);
-    navigate("/add_user");
+    navigate("/payment_dashboard");
   };
 
   const handleCloseDialog = () => {

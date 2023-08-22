@@ -2,9 +2,6 @@ import "./index.css";
 import "./home.css";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import BottomBar from "./components/BottomBar";
 import NavbarComponent from "./components/Navbar";
 import Typography from "@mui/material/Typography";
@@ -20,6 +17,8 @@ import { makeStyles } from "@mui/styles";
 import { session1FR } from "./data/sessions/fr/session_1.js";
 import { session2FR } from "./data/sessions/fr/session_2.js";
 import { session3FR } from "./data/sessions/fr/session_3";
+import ListSession from "./components/ListSessions";
+import Quizz from "./components/Quizz";
 
 function Home() {
   const franceRoundedFlag = "./images/flag/rounded/france.png";
@@ -69,7 +68,7 @@ function Home() {
       left: 0,
       width: '100%',
       padding: '8px',
-      backgroundColor: 'rgba(0, 0, 0, 0.8)',
+      backgroundColor: 'rgba(70, 145, 205, 0.8)',
       color: '#fff',
       transition: 'transform 0.3s ease',
       transform: 'translateY(100%)',
@@ -143,6 +142,9 @@ function Home() {
     handleClose();
   };
   const [hoveredCard, setHoveredCard] = useState(null);
+
+  const [component, setComponent] = useState("sessionCode");
+
   const classes = useStyles();
   const handleHover = (id) => {
     setHoveredCard(id);
@@ -242,17 +244,6 @@ function Home() {
       />
     );
   };
-  const Slide = ({ active, title }) => {
-    const classes = useStyles();
-  
-    return (
-      <div className={`${classes.slide2} ${active ? 'active' : ''}`}>
-        <Typography variant="h6" className={classes.slide2Title}>
-          {title}
-        </Typography>
-      </div>
-    );
-  };
   
   return (
     <>
@@ -274,7 +265,7 @@ function Home() {
               display: { xs: "none", lg: "flex" },
             }}
           >
-            <button className="btn-section">
+            <button onClick={()=>{setComponent("sessionCode")}} className="btn-section">
               <img
                 src="./images/code_route.png"
                 alt=""
@@ -283,7 +274,7 @@ function Home() {
               <span className="btn-section-title">Code de la route</span>
             </button>
 
-            <button className="btn-section">
+            <button  onClick={()=>{setComponent("quizz")}} className="btn-section">
               <img
                 src="./images/quizz.png"
                 alt=""
@@ -292,38 +283,11 @@ function Home() {
               <span className="btn-section-title">Quizz</span>
             </button>
           </Grid>
-
-          <Grid item xs={12} lg={8}>
-            <Grid container flexDirection="row" className={classes.container}>
-              {sessions.map((session) => (
-                <Grid item xs={12} sm={5} lg={3.7} key={session.id}>
-                  <Card
-                    onClick={() => {
-                      navigate(`/session/${session.id}`);
-                    }}
-                    className={classes.card}
-                    onMouseEnter={() => handleHover(session.id)}
-                    onMouseLeave={() => handleHover(null)}
-                  >
-                    <CardMedia
-                      component="img"
-                      height="100%"
-                      image={session.image}
-                      alt="session"
-                      className={classes.cardMedia}
-                    />
-                    <div
-                      className={`${classes.slide2} ${hoveredCard === session.id ? 'active' : ''}`}
-                    >
-                      <Typography variant="h6" className={classes.slide2Title}>
-                        {session.title}
-                      </Typography>
-                    </div>
-                  </Card>
-                </Grid>
-              ))}
-            </Grid>
-          </Grid>
+         
+          {component === "sessionCode" && 
+            <ListSession classes={classes} sessions={sessions} navigate ={navigate} handleHover={handleHover} hoveredCard={hoveredCard}/>
+          }
+          {component === "quizz" && <Quizz/>}
         </Grid>
         <Dialog fullWidth maxWidth="sm" open={show} onClose={handleClose}>
           <div
