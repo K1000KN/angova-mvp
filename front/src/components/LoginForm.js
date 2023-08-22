@@ -77,7 +77,6 @@ const LoginForm = ({ open, handleClose }) => {
   });
 
   const onSubmit = async (values, props) => {
-
     try {
       let endpoint = `${apiUrl}/auth/login`;
 
@@ -114,7 +113,8 @@ const LoginForm = ({ open, handleClose }) => {
     >
       <Dialog fullWidth maxWidth="sm" open={open} onClose={handleClose}>
         <div className={classes.wrapperDialog}>
-          <DialogTitle>{t("loginButton")}
+          <DialogTitle>
+            {t("loginButton")}
             <IconButton
               aria-label="close"
               className={classes.closeButton}
@@ -123,7 +123,7 @@ const LoginForm = ({ open, handleClose }) => {
               <CloseIcon />
             </IconButton>
           </DialogTitle>
-          
+
           <DialogContent>
             <Grid>
               <Paper elevation={0} style={paperStyle}>

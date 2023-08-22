@@ -19,8 +19,10 @@ import { session2FR } from "./data/sessions/fr/session_2.js";
 import { session3FR } from "./data/sessions/fr/session_3";
 import ListSession from "./components/ListSessions";
 import Quizz from "./components/Quizz";
+import { useTranslation } from "react-i18next";
 
 function Home() {
+  const { t } = useTranslation();
   const franceRoundedFlag = "./images/flag/rounded/france.png";
   const englishRoundedFlag = "./images/flag/rounded/uk.png";
   const algeriaRoundedFlag = "./images/flag/rounded/algeria.png";
@@ -39,31 +41,31 @@ function Home() {
 
   const useStyles = makeStyles({
     container: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
+      display: "flex",
+      justifyContent: "flex-start",
+      alignItems: "center",
       marginTop: 30,
       paddingLeft: 20,
       paddingRight: 20,
       gap: 30,
     },
     card: {
-      position: 'relative',
-      transition: 'background-color 0.3s',
-      '&:hover': {
-        backgroundColor: 'rgba(0, 0, 0, 0.2)',
+      position: "relative",
+      transition: "background-color 0.3s",
+      "&:hover": {
+        backgroundColor: "rgba(0, 0, 0, 0.2)",
       },
     },
     cardMedia: {
-      height: '100%',
-      transition: 'all 0.2s ease',
-      '&:hover': {
-        backgroundSize: '120%',
-        cursor: 'pointer',
+      height: "100%",
+      transition: "all 0.2s ease",
+      "&:hover": {
+        backgroundSize: "120%",
+        cursor: "pointer",
       },
     },
     slide2: {
-      position: 'absolute',
+      position: "absolute",
       bottom: 0,
       left: 0,
       width: '100%',
@@ -79,7 +81,7 @@ function Home() {
     slide2Title: {
       fontWeight: 600,
       color: "#F49E4C",
-      textAlign: 'center',
+      textAlign: "center",
     },
     flagNav: {
       width: "50%",
@@ -150,7 +152,6 @@ function Home() {
     setHoveredCard(id);
   };
   const Flag = ({ src, language }) => {
-  
     const [isLanguageVisible, setLanguageVisible] = useState(false);
 
     const handleClick = () => {
@@ -164,7 +165,6 @@ function Home() {
     const handleMouseLeave = () => {
       setLanguageVisible(false);
     };
-   
 
     return (
       <Grid
@@ -244,7 +244,18 @@ function Home() {
       />
     );
   };
-  
+  const Slide = ({ active, title }) => {
+    const classes = useStyles();
+
+    return (
+      <div className={`${classes.slide2} ${active ? "active" : ""}`}>
+        <Typography variant="h6" className={classes.slide2Title}>
+          {title}
+        </Typography>
+      </div>
+    );
+  };
+
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -254,7 +265,7 @@ function Home() {
           id="sessionContainer"
           container
           direction="row"
-          style={{ height: "94vh" }}
+          style={{ height: "89vh" }}
         >
           <Grid
             item
@@ -271,7 +282,7 @@ function Home() {
                 alt=""
                 style={{ width: 40, marginRight: 15 }}
               />
-              <span className="btn-section-title">Code de la route</span>
+              <span className="btn-section-title">{t("code de la route")}</span>
             </button>
 
             <button  onClick={()=>{setComponent("quizz")}} className="btn-section">
@@ -299,7 +310,7 @@ function Home() {
           >
             <DialogTitle>
               <Typography variant="h5" style={{ fontWeight: 700 }}>
-                Choisir la langue du code de la route
+                {t("choisir-la-langue-du-code-de-la-route")}
               </Typography>
               <IconButton
                 aria-label="close"

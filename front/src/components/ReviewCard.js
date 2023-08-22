@@ -26,7 +26,7 @@ function ReviewCard() {
         NextIcon={<ArrowForwardIosIcon style={{color:'#f49e4c'}}/>}          
         PrevIcon={<ArrowBackIosNewIcon  style={{color:'#f49e4c'}}/>}       >
         <Grid container direction='column'  alignItems='center' style={carousselWapper}>
-            <img src='./images/femme.png' alt="femme" style={reviewImg}/>
+            <img src='./images/auto_ecole.png' alt="femme" style={reviewImg}/>
             <Grid container  direction='column'  alignItems='center'  style={reviewCard}>
             <Typography className='nameReview'>
                 Auto-école <br/>Aire de conduite

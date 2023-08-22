@@ -3,18 +3,23 @@ import Grid from "@mui/material/Grid";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { decodeToken } from "react-jwt";
+import { Typography } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 const NavbarComponent = ({ page, setLanguageImage }) => {
+  const { t } = useTranslation();
   const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem("token");
   const [user, setUser] = useState(null);
   const [isUserFetched, setIsUserFetched] = useState(false);
+  const [role, setRole] = useState("");
 
   useEffect(() => {
     const getCurrentUser = async () => {
       const decodedToken = decodeToken(token);
       const id = decodedToken.id;
       const role = decodedToken.role;
+      setRole(role);
       console.log(role);
       let endpoint = `${apiUrl}/user/${id}`;
 
@@ -41,7 +46,7 @@ const NavbarComponent = ({ page, setLanguageImage }) => {
     if (token && !isUserFetched) {
       getCurrentUser();
     }
-  }, [token, isUserFetched]);
+  }, [token, isUserFetched, apiUrl]);
 
   return (
     <div id="navContainer">
@@ -71,12 +76,15 @@ const NavbarComponent = ({ page, setLanguageImage }) => {
             alignItems: "center",
           }}
         >
-          <img
-            id="imgLogoNav"
-            style={{ width: 130 }}
-            alt="road"
-            src="./images/logo2.png"
-          />
+          {/* Add the Link component here */}
+          <Link to="/home">
+            <img
+              id="imgLogoNav"
+              style={{ width: 130 }}
+              alt="road"
+              src="./images/logo2.png"
+            />
+          </Link>
         </Grid>
 
         {page === "profil" ? (
@@ -112,6 +120,34 @@ const NavbarComponent = ({ page, setLanguageImage }) => {
               paddingRight: "5vw",
             }}
           >
+            {/* Render the /backoffice button for admin */}
+            {isUserFetched && role === "admin" && (
+              <Grid
+                item
+                xs={4}
+                id="backofficeNav"
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "end",
+                  paddingRight: "5vw",
+                }}
+              >
+                <Link to="/backoffice">
+                  <img
+                    id="backofficeNavImg"
+                    src="./images/backoffice_icon.png"
+                    style={{
+                      width: 45,
+                      position: "absolute",
+                      bottom: 55,
+                      filter: "invert(1)",
+                    }}
+                    alt="backoffice"
+                  />
+                </Link>
+              </Grid>
+            )}
             <Link to="/profil">
               <img
                 id="profilNavImg"
@@ -128,7 +164,7 @@ const NavbarComponent = ({ page, setLanguageImage }) => {
         </Grid>
 
         <Grid item xs={12} id="welcomeHome" sx={{ marginBottom: "1vh" }}>
-          Bienvenue {user && user.username}
+          {user && user.username}
         </Grid>
       </Grid>
     </div>

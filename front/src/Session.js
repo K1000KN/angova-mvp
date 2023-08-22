@@ -3,15 +3,15 @@ import { useNavigate, useParams } from "react-router-dom";
 import "./session.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import Grid from "@mui/material/Grid";
-import { session1FR } from "./data/sessions/fr/session_1";
-import { session1ES } from "./data/sessions/es/session_1";
-
-import { session2ES } from "./data/sessions/es/session_2";
-import { session2FR } from "./data/sessions/fr/session_2";
-
-import { session3ES } from "./data/sessions/es/session_3";
-import { session3FR } from "./data/sessions/fr/session_3";
+import { Button, Grid } from "@mui/material";
+import {
+  session1FR,
+  session2FR,
+  session1ES,
+  session2ES,
+  session3FR,
+  session3ES,
+} from "./data/sessions/index";
 import ProgressBar from "./components/ProgressBar";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
@@ -25,10 +25,11 @@ import {
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import PlayerSession from "./components/PlayerSession";
+import { useTranslation } from "react-i18next";
 
 const Session = () => {
+  const { t } = useTranslation();
   const [completed, setCompleted] = useState(0);
-
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [selectedAnswerIndices, setSelectedAnswerIndices] = useState([]);
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
@@ -48,27 +49,23 @@ const Session = () => {
   const [expAudioSrc, setExpAudioSrc] = useState("");
   const [isPlayingExp, setIsPlayingExp] = useState(false);
 
-  //const audio = new Audio( "../session/audio/fr/q1.mp3");
-
   useEffect(() => {
-    if (isPlaying && isPlayingExp ===false) {
+    if (isPlaying && isPlayingExp === false) {
       var audio = new Audio(audioSrc);
       audio.play().catch((error) => {
         console.error("Error autoplaying audio:", error);
         setIsPlaying(false);
-        // Handle autoplay error here (e.g., show a UI element to manually play the audio)
       });
       return () => {
         audio.pause();
         audio.currentTime = 0;
       };
     }
-    if (isPlayingExp && isPlaying ===false) {
+    if (isPlayingExp && isPlaying === false) {
       var audioExp = new Audio(expAudioSrc);
       audioExp.play().catch((error) => {
         console.error("Error autoplaying audio:", error);
         setIsPlayingExp(false);
-        // Handle autoplay error here (e.g., show a UI element to manually play the audio)
       });
       return () => {
         audioExp.pause();
@@ -119,9 +116,35 @@ const Session = () => {
   const classes = useStyles();
   const { id } = useParams();
 
-  const verifyAnswer = (indices) => {
+  const highlightCorrectAnswers = (correctAnswer) => {
+    const answerListItems = document.querySelectorAll(".quizList li");
+    answerListItems.forEach((item, index) => {
+      if (correctAnswer.includes(index)) {
+        item.classList.add("correct-answer");
+      }
+    });
+  };
+
+  const highlightWrongAnswers = (indices, correctAnswer) => {
+    const answerListItems = document.querySelectorAll(".quizList li");
+    answerListItems.forEach((item, index) => {
+      if (indices.includes(index)) {
+        if (correctAnswer.includes(index)) {
+          item.classList.add("correct-answer");
+        } else {
+          item.classList.add("wrong-answer");
+        }
+      }
+    });
+  };
+
+  const verifyAnswer = (
+    indices,
+    correctAnswer,
+    setShowExplanation,
+    setResult
+  ) => {
     const isCorrect = arraysEqual(indices, correctAnswer);
-    highlightCorrectAnswers(indices);
 
     if (isCorrect) {
       setResult((prevResult) => ({
@@ -130,8 +153,6 @@ const Session = () => {
         correctAnswers: prevResult.correctAnswers + 1,
       }));
     } else {
-      highlightWrongAnswers(indices);
-
       setResult((prevResult) => ({
         ...prevResult,
         wrongAnswers: prevResult.wrongAnswers + 1,
@@ -139,9 +160,10 @@ const Session = () => {
     }
 
     setShowExplanation(true);
+    highlightCorrectAnswers(correctAnswer);
+    highlightWrongAnswers(indices, correctAnswer);
   };
 
-  // Function to check if two arrays are equal
   const arraysEqual = (arr1, arr2) => {
     if (arr1.length !== arr2.length) {
       return false;
@@ -156,108 +178,101 @@ const Session = () => {
     return true;
   };
 
-  let sessionData;
-  switch (id) {
-    case "1":
-      if (localStorage.getItem("language") === "fr") {
-        sessionData = session1FR;
-      } else if (localStorage.getItem("language") === "es") {
-        sessionData = session1ES;
-      } else {
-        return (
-          <Typography
-            sx={{
-              color: "#F49E4C",
-              fontSize: "20px",
-              fontWeight: "bold",
-              textAlign: "center",
-              marginTop: "20px",
-            }}
-          >
-            Language not supported
-          </Typography>
-        );
-      }
-      break;
-    case "2":
-      if (localStorage.getItem("language") === "fr") {
-        sessionData = session2FR;
-      } else if (localStorage.getItem("language") === "es") {
-        sessionData = session2ES;
-      } else {
-        return (
-          <Typography
-            sx={{
-              color: "#F49E4C",
-              fontSize: "20px",
-              fontWeight: "bold",
-              textAlign: "center",
-              marginTop: "20px",
-            }}
-          >
-            Language not supported
-          </Typography>
-        );
-      }
-      break;
-    case "3":
-      if (localStorage.getItem("language") === "fr") {
-        sessionData = session3FR;
-      } else if (localStorage.getItem("language") === "es") {
-        sessionData = session3ES;
-      } else {
-        return (
-          <Typography
-            sx={{
-              color: "#F49E4C",
-              fontSize: "20px",
-              fontWeight: "bold",
-              textAlign: "center",
-              marginTop: "20px",
-            }}
-          >
-            Language not supported
-          </Typography>
-        );
-      }
-      break;
-    case "4":
-    //   sessionData = session4;
-    //   break;
-    // case "5":
-    //   sessionData = session5;
-    //   break;
-    // case "6":
-    //   sessionData = session6;
-    //   break;
-    default:
-      // Handle invalid session ID
-      return (
+  const sessionMap = {
+    1: { fr: session1FR, es: session1ES },
+    2: { fr: session2FR, es: session2ES },
+    3: { fr: session3FR, es: session3ES },
+    // Add more sessions as needed...
+  };
+
+  const getSessionData = (id) => {
+    const language = localStorage.getItem("language");
+    return sessionMap[id] && sessionMap[id][language];
+  };
+
+  const sessionData = getSessionData(id);
+
+  // Handle invalid session ID or language not supported
+  if (!sessionData) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
         <Typography
+          variant="h5"
           sx={{
             color: "#F49E4C",
             fontSize: "20px",
             fontWeight: "bold",
             textAlign: "center",
-            marginTop: "20px",
+            marginBottom: "20px",
           }}
         >
-          Invalid session ID
+          {sessionData === undefined
+            ? "Invalid session ID"
+            : "Language not supported"}
         </Typography>
-      );
+        <Typography
+          variant="h6"
+          sx={{
+            color: "#F49E4C",
+            fontSize: "16px",
+            fontWeight: "bold",
+            textAlign: "center",
+            marginBottom: "40px",
+          }}
+        >
+          Coming Soon
+        </Typography>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => navigate("/home")}
+        >
+          Go Back
+        </Button>
+      </div>
+    );
   }
 
   let { quizz } = sessionData;
-  console.log(quizz[activeQuestion].explaination);
   const { questions, choices, correctAnswer, explaination, assets } =
     quizz[activeQuestion];
 
   const onClickNext = () => {
+    // Verify the answer before proceeding to the next question
+    verifyAnswer(
+      selectedAnswerIndices,
+      correctAnswer,
+      setShowExplanation,
+      setResult
+    );
+
+    // Remove highlighting from all answer list items
+    const answerListItems = document.querySelectorAll(".quizList li");
+    answerListItems.forEach((item) => {
+      item.classList.remove(
+        "selected-answer",
+        "correct-answer",
+        "wrong-answer"
+      );
+      item.classList.add("answer-untouched");
+    });
+
+    // Reset state variables and move to the next question
     if (activeQuestion !== quizz.length - 1) {
       setActiveQuestion((prev) => prev + 1);
       setSelectedAnswerIndices([]);
-      setShowExplanation(false);
+      setSelectedAnswerIndex(null);
+      setShowExplanation(false); // Hide the explanation
     } else {
+      console.log("Quiz completed!");
       setActiveQuestion(0);
       setShowResult(true);
     }
@@ -285,27 +300,6 @@ const Session = () => {
     navigate("/home");
   };
 
-  const highlightCorrectAnswers = () => {
-    const answerListItems = document.querySelectorAll(".quizList li");
-    answerListItems.forEach((item, index) => {
-      if (correctAnswer.includes(index)) {
-        item.classList.add("correct-answer");
-      }
-    });
-  };
-
-  const highlightWrongAnswers = (indices) => {
-    const answerListItems = document.querySelectorAll(".quizList li");
-    answerListItems.forEach((item, index) => {
-      if (indices.includes(index)) {
-        if (item.classList.contains("correct-answer")) {
-        } else {
-          item.classList.add("wrong-answer");
-        }
-      }
-    });
-  };
-
   const closeExplanationDialogAndNext = () => {
     setShowExplanation(false);
     setOpenDialog(false);
@@ -319,14 +313,14 @@ const Session = () => {
     setIsPlaying(!isPlaying);
   };
   const handleToggleAudioExp = () => {
-   
-    setIsPlaying(false); 
+    setIsPlaying(false);
     setIsPlayingExp(!isPlayingExp);
   };
 
-  const handleClose= () => {
+  const handleClose = () => {
     setOpenDialog(false);
   };
+
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -339,7 +333,7 @@ const Session = () => {
                   item
                   sm={1.8}
                   sx={{ display: { xs: "none", sm: "flex" } }}
-                  style={{ height: "6vh", paddingLeft: 18, paddingTop: 11 }}
+                  style={{ height: "6vh", paddingLeft: 18, paddingTop: 10 }}
                 >
                   <span className="active-question-no">
                     {addLeadingZero(activeQuestion + 1)}
@@ -348,7 +342,7 @@ const Session = () => {
                     /{addLeadingZero(quizz.length)}
                   </span>
                 </Grid>
-                <Grid item xs={10} sm={7.8} id="progressContainer">
+                <Grid item xs={10} sm={7} id="progressContainer">
                   <ProgressBar bgcolor={"#F49E4C"} completed={completed} />
                 </Grid>
                 <Grid
@@ -391,17 +385,18 @@ const Session = () => {
                 </div>
                 {questions && questions.length > 1 ? (
                   <>
-                    <Typography variant="h7" id="questionQuizz">
+                    <Typography variant="h6" id="questionQuizz">
                       {questions[0]}
                     </Typography>
                     <br />
-                    <Typography variant="h7" id="questionQuizz">
+                    <br />
+                    <Typography variant="h6" id="questionQuizz">
                       {questions[1]}
                     </Typography>
                   </>
                 ) : (
                   <>
-                    <Typography variant="h7" id="questionQuizz">
+                    <Typography variant="h6" id="questionQuizz">
                       {questions}
                     </Typography>
                   </>
@@ -424,10 +419,26 @@ const Session = () => {
                               isAnswerSelected(index) ? "selected-answer" : null
                             }
                           >
+                            <span
+                              className="answer-index"
+                              style={{
+                                marginRight: "10px",
+                                fontWeight: "bold",
+                              }}
+                            >
+                              {index === 0
+                                ? "A"
+                                : index === 1
+                                ? "B"
+                                : index === 2
+                                ? "C"
+                                : "D"}
+                            </span>
                             {answer}
                           </li>
                         ))}
                       </ul>
+                      <br />
 
                       <h7 id="questionQuizz">{questions[2]}</h7>
                       {questions && questions.length > 1 ? (
@@ -448,6 +459,15 @@ const Session = () => {
                                   : null
                               }
                             >
+                              <span
+                                className="answer-index"
+                                style={{
+                                  marginRight: "10px",
+                                  fontWeight: "bold",
+                                }}
+                              >
+                                {index === 0 ? "C" : "D"}
+                              </span>
                               {answer}
                             </li>
                           ))}
@@ -473,6 +493,18 @@ const Session = () => {
                             isAnswerSelected(index) ? "selected-answer" : null
                           }
                         >
+                          <span
+                            className="answer-index"
+                            style={{ marginRight: "10px", fontWeight: "bold" }}
+                          >
+                            {index === 0
+                              ? "A"
+                              : index === 1
+                              ? "B"
+                              : index === 2
+                              ? "C"
+                              : "D"}
+                          </span>
                           {answer}
                         </li>
                       ))}
@@ -496,7 +528,7 @@ const Session = () => {
                   }}
                   disabled={!showExplanation}
                 >
-                  Explications
+                  {t("explications")}
                 </button>
               </div>
 
@@ -511,18 +543,23 @@ const Session = () => {
                 <button
                   onClick={() => {
                     if (showExplanation) {
-                      onClickNext();
+                      closeExplanationDialogAndNext();
                     } else {
-                      verifyAnswer(selectedAnswerIndices);
+                      verifyAnswer(
+                        selectedAnswerIndices,
+                        correctAnswer,
+                        setShowExplanation,
+                        setResult
+                      );
                     }
                   }}
                   disabled={selectedAnswerIndices.length === 0}
                 >
                   {activeQuestion === quizz.length - 1 && showResult
-                    ? "Finir"
+                    ? t("finir")
                     : showExplanation
-                    ? "Suivant"
-                    : "Valider"}
+                    ? t("suivant")
+                    : t("valider")}
                 </button>
               </div>
             </Grid>
@@ -570,7 +607,8 @@ const Session = () => {
           </div>
         )}
         <Dialog open={openDialog} onClose={handleClose}>
-          <DialogTitle>Explications  
+          <DialogTitle>
+            {t("explications")}
             <IconButton
               aria-label="close"
               className={classes.closeButton}
@@ -591,7 +629,7 @@ const Session = () => {
               onClick={closeExplanationDialogAndNext}
               className={classes.orangeBtn}
             >
-              Suivant
+              {t("suivant")}
             </button>
           </DialogActions>
         </Dialog>

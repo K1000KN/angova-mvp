@@ -173,14 +173,14 @@ button {
     justify-content: center !important;
 }
 
-.bottomNav{
+/* .bottomNav{
     position: -webkit-fixed;
     position: fixed;
     bottom: 0;
     width:100vw ; 
     border-top: 2px solid #dcdcdc;
     height: 58px !important;
-}
+} */
 .displayNavBott{
     display: none !important;
 }

@@ -5,6 +5,7 @@ import userRoutes from "./src/routes/userRoutes.js";
 import managerRoutes from "./src/routes/managerRoutes.js";
 import adminRoutes from "./src/routes/adminRoutes.js";
 import contactRoutes from "./src/routes/contactRoutes.js";
+import statusRoutes from "./src/routes/statusRoutes.js";
 
 dotenv.config();
 // init the database connection
@@ -23,6 +24,7 @@ app.use("/api/v1", userRoutes);
 app.use("/api/v1", managerRoutes);
 app.use("/api/v1", adminRoutes);
 app.use("/api/v1", authentificationRoutes);
+app.use("/api/v1", statusRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);

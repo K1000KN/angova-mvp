@@ -41,5 +41,12 @@
     "copyright": "© 2023 Angova. Todos los derechos reservados.",
     "burger-qa": "Alguna pregunta?",
     "available": "Disponible",
-    "comingSoon": "Llegará pronto !"
+    "comingSoon": "Llegará pronto !",
+    "suivant": "Siguiente",
+    "precedent": "Precedente",
+    "finir": "Terminar",
+    "valider": "Validar",
+    "explications": "Explicaciones",
+    "code la route": "Código de circulación",
+    "choisir-la-langue-du-code-de-la-route": "Elija el idioma del código de circulación"
 }

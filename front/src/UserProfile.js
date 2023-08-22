@@ -603,120 +603,7 @@ const UserProfile = () => {
                       <AddCircleOutline />
                     </IconButton>
                   </div>
-
-                  {/* <Dialog open={openDialog} onClose={handleCloseDialog}>
-                    <DialogTitle>Inscription</DialogTitle>
-                    <DialogContent>
-                      <Grid>
-                        <Paper elevation={0} style={paperStyle}>
-                          <Formik
-                            initialValues={initialValues}
-                            validationSchema={validationSchema}
-                            onSubmit={onSubmitAddNewUser}
-                          >
-                            {(props) => (
-                              <Form noValidate>
-                                <Field
-                                  className={classes.field}
-                                  as={TextField}
-                                  name="name"
-                                  label={t("input-form-Lname")}
-                                  fullWidth
-                                  error={
-                                    props.errors.name && props.touched.name
-                                  }
-                                  helperText={<ErrorMessage name="name" />}
-                                  required
-                                />
-
-                                <Field
-                                  className={classes.field}
-                                  as={TextField}
-                                  name="firstname"
-                                  label={t("input-form-Fname")}
-                                  fullWidth
-                                  error={
-                                    props.errors.firstname &&
-                                    props.touched.firstname
-                                  }
-                                  helperText={<ErrorMessage name="firstname" />}
-                                  required
-                                />
-
-                                <Field
-                                  className={classes.field}
-                                  as={TextField}
-                                  name="age"
-                                  label="Age"
-                                  type="number"
-                                  fullWidth
-                                />
-
-                                <Field
-                                  className={classes.field}
-                                  as={TextField}
-                                  name="email"
-                                  label="Email"
-                                  fullWidth
-                                  error={
-                                    props.errors.email && props.touched.email
-                                  }
-                                  helperText={<ErrorMessage name="email" />}
-                                  required
-                                />
-
-                                <Field
-                                  className={classes.field}
-                                  as={TextField}
-                                  name="password"
-                                  label={t("input-form-password")}
-                                  type="password"
-                                  fullWidth
-                                  error={
-                                    props.errors.password &&
-                                    props.touched.password
-                                  }
-                                  helperText={<ErrorMessage name="password" />}
-                                  required
-                                />
-
-                                <Field
-                                  className={classes.field}
-                                  as={TextField}
-                                  name="confirmPassword"
-                                  label={t("input-form-confirm-password")}
-                                  type="password"
-                                  fullWidth
-                                  error={
-                                    props.errors.confirmPassword &&
-                                    props.touched.confirmPassword
-                                  }
-                                  helperText={
-                                    <ErrorMessage name="confirmPassword" />
-                                  }
-                                  required
-                                />
-
-                                <Button
-                                  type="submit"
-                                  style={btnStyle}
-                                  variant="contained"
-                                >
-                                  {t("register-button")}
-                                </Button>
-                              </Form>
-                            )}
-                          </Formik>
-                        </Paper>
-                      </Grid>
-                    </DialogContent>
-                    <DialogActions>
-                      <Button onClick={handleCloseDialog} color="primary">
-                        Cancel
-                      </Button>
-                    </DialogActions>
-                  </Dialog>*/}
-                </Paper> 
+                </Paper>
               </>
             ) : (
               <></>
@@ -735,7 +622,7 @@ const UserProfile = () => {
         >
           <DialogTitle>
             <Typography variant="h5" style={{ fontWeight: 700 }}>
-              Choisir la langue du code de la route
+              {t("choisir-la-langue-du-code-de-la-route")}
             </Typography>
             <IconButton
               aria-label="close"
