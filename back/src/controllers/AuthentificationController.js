@@ -6,22 +6,20 @@ import Role from "../models/Role.js";
 import RefreshToken from "../models/RefreshToken.js";
 import crypto from "crypto";
 dotenv.config();
-
 const adminSecretKey = process.env.SALT_KEY;
-
 /// fonction pour log les users
 /// return auth & role
 export const login = async (req, res) => {
-  try {
+      try {
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
-
+    
     if (!user) {
       return res.status(404).send({ message: "User not found" });
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = bcrypt.compare(password , adminSecretKey);
 
     if (!isPasswordValid) {
       return res.status(401).send({ message: "Invalid email or password" });

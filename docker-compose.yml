@@ -1,0 +1,49 @@
+version: '3.9'
+services:
+  front:
+    build: 
+      context: ./front
+      dockerfile: ./Dockerfile
+    container_name: front
+    ports:
+      - 3000:3000
+    volumes:
+      - ./front:/app
+      - /app/node_modules
+    command: yarn run start
+
+  api:
+    build: 
+      context: ./back/
+      dockerfile: ./Dockerfile
+      target: development
+    container_name: back
+    volumes:
+      - ./back:/app
+      - /app/node_modules
+    ports:
+      - 3001:3001
+    depends_on:
+      - database
+    env_file: ./back/.env 
+    environment:
+      NODE_ENV: development
+    networks:
+      - dev
+    command: npm run dev
+
+  database:
+    image: mongo:latest
+    restart: always
+    volumes:
+      - database-data:/data/db
+    ports:
+      - 27017:27017
+    networks:
+      - dev
+      
+volumes:
+  database-data:
+
+networks:
+  dev:            
