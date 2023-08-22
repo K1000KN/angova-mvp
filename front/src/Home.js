@@ -282,7 +282,7 @@ function Home() {
                 alt=""
                 style={{ width: 40, marginRight: 15 }}
               />
-              <span className="btn-section-title">{t("code de la route")}</span>
+              <span className="btn-section-title">{t("code-de-la-route")}</span>
             </button>
 
             <button  onClick={()=>{setComponent("quizz")}} className="btn-section">
