@@ -14,12 +14,16 @@ import CloseIcon from "@mui/icons-material/Close";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { makeStyles } from "@mui/styles";
-import { session1FR } from "./data/sessions/fr/session_1.js";
-import { session2FR } from "./data/sessions/fr/session_2.js";
-import { session3FR } from "./data/sessions/fr/session_3";
+import { filterSessionsByLanguage } from "./services/sessionService";
+
+import jsonDataFr from "./data/content_fr.json";
+import jsonDataEs from "./data/content_es.json";
+import jsonDataEn from "./data/content_en.json";
+
 import ListSession from "./components/ListSessions";
 import Quizz from "./components/Quizz";
 import { useTranslation } from "react-i18next";
+import { processSessions } from "./services/sessionService";
 
 function Home() {
   const { t } = useTranslation();
@@ -68,14 +72,14 @@ function Home() {
       position: "absolute",
       bottom: 0,
       left: 0,
-      width: '100%',
-      padding: '8px',
-      backgroundColor: 'rgba(70, 145, 205, 0.8)',
-      color: '#fff',
-      transition: 'transform 0.3s ease',
-      transform: 'translateY(100%)',
-      '&.active': {
-        transform: 'translateY(0)',
+      width: "100%",
+      padding: "8px",
+      backgroundColor: "rgba(70, 145, 205, 0.8)",
+      color: "#fff",
+      transition: "transform 0.3s ease",
+      transform: "translateY(100%)",
+      "&.active": {
+        transform: "translateY(0)",
       },
     },
     slide2Title: {
@@ -113,7 +117,60 @@ function Home() {
       navigate("/profil");
     }
   };
-  const sessions = [session1FR, session2FR, session3FR];
+  const sessionFR = jsonDataFr.map((session) => {
+    return {
+      id: session.id,
+      questions: session.questions,
+      choices: session.choices,
+      language: "fr",
+    };
+  });
+
+  const sessionES = jsonDataEs.map((session) => {
+    return {
+      id: session.id,
+      questions: session.questions,
+      choices: session.choices,
+      language: "es",
+    };
+  });
+
+  const sessionEN = jsonDataEn.map((session) => {
+    return {
+      id: session.id,
+      questions: session.questions,
+      choices: session.choices,
+      language: "en",
+    };
+  });
+
+  const batchSize = 40;
+  const sessions = [];
+  const selectedLanguage = localStorage.getItem("language");
+
+  switch (selectedLanguage) {
+    case "fr":
+      sessions.push(...processSessions(sessionFR, batchSize, t));
+      break;
+    case "es":
+      sessions.push(...processSessions(sessionES, batchSize, t));
+      break;
+    case "en":
+      sessions.push(...processSessions(sessionEN, batchSize, t));
+      break;
+    // ... cases for other languages ...
+    default:
+      // Default case if the language doesn't match any of the above
+      console.log("default");
+      console.log("selectedLanguage", selectedLanguage);
+      console.log("sessions", sessions);
+      break;
+  }
+
+  const filteredSessions = filterSessionsByLanguage(sessions, selectedLanguage);
+
+  console.log("filteredSessions", filteredSessions);
+  console.log(selectedLanguage);
 
   useEffect(() => {
     // we use this effect to see the language dialog
@@ -276,7 +333,12 @@ function Home() {
               display: { xs: "none", lg: "flex" },
             }}
           >
-            <button onClick={()=>{setComponent("sessionCode")}} className="btn-section">
+            <button
+              onClick={() => {
+                setComponent("sessionCode");
+              }}
+              className="btn-section"
+            >
               <img
                 src="./images/code_route.png"
                 alt=""
@@ -285,7 +347,12 @@ function Home() {
               <span className="btn-section-title">{t("code-de-la-route")}</span>
             </button>
 
-            <button  onClick={()=>{setComponent("quizz")}} className="btn-section">
+            <button
+              onClick={() => {
+                setComponent("quizz");
+              }}
+              className="btn-section"
+            >
               <img
                 src="./images/quizz.png"
                 alt=""
@@ -294,11 +361,17 @@ function Home() {
               <span className="btn-section-title">Quizz</span>
             </button>
           </Grid>
-         
-          {component === "sessionCode" && 
-            <ListSession classes={classes} sessions={sessions} navigate ={navigate} handleHover={handleHover} hoveredCard={hoveredCard}/>
-          }
-          {component === "quizz" && <Quizz/>}
+
+          {component === "sessionCode" && (
+            <ListSession
+              classes={classes}
+              sessions={sessions}
+              navigate={navigate}
+              handleHover={handleHover}
+              hoveredCard={hoveredCard}
+            />
+          )}
+          {component === "quizz" && <Quizz />}
         </Grid>
         <Dialog fullWidth maxWidth="sm" open={show} onClose={handleClose}>
           <div

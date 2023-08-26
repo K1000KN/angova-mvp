@@ -4,14 +4,7 @@ import "./session.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Button, Grid } from "@mui/material";
-import {
-  session1FR,
-  session2FR,
-  session1ES,
-  session2ES,
-  session3FR,
-  session3ES,
-} from "./data/sessions/index";
+
 import ProgressBar from "./components/ProgressBar";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
@@ -26,6 +19,13 @@ import {
 import { makeStyles } from "@mui/styles";
 import PlayerSession from "./components/PlayerSession";
 import { useTranslation } from "react-i18next";
+import jsonDataFr from "./data/content_fr.json";
+import jsonDataEs from "./data/content_es.json";
+import jsonDataEn from "./data/content_en.json";
+import {
+  processSessions,
+  filterSessionsByLanguage,
+} from "./services/sessionService";
 
 const Session = () => {
   const { t } = useTranslation();
@@ -177,17 +177,66 @@ const Session = () => {
 
     return true;
   };
+  const sessionFR = jsonDataFr.map((session) => {
+    return {
+      id: session.id,
+      questions: session.questions,
+      choices: session.choices,
+      language: "fr",
+    };
+  });
 
-  const sessionMap = {
-    1: { fr: session1FR, es: session1ES },
-    2: { fr: session2FR, es: session2ES },
-    3: { fr: session3FR, es: session3ES },
-    // Add more sessions as needed...
-  };
+  const sessionES = jsonDataEs.map((session) => {
+    return {
+      id: session.id,
+      questions: session.questions,
+      choices: session.choices,
+      language: "es",
+    };
+  });
+
+  const sessionEN = jsonDataEn.map((session) => {
+    return {
+      id: session.id,
+      questions: session.questions,
+      choices: session.choices,
+      language: "en",
+    };
+  });
+
+  const batchSize = 40;
+  const sessions = [];
+  const selectedLanguage = localStorage.getItem("language");
+
+  switch (selectedLanguage) {
+    case "fr":
+      sessions.push(...processSessions(sessionFR, batchSize, t));
+      break;
+    case "es":
+      sessions.push(...processSessions(sessionES, batchSize, t));
+      break;
+    case "en":
+      sessions.push(...processSessions(sessionEN, batchSize, t));
+      break;
+    // ... cases for other languages ...
+    default:
+      // Default case if the language doesn't match any of the above
+      console.log("default");
+      console.log("selectedLanguage", selectedLanguage);
+      console.log("sessions", sessions);
+      break;
+  }
+
+  const filteredSessions = filterSessionsByLanguage(sessions, selectedLanguage);
+
+  // console.log("filteredSessions", filteredSessions);
+  console.log(selectedLanguage);
 
   const getSessionData = (id) => {
-    const language = localStorage.getItem("language");
-    return sessionMap[id] && sessionMap[id][language];
+    const sessionData = filteredSessions.find(
+      (session) => session.id === parseInt(id)
+    );
+    return sessionData;
   };
 
   const sessionData = getSessionData(id);
