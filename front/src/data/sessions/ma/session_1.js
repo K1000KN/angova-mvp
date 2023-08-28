@@ -1,4 +1,4 @@
-export const session1MRC = {
+export const session1MA = {
     id: 1,
     topic: "Session",
     totalquestions: 40,
@@ -6,7 +6,7 @@ export const session1MRC = {
     image:"../session/q1/q1.jpeg",
     title: "Session 1",
     description: "Session 1",
-    language: "mrc",
+    language: "ma",
   
     quizz: [
         {
@@ -18,8 +18,8 @@ export const session1MRC = {
             "Où s’arrêter à un stop ? Lorsque j’arrive à un stop, l'arrêt dans tous les cas est obligatoire à hauteur de la ligne d'effet, placée de manière à ce que je puisse voir correctement l’intersection avant de repartir.",
             assets: {
             img: ["../session/q1/q1.jpeg"],
-            question: "../session/q1/mar/q1.mp3",
-            explaination: "../session/q1/mar/exp1.mp3",
+            question: "../session/q1/ma/q1.mp3",
+            explaination: "../session/q1/ma/exp1.mp3",
             },
         },
         {
@@ -36,8 +36,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q2/q2.jpeg"],
 
-            question: "../session/q2/mar/q2.mp3",
-            explaination: "../session/q2/mar/exp2.mp3",
+            question: "../session/q2/ma/q2.mp3",
+            explaination: "../session/q2/ma/exp2.mp3",
             },
         },
         {
@@ -50,8 +50,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q3/q3.jpeg"],
 
-            question: "../session/q3/mar/q3.mp3",
-            explaination: "../session/q3/mar/exp3.mp3",
+            question: "../session/q3/ma/q3.mp3",
+            explaination: "../session/q3/ma/exp3.mp3",
             },
         },
         {
@@ -64,8 +64,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q4/q4.jpeg"],
 
-            question: "../session/q4/mar/q4.mp3",
-            explaination: "../session/q4/mar/exp4.mp3",
+            question: "../session/q4/ma/q4.mp3",
+            explaination: "../session/q4/ma/exp4.mp3",
             },
         },
         {
@@ -78,8 +78,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q5/q5_1.jpeg", "../session/q5/q5_2.jpeg"],
 
-            question: "../session/q5/mar/q5.mp3",
-            explaination: "../session/q5/mar/exp5.mp3",
+            question: "../session/q5/ma/q5.mp3",
+            explaination: "../session/q5/ma/exp5.mp3",
             },
         },
         {
@@ -95,8 +95,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q6/q6.jpeg"],
 
-            question: "../session/q6/mar/q6.mp3",
-            explaination: "../session/q6/mar/exp6.mp3",
+            question: "../session/q6/ma/q6.mp3",
+            explaination: "../session/q6/ma/exp6.mp3",
             },
         },
 
@@ -115,8 +115,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q7/q7.jpeg"],
 
-            question: "../session/q7/mar/q7.mp3",
-            explaination: "../session/q7/mar/exp7.mp3",
+            question: "../session/q7/ma/q7.mp3",
+            explaination: "../session/q7/ma/exp7.mp3",
             },
         },
         {
@@ -138,8 +138,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q8/q8.jpeg"],
 
-            question: "../session/q8/mar/q8.mp3",
-            explaination: "../session/q8/mar/exp8.mp3",
+            question: "../session/q8/ma/q8.mp3",
+            explaination: "../session/q8/ma/exp8.mp3",
             },
         },
         {
@@ -155,8 +155,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q9/q9.jpeg"],
 
-            question: "../session/q9/mar/q9.mp3",
-            explaination: "../session/q9/mar/exp9.mp3",
+            question: "../session/q9/ma/q9.mp3",
+            explaination: "../session/q9/ma/exp9.mp3",
             },
         },
         {
@@ -171,8 +171,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q10/q10.jpeg"],
 
-            question: "../session/q10/mar/q10.mp3",
-            explaination: "../session/q10/mar/exp10.mp3",
+            question: "../session/q10/ma/q10.mp3",
+            explaination: "../session/q10/ma/exp10.mp3",
             },
         },
         {
@@ -188,8 +188,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q11/q11.jpeg"],
 
-            question: "../session/q11/mar/q11.mp3",
-            explaination: "../session/q11/mar/exp11.mp3",
+            question: "../session/q11/ma/q11.mp3",
+            explaination: "../session/q11/ma/exp11.mp3",
             },
         },
         {
@@ -202,8 +202,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q12/q12.jpeg"],
 
-            question: "../session/q12/mar/q12.mp3",
-            explaination: "../session/q12/mar/exp12.mp3",
+            question: "../session/q12/ma/q12.mp3",
+            explaination: "../session/q12/ma/exp12.mp3",
             },
         },
         {
@@ -219,8 +219,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q13/q13.jpeg"],
 
-            question: "../session/q13/mar/q13.mp3",
-            explaination: "../session/q13/mar/exp13.mp3",
+            question: "../session/q13/ma/q13.mp3",
+            explaination: "../session/q13/ma/exp13.mp3",
             },
         },
         {
@@ -238,8 +238,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q14/q14.jpeg"],
 
-            question: "../session/q14/mar/q14.mp3",
-            explaination: "../session/q14/mar/exp14.mp3",
+            question: "../session/q14/ma/q14.mp3",
+            explaination: "../session/q14/ma/exp14.mp3",
             },
         },
         {
@@ -252,8 +252,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q15/q15.jpeg"],
 
-            question: "../session/q15/mar/q15.mp3",
-            explaination: "../session/q15/mar/exp15.mp3",
+            question: "../session/q15/ma/q15.mp3",
+            explaination: "../session/q15/ma/exp15.mp3",
             },
         },
 
@@ -271,8 +271,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q16/q16.jpeg"],
 
-            question: "../session/q16/mar/q16.mp3",
-            explaination: "../session/q16/mar/exp16.mp3",
+            question: "../session/q16/ma/q16.mp3",
+            explaination: "../session/q16/ma/exp16.mp3",
             },
         },
         {
@@ -289,8 +289,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q17/q17.jpeg"],
 
-            question: "../session/q17/mar/q17.mp3",
-            explaination: "../session/q17/mar/exp17.mp3",
+            question: "../session/q17/ma/q17.mp3",
+            explaination: "../session/q17/ma/exp17.mp3",
             },
         },
         {
@@ -306,8 +306,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q18/q18.jpeg"],
 
-            question: "../session/q18/mar/q18.mp3",
-            explaination: "../session/q18/mar/exp18.mp3",
+            question: "../session/q18/ma/q18.mp3",
+            explaination: "../session/q18/ma/exp18.mp3",
             },
         },
         {
@@ -320,8 +320,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q19/q19.jpeg"],
 
-            question: "../session/q19/mar/q19.mp3",
-            explaination: "../session/q19/mar/exp19.mp3",
+            question: "../session/q19/ma/q19.mp3",
+            explaination: "../session/q19/ma/exp19.mp3",
             },
         },
         {
@@ -340,8 +340,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q20/q20.jpeg"],
 
-            question: "../session/q20/mar/q20.mp3",
-            explaination: "../session/q20/mar/exp20.mp3",
+            question: "../session/q20/ma/q20.mp3",
+            explaination: "../session/q20/ma/exp20.mp3",
             },
         },
         {
@@ -358,8 +358,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q21/q21.jpeg"],
 
-            question: "../session/q21/mar/q21.mp3",
-            explaination: "../session/q21/mar/exp21.mp3",
+            question: "../session/q21/ma/q21.mp3",
+            explaination: "../session/q21/ma/exp21.mp3",
             },
         },
         {
@@ -377,8 +377,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q22/q22.jpeg"],
 
-            question: "../session/q22/mar/q22.mp3",
-            explaination: "../session/q22/mar/exp22.mp3",
+            question: "../session/q22/ma/q22.mp3",
+            explaination: "../session/q22/ma/exp22.mp3",
             },
         },
 
@@ -394,8 +394,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q23/q23.jpeg"],
 
-            question: "../session/q23/mar/q23.mp3",
-            explaination: "../session/q23/mar/exp23.mp3",
+            question: "../session/q23/ma/q23.mp3",
+            explaination: "../session/q23/ma/exp23.mp3",
             },
         },
 
@@ -409,8 +409,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q24/q24.jpeg"],
 
-            question: "../session/q24/mar/q24.mp3",
-            explaination: "../session/q24/mar/exp24.mp3",
+            question: "../session/q24/ma/q24.mp3",
+            explaination: "../session/q24/ma/exp24.mp3",
             },
         },
 
@@ -428,8 +428,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q25/q25.jpeg"],
 
-            question: "../session/q25/mar/q25.mp3",
-            explaination: "../session/q25/mar/exp25.mp3",
+            question: "../session/q25/ma/q25.mp3",
+            explaination: "../session/q25/ma/exp25.mp3",
             },
         },
         {
@@ -444,8 +444,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q26/q26.jpeg"],
 
-            question: "../session/q26/mar/q26.mp3",
-            explaination: "../session/q26/mar/exp26.mp3",
+            question: "../session/q26/ma/q26.mp3",
+            explaination: "../session/q26/ma/exp26.mp3",
             },
         },
         {
@@ -458,8 +458,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q27/q27.jpeg"],
 
-            question: "../session/q27/mar/q27.mp3",
-            explaination: "../session/q27/mar/exp27.mp3",
+            question: "../session/q27/ma/q27.mp3",
+            explaination: "../session/q27/ma/exp27.mp3",
             },
         },
         {
@@ -476,8 +476,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q28/q28.jpeg"],
 
-            question: "../session/q28/mar/q28.mp3",
-            explaination: "../session/q28/mar/exp28.mp3",
+            question: "../session/q28/ma/q28.mp3",
+            explaination: "../session/q28/ma/exp28.mp3",
             },
         },
         {
@@ -494,8 +494,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q29/q29.jpeg"],
 
-            question: "../session/q29/mar/q29.mp3",
-            explaination: "../session/q29/mar/exp29.mp3",
+            question: "../session/q29/ma/q29.mp3",
+            explaination: "../session/q29/ma/exp29.mp3",
             },
         },
         {
@@ -508,8 +508,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q30/q30.jpeg"],
 
-            question: "../session/q30/mar/q30.mp3",
-            explaination: "../session/q30/mar/exp30.mp3",
+            question: "../session/q30/ma/q30.mp3",
+            explaination: "../session/q30/ma/exp30.mp3",
             },
         },
         {
@@ -530,8 +530,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q31/q31.jpeg"],
 
-            question: "../session/q31/mar/q31.mp3",
-            explaination: "../session/q31/mar/exp31.mp3",
+            question: "../session/q31/ma/q31.mp3",
+            explaination: "../session/q31/ma/exp31.mp3",
             },
         },
         {
@@ -548,8 +548,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q32/q32.jpeg"],
 
-            question: "../session/q32/mar/q32.mp3",
-            explaination: "../session/q32/mar/exp32.mp3",
+            question: "../session/q32/ma/q32.mp3",
+            explaination: "../session/q32/ma/exp32.mp3",
             },
         },
         {
@@ -564,8 +564,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q33/q33.jpeg"],
 
-            question: "../session/q33/mar/q33.mp3",
-            explaination: "../session/q33/mar/exp33.mp3",
+            question: "../session/q33/ma/q33.mp3",
+            explaination: "../session/q33/ma/exp33.mp3",
             },
         },
 
@@ -581,8 +581,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q34/q34_1.jpeg", "../session/q34/q34_2.jpeg"],
 
-            question: "../session/q34/mar/q34.mp3",
-            explaination: "../session/q34/mar/exp34.mp3",
+            question: "../session/q34/ma/q34.mp3",
+            explaination: "../session/q34/ma/exp34.mp3",
             },
         },
         {
@@ -599,8 +599,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q35/q35.jpeg"],
 
-            question: "../session/q35/mar/q35.mp3",
-            explaination: "../session/q35/mar/exp35.mp3",
+            question: "../session/q35/ma/q35.mp3",
+            explaination: "../session/q35/ma/exp35.mp3",
             },
         },
         {
@@ -613,8 +613,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q36/q36.jpeg"],
 
-            question: "../session/q36/mar/q36.mp3",
-            explaination: "../session/q36/mar/exp36.mp3",
+            question: "../session/q36/ma/q36.mp3",
+            explaination: "../session/q36/ma/exp36.mp3",
             },
         },
         {
@@ -634,8 +634,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q37/q37.jpeg"],
 
-            question: "../session/q37/mar/q37.mp3",
-            explaination: "../session/q37/mar/exp37.mp3",
+            question: "../session/q37/ma/q37.mp3",
+            explaination: "../session/q37/ma/exp37.mp3",
             },
         },
         {
@@ -650,8 +650,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q38/q38.jpeg"],
 
-            question: "../session/q38/mar/q38.mp3",
-            explaination: "../session/q38/mar/exp38.mp3",
+            question: "../session/q38/ma/q38.mp3",
+            explaination: "../session/q38/ma/exp38.mp3",
             },
         },
         {
@@ -666,8 +666,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q39/q39.jpeg"],
 
-            question: "../session/q39/mar/q39.mp3",
-            explaination: "../session/q39/mar/exp39.mp3",
+            question: "../session/q39/ma/q39.mp3",
+            explaination: "../session/q39/ma/exp39.mp3",
             },
         },
         {
@@ -684,8 +684,8 @@ export const session1MRC = {
             assets: {
             img: ["../session/q40/q40_1.jpeg", "../session/q40/q40_2.jpeg"],
 
-            question: "../session/q40/mar/q40.mp3",
-            explaination: "../session/q40/mar/exp40.mp3",
+            question: "../session/q40/ma/q40.mp3",
+            explaination: "../session/q40/ma/exp40.mp3",
             },
         },
     ]

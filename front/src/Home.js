@@ -218,7 +218,7 @@ function Home() {
       case "alg":
         src = algeriaRoundedFlag;
         break;
-      case "mrc":
+      case "ma":
         src = moroccoRoundedFlag;
         break;
       case "tuni":
@@ -328,7 +328,7 @@ function Home() {
                 <Flag src="./images/flag/rounded/algeria.png" language="alg" />
                 <Flag
                   src="./images/flag/rounded/morocco.png"
-                  language="mrc"
+                  language="ma"
                 />
                 <Flag src="./images/flag/rounded/tunisia.png" language="tuni" />
                 <Flag src="./images/flag/rounded/turkey.png" language="tr" />

@@ -11,7 +11,9 @@ import {
   session2ES,
   session3FR,
   session3ES,
-  session1MRC
+  session1MA,
+  session2MA,
+  session3MA,
 } from "./data/sessions/index";
 import ProgressBar from "./components/ProgressBar";
 import { IconButton } from "@mui/material";
@@ -180,9 +182,9 @@ const Session = () => {
   };
 
   const sessionMap = {
-    1: { fr: session1FR, es: session1ES, mrc: session1MRC },
-    2: { fr: session2FR, es: session2ES },
-    3: { fr: session3FR, es: session3ES },
+    1: { fr: session1FR, es: session1ES, ma: session1MA },
+    2: { fr: session2FR, es: session2ES, ma: session2MA },
+    3: { fr: session3FR, es: session3ES, ma: session3MA },
     // Add more sessions as needed...
   };
 
