@@ -15,9 +15,6 @@ var PlayerSession = ({
     setExpAudioSrc(audioExplaination);
     if (content.length > 1) {
       intervalId = setInterval(() => {
-        console.log("interval");
-        console.log(currentSourceIndex);
-        console.log(content.length);
         setCurrentSourceIndex((prevIndex) => (prevIndex === 0 ? 1 : 0));
       }, 1000);
     } else {
@@ -32,8 +29,7 @@ var PlayerSession = ({
   let render;
 
   const currentSource = content;
-  console.log("currentSource", currentSource);
-  render = <img className="imgResponsive" alt="road" src={content} />;
+  render = <img className="imgResponsive" alt="road" src={currentSource} />;
 
   return <>{render}</>;
 };

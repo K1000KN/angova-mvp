@@ -120,9 +120,6 @@ function Home() {
   const sessionFR = jsonDataFr.map((session) => {
     return {
       id: session.id,
-      questions: session.questions,
-      choices: session.choices,
-      correctAnswer: session.correctAnswer,
       language: "fr",
     };
   });
@@ -130,9 +127,6 @@ function Home() {
   const sessionES = jsonDataEs.map((session) => {
     return {
       id: session.id,
-      questions: session.questions,
-      choices: session.choices,
-      correctAnswer: session.correctAnswer,
       language: "es",
     };
   });
@@ -140,10 +134,7 @@ function Home() {
   const sessionEN = jsonDataEn.map((session) => {
     return {
       id: session.id,
-      questions: session.questions,
-      choices: session.choices,
       language: "en",
-      correctAnswer: session.correctAnswer,
     };
   });
 
@@ -164,9 +155,7 @@ function Home() {
     // ... cases for other languages ...
     default:
       // Default case if the language doesn't match any of the above
-      console.log("default");
-      console.log("selectedLanguage", selectedLanguage);
-      console.log("sessions", sessions);
+
       break;
   }
 
