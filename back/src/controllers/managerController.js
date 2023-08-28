@@ -14,17 +14,8 @@ const stripeInstance = new stripe('sk_test_51NRF6LBHkhDIYYSv8MovkjYod1A4Q8rTUF9r
 
 export const createUser = async (req, res) => {
   try {
-    const { user, paymentMethod, selectedPackage } = req.body;
-    const paymentIntent = await stripeInstance.paymentIntents.create({
-      amount: selectedPackage.totalPrice * 100, // Stripe utilise les montants en centimes
-      currency: 'eur', // Remplacez par votre devise souhaitée
-      payment_method: paymentMethod.id,
-      confirm: true,
-    });
-    // Vérifiez si le paiement a été réussi
-    if (paymentIntent.status !== 'succeeded') {
-      return res.status(500).json({ error: 'Échec du paiement.' });
-    }
+    const { username, email, password } = req.body;
+   
     const userRole = await Role.findOne({ name: 'user' });
     const authorizationHeader = req.headers.authorization;
     const token = authorizationHeader.split(" ")[1];
@@ -50,10 +41,10 @@ export const createUser = async (req, res) => {
         .send({ message: "At least one valid role is required" });
     }
 
-    const hashedPassword = await bcrypt.hash(user.password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({
-      username: user.username,
-      email: user.email,
+      username: username,
+      email: email,
       password: hashedPassword,
       roles: assignedRoles.map((role) => role._id),
       manager: managerId
@@ -61,7 +52,7 @@ export const createUser = async (req, res) => {
    
     await newUser.save();
 
-    const userWithRoles = await User.findById(user._id).populate(
+    const userWithRoles = await User.findById(newUser._id).populate(
       "roles",
       "name"
     );
@@ -72,6 +63,7 @@ export const createUser = async (req, res) => {
     res.status(500).send({ message: "Failed to create user" });
   }
 };
+
 
 // function to get manager by id
 export const getManagerById = async (req, res) => {

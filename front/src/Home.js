@@ -14,9 +14,11 @@ import CloseIcon from "@mui/icons-material/Close";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { makeStyles } from "@mui/styles";
-import { session1FR } from "./data/sessions/fr/session_1.js";
-import { session2FR } from "./data/sessions/fr/session_2.js";
-import { session3FR } from "./data/sessions/fr/session_3";
+ import {
+  session1FR,
+  session2FR,
+  session3FR,
+}  from "./data/sessions/index";
 import ListSession from "./components/ListSessions";
 import Quizz from "./components/Quizz";
 import { useTranslation } from "react-i18next";
@@ -216,7 +218,7 @@ function Home() {
       case "alg":
         src = algeriaRoundedFlag;
         break;
-      case "maroc":
+      case "mrc":
         src = moroccoRoundedFlag;
         break;
       case "tuni":
@@ -244,18 +246,7 @@ function Home() {
       />
     );
   };
-  const Slide = ({ active, title }) => {
-    const classes = useStyles();
-
-    return (
-      <div className={`${classes.slide2} ${active ? "active" : ""}`}>
-        <Typography variant="h6" className={classes.slide2Title}>
-          {title}
-        </Typography>
-      </div>
-    );
-  };
-
+  
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -337,7 +328,7 @@ function Home() {
                 <Flag src="./images/flag/rounded/algeria.png" language="alg" />
                 <Flag
                   src="./images/flag/rounded/morocco.png"
-                  language="maroc"
+                  language="mrc"
                 />
                 <Flag src="./images/flag/rounded/tunisia.png" language="tuni" />
                 <Flag src="./images/flag/rounded/turkey.png" language="tr" />

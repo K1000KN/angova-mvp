@@ -135,7 +135,7 @@ function Landing() {
       case "alg":
         src = arabicSquaredFlag;
         break;
-      case "maroc":
+      case "mrc":
         src = arabicSquaredFlag;
         break;
       case "tuni":
