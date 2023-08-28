@@ -5,14 +5,14 @@ var PlayerSession = ({
   setAudioSrc,
   setExpAudioSrc,
   audioQuestion,
-  audioExplaination,
+  audioExplanation,
 }) => {
   const [currentSourceIndex, setCurrentSourceIndex] = useState(0);
 
   useEffect(() => {
     let intervalId;
     setAudioSrc(audioQuestion);
-    setExpAudioSrc(audioExplaination);
+    setExpAudioSrc(audioExplanation);
     if (content.length > 1) {
       intervalId = setInterval(() => {
         setCurrentSourceIndex((prevIndex) => (prevIndex === 0 ? 1 : 0));
@@ -24,7 +24,7 @@ var PlayerSession = ({
     return () => {
       clearInterval(intervalId);
     };
-  }, [audioExplaination, audioQuestion, content, setAudioSrc, setExpAudioSrc]);
+  }, [audioExplanation, audioQuestion, content, setAudioSrc, setExpAudioSrc]);
 
   let render;
 
