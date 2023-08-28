@@ -19,9 +19,11 @@ import {
 import { makeStyles } from "@mui/styles";
 import PlayerSession from "./components/PlayerSession";
 import { useTranslation } from "react-i18next";
+
 import jsonDataFr from "./data/content_fr.json";
 import jsonDataEs from "./data/content_es.json";
 import jsonDataEn from "./data/content_en.json";
+
 import {
   processSessions,
   filterSessionsByLanguage,
