@@ -249,13 +249,13 @@ function Home() {
       case "ar":
         src = moroccoRoundedFlag;
         break;
-      case "alg":
+      case "dz":
         src = algeriaRoundedFlag;
         break;
-      case "maroc":
+      case "ma":
         src = moroccoRoundedFlag;
         break;
-      case "tuni":
+      case "tn":
         src = tuniRoundedFlag;
         break;
       case "tr":
@@ -386,12 +386,9 @@ function Home() {
                 <Flag src="./images/flag/rounded/france.png" language="fr" />
                 <Flag src="./images/flag/rounded/spain.png" language="es" />
                 <Flag src="./images/flag/rounded/uk.png" language="en" />
-                <Flag src="./images/flag/rounded/algeria.png" language="alg" />
-                <Flag
-                  src="./images/flag/rounded/morocco.png"
-                  language="maroc"
-                />
-                <Flag src="./images/flag/rounded/tunisia.png" language="tuni" />
+                <Flag src="./images/flag/rounded/algeria.png" language="dz" />
+                <Flag src="./images/flag/rounded/morocco.png" language="ma" />
+                <Flag src="./images/flag/rounded/tunisia.png" language="tn" />
                 <Flag src="./images/flag/rounded/turkey.png" language="tr" />
               </Grid>
             </DialogContent>

@@ -218,6 +218,15 @@ const Session = () => {
     case "en":
       sessions.push(...processSessions(sessionEN, batchSize, t));
       break;
+    case "ma":
+      // sessions.push(...processSessions(sessionMA, batchSize, t));
+      break;
+    case "dz":
+      // sessions.push(...processSessions(sessionDZ, batchSize, t));
+      break;
+    case "tn":
+      // sessions.push(...processSessions(sessionTN, batchSize, t));
+      break;
     // ... cases for other languages ...
     default:
       console.log("default");

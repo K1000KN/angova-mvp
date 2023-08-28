@@ -132,13 +132,13 @@ function Landing() {
       case "ar":
         src = arabicSquaredFlag;
         break;
-      case "alg":
+      case "dz":
         src = arabicSquaredFlag;
         break;
-      case "maroc":
+      case "ma":
         src = arabicSquaredFlag;
         break;
-      case "tuni":
+      case "tn":
         src = arabicSquaredFlag;
         break;
       case "tr":
