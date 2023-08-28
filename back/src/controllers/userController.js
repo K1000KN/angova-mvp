@@ -124,7 +124,7 @@ export const updateUser = async (req, res) => {
 export const getAllUsers = async (req, res) => {
   try {
     const users = await User.find().populate("roles", "name");
-    console.log(users);
+   
     res.status(200).send(users);
   } catch (err) {
     console.error(err);
