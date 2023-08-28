@@ -54,6 +54,7 @@ const Session = () => {
   useEffect(() => {
     if (isPlaying && isPlayingExp === false) {
       var audio = new Audio(audioSrc);
+      console.log("audioSrc", audioSrc);
       audio.play().catch((error) => {
         console.error("Error autoplaying audio:", error);
         setIsPlaying(false);
@@ -181,50 +182,28 @@ const Session = () => {
 
     return true;
   };
-  const sessionFR = jsonDataFr.map((session) => {
-    return {
-      id: session.id,
-      questions: session.questions,
-      choices: session.choices,
-      correctAnswer: session.correctAnswer,
-      language: "fr",
-      assets: {
-        img: `/session/q${session.id}/q${session.id}.jpeg`,
-        audio: `/session/q${session.id}/${session.language}/q${session.id}.mp3`,
-        explanation: `/session/q${session.id}/${session.language}/exp${session.id}.mp3`,
-      },
-    };
-  });
+  const createSessionData = (language, jsonData) => {
+    return jsonData.map((session) => {
+      return {
+        id: session.id,
+        language: language,
+        questions: session.questions,
+        choices: session.choices,
+        correctAnswer: session.correctAnswer,
+        explanation: session.explanation,
+        assets: {
+          img: `/session/q${session.id}/q${session.id}.jpeg`,
+          audio: `/session/q${session.id}/${language}/q${session.id}.mp3`,
+          explanation: `/session/q${session.id}/${language}/exp${session.id}.mp3`,
+        },
+      };
+    });
+  };
 
-  const sessionES = jsonDataEs.map((session) => {
-    return {
-      id: session.id,
-      questions: session.questions,
-      choices: session.choices,
-      correctAnswer: session.correctAnswer,
-      language: "es",
-      assets: {
-        img: `/session/q${session.id}/q${session.id}.jpeg`,
-        audio: `/session/q${session.id}/${session.language}/q${session.id}.mp3`,
-        explanation: `/session/q${session.id}/${session.language}/exp${session.id}.mp3`,
-      },
-    };
-  });
+  const sessionFR = createSessionData("fr", jsonDataFr);
+  const sessionES = createSessionData("es", jsonDataEs);
+  const sessionEN = createSessionData("en", jsonDataEn);
 
-  const sessionEN = jsonDataEn.map((session) => {
-    return {
-      id: session.id,
-      questions: session.questions,
-      choices: session.choices,
-      language: "en",
-      correctAnswer: session.correctAnswer,
-      assets: {
-        img: `/session/q${session.id}/q${session.id}.jpeg`,
-        audio: `/session/q${session.id}/${session.language}/q${session.id}.mp3`,
-        explanation: `/session/q${session.id}/${session.language}/exp${session.id}.mp3`,
-      },
-    };
-  });
   const batchSize = 40;
   const sessions = [];
   const selectedLanguage = localStorage.getItem("language");
@@ -433,7 +412,7 @@ const Session = () => {
                   content={assets.img}
                   setAudioSrc={setAudioSrc}
                   setExpAudioSrc={setExpAudioSrc}
-                  audioQuestion={assets.question}
+                  audioQuestion={assets.audio}
                   audioexplanation={assets.explanation}
                 />
               </Grid>

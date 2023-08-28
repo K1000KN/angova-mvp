@@ -117,26 +117,18 @@ function Home() {
       navigate("/profil");
     }
   };
-  const sessionFR = jsonDataFr.map((session) => {
-    return {
-      id: session.id,
-      language: "fr",
-    };
-  });
+  const createLanguageSessionData = (language, jsonData) => {
+    return jsonData.map((session) => {
+      return {
+        id: session.id,
+        language: language,
+      };
+    });
+  };
 
-  const sessionES = jsonDataEs.map((session) => {
-    return {
-      id: session.id,
-      language: "es",
-    };
-  });
-
-  const sessionEN = jsonDataEn.map((session) => {
-    return {
-      id: session.id,
-      language: "en",
-    };
-  });
+  const sessionFR = createLanguageSessionData("fr", jsonDataFr);
+  const sessionES = createLanguageSessionData("es", jsonDataEs);
+  const sessionEN = createLanguageSessionData("en", jsonDataEn);
 
   const batchSize = 40;
   const sessions = [];
