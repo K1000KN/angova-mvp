@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { makeStyles } from "@mui/styles";
-import { Formik, Form, Field, ErrorMessage } from "formik";
 import {
   Box,
   Button,
@@ -33,6 +32,7 @@ import { decodeToken } from "react-jwt";
 import axios from "axios";
 import { AddCircleOutline, Delete } from "@mui/icons-material";
 import { createTheme } from "@mui/material/styles";
+import NewUserForm from "./components/NewUserForm";
 
 const theme = createTheme();
 
@@ -373,8 +373,8 @@ const UserProfile = () => {
   const [openDialog, setOpenDialog] = useState(false);
 
   const handleAddUser = () => {
-    //setOpenDialog(true);
-    navigate("/payment_dashboard");
+    setOpenDialog(true);
+    //navigate("/payment_dashboard");
   };
 
   const handleCloseDialog = () => {
@@ -425,34 +425,14 @@ const UserProfile = () => {
       .required("Requis"),
   });
 
-  // const onSubmitAddNewUser = async (values, props) => {
-  //   const user = {
-  //     username: values.name,
-  //     // firstname: values.firstname,
-  //     // age: values.age,
-  //     email: values.email,
-  //     password: values.password,
-  //   };
-  //   try {
-  //     const endpoint = `${apiUrl}/manager/create`;
-  //     const headers = {
-  //       Authorization: `Bearer ${token}`,
-  //     };
-  //     const response = await axios.post(endpoint, user, { headers });
-  //     setUsers([...usersList, user]);
-  //     props.resetForm();
-  //     handleCloseDialog();
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.error("Error:", error);
-  //   }
-  // };
+
 
   const deleteUser = async () => {
     const token = localStorage.getItem("token");
     try {
+      
       const response = await axios.delete(
-        `${apiUrl}/user/${selectedUserToBeDeleted}`,
+        `${apiUrl}/user/delete/${selectedUserToBeDeleted}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -510,18 +490,7 @@ const UserProfile = () => {
               margin="normal"
               variant="outlined"
             />
-            {/* <TextField
-              fullWidth
-              id="age"
-              name="age"
-              label="Age"
-              type="number"
-              value={0}
-              onChange={handleInputChange}
-              disabled={!isEditing}
-              margin="normal"
-              variant="outlined"
-            /> */}
+           
 
             <Grid
               container
@@ -654,6 +623,8 @@ const UserProfile = () => {
           </DialogContent>
         </div>
       </Dialog>{" "}
+      {/* NEW USER MODAL */}
+      <NewUserForm open={openDialog} handleClose={handleCloseDialog} usersList={usersList} setUsers={setUsers} />
       {/* DELETE MY ACCOUNT MODAL */}
       <Dialog open={showDeleteProfileDialog} onClose={closeDeleteProfileDialog}>
         <DialogTitle>Suppression du compte</DialogTitle>

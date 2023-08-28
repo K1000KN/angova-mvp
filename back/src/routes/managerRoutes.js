@@ -2,7 +2,6 @@ import express from "express";
 import {
   createUser,
   getManagerById
-
 } from "../controllers/managerController.js";
 import { validateManagerToken } from "../middleware/authMiddleware.js";
 
