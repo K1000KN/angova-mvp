@@ -422,7 +422,7 @@ const Session = () => {
                   setAudioSrc={setAudioSrc}
                   setExpAudioSrc={setExpAudioSrc}
                   audioQuestion={assets.audio}
-                  audioexplanation={assets.explanation}
+                  audioExplanation={assets.explanation}
                 />
               </Grid>
               <Grid item xs={12} id="quizContainer">
