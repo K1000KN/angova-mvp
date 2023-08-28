@@ -56,7 +56,11 @@ const UserProfile = () => {
   const [value, setValue] = useState("profil");
   const [show, setShow] = useState(false);
   const [showDeleteProfileDialog, setShowDeleteProfileDialog] = useState(false);
+  const [showResetPwdDialog, setShowResetPwdDialog] = useState(false);
   const [selectedUserToBeDeleted, setSelectedUserToBeDeleted] = useState(null);
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [message, setMessage] = useState('');
   const [showDeleteFromUsersDialog, setShowDeleteFromUsersDialog] =
     useState(false);
 
@@ -111,10 +115,16 @@ const UserProfile = () => {
   const openDeleteProfileDialog = () => {
     setShowDeleteProfileDialog(true);
   };
-
+  const openResetPwdDialog = () => {
+    setShowResetPwdDialog(true);
+  };
   const closeDeleteProfileDialog = () => {
     setShowDeleteProfileDialog(false);
   };
+  const closeResetPwdDialog = () => {
+    setShowResetPwdDialog(false);
+  };
+
 
   const deleteProfile = async () => {
     const token = localStorage.getItem("token");
@@ -122,7 +132,7 @@ const UserProfile = () => {
     const role = decodedToken.role;
     try {
       const response = await axios.delete(
-        `${apiUrl}/${role}/${decodedToken.id}`,
+        `${apiUrl}/${role}/delete/${decodedToken.id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -136,6 +146,8 @@ const UserProfile = () => {
       console.log(error);
     }
   };
+
+
   const setLanguageImage = (language) => {
     let src = null;
     switch (language) {
@@ -320,9 +332,29 @@ const UserProfile = () => {
     const headers = {
       Authorization: `Bearer ${token}`,
     };
-    const endpoint = `${apiUrl}/manager/${id}`;
+    const endpoint = `${apiUrl}/manager/update/${id}`;
     const response = await axios.put(endpoint, user, { headers });
     console.log(response);
+  };
+
+  const resetPasswordManager = async () => {
+    if (newPassword !== confirmPassword) {
+      setMessage("Passwords do not match");
+      return;
+    }
+
+    const id = decodedToken.id;
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    const endpoint = `${apiUrl}/manager/password-reset/${id}`;
+    
+    try {
+      const response = await axios.put(endpoint, { newPassword, confirmPassword }, { headers });
+      setMessage(response.data.message);
+    } catch (error) {
+      setMessage("Failed to update password");
+    }
   };
   const [user, setUser] = useState(null);
   const [isUserFetched, setIsUserFetched] = useState(false);
@@ -510,7 +542,13 @@ const UserProfile = () => {
                   Modifier
                 </Button>
               )}
-
+              <Button
+                variant="contained"
+                onClick={openResetPwdDialog}
+                sx={{backgroundColor: "#F49E4C"}}
+              >
+                Modifier le mot de passe
+              </Button>
               <Button
                 variant="contained"
                 onClick={openDeleteProfileDialog}
@@ -625,6 +663,46 @@ const UserProfile = () => {
       </Dialog>{" "}
       {/* NEW USER MODAL */}
       <NewUserForm open={openDialog} handleClose={handleCloseDialog} usersList={usersList} setUsers={setUsers} />
+      {/* RESET PWD MY ACCOUNT MODAL */}
+      (
+    <Dialog open={showResetPwdDialog} onClose={closeResetPwdDialog}>
+      <DialogTitle>Modifier le mot de passe </DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          <TextField
+            fullWidth
+            type="password"
+            id="newPassword"
+            name="newPassword"
+            label="New Password"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+            margin="normal"
+            variant="outlined"
+          />
+          <TextField
+            fullWidth
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            label="Confirm New Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            margin="normal"
+            variant="outlined"
+          />
+          {message && <p>{message}</p>}
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={closeResetPwdDialog} color="primary">
+          Annuler
+        </Button>
+        <Button onClick={resetPasswordManager} sx={{backgroundColor: "#F49E4C"}} autoFocus>
+          Modifier
+        </Button>
+      </DialogActions>
+    </Dialog>
       {/* DELETE MY ACCOUNT MODAL */}
       <Dialog open={showDeleteProfileDialog} onClose={closeDeleteProfileDialog}>
         <DialogTitle>Suppression du compte</DialogTitle>

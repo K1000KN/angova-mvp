@@ -63,7 +63,65 @@ export const createUser = async (req, res) => {
     res.status(500).send({ message: "Failed to create user" });
   }
 };
+export const deleteManager = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findByIdAndDelete(id);
+    if (!user) {
+      return res.status(404).send({ message: "Manager not found" });
+    }
+    res.status(200).send({ message: "Manager deleted" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ message: "Failed to delete manager" });
+  }
+};
 
+export const updateManager = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedData = req.body; // Les données mises à jour envoyées depuis le frontend
+
+    const user = await User.findByIdAndUpdate(id, updatedData, { new: true });
+
+    if (!user) {
+      return res.status(404).send({ message: "Manager not found" });
+    }
+
+    res.status(200).send({ message: "Manager updated", user });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ message: "Failed to update manager" });
+  }
+};
+
+// export const resetPasswordManager = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const { newPassword, confirmPassword } = req.body;
+
+//     if (newPassword !== confirmPassword) {
+//       return res.status(400).send({ message: "Passwords do not match" });
+//     }
+
+//     const user = await User.findById(id);
+//     if (!user) {
+//       return res.status(404).send({ message: "Manager not found" });
+//     }
+
+//     // Hash the new password
+//     const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+//     // Update the user's password
+//     user.password = hashedPassword;
+//     await user.save();
+
+//     res.status(200).send({ message: "Password updated" });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).send({ message: "Failed to update password" });
+//   }
+// };
 
 // function to get manager by id
 export const getManagerById = async (req, res) => {

@@ -22,9 +22,9 @@ export const login = async (req, res) => {
     }
 
     const isPasswordValid = bcrypt.compare(password, user.password);
-    console.log(isPasswordValid);
+    
     if (!isPasswordValid) {
-      console.log(isPasswordValid);
+  
       return res.status(401).send({ message: "Invalid email or password" });
     }
 
