@@ -19,9 +19,11 @@ import {
 import { makeStyles } from "@mui/styles";
 import PlayerSession from "./components/PlayerSession";
 import { useTranslation } from "react-i18next";
+
 import jsonDataFr from "./data/content_fr.json";
 import jsonDataEs from "./data/content_es.json";
 import jsonDataEn from "./data/content_en.json";
+
 import {
   processSessions,
   filterSessionsByLanguage,
@@ -34,7 +36,7 @@ const Session = () => {
   const [selectedAnswerIndices, setSelectedAnswerIndices] = useState([]);
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
 
-  const [openDialog, setOpenDialog] = useState(false); // State for controlling the dialog visibility
+  const [openDialog, setOpenDialog] = useState(false);
 
   const [showResult, setShowResult] = useState(false);
   const [result, setResult] = useState({
@@ -144,6 +146,8 @@ const Session = () => {
     setShowExplanation,
     setResult
   ) => {
+    console.log("indices", indices);
+    console.log("correctAnswer", correctAnswer);
     const isCorrect = arraysEqual(indices, correctAnswer);
 
     if (isCorrect) {
@@ -182,7 +186,13 @@ const Session = () => {
       id: session.id,
       questions: session.questions,
       choices: session.choices,
+      correctAnswer: session.correctAnswer,
       language: "fr",
+      assets: {
+        img: `/session/q${session.id}/q${session.id}.jpeg`,
+        audio: `/session/q${session.id}/${session.language}/q${session.id}.mp3`,
+        explanation: `/session/q${session.id}/${session.language}/exp${session.id}.mp3`,
+      },
     };
   });
 
@@ -191,7 +201,13 @@ const Session = () => {
       id: session.id,
       questions: session.questions,
       choices: session.choices,
+      correctAnswer: session.correctAnswer,
       language: "es",
+      assets: {
+        img: `/session/q${session.id}/q${session.id}.jpeg`,
+        audio: `/session/q${session.id}/${session.language}/q${session.id}.mp3`,
+        explanation: `/session/q${session.id}/${session.language}/exp${session.id}.mp3`,
+      },
     };
   });
 
@@ -201,9 +217,14 @@ const Session = () => {
       questions: session.questions,
       choices: session.choices,
       language: "en",
+      correctAnswer: session.correctAnswer,
+      assets: {
+        img: `/session/q${session.id}/q${session.id}.jpeg`,
+        audio: `/session/q${session.id}/${session.language}/q${session.id}.mp3`,
+        explanation: `/session/q${session.id}/${session.language}/exp${session.id}.mp3`,
+      },
     };
   });
-
   const batchSize = 40;
   const sessions = [];
   const selectedLanguage = localStorage.getItem("language");
@@ -220,7 +241,6 @@ const Session = () => {
       break;
     // ... cases for other languages ...
     default:
-      // Default case if the language doesn't match any of the above
       console.log("default");
       console.log("selectedLanguage", selectedLanguage);
       console.log("sessions", sessions);
@@ -228,10 +248,6 @@ const Session = () => {
   }
 
   const filteredSessions = filterSessionsByLanguage(sessions, selectedLanguage);
-
-  // console.log("filteredSessions", filteredSessions);
-  console.log(selectedLanguage);
-
   const getSessionData = (id) => {
     const sessionData = filteredSessions.find(
       (session) => session.id === parseInt(id)
@@ -290,9 +306,8 @@ const Session = () => {
     );
   }
 
-  let { quizz } = sessionData;
-  const { questions, choices, correctAnswer, explaination, assets } =
-    quizz[activeQuestion];
+  const { questions, choices, correctAnswer, explanation, assets } =
+    sessionData[activeQuestion];
 
   const onClickNext = () => {
     // Verify the answer before proceeding to the next question
@@ -315,7 +330,7 @@ const Session = () => {
     });
 
     // Reset state variables and move to the next question
-    if (activeQuestion !== quizz.length - 1) {
+    if (activeQuestion !== sessionData.length - 1) {
       setActiveQuestion((prev) => prev + 1);
       setSelectedAnswerIndices([]);
       setSelectedAnswerIndex(null);
@@ -325,7 +340,7 @@ const Session = () => {
       setActiveQuestion(0);
       setShowResult(true);
     }
-    setCompleted(((activeQuestion + 1) / quizz.length) * 100);
+    setCompleted(((activeQuestion + 1) / sessionData.length) * 100);
   };
 
   const onAnswerSelected = (index) => {
@@ -388,7 +403,7 @@ const Session = () => {
                     {addLeadingZero(activeQuestion + 1)}
                   </span>
                   <span className="total-question">
-                    /{addLeadingZero(quizz.length)}
+                    /{addLeadingZero(sessionData.length)}
                   </span>
                 </Grid>
                 <Grid item xs={10} sm={7} id="progressContainer">
@@ -419,7 +434,7 @@ const Session = () => {
                   setAudioSrc={setAudioSrc}
                   setExpAudioSrc={setExpAudioSrc}
                   audioQuestion={assets.question}
-                  audioExplaination={assets.explaination}
+                  audioexplanation={assets.explanation}
                 />
               </Grid>
               <Grid item xs={12} id="quizContainer">
@@ -604,7 +619,7 @@ const Session = () => {
                   }}
                   disabled={selectedAnswerIndices.length === 0}
                 >
-                  {activeQuestion === quizz.length - 1 && showResult
+                  {activeQuestion === sessionData.length - 1 && showResult
                     ? t("finir")
                     : showExplanation
                     ? t("suivant")
@@ -632,7 +647,7 @@ const Session = () => {
             </div>
 
             <p>
-              Total des questions: <span>{quizz.length}</span>
+              Total des questions: <span>{sessionData.length}</span>
             </p>
             <p>
               Score:<span> {result.score}</span>
@@ -666,7 +681,7 @@ const Session = () => {
               <CloseIcon />
             </IconButton>
           </DialogTitle>
-          <DialogContent>{explaination}</DialogContent>
+          <DialogContent>{explanation}</DialogContent>
           <DialogActions>
             <button
               onClick={handleToggleAudioExp}

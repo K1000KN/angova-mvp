@@ -122,6 +122,7 @@ function Home() {
       id: session.id,
       questions: session.questions,
       choices: session.choices,
+      correctAnswer: session.correctAnswer,
       language: "fr",
     };
   });
@@ -131,6 +132,7 @@ function Home() {
       id: session.id,
       questions: session.questions,
       choices: session.choices,
+      correctAnswer: session.correctAnswer,
       language: "es",
     };
   });
@@ -141,6 +143,7 @@ function Home() {
       questions: session.questions,
       choices: session.choices,
       language: "en",
+      correctAnswer: session.correctAnswer,
     };
   });
 
@@ -166,11 +169,6 @@ function Home() {
       console.log("sessions", sessions);
       break;
   }
-
-  const filteredSessions = filterSessionsByLanguage(sessions, selectedLanguage);
-
-  console.log("filteredSessions", filteredSessions);
-  console.log(selectedLanguage);
 
   useEffect(() => {
     // we use this effect to see the language dialog
