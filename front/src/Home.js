@@ -281,29 +281,13 @@ function Home() {
       />
     );
   };
-  const Slide = ({ active, title }) => {
-    const classes = useStyles();
-
-    return (
-      <div className={`${classes.slide2} ${active ? "active" : ""}`}>
-        <Typography variant="h6" className={classes.slide2Title}>
-          {title}
-        </Typography>
-      </div>
-    );
-  };
 
   return (
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <NavbarComponent page={value} setLanguageImage={setLanguageImage} />
-        <Grid
-          id="sessionContainer"
-          container
-          direction="row"
-          style={{ height: "89vh" }}
-        >
+        <Grid id="sessionContainer" container direction="row">
           <Grid
             item
             lg={3}

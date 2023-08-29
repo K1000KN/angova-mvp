@@ -193,7 +193,8 @@ button > span {
     margin-bottom: 15px;
   }
   #sessionContainer{
-    /* padding-top: 8vh; */
+    padding-bottom: 2vh;
+    height: 89vh;
   }
   
 }
@@ -231,6 +232,10 @@ button > span {
   }
   .flag {
       width: 57px !important;
+  }
+  #sessionContainer{
+    padding-bottom: 20vh;
+    height: 89vh;
   }
 }
 
