@@ -362,7 +362,7 @@ function Home() {
             }}
           >
             <DialogTitle>
-              <Typography variant="h5" style={{ fontWeight: 700 }}>
+              <Typography style={{ fontWeight: 700 }}>
                 {t("choisir-la-langue-du-code-de-la-route")}
               </Typography>
               <IconButton
