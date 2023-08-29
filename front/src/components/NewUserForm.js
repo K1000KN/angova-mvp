@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  Grid,
-  Paper,
-  Button,
-  Typography,
- 
-} from "@mui/material";
+import { Grid, Paper, Button, Typography } from "@mui/material";
 import { TextField } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -43,7 +37,7 @@ const useStyles = makeStyles({
     marginTop: 8,
   },
 });
-const NewUserForm = ({ open, handleClose, usersList,setUsers  }) => {
+const NewUserForm = ({ open, handleClose, usersList, setUsers }) => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem("token");
 
@@ -61,11 +55,11 @@ const NewUserForm = ({ open, handleClose, usersList,setUsers  }) => {
     backgroundColor: "#F49E4C",
   };
 
-  const  initialValues={
-    username: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
+  const initialValues = {
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   };
   const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -76,31 +70,32 @@ const NewUserForm = ({ open, handleClose, usersList,setUsers  }) => {
       .required("Requis"),
   });
 
-  const handleSubmit = async (values) => {  
+  const handleSubmit = async (values) => {
     const { username, email, password } = values;
-    
-  
-      const endpoint = `${apiUrl}/manager/create`;
-      const headers = {
-          Authorization: `Bearer ${token}`,
-      };
-      const response = await axios.post(endpoint,  { username, email, password } , { headers });
-      
-      console.log(response);
-     
-    
-    if (response.status===201) {
+
+    const endpoint = `${apiUrl}/manager/create`;
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    const response = await axios.post(
+      endpoint,
+      { username, email, password },
+      { headers }
+    );
+
+    console.log(response);
+
+    if (response.status === 201) {
       const newUsers = [...usersList, values];
       setUsers(newUsers);
       handleClose();
       // L'enregistrement de l'utilisateur et le paiement ont réussi
-      console.log('Utilisateur enregistré avec succès.');
+      console.log("Utilisateur enregistré avec succès.");
     } else {
       // Le paiement a échoué
-      console.log('Échec de l\'enregistrement de l\'utilisateur.');
+      console.log("Échec de l'enregistrement de l'utilisateur.");
     }
-  
-};
+  };
 
   return (
     <div
@@ -136,57 +131,69 @@ const NewUserForm = ({ open, handleClose, usersList,setUsers  }) => {
                 >
                   {(props) => (
                     <Form noValidate>
-                      
-                    <Field
-                      as={TextField}
-                      id="username"
-                      name="username"
-                      label="Nom"
-                      variant="outlined"
-                      fullWidth
-                      required
-                      margin="normal"
-                    />
-                    <ErrorMessage name="username" component={Typography} variant="body2" color="error" />
+                      <Field
+                        as={TextField}
+                        id="username"
+                        name="username"
+                        label="Nom"
+                        variant="outlined"
+                        fullWidth
+                        required
+                        margin="normal"
+                      />
+                      <ErrorMessage
+                        name="username"
+                        component={Typography}
+                        variant="body2"
+                        color="error"
+                      />
 
-                    <Field
-                      as={TextField}
-                      id="email"
-                      name="email"
-                      label="Email"
-                      variant="outlined"
-                      fullWidth
-                      required
-                      margin="normal"
-                    />
-                    <ErrorMessage name="email" component={Typography} variant="body2" color="error" />
+                      <Field
+                        as={TextField}
+                        id="email"
+                        name="email"
+                        label="Email"
+                        variant="outlined"
+                        fullWidth
+                        required
+                        margin="normal"
+                      />
+                      <ErrorMessage
+                        name="email"
+                        component={Typography}
+                        variant="body2"
+                        color="error"
+                      />
 
-                    <Field
-                      as={TextField}
-                      id="password"
-                      name="password"
-                      label="Mot de passe"
-                      type="password"
-                      variant="outlined"
-                      fullWidth
-                      required
-                      margin="normal"
-                    />
-                    <ErrorMessage name="password" component={Typography} variant="body2" color="error" />
+                      <Field
+                        as={TextField}
+                        id="password"
+                        name="password"
+                        label="Mot de passe"
+                        type="password"
+                        variant="outlined"
+                        fullWidth
+                        required
+                        margin="normal"
+                      />
+                      <ErrorMessage
+                        name="password"
+                        component={Typography}
+                        variant="body2"
+                        color="error"
+                      />
 
-                    <Field
-                      as={TextField}
-                      id="confirmPassword"
-                      name="confirmPassword"
-                      label="Confirmer le mot de passe"
-                      type="password"
-                      variant="outlined"
-                      fullWidth
-                      required
-                      margin="normal"
-                    />
-
-                 
+                      <Field
+                        as={TextField}
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        label="Confirmer le mot de passe"
+                        type="password"
+                        variant="outlined"
+                        fullWidth
+                        required
+                        margin="normal"
+                      />
 
                       <Button
                         sx={{ textTransform: "none" }}
