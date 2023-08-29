@@ -16,20 +16,18 @@ export const login = async (req, res) => {
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
-    console.log(user);
     if (!user) {
       return res.status(404).send({ message: "User not found" });
     }
 
-    const isPasswordValid = bcrypt.compare(password, user.password);
-    
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    console.log("isPasswordValid", isPasswordValid);
     if (!isPasswordValid) {
-  
       return res.status(401).send({ message: "Invalid email or password" });
     }
 
     // Récupérer le rôle de l'utilisateur à partir du tableau de rôles
-    const roleId = user.roles[0]; // Supposant qu'il y ait un seul rôle par utilisateur
+    const roleId = user.roles[0];
 
     const roleObject = await Role.findById(roleId);
 
