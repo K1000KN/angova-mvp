@@ -357,6 +357,12 @@ button {
     }
     .displayNavBott{
         display: flex !important;
+        justify-content: center;
+        height: 100px!important;
+        background-color: #ffffff;
+        position: fixed;
+        width: -webkit-fill-available;
+        position: fixed;
     }
 }
 

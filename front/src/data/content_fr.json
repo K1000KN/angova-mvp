@@ -95,7 +95,7 @@
       "pour téléphoner",
       "en cas d'urgence",
       "pour pique-niquer",
-      "D pour faire pause"
+      "pour faire pause"
     ],
     "correctAnswer": [
       1
@@ -113,7 +113,7 @@
       "Oui",
       "Non",
       "Oui",
-      "D Non"
+      "Non"
     ],
     "correctAnswer": [
       1,
@@ -200,7 +200,7 @@
       "J'éteins les feux immédiatement",
       "Je garde les feux de croisement",
       "Je ralentis.",
-      "D Je maintiens l'allure"
+      "Je maintiens l'allure"
     ],
     "correctAnswer": [
       1,
@@ -233,7 +233,7 @@
       "OUI",
       "NON",
       "sur la route",
-      "D sur le tableau de bord"
+      "sur le tableau de bord"
     ],
     "correctAnswer": [
       0,
@@ -253,7 +253,7 @@
       "OUI",
       "NON",
       "OUI",
-      "D NON"
+      "NON"
     ],
     "correctAnswer": [
       0,
@@ -315,7 +315,7 @@
       "Oui",
       "Non",
       "30 mètres",
-      "D 60 mètres"
+      "60 mètres"
     ],
     "correctAnswer": [
       0,
@@ -334,7 +334,7 @@
       "n'est plus évacuée par le pneu",
       "est évacuée trop brusquement par le pneu",
       "le blocage des roues",
-      "D une perte de contrôle du véhicule"
+      "une perte de contrôle du véhicule"
     ],
     "correctAnswer": [
       0,
@@ -426,7 +426,7 @@
       "Oui",
       "Non",
       "Oui",
-      "D Non"
+      "Non"
     ],
     "correctAnswer": [
       0,
@@ -459,7 +459,7 @@
       "en zone A",
       "en zone B",
       "en zone C",
-      "D en zone D"
+      "en zone D"
     ],
     "correctAnswer": [
       3
@@ -476,7 +476,7 @@
       "une zone de rencontre",
       "une voie verte",
       "les cyclomoteurs",
-      "D le cyclistes"
+      "le cyclistes"
     ],
     "correctAnswer": [
       1,
@@ -566,7 +566,7 @@
       "Responsabilité civile",
       "bris de glace",
       "dommages tous accidents",
-      "D dommages - collision"
+      "dommages - collision"
     ],
     "correctAnswer": [
       2,
@@ -628,7 +628,7 @@
       "une autoroute",
       "une route à accès réglementé",
       "des automobilistes uniquement",
-      "D des véhicules pouvant circuler à allure soutenue (rapidement)"
+      "des véhicules pouvant circuler à allure soutenue (rapidement)"
     ],
     "correctAnswer": [
       1,
@@ -675,7 +675,7 @@
       "Oui",
       "Non",
       "Oui",
-      "D Non"
+      "Non"
     ],
     "correctAnswer": [
       1,
@@ -694,7 +694,7 @@
       "Oui",
       "Non",
       "Oui",
-      "D Non"
+      "Non"
     ],
     "correctAnswer": [
       1,
@@ -713,7 +713,7 @@
       "- diminue l'alcoolémie",
       "- provoque des effets indésirables",
       "par 14",
-      "D par 19"
+      "par 19"
     ],
     "correctAnswer": [
       1,
@@ -732,7 +732,7 @@
       "- à 150 mètres",
       "- à 300 mètres",
       "d'être mieux vu",
-      "D de mieux voir"
+      "de mieux voir"
     ],
     "correctAnswer": [
       0,
@@ -779,7 +779,7 @@
       "Oui",
       "Non",
       "Oui",
-      "D Non"
+      "Non"
     ],
     "correctAnswer": [
       0,
@@ -796,7 +796,7 @@
       "de nuit en ville éclairée",
       "dans un tunnel éclairé en agglomération",
       "pour être vu",
-      "D pour mieux voir"
+      "pour mieux voir"
     ],
     "correctAnswer": [
       0,
@@ -830,7 +830,7 @@
       "un élément non dangereux",
       "une anomalie de fonctionnement",
       "de la température élevé du liquide de refroidissement",
-      "D d'une baisse du niveau de l'huile moteur"
+      "d'une baisse du niveau de l'huile moteur"
     ],
     "correctAnswer": [
       1,
@@ -863,7 +863,7 @@
       "Oui",
       "Non",
       "Oui",
-      "D Non"
+      "Non"
     ],
     "correctAnswer": [
       0,
@@ -882,7 +882,7 @@
       "Oui",
       "Non",
       "1 seconde",
-      "D 2 secondes"
+      "2 secondes"
     ],
     "correctAnswer": [
       0,
@@ -899,7 +899,7 @@
       "nécessite une formation spécifique",
       "peut sauver des vies",
       "est dangereuse pour la victime",
-      "D est réservé à son propriétaire"
+      "est réservé à son propriétaire"
     ],
     "correctAnswer": [
       1
@@ -945,7 +945,7 @@
       "Oui",
       "Non",
       "d'1 mètre",
-      "D d'1 mètre 50"
+      "d'1 mètre 50"
     ],
     "correctAnswer": [
       0,
@@ -964,7 +964,7 @@
       "à droite",
       "à gauche",
       "Oui",
-      "D Non"
+      "Non"
     ],
     "correctAnswer": [
       0,
@@ -1041,7 +1041,7 @@
       "de droite",
       "de gauche",
       "Oui",
-      "D Non"
+      "Non"
     ],
     "correctAnswer": [
       0,
@@ -1077,7 +1077,7 @@
       "Oui",
       "Non",
       "Oui",
-      "D Non"
+      "Non"
     ],
     "correctAnswer": [
       1,
@@ -1122,7 +1122,7 @@
       "J'accélère",
       "Je ralentis",
       "Je serre à droite",
-      "D Je passe"
+      "Je passe"
     ],
     "correctAnswer": [
       1,
@@ -1156,7 +1156,7 @@
       "autorise le dépassement",
       "interdit le dépassement",
       "Oui",
-      "D Non"
+      "Non"
     ],
     "correctAnswer": [
       1,
@@ -1173,7 +1173,7 @@
       "une intersection",
       "l'obligation de s'arrêter",
       "un Cédez-le-passage",
-      "D l'obligation de céder le passage"
+      "l'obligation de céder le passage"
     ],
     "correctAnswer": [
       0,
@@ -1193,7 +1193,7 @@
       "Oui",
       "Non",
       "Oui",
-      "D Non"
+      "Non"
     ],
     "correctAnswer": [
       0,
@@ -1253,7 +1253,7 @@
       "à gauche",
       "à droite",
       "en marche avant",
-      "D en marche arrière"
+      "en marche arrière"
     ],
     "correctAnswer": [
       1,
@@ -1272,7 +1272,7 @@
       "Oui",
       "Non",
       "Oui",
-      "D Non"
+      "Non"
     ],
     "correctAnswer": [
       1,
@@ -1291,7 +1291,7 @@
       "Oui",
       "Non",
       "Oui",
-      "D Non"
+      "Non"
     ],
     "correctAnswer": [
       1,
@@ -1338,7 +1338,7 @@
       "dans les virages",
       "en ligne droite",
       "Oui",
-      "D Non"
+      "Non"
     ],
     "correctAnswer": [
       0,
@@ -1357,7 +1357,7 @@
       "Oui",
       "Non",
       "Oui",
-      "D Non"
+      "Non"
     ],
     "correctAnswer": [
       0,
@@ -1376,7 +1376,7 @@
       "Oui",
       "Non",
       "Oui",
-      "D Non"
+      "Non"
     ],
     "correctAnswer": [
       0,
@@ -1407,7 +1407,7 @@
       "je tente de stopper l'hémorragie",
       "je le couvre avec une couverture de survie",
       "je lui donne à boire",
-      "D j'attend l'arrivé des secours"
+      "j'attend l'arrivé des secours"
     ],
     "correctAnswer": [
       0,
@@ -1531,7 +1531,7 @@
       "1 mètre",
       "1,50 mètres",
       "Oui",
-      "D Non"
+      "Non"
     ],
     "correctAnswer": [
       1,
@@ -1564,7 +1564,7 @@
       "Oui",
       "Non",
       "Oui",
-      "D Non"
+      "Non"
     ],
     "correctAnswer": [
       0,
@@ -1583,7 +1583,7 @@
       "suffisante",
       "insuffisante",
       "Oui",
-      "D Non"
+      "Non"
     ],
     "correctAnswer": [
       1,
@@ -1600,7 +1600,7 @@
       "25 cl (centi litre) de bière",
       "10 cl de vin rouge",
       "3 cl de whisky",
-      "D Il y a la même quantité d'alcool pur dans les 3 verres"
+      "Il y a la même quantité d'alcool pur dans les 3 verres"
     ],
     "correctAnswer": [
       3
@@ -1630,7 +1630,7 @@
       "le certificat d'immatriculation",
       "la vignette sur le pare-brise avant",
       "le dernier procès verbal de contrôle technique",
-      "D l'attestation d'assurance'"
+      "l'attestation d'assurance'"
     ],
     "correctAnswer": [
       0,
@@ -1676,7 +1676,7 @@
       "Je maintiens mon allure",
       "Je ralentis",
       "J'accélère",
-      "D Je contourne les usagers par la gauche"
+      "Je contourne les usagers par la gauche"
     ],
     "correctAnswer": [
       1
@@ -1693,7 +1693,7 @@
       "Oui",
       "Non",
       "Oui",
-      "D Non"
+      "Non"
     ],
     "correctAnswer": [
       0,
@@ -1726,7 +1726,7 @@
       "Oui",
       "Non",
       "moins d'une seconde",
-      "D plusieurs secondes"
+      "plusieurs secondes"
     ],
     "correctAnswer": [
       0,
@@ -1785,7 +1785,7 @@
       "N",
       "D",
       "P",
-      "D R"
+      "R"
     ],
     "correctAnswer": [
       1
@@ -1847,7 +1847,7 @@
       "dans tous les cas",
       "seulement si mon solde de points est infèrieur à 6",
       "tous les 6 mois",
-      "D tous les ans"
+      "tous les ans"
     ],
     "correctAnswer": [
       1,
@@ -1866,7 +1866,7 @@
       "Oui",
       "Non",
       "Oui",
-      "D Non"
+      "Non"
     ],
     "correctAnswer": [
       0,
@@ -1900,7 +1900,7 @@
       "zone A",
       "zone B",
       "ralentir",
-      "D serrer à gauche"
+      "serrer à gauche"
     ],
     "correctAnswer": [
       1,
@@ -1920,7 +1920,7 @@
       "Oui",
       "Non",
       "Oui",
-      "D Non"
+      "Non"
     ],
     "correctAnswer": [
       0,

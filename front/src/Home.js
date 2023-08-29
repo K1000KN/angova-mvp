@@ -81,6 +81,7 @@ function Home() {
       "&.active": {
         transform: "translateY(0)",
       },
+      cursor: "pointer",
     },
     slide2Title: {
       fontWeight: 600,
