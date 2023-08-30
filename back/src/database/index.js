@@ -6,7 +6,7 @@ import User from "../models/User.js";
 dotenv.config();
 
 const MONGODB_URI = process.env.MONGODB_URI;
-
+console.log("MONGODB_URI", MONGODB_URI);
 mongoose
   .connect(MONGODB_URI, {
     useNewUrlParser: true,
@@ -19,7 +19,7 @@ mongoose
   })
   .catch((error) => {
     console.error("Failed to connect to MongoDB", error);
-    process.exit();
+    //process.exit();
   });
 
 function initial() {
