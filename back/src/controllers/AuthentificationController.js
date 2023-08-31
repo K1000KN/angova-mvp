@@ -18,7 +18,7 @@ export const login = async (req, res) => {
     return res.status(404).send({ message: "User not found" });
   }
   console.log("before methode ");
-  const isPasswordValid = await bcrypt.compare(password, user.password);
+  const isPasswordValid =  bcrypt.compare(password, user.password);
   console.log("isPasswordValid : ");
   if (!isPasswordValid) {
     return res.status(401).send({ message: "Invalid email or password" });
