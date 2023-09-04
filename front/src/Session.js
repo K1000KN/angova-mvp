@@ -11,7 +11,7 @@ import {
   session2ES,
   session3FR,
   session3ES,
-  session1MRC
+  session1MRC,
 } from "./data/sessions/index";
 import ProgressBar from "./components/ProgressBar";
 import { IconButton } from "@mui/material";
@@ -35,8 +35,7 @@ const Session = () => {
   const [selectedAnswerIndices, setSelectedAnswerIndices] = useState([]);
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
 
-  const [openDialog, setOpenDialog] = useState(false); // State for controlling the dialog visibility
-
+  const [openDialog, setOpenDialog] = useState(false);
   const [showResult, setShowResult] = useState(false);
   const [result, setResult] = useState({
     score: 0,
