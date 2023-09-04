@@ -1,4 +1,4 @@
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import User from "../models/User.js";
@@ -17,12 +17,13 @@ export const login = async (req, res) => {
   if (!user) {
     return res.status(404).send({ message: "User not found" });
   }
-
+  console.log("before methode ");
   const isPasswordValid = await bcrypt.compare(password, user.password);
-  console.log("isPasswordValid", isPasswordValid);
+  console.log("isPasswordValid : ");
   if (!isPasswordValid) {
     return res.status(401).send({ message: "Invalid email or password" });
   }
+  console.log(isPasswordValid);
   try {
     // Récupérer le rôle de l'utilisateur à partir du tableau de rôles
     const roleId = user.roles[0];
