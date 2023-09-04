@@ -29,15 +29,6 @@ import {
   filterSessionsByLanguage,
 } from "./services/sessionService";
 
-import jsonDataFr from "./data/content_fr.json";
-import jsonDataEs from "./data/content_es.json";
-import jsonDataEn from "./data/content_en.json";
-
-import {
-  processSessions,
-  filterSessionsByLanguage,
-} from "./services/sessionService";
-
 const Session = () => {
   const { t } = useTranslation();
   const [completed, setCompleted] = useState(0);
