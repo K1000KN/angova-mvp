@@ -1,4 +1,4 @@
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 import User from "../models/User.js";
 import Role from "../models/Role.js";
@@ -8,8 +8,6 @@ import crypto from "crypto";
 dotenv.config();
 
 const adminSecretKey = process.env.SALT_KEY;
-
-
 
 export const createUser = async (req, res) => {
   try {
@@ -124,7 +122,7 @@ export const updateUser = async (req, res) => {
 export const getAllUsers = async (req, res) => {
   try {
     const users = await User.find().populate("roles", "name");
-   
+
     res.status(200).send(users);
   } catch (err) {
     console.error(err);
@@ -237,9 +235,6 @@ export const verifyResetPassword = async (req, res) => {
   }
 };
 
-
-
-
 /// refresh user token
 export const refreshUserToken = async (req, res) => {
   try {
@@ -275,4 +270,3 @@ export const refreshUserToken = async (req, res) => {
     res.status(500).send({ message: "Failed to refresh token" });
   }
 };
-

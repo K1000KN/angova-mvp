@@ -1,26 +1,27 @@
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 import User from "../models/User.js";
 import Role from "../models/Role.js";
 import jwt from "jsonwebtoken";
-import stripe from 'stripe';
+import stripe from "stripe";
 dotenv.config();
 
 const adminSecretKey = process.env.SALT_KEY;
 
-
-const stripeInstance = new stripe('sk_test_51NRF6LBHkhDIYYSv8MovkjYod1A4Q8rTUF9r51cVuivtz2UzCXBWCBOtYutiNK2chlavX04uxCsyXpo2OsmWHLP600cy1ZXdM3');
+const stripeInstance = new stripe(
+  "sk_test_51NRF6LBHkhDIYYSv8MovkjYod1A4Q8rTUF9r51cVuivtz2UzCXBWCBOtYutiNK2chlavX04uxCsyXpo2OsmWHLP600cy1ZXdM3"
+);
 ///fonction to create user
 
 export const createUser = async (req, res) => {
   try {
     const { username, email, password } = req.body;
-   
-    const userRole = await Role.findOne({ name: 'user' });
+
+    const userRole = await Role.findOne({ name: "user" });
     const authorizationHeader = req.headers.authorization;
     const token = authorizationHeader.split(" ")[1];
     const decoded = jwt.verify(token, adminSecretKey);
-   
+
     let managerId = decoded.id;
 
     const manager = await User.findById(managerId);
@@ -47,9 +48,9 @@ export const createUser = async (req, res) => {
       email: email,
       password: hashedPassword,
       roles: assignedRoles.map((role) => role._id),
-      manager: managerId
+      manager: managerId,
     });
-   
+
     await newUser.save();
 
     const userWithRoles = await User.findById(newUser._id).populate(
