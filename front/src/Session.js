@@ -4,15 +4,7 @@ import "./session.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Button, Grid } from "@mui/material";
-import {
-  session1FR,
-  session2FR,
-  session1ES,
-  session2ES,
-  session3FR,
-  session3ES,
-  session1MRC,
-} from "./data/sessions/index";
+
 import ProgressBar from "./components/ProgressBar";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
@@ -28,6 +20,15 @@ import { makeStyles } from "@mui/styles";
 import PlayerSession from "./components/PlayerSession";
 import { useTranslation } from "react-i18next";
 
+import jsonDataFr from "./data/content_fr.json";
+import jsonDataEs from "./data/content_es.json";
+import jsonDataEn from "./data/content_en.json";
+
+import {
+  processSessions,
+  filterSessionsByLanguage,
+} from "./services/sessionService";
+
 const Session = () => {
   const { t } = useTranslation();
   const [completed, setCompleted] = useState(0);
@@ -36,6 +37,7 @@ const Session = () => {
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
 
   const [openDialog, setOpenDialog] = useState(false);
+
   const [showResult, setShowResult] = useState(false);
   const [result, setResult] = useState({
     score: 0,
@@ -52,6 +54,7 @@ const Session = () => {
   useEffect(() => {
     if (isPlaying && isPlayingExp === false) {
       var audio = new Audio(audioSrc);
+      console.log("audioSrc", audioSrc);
       audio.play().catch((error) => {
         console.error("Error autoplaying audio:", error);
         setIsPlaying(false);
@@ -144,6 +147,8 @@ const Session = () => {
     setShowExplanation,
     setResult
   ) => {
+    console.log("indices", indices);
+    console.log("correctAnswer", correctAnswer);
     const isCorrect = arraysEqual(indices, correctAnswer);
 
     if (isCorrect) {
@@ -177,17 +182,65 @@ const Session = () => {
 
     return true;
   };
-
-  const sessionMap = {
-    1: { fr: session1FR, es: session1ES, mrc: session1MRC },
-    2: { fr: session2FR, es: session2ES },
-    3: { fr: session3FR, es: session3ES },
-    // Add more sessions as needed...
+  const createSessionData = (language, jsonData) => {
+    return jsonData.map((session) => {
+      return {
+        id: session.id,
+        language: language,
+        questions: session.questions,
+        choices: session.choices,
+        correctAnswer: session.correctAnswer,
+        explanation: session.explanation,
+        assets: {
+          img: `/session/q${session.id}/q${session.id}.jpeg`,
+          audio: `/session/q${session.id}/${language}/q${session.id}.mp3`,
+          explanation: `/session/q${session.id}/${language}/exp${session.id}.mp3`,
+        },
+      };
+    });
   };
 
+  const sessionFR = createSessionData("fr", jsonDataFr);
+  const sessionES = createSessionData("es", jsonDataEs);
+  const sessionEN = createSessionData("en", jsonDataEn);
+
+  const batchSize = 40;
+  const sessions = [];
+  const selectedLanguage = localStorage.getItem("language");
+
+  switch (selectedLanguage) {
+    case "fr":
+      sessions.push(...processSessions(sessionFR, batchSize, t));
+      break;
+    case "es":
+      sessions.push(...processSessions(sessionES, batchSize, t));
+      break;
+    case "en":
+      sessions.push(...processSessions(sessionEN, batchSize, t));
+      break;
+    case "ma":
+      // sessions.push(...processSessions(sessionMA, batchSize, t));
+      break;
+    case "dz":
+      // sessions.push(...processSessions(sessionDZ, batchSize, t));
+      break;
+    case "tn":
+      // sessions.push(...processSessions(sessionTN, batchSize, t));
+      break;
+    // ... cases for other languages ...
+    default:
+      console.log("default");
+      console.log("selectedLanguage", selectedLanguage);
+      console.log("sessions", sessions);
+      break;
+  }
+
+  const filteredSessions = filterSessionsByLanguage(sessions, selectedLanguage);
   const getSessionData = (id) => {
-    const language = localStorage.getItem("language");
-    return sessionMap[id] && sessionMap[id][language];
+    const sessionData = filteredSessions.find(
+      (session) => session.id === parseInt(id)
+    );
+    return sessionData;
   };
 
   const sessionData = getSessionData(id);
@@ -241,9 +294,8 @@ const Session = () => {
     );
   }
 
-  let { quizz } = sessionData;
-  const { questions, choices, correctAnswer, explaination, assets } =
-    quizz[activeQuestion];
+  const { questions, choices, correctAnswer, explanation, assets } =
+    sessionData[activeQuestion];
 
   const onClickNext = () => {
     // Verify the answer before proceeding to the next question
@@ -266,7 +318,7 @@ const Session = () => {
     });
 
     // Reset state variables and move to the next question
-    if (activeQuestion !== quizz.length - 1) {
+    if (activeQuestion !== sessionData.length - 1) {
       setActiveQuestion((prev) => prev + 1);
       setSelectedAnswerIndices([]);
       setSelectedAnswerIndex(null);
@@ -276,7 +328,7 @@ const Session = () => {
       setActiveQuestion(0);
       setShowResult(true);
     }
-    setCompleted(((activeQuestion + 1) / quizz.length) * 100);
+    setCompleted(((activeQuestion + 1) / sessionData.length) * 100);
   };
 
   const onAnswerSelected = (index) => {
@@ -339,7 +391,7 @@ const Session = () => {
                     {addLeadingZero(activeQuestion + 1)}
                   </span>
                   <span className="total-question">
-                    /{addLeadingZero(quizz.length)}
+                    /{addLeadingZero(sessionData.length)}
                   </span>
                 </Grid>
                 <Grid item xs={10} sm={7} id="progressContainer">
@@ -369,8 +421,8 @@ const Session = () => {
                   content={assets.img}
                   setAudioSrc={setAudioSrc}
                   setExpAudioSrc={setExpAudioSrc}
-                  audioQuestion={assets.question}
-                  audioExplaination={assets.explaination}
+                  audioQuestion={assets.audio}
+                  audioExplanation={assets.explanation}
                 />
               </Grid>
               <Grid item xs={12} id="quizContainer">
@@ -440,7 +492,7 @@ const Session = () => {
                       </ul>
                       <br />
 
-                      <h7 id="questionQuizz">{questions[2]}</h7>
+                      <p id="questionQuizz">{questions[2]}</p>
                       {questions && questions.length > 1 ? (
                         <ul className="quizList">
                           {choices.slice(2, 4).map((answer, index) => (
@@ -555,7 +607,7 @@ const Session = () => {
                   }}
                   disabled={selectedAnswerIndices.length === 0}
                 >
-                  {activeQuestion === quizz.length - 1 && showResult
+                  {activeQuestion === sessionData.length - 1 && showResult
                     ? t("finir")
                     : showExplanation
                     ? t("suivant")
@@ -583,7 +635,7 @@ const Session = () => {
             </div>
 
             <p>
-              Total des questions: <span>{quizz.length}</span>
+              Total des questions: <span>{sessionData.length}</span>
             </p>
             <p>
               Score:<span> {result.score}</span>
@@ -617,7 +669,7 @@ const Session = () => {
               <CloseIcon />
             </IconButton>
           </DialogTitle>
-          <DialogContent>{explaination}</DialogContent>
+          <DialogContent>{explanation}</DialogContent>
           <DialogActions>
             <button
               onClick={handleToggleAudioExp}

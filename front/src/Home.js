@@ -14,14 +14,16 @@ import CloseIcon from "@mui/icons-material/Close";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { makeStyles } from "@mui/styles";
- import {
-  session1FR,
-  session2FR,
-  session3FR,
-}  from "./data/sessions/index";
+import { filterSessionsByLanguage } from "./services/sessionService";
+
+import jsonDataFr from "./data/content_fr.json";
+import jsonDataEs from "./data/content_es.json";
+import jsonDataEn from "./data/content_en.json";
+
 import ListSession from "./components/ListSessions";
 import Quizz from "./components/Quizz";
 import { useTranslation } from "react-i18next";
+import { processSessions } from "./services/sessionService";
 
 function Home() {
   const { t } = useTranslation();
@@ -70,15 +72,16 @@ function Home() {
       position: "absolute",
       bottom: 0,
       left: 0,
-      width: '100%',
-      padding: '8px',
-      backgroundColor: 'rgba(70, 145, 205, 0.8)',
-      color: '#fff',
-      transition: 'transform 0.3s ease',
-      transform: 'translateY(100%)',
-      '&.active': {
-        transform: 'translateY(0)',
+      width: "100%",
+      padding: "8px",
+      backgroundColor: "rgba(70, 145, 205, 0.8)",
+      color: "#fff",
+      transition: "transform 0.3s ease",
+      transform: "translateY(100%)",
+      "&.active": {
+        transform: "translateY(0)",
       },
+      cursor: "pointer",
     },
     slide2Title: {
       fontWeight: 600,
@@ -115,7 +118,39 @@ function Home() {
       navigate("/profil");
     }
   };
-  const sessions = [session1FR, session2FR, session3FR];
+  const createLanguageSessionData = (language, jsonData) => {
+    return jsonData.map((session) => {
+      return {
+        id: session.id,
+        language: language,
+      };
+    });
+  };
+
+  const sessionFR = createLanguageSessionData("fr", jsonDataFr);
+  const sessionES = createLanguageSessionData("es", jsonDataEs);
+  const sessionEN = createLanguageSessionData("en", jsonDataEn);
+
+  const batchSize = 40;
+  const sessions = [];
+  const selectedLanguage = localStorage.getItem("language");
+
+  switch (selectedLanguage) {
+    case "fr":
+      sessions.push(...processSessions(sessionFR, batchSize, t));
+      break;
+    case "es":
+      sessions.push(...processSessions(sessionES, batchSize, t));
+      break;
+    case "en":
+      sessions.push(...processSessions(sessionEN, batchSize, t));
+      break;
+    // ... cases for other languages ...
+    default:
+      // Default case if the language doesn't match any of the above
+
+      break;
+  }
 
   useEffect(() => {
     // we use this effect to see the language dialog
@@ -215,13 +250,13 @@ function Home() {
       case "ar":
         src = moroccoRoundedFlag;
         break;
-      case "alg":
+      case "dz":
         src = algeriaRoundedFlag;
         break;
-      case "mrc":
+      case "ma":
         src = moroccoRoundedFlag;
         break;
-      case "tuni":
+      case "tn":
         src = tuniRoundedFlag;
         break;
       case "tr":
@@ -246,18 +281,13 @@ function Home() {
       />
     );
   };
-  
+
   return (
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <NavbarComponent page={value} setLanguageImage={setLanguageImage} />
-        <Grid
-          id="sessionContainer"
-          container
-          direction="row"
-          style={{ height: "89vh" }}
-        >
+        <Grid id="sessionContainer" container direction="row">
           <Grid
             item
             lg={3}
@@ -267,16 +297,26 @@ function Home() {
               display: { xs: "none", lg: "flex" },
             }}
           >
-            <button onClick={()=>{setComponent("sessionCode")}} className="btn-section">
+            <button
+              onClick={() => {
+                setComponent("sessionCode");
+              }}
+              className="btn-section"
+            >
               <img
                 src="./images/code_route.png"
                 alt=""
                 style={{ width: 40, marginRight: 15 }}
               />
-              <span className="btn-section-title">{t("code de la route")}</span>
+              <span className="btn-section-title">{t("code-de-la-route")}</span>
             </button>
 
-            <button  onClick={()=>{setComponent("quizz")}} className="btn-section">
+            <button
+              onClick={() => {
+                setComponent("quizz");
+              }}
+              className="btn-section"
+            >
               <img
                 src="./images/quizz.png"
                 alt=""
@@ -285,11 +325,17 @@ function Home() {
               <span className="btn-section-title">Quizz</span>
             </button>
           </Grid>
-         
-          {component === "sessionCode" && 
-            <ListSession classes={classes} sessions={sessions} navigate ={navigate} handleHover={handleHover} hoveredCard={hoveredCard}/>
-          }
-          {component === "quizz" && <Quizz/>}
+
+          {component === "sessionCode" && (
+            <ListSession
+              classes={classes}
+              sessions={sessions}
+              navigate={navigate}
+              handleHover={handleHover}
+              hoveredCard={hoveredCard}
+            />
+          )}
+          {component === "quizz" && <Quizz />}
         </Grid>
         <Dialog fullWidth maxWidth="sm" open={show} onClose={handleClose}>
           <div
@@ -300,7 +346,7 @@ function Home() {
             }}
           >
             <DialogTitle>
-              <Typography variant="h5" style={{ fontWeight: 700 }}>
+              <Typography style={{ fontWeight: 700 }}>
                 {t("choisir-la-langue-du-code-de-la-route")}
               </Typography>
               <IconButton
@@ -325,12 +371,9 @@ function Home() {
                 <Flag src="./images/flag/rounded/france.png" language="fr" />
                 <Flag src="./images/flag/rounded/spain.png" language="es" />
                 <Flag src="./images/flag/rounded/uk.png" language="en" />
-                <Flag src="./images/flag/rounded/algeria.png" language="alg" />
-                <Flag
-                  src="./images/flag/rounded/morocco.png"
-                  language="mrc"
-                />
-                <Flag src="./images/flag/rounded/tunisia.png" language="tuni" />
+                <Flag src="./images/flag/rounded/algeria.png" language="dz" />
+                <Flag src="./images/flag/rounded/morocco.png" language="ma" />
+                <Flag src="./images/flag/rounded/tunisia.png" language="tn" />
                 <Flag src="./images/flag/rounded/turkey.png" language="tr" />
               </Grid>
             </DialogContent>
