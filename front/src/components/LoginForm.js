@@ -46,7 +46,7 @@ const LoginForm = ({ open, handleClose }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const classes = useStyles();
-  const [isLoading, setIsLoading] = useState(true); // Corrected the state name
+  const [isLoading, setIsLoading] = useState(false);
   const paperStyle = {
     padding: "0 15px 40px 15px",
     display: "flex",
