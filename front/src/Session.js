@@ -46,54 +46,67 @@ const Session = () => {
 
   const [showExplanation, setShowExplanation] = useState(false);
 
-  // GESTION DES AUDIOS
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isPlayingExp, setIsPlayingExp] = useState(false);
-  const [audioSrc, setAudioSrc] = useState("");
-  const [expAudioSrc, setExpAudioSrc] = useState("");
+// GESTION DES AUDIOS
+const [isPlaying, setIsPlaying] = useState(false);
+const [isPlayingExp, setIsPlayingExp] = useState(false);
+const [audioSrc, setAudioSrc] = useState("");
+const [expAudioSrc, setExpAudioSrc] = useState("");
 
-  const handleToggleAudio = () => {
-    setIsPlaying(!isPlaying);
+const handleToggleAudio = () => {
+  setIsPlaying(!isPlaying);
+};
+
+const handleToggleAudioExp = () => {
+  setIsPlayingExp(!isPlayingExp);
+};
+
+const handlePlayAudio = () => {
+  setIsPlaying(true);
+};
+const handleStopAudio = () => {
+  setIsPlaying(false);
+};
+const handlePlayAudioExp = () => {
+  setIsPlayingExp(true);
+};
+const handleStopAudioExp = () => {
+  setIsPlayingExp(false);
+};
+useEffect(() => {
+  const audio = new Audio(audioSrc);
+  const audioExp = new Audio(expAudioSrc);
+  audio.preload = "none";
+  audioExp.preload = "none";
+  audio.autoplay = false;
+  audioExp.autoplay = false;
+  audioExp.playsinline = false;
+
+  if (isPlaying) {
+    audio.play().catch((error) => {
+      console.error("Error playing audio:", error);
+    });
+  } else {
+    audio.pause();
+    audio.currentTime = 0;
+  }
+
+  if (isPlayingExp) {
+    audioExp.play().catch((error) => {
+      console.error("Error playing audio:", error);
+    });
+  } else {
+    audioExp.pause();
+    audioExp.currentTime = 0;
+  }
+
+  // Nettoyez les audios lorsque le composant est démonté
+  return () => {
+    audio.pause();
+    audio.currentTime = 0;
+    audioExp.pause();
+    audioExp.currentTime = 0;
   };
-
-  const handleToggleAudioExp = () => {
-    setIsPlayingExp(!isPlayingExp);
-  };
-
-  useEffect(() => {
-    const audio = new Audio(audioSrc);
-    const audioExp = new Audio(expAudioSrc);
-    audio.preload = "none";
-    audioExp.preload = "none";
-    audio.autoplay = "false";
-    audioExp.autoplay = "false";
-    audioExp.playsinline = "false"
-    if (isPlaying) {
-      audio.play().catch((error) => {
-        console.error("Error playing audio:", error);
-      });
-    } else {
-      audio.pause();
-      audio.currentTime = 0;
-    }
-
-    if (isPlayingExp) {
-      audioExp.play().catch((error) => {
-        console.error("Error playing audio:", error);
-      });
-    } else {
-      audioExp.pause();
-      audioExp.currentTime = 0;
-    }
-
-    // Nettoyez les audios lorsque le composant est démonté
-    return () => {
-      audio.pause();
-      audio.currentTime = 0;
-      audioExp.pause();
-      audioExp.currentTime = 0;
-    };
-  }, [isPlaying, isPlayingExp, audioSrc, expAudioSrc]);
+}, [isPlaying, isPlayingExp, audioSrc, expAudioSrc]);
 
   const navigate = useNavigate();
   const theme = createTheme({
@@ -447,9 +460,13 @@ const Session = () => {
               </Grid>
               <Grid item xs={12} id="quizContainer">
                 <div style={{ width: "100%", paddingLeft: "94%" }}>
-                  <button className={classes.orangeTonalBtn} onClick={handleToggleAudio}>
+                  {/* <button className={classes.orangeTonalBtn} onClick={handleToggleAudio}>
                     {!isPlaying ? <VolumeOff /> : <VolumeUp />}
-                  </button>
+                  </button> */}
+                  <button onClick={handlePlayAudio}>Lire l'audio</button>
+                  <button onClick={handlePlayAudioExp}>Lire l'audio Exp</button>
+                  <button onClick={handleStopAudio}>Stop l'audio</button>
+                  <button onClick={handleStopAudioExp}>Stop l'audio Exp</button>
                 </div>
                 {questions && questions.length > 1 ? (
                   <>
