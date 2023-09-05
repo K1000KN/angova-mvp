@@ -1,14 +1,14 @@
 import AWS from "aws-sdk";
-import fs from "fs";
-import path from "path";
-import dotenv from "dotenv";
-dotenv.config();
-const s3 = new AWS.S3();
+import env from "dotenv";
+env.config();
 
-// Initialize AWS SDK first with your credentials and region
+const s3 = new AWS.S3();
+const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+
 s3.config.update({
-  accessKeyId: process.env.AWS_ACCESS_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  accessKeyId: accessKeyId,
+  secretAccessKey: secretAccessKey,
   region: "eu-north-1",
 });
 
@@ -32,8 +32,7 @@ export async function getImageFromS3(key, bucketName) {
   try {
     const params = {
       Bucket: bucketName,
-        Key: key,
-        
+      Key: key,
     };
     const data = await s3.getObject(params).promise();
     return data.Body;

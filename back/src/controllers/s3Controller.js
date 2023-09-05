@@ -23,9 +23,8 @@ dotenv.config();
 // Controller function for getting an image from S3
 export async function getImage(req, res) {
   try {
-    const key = process.env.AWS_SECRET_KEY;
     const bucketName = "assets-angova";
-
+    const key = req.body.key;
     const imageData = await getImageFromS3(key, bucketName);
 
     // Send the image data in the response
