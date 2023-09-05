@@ -70,7 +70,9 @@ const LoginForm = ({ open, handleClose }) => {
     email: Yup.string()
       .email(`${t("email-input-verif")}`)
       .required("Requis"),
-    password: Yup.string().required("Requis"),
+    password: Yup.string()
+      .min(8,`${t("password-input-verif")}`)
+      .required("Requis"),
   });
 
   const onSubmit = async (values, props) => {

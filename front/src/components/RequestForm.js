@@ -40,7 +40,7 @@ const RegistrationForm = ({open, handleClose}) => {
     const onSubmit = (values, props) => {
         console.log(values);
 
-        axios.post(`${apiUrl}/contact`, values)
+        axios.post(`${apiUrl}/contact/mail`, values)
         .then(response => {
           // La requête a réussi
           

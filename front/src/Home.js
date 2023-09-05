@@ -27,7 +27,7 @@ import { useTranslation } from "react-i18next";
 import { processSessions } from "./services/sessionService";
 
 function Home() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const franceRoundedFlag = "./images/flag/rounded/france.png";
   const englishRoundedFlag = "./images/flag/rounded/uk.png";
   const algeriaRoundedFlag = "./images/flag/rounded/algeria.png";
@@ -182,6 +182,7 @@ function Home() {
   const setLanguage = (language) => {
     localStorage.setItem("language", language);
     localStorage.setItem("hasChoosenLanguage", true);
+    i18n.changeLanguage(language);
     handleClose();
   };
   const [hoveredCard, setHoveredCard] = useState(null);
@@ -231,7 +232,7 @@ function Home() {
             isLanguageVisible ? classes.languageTextVisible : ""
           }`}
         >
-          {language}
+          {t(language)}
         </div>
       </Grid>
     );
@@ -279,6 +280,7 @@ function Home() {
         className="languageNavImg"
         onClick={() => {
           setShow(true);
+         
         }}
         src={src}
         alt={language}
@@ -312,7 +314,7 @@ function Home() {
                 alt=""
                 style={{ width: 40, marginRight: 15 }}
               />
-              <span className="btn-section-title">{t("code-de-la-route")}</span>
+              <span className="btn-section-title">{t("codeRoute")}</span>
             </button>
 
             <button

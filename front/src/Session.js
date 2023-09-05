@@ -4,7 +4,6 @@ import "./session.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Button, Grid } from "@mui/material";
-
 import ProgressBar from "./components/ProgressBar";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
@@ -46,36 +45,51 @@ const Session = () => {
   });
 
   const [showExplanation, setShowExplanation] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(true);
+
+  // GESTION DES AUDIOS
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlayingExp, setIsPlayingExp] = useState(false);
   const [audioSrc, setAudioSrc] = useState("");
   const [expAudioSrc, setExpAudioSrc] = useState("");
-  const [isPlayingExp, setIsPlayingExp] = useState(false);
+
+  const handleToggleAudio = () => {
+    setIsPlaying(!isPlaying);
+  };
+
+  const handleToggleAudioExp = () => {
+    setIsPlayingExp(!isPlayingExp);
+  };
 
   useEffect(() => {
-    if (isPlaying && isPlayingExp === false) {
-      var audio = new Audio(audioSrc);
-      console.log("audioSrc", audioSrc);
+    const audio = new Audio(audioSrc);
+    const audioExp = new Audio(expAudioSrc);
+
+    if (isPlaying) {
       audio.play().catch((error) => {
-        console.error("Error autoplaying audio:", error);
-        setIsPlaying(false);
+        console.error("Error playing audio:", error);
       });
-      return () => {
-        audio.pause();
-        audio.currentTime = 0;
-      };
+    } else {
+      audio.pause();
+      audio.currentTime = 0;
     }
-    if (isPlayingExp && isPlaying === false) {
-      var audioExp = new Audio(expAudioSrc);
+
+    if (isPlayingExp) {
       audioExp.play().catch((error) => {
-        console.error("Error autoplaying audio:", error);
-        setIsPlayingExp(false);
+        console.error("Error playing audio:", error);
       });
-      return () => {
-        audioExp.pause();
-        audioExp.currentTime = 0;
-      };
+    } else {
+      audioExp.pause();
+      audioExp.currentTime = 0;
     }
-  }, [activeQuestion, isPlaying, audioSrc, isPlayingExp, expAudioSrc]);
+
+    // Nettoyez les audios lorsque le composant est démonté
+    return () => {
+      audio.pause();
+      audio.currentTime = 0;
+      audioExp.pause();
+      audioExp.currentTime = 0;
+    };
+  }, [isPlaying, isPlayingExp, audioSrc, expAudioSrc]);
 
   const navigate = useNavigate();
   const theme = createTheme({
@@ -360,14 +374,8 @@ const Session = () => {
     onClickNext();
   };
 
-  const handleToggleAudio = () => {
-    setIsPlayingExp(false);
-    setIsPlaying(!isPlaying);
-  };
-  const handleToggleAudioExp = () => {
-    setIsPlaying(false);
-    setIsPlayingExp(!isPlayingExp);
-  };
+  
+
 
   const handleClose = () => {
     setOpenDialog(false);
@@ -427,11 +435,7 @@ const Session = () => {
               </Grid>
               <Grid item xs={12} id="quizContainer">
                 <div style={{ width: "100%", paddingLeft: "94%" }}>
-                  <button
-                    className={classes.orangeTonalBtn}
-                    onClick={handleToggleAudio}
-                  >
-                    {" "}
+                  <button className={classes.orangeTonalBtn} onClick={handleToggleAudio}>
                     {!isPlaying ? <VolumeOff /> : <VolumeUp />}
                   </button>
                 </div>
