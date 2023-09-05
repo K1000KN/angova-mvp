@@ -70,9 +70,7 @@ const LoginForm = ({ open, handleClose }) => {
     email: Yup.string()
       .email(`${t("email-input-verif")}`)
       .required("Requis"),
-    password: Yup.string()
-      .min(8, "Le nombre de caractères minimum doit être de 8") // Corrected the min value
-      .required("Requis"),
+    password: Yup.string().required("Requis"),
   });
 
   const onSubmit = async (values, props) => {
