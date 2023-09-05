@@ -63,7 +63,11 @@ const Session = () => {
   useEffect(() => {
     const audio = new Audio(audioSrc);
     const audioExp = new Audio(expAudioSrc);
-
+    audio.preload = "none";
+    audioExp.preload = "none";
+    audio.autoplay = "false";
+    audioExp.autoplay = "false";
+    audioExp.playsinline = "false"
     if (isPlaying) {
       audio.play().catch((error) => {
         console.error("Error playing audio:", error);
