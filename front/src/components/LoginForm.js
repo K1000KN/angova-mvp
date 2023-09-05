@@ -71,7 +71,7 @@ const LoginForm = ({ open, handleClose }) => {
       .email(`${t("email-input-verif")}`)
       .required("Requis"),
     password: Yup.string()
-      .min(8,`${t("password-input-verif")}`)
+      // .min(8,`${t("password-input-verif")}`)
       .required("Requis"),
   });
 

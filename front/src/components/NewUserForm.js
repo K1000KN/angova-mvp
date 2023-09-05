@@ -115,7 +115,7 @@ const NewUserForm = ({ open, handleClose, usersList, setUsers }) => {
       <Dialog fullWidth maxWidth="sm" open={open} onClose={handleClose}>
         <div className={classes.wrapperDialog}>
           <DialogTitle>
-            Enregistrement
+            {t("Enregistrement")}
             <IconButton
               aria-label="close"
               className={classes.closeButton}

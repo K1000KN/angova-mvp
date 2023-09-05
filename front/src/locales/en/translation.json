@@ -57,5 +57,7 @@
     "valider": "Validate",
     "explications": "Explanations",
     "codeRoute": "Highway code",
-    "choisir-la-langue-du-code-de-la-route": "Choose the language of the highway code"
+    "choisir-la-langue-du-code-de-la-route": "Choose the language of the highway code",
+    "mdp-not-correspond": "Passwords don't match",
+    "password-input-regex": "The password must contain an upper- and lower-case number."
 }

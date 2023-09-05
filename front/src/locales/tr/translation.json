@@ -57,5 +57,7 @@
     "valider": "Doğrula",
     "explications": "Açıklamalar",
     "codeRoute": "Trafik kuralları",
-    "choisir-la-langue-du-code-de-la-route": "Trafik kuralları dilini seçin"
+    "choisir-la-langue-du-code-de-la-route": "Trafik kuralları dilini seçin",
+    "mdp-not-correspond": "Parolalar eşleşmiyor",
+    "password-input-regex": "Parola hem büyük hem de küçük harf içermelidir."
 }

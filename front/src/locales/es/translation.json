@@ -57,5 +57,7 @@
     "valider": "Validar",
     "explications": "Explicaciones",
     "codeRoute": "Código de circulación",
-    "choisir-la-langue-du-code-de-la-route": "Elija el idioma del código de circulación"
+    "choisir-la-langue-du-code-de-la-route": "Elija el idioma del código de circulación",
+    "mdp-not-correspond": "Las contraseñas no coinciden",
+    "password-input-regex": "La contraseña debe contener mayúsculas y minúsculas."
 }

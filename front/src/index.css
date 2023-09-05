@@ -9,10 +9,11 @@
 
 body {
     padding-bottom: env(safe-area-inset-bottom);
+    
 }
 
 span{
-    font-family: 'Raleway' !important;
+    font-family: 'IgraSans' !important;
 }
 .barItem {
     color:"#000" ;
@@ -182,6 +183,7 @@ button {
     width:100vw ; 
     border-top: 2px solid #dcdcdc;
     height: 58px !important;
+    font-family: 'IgraSans' !important;
 }
 .displayNavBott{
     display: none !important;

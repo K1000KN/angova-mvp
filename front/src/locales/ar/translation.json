@@ -57,5 +57,7 @@
     "valider": "والتحقق",
     "explications": "الشرح",
     "codeRoute": "قانون الطرق",
-    "choisir-la-langue-du-code-de-la-route": "اختر لغة قانون الطرق"
+    "choisir-la-langue-du-code-de-la-route": "اختر لغة قانون الطرق",
+    "mdp-not-correspond": "كلمة المرور غير مطابقة",
+    "password-input-regex": "يجب أن تحتوي كلمة المرور على أرقام كبيرة وصغيرة."
 }
