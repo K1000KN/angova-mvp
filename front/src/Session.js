@@ -23,7 +23,7 @@ import { useTranslation } from "react-i18next";
 import jsonDataFr from "./data/content_fr.json";
 import jsonDataEs from "./data/content_es.json";
 import jsonDataEn from "./data/content_en.json";
-
+import jsonDataMa from "./data/content_fr.json";
 import {
   processSessions,
   filterSessionsByLanguage,
@@ -203,7 +203,7 @@ const Session = () => {
   const sessionFR = createSessionData("fr", jsonDataFr);
   const sessionES = createSessionData("es", jsonDataEs);
   const sessionEN = createSessionData("en", jsonDataEn);
-
+  const sessionMA = createSessionData("ma", jsonDataMa);
   const batchSize = 40;
   const sessions = [];
   const selectedLanguage = localStorage.getItem("language");
@@ -219,7 +219,7 @@ const Session = () => {
       sessions.push(...processSessions(sessionEN, batchSize, t));
       break;
     case "ma":
-      // sessions.push(...processSessions(sessionMA, batchSize, t));
+      sessions.push(...processSessions(sessionMA, batchSize, t));
       break;
     case "dz":
       // sessions.push(...processSessions(sessionDZ, batchSize, t));

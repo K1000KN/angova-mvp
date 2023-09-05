@@ -1,12 +1,5 @@
-import React from "react";
-import {
-  Grid,
-  Paper,
-  Button,
-  Typography,
-  FormControlLabel,
-  Checkbox,
-} from "@mui/material";
+import React, { useState } from "react";
+import { Grid, Paper, Button, Typography } from "@mui/material";
 import { TextField } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -21,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import Loader from "./Loader";
 
 const theme = createTheme();
 
@@ -45,12 +39,14 @@ const useStyles = makeStyles({
     marginTop: 8,
   },
 });
+
 const LoginForm = ({ open, handleClose }) => {
   const apiUrl = process.env.REACT_APP_API_URL;
 
   const { t } = useTranslation();
   const navigate = useNavigate();
   const classes = useStyles();
+  const [isLoading, setIsLoading] = useState(true); // Corrected the state name
   const paperStyle = {
     padding: "0 15px 40px 15px",
     display: "flex",
@@ -63,24 +59,31 @@ const LoginForm = ({ open, handleClose }) => {
     backgroundColor: "#F49E4C",
   };
 
+  const [error, setError] = useState(null);
+
   const initialValues = {
     email: "",
     password: "",
   };
+
   const validationSchema = Yup.object().shape({
     email: Yup.string()
       .email(`${t("email-input-verif")}`)
       .required("Requis"),
     password: Yup.string()
-      .min(0, "Le nombre caractères minimum doit être de 8")
+      .min(8, "Le nombre de caractères minimum doit être de 8") // Corrected the min value
       .required("Requis"),
   });
 
   const onSubmit = async (values, props) => {
     try {
       let endpoint = `${apiUrl}/auth/login`;
+      setIsLoading(true); // Corrected the state name
 
       const response = await axios.post(endpoint, values);
+
+      // Removed the extra setIsLoading(false) from .then()
+
       const { token } = response.data;
       const decodedToken = jwt_decode(token);
       const role = decodedToken.role;
@@ -88,7 +91,6 @@ const LoginForm = ({ open, handleClose }) => {
       localStorage.setItem("token", token);
 
       props.resetForm();
-
       if (role === "admin") {
         navigate("/backoffice");
       } else {
@@ -96,7 +98,8 @@ const LoginForm = ({ open, handleClose }) => {
       }
     } catch (error) {
       console.error("Error:", error);
-      // Handle error state or display an error message
+      setError(error.response.data.message);
+      setIsLoading(false); // Ensure isLoading is set to false on error
     }
   };
 
@@ -163,8 +166,13 @@ const LoginForm = ({ open, handleClose }) => {
                         style={btnStyle}
                         variant="contained"
                       >
-                        {t("loginButton")}
+                        {isLoading ? (
+                          <Loader size="20px" color="#fff" />
+                        ) : (
+                          t("loginButton")
+                        )}
                       </Button>
+                      {error && <Typography color="error">{error}</Typography>}
                     </Form>
                   )}
                 </Formik>

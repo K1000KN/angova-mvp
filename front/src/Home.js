@@ -19,6 +19,7 @@ import { filterSessionsByLanguage } from "./services/sessionService";
 import jsonDataFr from "./data/content_fr.json";
 import jsonDataEs from "./data/content_es.json";
 import jsonDataEn from "./data/content_en.json";
+import jsonDataMa from "./data/content_fr.json";
 
 import ListSession from "./components/ListSessions";
 import Quizz from "./components/Quizz";
@@ -130,6 +131,7 @@ function Home() {
   const sessionFR = createLanguageSessionData("fr", jsonDataFr);
   const sessionES = createLanguageSessionData("es", jsonDataEs);
   const sessionEN = createLanguageSessionData("en", jsonDataEn);
+  const sessionMA = createLanguageSessionData("ma", jsonDataFr);
 
   const batchSize = 40;
   const sessions = [];
@@ -145,7 +147,9 @@ function Home() {
     case "en":
       sessions.push(...processSessions(sessionEN, batchSize, t));
       break;
-    // ... cases for other languages ...
+    case "ma":
+      sessions.push(...processSessions(sessionMA, batchSize, t));
+      break;
     default:
       // Default case if the language doesn't match any of the above
 
