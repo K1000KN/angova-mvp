@@ -161,8 +161,7 @@ const Session = () => {
     setShowExplanation,
     setResult
   ) => {
-    console.log("indices", indices);
-    console.log("correctAnswer", correctAnswer);
+
     const isCorrect = arraysEqual(indices, correctAnswer);
 
     if (isCorrect) {
@@ -196,8 +195,20 @@ const Session = () => {
 
     return true;
   };
+
   const createSessionData = (language, jsonData) => {
     return jsonData.map((session) => {
+      const imgPaths = [];
+      
+      if (session.multiple && session.multiple === true) {
+        // Si session.multiple existe et est true
+        imgPaths.push(`/session/q${session.id}/q${session.id}_1.jpeg`);
+        imgPaths.push(`/session/q${session.id}/q${session.id}_2.jpeg`);
+      } else {
+        // Si session.multiple n'existe pas ou est false
+        imgPaths.push(`/session/q${session.id}/q${session.id}.jpeg`);
+      }
+  
       return {
         id: session.id,
         language: language,
@@ -206,7 +217,7 @@ const Session = () => {
         correctAnswer: session.correctAnswer,
         explanation: session.explanation,
         assets: {
-          img: `/session/q${session.id}/q${session.id}.jpeg`,
+          img: imgPaths,
           audio: `/session/q${session.id}/${language}/q${session.id}.mp3`,
           explanation: `/session/q${session.id}/${language}/exp${session.id}.mp3`,
         },
@@ -243,9 +254,7 @@ const Session = () => {
       break;
     // ... cases for other languages ...
     default:
-      console.log("default");
-      console.log("selectedLanguage", selectedLanguage);
-      console.log("sessions", sessions);
+      
       break;
   }
 
@@ -258,7 +267,7 @@ const Session = () => {
   };
 
   const sessionData = getSessionData(id);
-
+  
   // Handle invalid session ID or language not supported
   if (!sessionData) {
     return (
@@ -295,14 +304,14 @@ const Session = () => {
             marginBottom: "40px",
           }}
         >
-          Coming Soon
+          Arrive bientot
         </Typography>
         <Button
           variant="contained"
           color="primary"
           onClick={() => navigate("/home")}
         >
-          Go Back
+          Retourner en arrière
         </Button>
       </div>
     );
@@ -338,7 +347,6 @@ const Session = () => {
       setSelectedAnswerIndex(null);
       setShowExplanation(false); // Hide the explanation
     } else {
-      console.log("Quiz completed!");
       setActiveQuestion(0);
       setShowResult(true);
     }

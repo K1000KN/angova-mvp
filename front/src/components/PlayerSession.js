@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-var PlayerSession = ({
+const PlayerSession = ({
   content,
   setAudioSrc,
   setExpAudioSrc,
@@ -10,28 +10,34 @@ var PlayerSession = ({
   const [currentSourceIndex, setCurrentSourceIndex] = useState(0);
 
   useEffect(() => {
-    let intervalId;
     setAudioSrc(audioQuestion);
     setExpAudioSrc(audioExplanation);
+
+    // Vérifiez si content a plus d'une image
     if (content.length > 1) {
-      intervalId = setInterval(() => {
+      // Démarrez un intervalle pour alterner entre les images
+      const intervalId = setInterval(() => {
         setCurrentSourceIndex((prevIndex) => (prevIndex === 0 ? 1 : 0));
-      }, 1000);
+      }, 500);
+
+      // Nettoyez l'intervalle lorsque le composant est démonté
+      return () => {
+        clearInterval(intervalId);
+      };
     } else {
+      // S'il n'y a qu'une seule image, assurez-vous de réinitialiser l'index.
       setCurrentSourceIndex(0);
     }
-
-    return () => {
-      clearInterval(intervalId);
-    };
   }, [audioExplanation, audioQuestion, content, setAudioSrc, setExpAudioSrc]);
 
-  let render;
+  // Utilisez l'index actuel pour afficher l'image appropriée de content
+  const currentSource = content[currentSourceIndex];
 
-  const currentSource = content;
-  render = <img className="imgResponsive" alt="road" src={currentSource} />;
-
-  return <>{render}</>;
+  return (
+    <>
+      <img className="imgResponsive" alt="road" src={currentSource} />
+    </>
+  );
 };
 
 export default PlayerSession;

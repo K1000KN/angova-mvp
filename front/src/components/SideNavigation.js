@@ -1,5 +1,5 @@
-import { useState,useEffect } from "react";
-import { Sidebar, Menu, MenuItem,SubMenu } from "react-pro-sidebar";
+import React, { useState, useEffect } from "react";
+import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import "./sidebar.scss";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import WalletRoundedIcon from "@mui/icons-material/WalletRounded";
@@ -10,15 +10,16 @@ import SettingsApplicationsRoundedIcon from "@mui/icons-material/SettingsApplica
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import ShieldRoundedIcon from "@mui/icons-material/ShieldRounded";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 
-const SideNavigation = ({ toggled,handleToggleSidebar, setPage}) => {
+const SideNavigation = ({ toggled, handleToggleSidebar, setPage }) => {
   const [isMobile, setIsMobile] = useState(false);
-
- 
-
   const sidebarMobileStyles = {
-    backgroundColor: "white"
+    backgroundColor: "white",
+    maxHeight: "100vh",
+    overflowY: "auto",
+    width: "100%", // Définissez la largeur à 100%
+    position: isMobile ? "fixed" : "relative",
   };
 
   useEffect(() => {
@@ -38,16 +39,15 @@ const SideNavigation = ({ toggled,handleToggleSidebar, setPage}) => {
     };
   }, []);
 
- 
   return (
-    
-      <Sidebar
-        className="custom-sidebar"
-        onBackdropClick={handleToggleSidebar}
-        toggled={toggled}
-        onToggle={handleToggleSidebar}
-        style={sidebarMobileStyles} // Apply the custom styles here
-        breakPoint="md">
+    <Sidebar
+      className="custom-sidebar"
+      onBackdropClick={handleToggleSidebar}
+      toggled={toggled}
+      onToggle={handleToggleSidebar}
+      style={sidebarMobileStyles} // Appliquez les styles personnalisés ici
+      breakPoint="md"
+    >
         <Menu  
           menuItemStyles={{
             button: {

@@ -80,7 +80,8 @@
     ],
     "explanation": [
       "Why does the person behind me make headlight calls?    To make me speed up. I'm approaching a dangerous bend. Despite the pressure from the driver behind me, I slow down to take the bend safely."
-    ]
+    ],
+    "multiple": true
   },
   {
     "id": 6,
@@ -594,7 +595,8 @@
     ],
     "explanation": [
       "What do the signs indicate? The illuminated arrows above the lanes indicate which lanes are open and which are closed to traffic. The orange arrow indicates that the right lane will be closed to traffic. And I must drive in the lane furthest to the right of my direction. I stay in the center lane."
-    ]
+    ],
+    "multiple": true
   },
   {
     "id": 35,
@@ -695,7 +697,8 @@
     ],
     "explanation": [
       "What should I do when I change direction? Warn other road users. Adapt my speed and position myself correctly. I turn on the left-hand indicators to signal my intention to change direction to the person behind me."
-    ]
+    ],
+    "multiple": true
   },
   {
     "id": 41,
@@ -1125,7 +1128,8 @@
     ],
     "explanation": [
       "What happens? The vehicle in front of me indicates its intention to turn left. And a pedestrian on the right indicates his intention to cross. I stop to let the pedestrian cross. Meanwhile, the vehicle in front can maneuver safely."
-    ]
+    ],
+    "multiple": true
   },
   {
     "id": 64,
@@ -1438,7 +1442,8 @@
     ],
     "explanation": [
       "What is the role of snow removal vehicles? They make traffic safer when the road is impassable. I stay behind the vehicle, respecting the safety distance."
-    ]
+    ],
+    "multiple": true
   },
   {
     "id": 81,

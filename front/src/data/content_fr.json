@@ -70,7 +70,8 @@
     "correctAnswer": [
       0
     ],
-    "explanation": "Pourquoi l'usager qui me suit fait-il des appels de phares ?    Pour que j'accélère. J'aborde un virage dangereux. Malgré la pression de l'usager derrière moi, je ralentis pour aborder le virage en sécurité."
+    "explanation": "Pourquoi l'usager qui me suit fait-il des appels de phares ?    Pour que j'accélère. J'aborde un virage dangereux. Malgré la pression de l'usager derrière moi, je ralentis pour aborder le virage en sécurité.",
+    "multiple": true
   },
   {
     "id": 6,
@@ -526,7 +527,9 @@
     "correctAnswer": [
       1
     ],
-    "explanation": "Qu'indique la signalisation ? Les flèches lumineuses au-dessus des voies signalent les voies ouvertes et fermées à la circulation. La flèche orange indique que la voie de droite va être fermée à la circulation. Et je dois circuler dans la voie la plus à droite de ma direction. Je reste sur la voie centrale."
+    "explanation": "Qu'indique la signalisation ? Les flèches lumineuses au-dessus des voies signalent les voies ouvertes et fermées à la circulation. La flèche orange indique que la voie de droite va être fermée à la circulation. Et je dois circuler dans la voie la plus à droite de ma direction. Je reste sur la voie centrale.",
+    "multiple": true
+  
   },
   {
     "id": 35,
@@ -615,7 +618,8 @@
     "correctAnswer": [
       1
     ],
-    "explanation": "Que dois-je faire lors d'un changement de direction ? J'avertis les usagers que je rencontre. J'adapte l'allure et je me positionne correctement. J'allume les clignotants gauches pour signaler mon intention de changer de direction à l'usager qui me suit."
+    "explanation": "Que dois-je faire lors d'un changement de direction ? J'avertis les usagers que je rencontre. J'adapte l'allure et je me positionne correctement. J'allume les clignotants gauches pour signaler mon intention de changer de direction à l'usager qui me suit.",
+    "multiple": true
   },
   {
     "id": 41,
@@ -999,7 +1003,8 @@
     "correctAnswer": [
       2
     ],
-    "explanation": "Que se passe-t-il ? Le véhicule devant moi indique son intention de tourner à gauche. Et un piéton à droite manifeste son intention de traverser. Je m'arrête pour laisser le piéton traverser. Pendant ce temps, le véhicule devant pourra manœuvrer en sécurité."
+    "explanation": "Que se passe-t-il ? Le véhicule devant moi indique son intention de tourner à gauche. Et un piéton à droite manifeste son intention de traverser. Je m'arrête pour laisser le piéton traverser. Pendant ce temps, le véhicule devant pourra manœuvrer en sécurité.",
+    "multiple": true
   },
   {
     "id": 64,
@@ -1278,7 +1283,8 @@
       1,
       3
     ],
-    "explanation": "Quel est le rôle des véhicules de déneigement ? Ils sécurisent la circulation lorsque la chaussée est impraticable. Je reste derrière ce véhicule en respectant la distance de sécurité."
+    "explanation": "Quel est le rôle des véhicules de déneigement ? Ils sécurisent la circulation lorsque la chaussée est impraticable. Je reste derrière ce véhicule en respectant la distance de sécurité.",
+    "multiple": true
   },
   {
     "id": 81,
