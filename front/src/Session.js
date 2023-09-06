@@ -22,7 +22,7 @@ import { useTranslation } from "react-i18next";
 
 import jsonDataFr from "./data/content_fr.json";
 import jsonDataEs from "./data/content_es.json";
-import jsonDataEn from "./data/content_en.json";
+//import jsonDataEn from "./data/content_en.json";
 import jsonDataMa from "./data/content_fr.json";
 import {
   processSessions,
@@ -187,7 +187,7 @@ const Session = () => {
         // Si session.multiple n'existe pas ou est false
         imgPaths.push(`/session/q${session.id}/q${session.id}.jpeg`);
       }
-  
+      
       return {
         id: session.id,
         language: language,
@@ -206,7 +206,6 @@ const Session = () => {
 
   const sessionFR = createSessionData("fr", jsonDataFr);
   const sessionES = createSessionData("es", jsonDataEs);
-  const sessionEN = createSessionData("en", jsonDataEn);
   const sessionMA = createSessionData("ma", jsonDataMa);
   const batchSize = 40;
   const sessions = [];
@@ -219,9 +218,9 @@ const Session = () => {
     case "es":
       sessions.push(...processSessions(sessionES, batchSize, t));
       break;
-    case "en":
-      sessions.push(...processSessions(sessionEN, batchSize, t));
-      break;
+    // case "en":
+    //   sessions.push(...processSessions(sessionEN, batchSize, t));
+    //   break;
     case "ma":
       sessions.push(...processSessions(sessionMA, batchSize, t));
       break;
