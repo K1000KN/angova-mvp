@@ -62,10 +62,12 @@ const Session = () => {
     html5: true, // Active la lecture audio HTML5 pour la compatibilité avec Safari
   };
   const handleToggleAudio = () => {
+    setIsPlayingExp(false);
     setIsPlaying(!isPlaying);
   };
 
   const handleToggleAudioExp = () => {
+    setIsPlaying(false);
     setIsPlayingExp(!isPlayingExp);
   };
 
