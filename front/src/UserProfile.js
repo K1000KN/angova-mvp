@@ -292,7 +292,7 @@ const UserProfile = () => {
           user.roles.some((role) => role.name === "user") &&
           user.manager === managerId
       );
-      console.log(userFromManager);
+     
       setUsers(userFromManager);
     } catch (error) {
       console.error("Error:", error);
@@ -329,7 +329,6 @@ const UserProfile = () => {
 
     const endpoint = `${apiUrl}/user/${id}`;
     const response = await axios.put(endpoint, user, { headers });
-    console.log(response);
   };
 
   const updateManager = async () => {
@@ -339,7 +338,6 @@ const UserProfile = () => {
     };
     const endpoint = `${apiUrl}/manager/update/${id}`;
     const response = await axios.put(endpoint, user, { headers });
-    console.log(response);
   };
 
   const resetPassword = async (values, props) => {

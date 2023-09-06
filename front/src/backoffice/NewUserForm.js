@@ -178,7 +178,6 @@ const NewUserForm = ({ open, handleClose }) => {
         handleClose();
         window.location.reload();
       } else {
-        console.log(response);
        
       }
 

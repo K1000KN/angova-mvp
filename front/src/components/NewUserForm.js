@@ -90,9 +90,7 @@ const NewUserForm = ({ open, handleClose, usersList, setUsers }) => {
         const newUsers = [...usersList, values];
         setUsers(newUsers);
         handleClose();
-        console.log("User registered successfully.");
       } else {
-        console.log("Failed to register user.");
       }
     } catch (error) {
       console.error("Error:", error);

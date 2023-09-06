@@ -66,7 +66,6 @@ const UserList = () => {
           },
         }
       );
-      console.log("Status: ", response.status);
       fetchUsers();
       setOpenDeleteDialog(false);
     } catch (error) {
