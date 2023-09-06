@@ -12,7 +12,8 @@ const PlayerSession = ({
   useEffect(() => {
     setAudioSrc(audioQuestion);
     setExpAudioSrc(audioExplanation);
-
+    console.log(audioQuestion);
+    console.log(audioExplanation);
     // Vérifiez si content a plus d'une image
     if (content.length > 1) {
       // Démarrez un intervalle pour alterner entre les images
