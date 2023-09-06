@@ -1,4 +1,11 @@
 {
+    "fr": "Fransızca",
+    "en": "İngilizce",
+    "es": "İspanyolca",
+    "dz": "Cezayir",
+    "ma": "Faslı",
+    "tr": "Türkçe",
+    "tn": "Tunuslu",
     "popup": "Site Diliniz:",
     "lgn1": "Fransızca",
     "lgn2": "Arapça",
@@ -30,11 +37,13 @@
     "input-form-password": "Parola",
     "input-form-confirm-password": "Parola Onayı",
     "input-form-Fname": "Ad",
+    "input-form-auto-name": "Sürücü kursunun adı",
+    "input-form-mail": "E-mail",
     "input-form-Lname": "Soyad",
     "register-title": "Kayıt",
-    "register-button": "Kaydol",
+    "register-button": "Gönder",
     "video-title": "Kod Oturumu No: 1",
-    "register-content": "Kaydolmak için bize şu adresten ulaşın ",
+    "register-content": "Çok sayıda talep olması nedeniyle lütfen bekleme listemize kaydolun.",
     "footer-1": "Trafik kuralları .",
     "footer-2": " Yaptıklarımız .",
     "footer-3": " Bize ulaşın",
@@ -47,6 +56,8 @@
     "finir": "Bitir",
     "valider": "Doğrula",
     "explications": "Açıklamalar",
-    "code la route": "Trafik kuralları",
-    "choisir-la-langue-du-code-de-la-route": "Trafik kuralları dilini seçin"
+    "codeRoute": "Trafik kuralları",
+    "choisir-la-langue-du-code-de-la-route": "Trafik kuralları dilini seçin",
+    "mdp-not-correspond": "Parolalar eşleşmiyor",
+    "password-input-regex": "Parola hem büyük hem de küçük harf içermelidir."
 }

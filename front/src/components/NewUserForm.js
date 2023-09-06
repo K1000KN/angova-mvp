@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid, Paper, Button, Typography } from "@mui/material";
 import { TextField } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -10,10 +10,9 @@ import { makeStyles } from "@mui/styles";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { createTheme } from "@mui/material/styles";
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
-
+import Loader from "./Loader";
 const theme = createTheme();
 
 const useStyles = makeStyles({
@@ -42,6 +41,8 @@ const NewUserForm = ({ open, handleClose, usersList, setUsers }) => {
   const token = localStorage.getItem("token");
 
   const { t } = useTranslation();
+  const [isLoading, setIsLoading] = useState(false);
+
   const classes = useStyles();
   const paperStyle = {
     padding: "0 15px 40px 15px",
@@ -70,30 +71,31 @@ const NewUserForm = ({ open, handleClose, usersList, setUsers }) => {
       .required("Requis"),
   });
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = async (values, props) => {
     const { username, email, password } = values;
+    setIsLoading(true);
 
-    const endpoint = `${apiUrl}/manager/create`;
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    const response = await axios.post(
-      endpoint,
-      { username, email, password },
-      { headers }
-    );
+    try {
+      const endpoint = `${apiUrl}/manager/create`;
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+      const response = await axios.post(
+        endpoint,
+        { username, email, password },
+        { headers }
+      );
 
-    console.log(response);
-
-    if (response.status === 201) {
-      const newUsers = [...usersList, values];
-      setUsers(newUsers);
-      handleClose();
-      // L'enregistrement de l'utilisateur et le paiement ont réussi
-      console.log("Utilisateur enregistré avec succès.");
-    } else {
-      // Le paiement a échoué
-      console.log("Échec de l'enregistrement de l'utilisateur.");
+      if (response.status === 201) {
+        const newUsers = [...usersList, values];
+        setUsers(newUsers);
+        handleClose();
+      } else {
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setIsLoading(false); // Ensure isLoading is set to false after submission
     }
   };
 
@@ -111,7 +113,7 @@ const NewUserForm = ({ open, handleClose, usersList, setUsers }) => {
       <Dialog fullWidth maxWidth="sm" open={open} onClose={handleClose}>
         <div className={classes.wrapperDialog}>
           <DialogTitle>
-            Enregistrement
+            {t("Enregistrement")}
             <IconButton
               aria-label="close"
               className={classes.closeButton}
@@ -200,8 +202,13 @@ const NewUserForm = ({ open, handleClose, usersList, setUsers }) => {
                         type="submit"
                         style={btnStyle}
                         variant="contained"
+                        disabled={isLoading} // Disable the button during loading
                       >
-                        Ajouter l'élève
+                        {isLoading ? (
+                          <Loader /> // Display the loader
+                        ) : (
+                          "Ajouter l'élève" // Display the button text
+                        )}
                       </Button>
                     </Form>
                   )}

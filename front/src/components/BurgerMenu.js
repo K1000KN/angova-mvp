@@ -201,7 +201,7 @@ export default forwardRef(
             }}
           >
             <DialogTitle>
-              <Typography variant="h5" style={{ fontWeight: 700 }}>
+              <Typography variant="h3" style={{ fontWeight: 700 }}>
                 Choisir la langue du site
               </Typography>
               <IconButton

@@ -33,6 +33,7 @@ import axios from "axios";
 import { AddCircleOutline, Delete } from "@mui/icons-material";
 import { createTheme } from "@mui/material/styles";
 import NewUserForm from "./components/NewUserForm";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 
 const theme = createTheme();
 
@@ -58,13 +59,17 @@ const UserProfile = () => {
   const [showDeleteProfileDialog, setShowDeleteProfileDialog] = useState(false);
   const [showResetPwdDialog, setShowResetPwdDialog] = useState(false);
   const [selectedUserToBeDeleted, setSelectedUserToBeDeleted] = useState(null);
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
   const [showDeleteFromUsersDialog, setShowDeleteFromUsersDialog] =
     useState(false);
 
   const useStyles = makeStyles({
+    closeButton: {
+      position: "absolute !important",
+      right: theme.spacing(1),
+      top: theme.spacing(1),
+      color: theme.palette.grey[500],
+    },
     flagNav: {
       width: "50%",
       cursor: "pointer",
@@ -166,13 +171,13 @@ const UserProfile = () => {
       case "ar":
         src = moroccoRoundedFlag;
         break;
-      case "alg":
+      case "dz":
         src = algeriaRoundedFlag;
         break;
       case "ma":
         src = moroccoRoundedFlag;
         break;
-      case "tuni":
+      case "tn":
         src = tuniRoundedFlag;
         break;
       case "tr":
@@ -287,7 +292,7 @@ const UserProfile = () => {
           user.roles.some((role) => role.name === "user") &&
           user.manager === managerId
       );
-      console.log(userFromManager);
+     
       setUsers(userFromManager);
     } catch (error) {
       console.error("Error:", error);
@@ -324,7 +329,6 @@ const UserProfile = () => {
 
     const endpoint = `${apiUrl}/user/${id}`;
     const response = await axios.put(endpoint, user, { headers });
-    console.log(response);
   };
 
   const updateManager = async () => {
@@ -334,28 +338,42 @@ const UserProfile = () => {
     };
     const endpoint = `${apiUrl}/manager/update/${id}`;
     const response = await axios.put(endpoint, user, { headers });
-    console.log(response);
   };
 
-  const resetPasswordManager = async () => {
+  const resetPassword = async (values, props) => {
+    const {password, newPassword, confirmPassword} = values;
     if (newPassword !== confirmPassword) {
-      setMessage("Passwords do not match");
+      setMessage("Les mots de passe ne correspondent pas");
       return;
     }
-
+  
     const id = decodedToken.id;
     const headers = {
       Authorization: `Bearer ${token}`,
-    };
-    const endpoint = `${apiUrl}/manager/password-reset/${id}`;
+    };  
+
+    let endpoint = `${apiUrl}/user/password-reset/${id}`;
+
+    if (roleUser === "manager") {
+      endpoint = `${apiUrl}/manager/password-reset/${id}`;
+    }
+    if (roleUser === "admin") {
+      endpoint = `${apiUrl}/admin/password-reset/${id}`;
+    }
+    
     
     try {
-      const response = await axios.put(endpoint, { newPassword, confirmPassword }, { headers });
-      setMessage(response.data.message);
+      await axios.put(endpoint, {password, newPassword, confirmPassword }, { headers }); 
+      setMessage("Mot de passe modifié avec succés");
+      props.resetForm();
+     
     } catch (error) {
-      setMessage("Failed to update password");
+      props.resetForm();
+      setMessage(error.response.data.message);
     }
   };
+
+
   const [user, setUser] = useState(null);
   const [isUserFetched, setIsUserFetched] = useState(false);
   const [roleUser, setRoleUser] = useState("");
@@ -412,48 +430,32 @@ const UserProfile = () => {
   const handleCloseDialog = () => {
     setOpenDialog(false);
   };
-  const paperStyle = {
-    padding: "0 15px 40px 15px",
-    display: "flex",
-    flexDirection: "column",
-  };
+  
   const btnStyle = {
     marginTop: 10,
     width: "70%",
     marginLeft: "15%",
     backgroundColor: "#F49E4C",
   };
-  const ageRegExp = /^\d+$/;
   const passwordRegExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
 
   const initialValues = {
-    name: "",
-    firstname: "",
-    age: "",
-    email: "",
     password: "",
+    newPassword: "",
     confirmPassword: "",
   };
   const validationSchema = Yup.object().shape({
-    name: Yup.string()
-      .min(3, `${t("message-input-verif")}`)
-      .required("Requis"),
-    firstname: Yup.string()
-      .min(3, `${t("message-input-verif")}`)
-      .required("Requis"),
-    email: Yup.string()
-      .email(`${t("email-input-verif")}`)
-      .required("Requis"),
-    age: Yup.string().matches(ageRegExp, `${t("nb-input-verif")}`),
     password: Yup.string()
-      .min(8, `${t("password-input-verif")}`)
+    .min(8, `${t("password-input-verif")}`)
+    .required("Requis"),
+    newPassword: Yup.string()
+      .min(8,`${t("password-input-verif")}`)
+      .required("Requis")
       .matches(
         passwordRegExp,
-        "Password must have one upper, lower case, number"
-      )
-      .required("Requis"),
+        `${t("password-input-regex")}`),
     confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password")], "Mots de passe ne correspondent pas")
+      .oneOf([Yup.ref("newPassword")], `${t("mdp-not-correspond")}`)
       .required("Requis"),
   });
 
@@ -566,7 +568,7 @@ const UserProfile = () => {
                 <Typography variant="h4" sx={{ marginTop: "30px" }}>
                   Ajouter un utilisateur
                 </Typography>
-                <Paper sx={{ marginTop: "30px", marginBottom: "30px" }}>
+                <Paper sx={{ marginTop: "30px", marginBottom: "60px" }}>
                   <TableContainer>
                     <Table>
                       <TableHead>
@@ -653,9 +655,9 @@ const UserProfile = () => {
               <Flag src="./images/flag/rounded/france.png" language="fr" />
               <Flag src="./images/flag/rounded/spain.png" language="es" />
               <Flag src="./images/flag/rounded/uk.png" language="en" />
-              <Flag src="./images/flag/rounded/algeria.png" language="alg" />
+              <Flag src="./images/flag/rounded/algeria.png" language="dz" />
               <Flag src="./images/flag/rounded/morocco.png" language="ma" />
-              <Flag src="./images/flag/rounded/tunisia.png" language="tuni" />
+              <Flag src="./images/flag/rounded/tunisia.png" language="tn" />
               <Flag src="./images/flag/rounded/turkey.png" language="tr" />
             </Grid>
           </DialogContent>
@@ -664,44 +666,85 @@ const UserProfile = () => {
       {/* NEW USER MODAL */}
       <NewUserForm open={openDialog} handleClose={handleCloseDialog} usersList={usersList} setUsers={setUsers} />
       {/* RESET PWD MY ACCOUNT MODAL */}
-      (
+     
     <Dialog open={showResetPwdDialog} onClose={closeResetPwdDialog}>
-      <DialogTitle>Modifier le mot de passe </DialogTitle>
+      <DialogTitle>Modifier le mot de passe 
+        <IconButton
+          aria-label="close"
+          className={classes.closeButton}
+          onClick={closeResetPwdDialog}
+        >
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          <TextField
-            fullWidth
-            type="password"
-            id="newPassword"
-            name="newPassword"
-            label="New Password"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            margin="normal"
-            variant="outlined"
-          />
-          <TextField
-            fullWidth
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            label="Confirm New Password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            margin="normal"
-            variant="outlined"
-          />
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={resetPassword}
+          >
+            {(props) => (
+              <Form noValidate>
+                
+                
+                <Field
+                  className={classes.field}
+                  as={TextField}
+                  name="password"
+                  label="Mot de passe actuel"
+                  type="password"
+                  fullWidth
+                  error={props.errors.password && props.touched.password}
+                  helperText={<ErrorMessage name="password" />}
+                  required
+                />
+                <Field
+                  className={classes.field}
+                  as={TextField}
+                  name="newPassword"
+                  label="Nouveau mot de passe"
+                  type="password"
+                  fullWidth
+                  error={props.errors.newPassword && props.touched.newPassword}
+                  helperText={<ErrorMessage name="newPassword" />}
+                  required
+                />
+
+                <Field
+                  className={classes.field}
+                  as={TextField}
+                  name="confirmPassword"
+                  label="Confirmer le nouveau mot de passe"
+                  type="password"
+                  fullWidth
+                  error={props.errors.confirmPassword && props.touched.confirmPassword}
+                  helperText={<ErrorMessage name="confirmPassword" />}
+                  required
+                />
+                <Grid
+                  container
+                  direction="row"
+                  
+                >
+                 
+                  <Button
+                    sx={{ textTransform: "none" }}
+                    type="submit"
+                    style={btnStyle}
+                    variant="contained"
+                  >
+                    Modifier
+                  </Button>
+                </Grid>
+                
+              </Form>
+            )}
+          </Formik>
           {message && <p>{message}</p>}
         </DialogContentText>
       </DialogContent>
-      <DialogActions>
-        <Button onClick={closeResetPwdDialog} color="primary">
-          Annuler
-        </Button>
-        <Button onClick={resetPasswordManager} sx={{backgroundColor: "#F49E4C"}} autoFocus>
-          Modifier
-        </Button>
-      </DialogActions>
+      
     </Dialog>
       {/* DELETE MY ACCOUNT MODAL */}
       <Dialog open={showDeleteProfileDialog} onClose={closeDeleteProfileDialog}>

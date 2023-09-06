@@ -1,7 +1,6 @@
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import DirectionsCarFilledIcon from '@mui/icons-material/DirectionsCarFilled';
 import '../index.css';
 
 const BottomBar = ({handleChange, value}) => {

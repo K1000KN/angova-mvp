@@ -1,38 +1,44 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from "react";
 
-var PlayerSession = ({  content, setAudioSrc,setExpAudioSrc, audioQuestion, audioExplaination }) => {
-    const [currentSourceIndex, setCurrentSourceIndex] = useState(0);
-  
-    useEffect(() => {
-        let intervalId;
-        setAudioSrc(audioQuestion);
-        setExpAudioSrc(audioExplaination)
-        if ( content.length > 1) {
-            intervalId = setInterval(() => {
-                setCurrentSourceIndex(prevIndex => (prevIndex === 0 ? 1 : 0));
-            }, 1000);
-        }else{
-            setCurrentSourceIndex(0); 
-        }
+const PlayerSession = ({
+  content,
+  setAudioSrc,
+  setExpAudioSrc,
+  audioQuestion,
+  audioExplanation,
+}) => {
+  const [currentSourceIndex, setCurrentSourceIndex] = useState(0);
 
-        return () => {
-            clearInterval(intervalId);
-        };
-    }, [ content]);
+  useEffect(() => {
+    setAudioSrc(audioQuestion);
+    setExpAudioSrc(audioExplanation);
+    console.log(audioQuestion);
+    console.log(audioExplanation);
+    // Vérifiez si content a plus d'une image
+    if (content.length > 1) {
+      // Démarrez un intervalle pour alterner entre les images
+      const intervalId = setInterval(() => {
+        setCurrentSourceIndex((prevIndex) => (prevIndex === 0 ? 1 : 0));
+      }, 500);
 
-    let render;
-    
-    const currentSource = content[currentSourceIndex];
-    render = <img className="imgResponsive" alt="road" src={currentSource} />;
-    
-    
+      // Nettoyez l'intervalle lorsque le composant est démonté
+      return () => {
+        clearInterval(intervalId);
+      };
+    } else {
+      // S'il n'y a qu'une seule image, assurez-vous de réinitialiser l'index.
+      setCurrentSourceIndex(0);
+    }
+  }, [audioExplanation, audioQuestion, content, setAudioSrc, setExpAudioSrc]);
 
-    return (
-        <> 
-            {render}
-        </>
-        
-    );
+  // Utilisez l'index actuel pour afficher l'image appropriée de content
+  const currentSource = content[currentSourceIndex];
+
+  return (
+    <>
+      <img className="imgResponsive" alt="road" src={currentSource} />
+    </>
+  );
 };
 
 export default PlayerSession;

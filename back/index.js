@@ -18,7 +18,6 @@ const PORT = 3001;
 app.use(cors({ origin: "*" }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 app.use("/api/v1", contactRoutes);
 app.use("/api/v1", userRoutes);
 app.use("/api/v1", managerRoutes);

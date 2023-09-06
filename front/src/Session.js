@@ -4,21 +4,11 @@ import "./session.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Button, Grid } from "@mui/material";
-import {
-  session1FR,
-  session2FR,
-  session1ES,
-  session2ES,
-  session3FR,
-  session3ES,
-  session1MA,
-  session2MA,
-  session3MA,
-} from "./data/sessions/index";
 import ProgressBar from "./components/ProgressBar";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { VolumeUp, VolumeOff } from "@mui/icons-material";
+import ReactHowler from 'react-howler';
 import {
   Dialog,
   DialogContent,
@@ -30,6 +20,15 @@ import { makeStyles } from "@mui/styles";
 import PlayerSession from "./components/PlayerSession";
 import { useTranslation } from "react-i18next";
 
+import jsonDataFr from "./data/content_fr.json";
+import jsonDataEs from "./data/content_es.json";
+//import jsonDataEn from "./data/content_en.json";
+import jsonDataMa from "./data/content_fr.json";
+import {
+  processSessions,
+  filterSessionsByLanguage,
+} from "./services/sessionService";
+
 const Session = () => {
   const { t } = useTranslation();
   const [completed, setCompleted] = useState(0);
@@ -37,7 +36,7 @@ const Session = () => {
   const [selectedAnswerIndices, setSelectedAnswerIndices] = useState([]);
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
 
-  const [openDialog, setOpenDialog] = useState(false); // State for controlling the dialog visibility
+  const [openDialog, setOpenDialog] = useState(false);
 
   const [showResult, setShowResult] = useState(false);
   const [result, setResult] = useState({
@@ -47,36 +46,32 @@ const Session = () => {
   });
 
   const [showExplanation, setShowExplanation] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(true);
+
+  // GESTION DES AUDIOS
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlayingExp, setIsPlayingExp] = useState(false);
   const [audioSrc, setAudioSrc] = useState("");
   const [expAudioSrc, setExpAudioSrc] = useState("");
-  const [isPlayingExp, setIsPlayingExp] = useState(false);
 
-  useEffect(() => {
-    if (isPlaying && isPlayingExp === false) {
-      var audio = new Audio(audioSrc);
-      audio.play().catch((error) => {
-        console.error("Error autoplaying audio:", error);
-        setIsPlaying(false);
-      });
-      return () => {
-        audio.pause();
-        audio.currentTime = 0;
-      };
-    }
-    if (isPlayingExp && isPlaying === false) {
-      var audioExp = new Audio(expAudioSrc);
-      audioExp.play().catch((error) => {
-        console.error("Error autoplaying audio:", error);
-        setIsPlayingExp(false);
-      });
-      return () => {
-        audioExp.pause();
-        audioExp.currentTime = 0;
-      };
-    }
-  }, [activeQuestion, isPlaying, audioSrc, isPlayingExp, expAudioSrc]);
+  const audioSources = {
+    src: [audioSrc], // Remplacez par le chemin de votre fichier audio
+    html5: true, // Active la lecture audio HTML5 pour la compatibilité avec Safari
+  };
+  const expAudioSources = {
+    src: [expAudioSrc], // Remplacez par le chemin de votre fichier audio
+    html5: true, // Active la lecture audio HTML5 pour la compatibilité avec Safari
+  };
+  const handleToggleAudio = () => {
+    setIsPlayingExp(false);
+    setIsPlaying(!isPlaying);
+  };
 
+  const handleToggleAudioExp = () => {
+    setIsPlaying(false);
+    setIsPlayingExp(!isPlayingExp);
+  };
+
+  
   const navigate = useNavigate();
   const theme = createTheme({
     typography: {
@@ -147,6 +142,7 @@ const Session = () => {
     setShowExplanation,
     setResult
   ) => {
+
     const isCorrect = arraysEqual(indices, correctAnswer);
 
     if (isCorrect) {
@@ -181,20 +177,77 @@ const Session = () => {
     return true;
   };
 
-  const sessionMap = {
-    1: { fr: session1FR, es: session1ES, ma: session1MA },
-    2: { fr: session2FR, es: session2ES, ma: session2MA },
-    3: { fr: session3FR, es: session3ES, ma: session3MA },
-    // Add more sessions as needed...
+  const createSessionData = (language, jsonData) => {
+    return jsonData.map((session) => {
+      const imgPaths = [];
+      
+      if (session.multiple && session.multiple === true) {
+        // Si session.multiple existe et est true
+        imgPaths.push(`/session/q${session.id}/q${session.id}_1.jpeg`);
+        imgPaths.push(`/session/q${session.id}/q${session.id}_2.jpeg`);
+      } else {
+        // Si session.multiple n'existe pas ou est false
+        imgPaths.push(`/session/q${session.id}/q${session.id}.jpeg`);
+      }
+      
+      return {
+        id: session.id,
+        language: language,
+        questions: session.questions,
+        choices: session.choices,
+        correctAnswer: session.correctAnswer,
+        explanation: session.explanation,
+        assets: {
+          img: imgPaths,
+          audio: `/session/q${session.id}/${language}/q${session.id}.mp3`,
+          explanation: `/session/q${session.id}/${language}/exp${session.id}.mp3`,
+        },
+      };
+    });
   };
 
+  const sessionFR = createSessionData("fr", jsonDataFr);
+  const sessionES = createSessionData("es", jsonDataEs);
+  const sessionMA = createSessionData("ma", jsonDataMa);
+  const batchSize = 40;
+  const sessions = [];
+  const selectedLanguage = localStorage.getItem("language");
+
+  switch (selectedLanguage) {
+    case "fr":
+      sessions.push(...processSessions(sessionFR, batchSize, t));
+      break;
+    case "es":
+      sessions.push(...processSessions(sessionES, batchSize, t));
+      break;
+    // case "en":
+    //   sessions.push(...processSessions(sessionEN, batchSize, t));
+    //   break;
+    case "ma":
+      sessions.push(...processSessions(sessionMA, batchSize, t));
+      break;
+    case "dz":
+      // sessions.push(...processSessions(sessionDZ, batchSize, t));
+      break;
+    case "tn":
+      // sessions.push(...processSessions(sessionTN, batchSize, t));
+      break;
+    // ... cases for other languages ...
+    default:
+      
+      break;
+  }
+
+  const filteredSessions = filterSessionsByLanguage(sessions, selectedLanguage);
   const getSessionData = (id) => {
-    const language = localStorage.getItem("language");
-    return sessionMap[id] && sessionMap[id][language];
+    const sessionData = filteredSessions.find(
+      (session) => session.id === parseInt(id)
+    );
+    return sessionData;
   };
 
   const sessionData = getSessionData(id);
-
+  
   // Handle invalid session ID or language not supported
   if (!sessionData) {
     return (
@@ -231,22 +284,21 @@ const Session = () => {
             marginBottom: "40px",
           }}
         >
-          Coming Soon
+          Arrive bientot
         </Typography>
         <Button
           variant="contained"
           color="primary"
           onClick={() => navigate("/home")}
         >
-          Go Back
+          Retourner en arrière
         </Button>
       </div>
     );
   }
 
-  let { quizz } = sessionData;
-  const { questions, choices, correctAnswer, explaination, assets } =
-    quizz[activeQuestion];
+  const { questions, choices, correctAnswer, explanation, assets } =
+    sessionData[activeQuestion];
 
   const onClickNext = () => {
     // Verify the answer before proceeding to the next question
@@ -269,17 +321,16 @@ const Session = () => {
     });
 
     // Reset state variables and move to the next question
-    if (activeQuestion !== quizz.length - 1) {
+    if (activeQuestion !== sessionData.length - 1) {
       setActiveQuestion((prev) => prev + 1);
       setSelectedAnswerIndices([]);
       setSelectedAnswerIndex(null);
       setShowExplanation(false); // Hide the explanation
     } else {
-      console.log("Quiz completed!");
       setActiveQuestion(0);
       setShowResult(true);
     }
-    setCompleted(((activeQuestion + 1) / quizz.length) * 100);
+    setCompleted(((activeQuestion + 1) / sessionData.length) * 100);
   };
 
   const onAnswerSelected = (index) => {
@@ -311,14 +362,8 @@ const Session = () => {
     onClickNext();
   };
 
-  const handleToggleAudio = () => {
-    setIsPlayingExp(false);
-    setIsPlaying(!isPlaying);
-  };
-  const handleToggleAudioExp = () => {
-    setIsPlaying(false);
-    setIsPlayingExp(!isPlayingExp);
-  };
+  
+
 
   const handleClose = () => {
     setOpenDialog(false);
@@ -342,7 +387,7 @@ const Session = () => {
                     {addLeadingZero(activeQuestion + 1)}
                   </span>
                   <span className="total-question">
-                    /{addLeadingZero(quizz.length)}
+                    /{addLeadingZero(sessionData.length)}
                   </span>
                 </Grid>
                 <Grid item xs={10} sm={7} id="progressContainer">
@@ -372,20 +417,25 @@ const Session = () => {
                   content={assets.img}
                   setAudioSrc={setAudioSrc}
                   setExpAudioSrc={setExpAudioSrc}
-                  audioQuestion={assets.question}
-                  audioExplaination={assets.explaination}
+                  audioQuestion={assets.audio}
+                  audioExplanation={assets.explanation}
                 />
+                
               </Grid>
               <Grid item xs={12} id="quizContainer">
                 <div style={{ width: "100%", paddingLeft: "94%" }}>
-                  <button
-                    className={classes.orangeTonalBtn}
-                    onClick={handleToggleAudio}
-                  >
-                    {" "}
+                  <button className={classes.orangeTonalBtn} onClick={handleToggleAudio}>
                     {!isPlaying ? <VolumeOff /> : <VolumeUp />}
                   </button>
                 </div>
+                <ReactHowler
+                  {...audioSources}
+                  playing={isPlaying}
+                  onPlay={() => console.log('Lecture en cours')}
+                  onPause={() => console.log('Pause')}
+                  onStop={() => console.log('Arrêt')}
+                  onLoadError={(id, error) => console.error('Erreur de chargement', error)}
+                />
                 {questions && questions.length > 1 ? (
                   <>
                     <Typography variant="h6" id="questionQuizz">
@@ -443,7 +493,7 @@ const Session = () => {
                       </ul>
                       <br />
 
-                      <h7 id="questionQuizz">{questions[2]}</h7>
+                      <p id="questionQuizz">{questions[2]}</p>
                       {questions && questions.length > 1 ? (
                         <ul className="quizList">
                           {choices.slice(2, 4).map((answer, index) => (
@@ -558,7 +608,7 @@ const Session = () => {
                   }}
                   disabled={selectedAnswerIndices.length === 0}
                 >
-                  {activeQuestion === quizz.length - 1 && showResult
+                  {activeQuestion === sessionData.length - 1 && showResult
                     ? t("finir")
                     : showExplanation
                     ? t("suivant")
@@ -586,7 +636,7 @@ const Session = () => {
             </div>
 
             <p>
-              Total des questions: <span>{quizz.length}</span>
+              Total des questions: <span>{sessionData.length}</span>
             </p>
             <p>
               Score:<span> {result.score}</span>
@@ -620,14 +670,23 @@ const Session = () => {
               <CloseIcon />
             </IconButton>
           </DialogTitle>
-          <DialogContent>{explaination}</DialogContent>
+          <DialogContent>{explanation}</DialogContent>
           <DialogActions>
             <button
               onClick={handleToggleAudioExp}
               className={classes.orangeTonalBtn}
             >
               {!isPlayingExp ? <VolumeOff /> : <VolumeUp />}
+
             </button>
+            <ReactHowler
+              {...expAudioSources}
+              playing={isPlayingExp}
+              onPlay={() => console.log('Lecture en cours')}
+              onPause={() => console.log('Pause')}
+              onStop={() => console.log('Arrêt')}
+              onLoadError={(id, error) => console.error('Erreur de chargement', error)}
+            />
             <button
               onClick={closeExplanationDialogAndNext}
               className={classes.orangeBtn}

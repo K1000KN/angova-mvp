@@ -1,9 +1,8 @@
 import React from "react";
-// import { Grid, Paper, Button, Typography, Link, Icon } from "@mui/material";
-import { Typography, Link } from "@mui/material";
-// import { TextField } from "@mui/material";
-// import { Formik, Form, Field, ErrorMessage } from "formik";
-// import * as Yup from "yup";
+import { Grid, Paper, Button, Typography} from "@mui/material";
+import { TextField } from "@mui/material";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -12,9 +11,9 @@ import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { createTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
-// import { useNavigate } from "react-router-dom";
-import CallIcon from "@mui/icons-material/Call";
-import EmailIcon from "@mui/icons-material/Email";
+import axios from "axios";
+
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const theme = createTheme();
 
@@ -43,57 +42,54 @@ const RegistrationForm = ({ open, handleClose }) => {
   // const navigate = useNavigate();
   const classes = useStyles();
   const { t } = useTranslation();
-  // const paperStyle = {
-  //   padding: "0 15px 40px 15px",
-  //   display: "flex",
-  //   flexDirection: "column",
-  // };
-  // const btnStyle = {
-  //   marginTop: 10,
-  //   width: "70%",
-  //   marginLeft: "15%",
-  //   backgroundColor: "#F49E4C",
-  // };
-  // const ageRegExp = /^\d+$/;
-  // const passwordRegExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
+  const paperStyle = {
+    padding: "0 15px 40px 15px",
+    display: "flex",
+    flexDirection: "column",
+  };
+  const btnStyle = {
+    marginTop: 10,
+    width: "70%",
+    marginLeft: "15%",
+    backgroundColor: "#F49E4C",
+  };
 
-  // const initialValues = {
-  //   name: "",
-  //   firstname: "",
-  //   age: "",
-  //   email: "",
-  //   password: "",
-  //   confirmPassword: "",
-  // };
-  // const validationSchema = Yup.object().shape({
-  //   name: Yup.string()
-  //     .min(3, `${t("message-input-verif")}`)
-  //     .required("Requis"),
-  //   firstname: Yup.string()
-  //     .min(3, `${t("message-input-verif")}`)
-  //     .required("Requis"),
-  //   email: Yup.string()
-  //     .email(`${t("email-input-verif")}`)
-  //     .required("Requis"),
-  //   age: Yup.string().matches(ageRegExp, `${t("nb-input-verif")}`),
-  //   password: Yup.string()
-  //     .min(8, `${t("password-input-verif")}`)
-  //     .matches(
-  //       passwordRegExp,
-  //       "Password must have one upper, lower case, number"
-  //     )
-  //     .required("Requis"),
-  //   confirmPassword: Yup.string()
-  //     .oneOf([Yup.ref("password")], "Mots de passe ne correspondent pas")
-  //     .required("Requis"),
-  // });
-  // const onSubmit = (values, props) => {
-  //   alert(JSON.stringify(values), null, 2);
-  //   props.resetForm();
-  //   handleClose();
-  //   navigate("/home");
-  // };
+  const initialValues = {
+    name: "",
+    firstname: "",
+    nameAuto: "",
+    email: ""
+  };
+  const validationSchema = Yup.object().shape({
+    name: Yup.string()
+      .min(3, `${t("message-input-verif")}`)
+      .required("Requis"),
+    nameAuto: Yup.string()
+      .min(3, `${t("message-input-verif")}`)
+      .required("Requis"),
+    firstname: Yup.string()
+      .min(3, `${t("message-input-verif")}`)
+      .required("Requis"),
+    email: Yup.string()
+      .email(`${t("email-input-verif")}`)
+      .required("Requis"),
+    
+  });
+  const handleSubmit = async (values, props) => {
 
+    axios.post(`${apiUrl}/contact/register`, values)
+    .then(response => {
+      //console.log(response);
+      
+      props.resetForm();
+    })
+    .catch(error => {
+      // La requête a échoué
+      console.error(error);
+     
+    });
+    props.resetForm()
+  };
   return (
     <div
       style={{
@@ -101,7 +97,6 @@ const RegistrationForm = ({ open, handleClose }) => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        // Change the size to fit the parent element of this div
         width: "100%",
         height: "100%",
       }}
@@ -130,65 +125,91 @@ const RegistrationForm = ({ open, handleClose }) => {
             <br />
             <br />
 
-            <Link href="tel:+33783971932">
-              <CallIcon
-                style={{
-                  color: "#F49E4C",
-                  fontSize: "1.2rem",
-                  marginLeft: "0.5rem",
-                }}
-              />
-              <b> 07.83.97.19.32</b>
-            </Link>
-            <br />
-            <Link href="mailto:mail@angova.com">
-              <EmailIcon
-                style={{
-                  color: "#F49E4C",
-                  fontSize: "1.2rem",
-                  marginLeft: "0.5rem",
-                }}
-              />
-              <b> mail@angova.com</b>
-            </Link>
-            <br />
-            {/* <Grid>
-                        <Paper elevation={0} style={paperStyle}>
-                        
-                            <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
-                                {(props) => (
-                                    <Form noValidate >
-                                    
-                                        <Field className={classes.field} as={TextField} name='name' label={t('input-form-Lname')} fullWidth
-                                            error={props.errors.name && props.touched.name}
-                                            helperText={<ErrorMessage name='name' />} required />
+            <Grid>
+              <Paper elevation={0} style={paperStyle}>
+              
+                <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
+                    {(props) => (
+                        <Form noValidate >
+                          <Field
+                            as={TextField}
+                            id="name"
+                            name="name"
+                            label={t('input-form-Lname')}
+                            className={classes.field}
+                            fullWidth
+                            required
+                          />
+                          <ErrorMessage
+                            name="name"
+                            component={Typography}
+                            variant="body2"
+                            color="error"
+                          />
+                         
+                          <Field
+                            as={TextField}
+                            id="firstname"
+                            name="firstname"
+                            label={t('input-form-Fname')}
+                            className={classes.field}
+                            fullWidth
+                            required
+                          />
+                          <ErrorMessage
+                            name="firstname"
+                            component={Typography}
+                            variant="body2"
+                            color="error"
+                          />
+                          
+                          <Field
+                            as={TextField}
+                            id="nameAuto"
+                            name="nameAuto"
+                            label={t('input-form-auto-name')}
+                            className={classes.field}
+                            fullWidth
+                            required
+                          />
+                          <ErrorMessage
+                            name="nameAuto"
+                            component={Typography}
+                            variant="body2"
+                            color="error"
+                          />
+                          
+                          <Field
+                            as={TextField}
+                            id="Email"
+                            name="email"
+                            label={t('input-form-mail')}
+                            className={classes.field}
+                            fullWidth
+                            required
+                          />
+                          <ErrorMessage
+                            name="email"
+                            component={Typography}
+                            variant="body2"
+                            color="error"
+                          />
+                          
 
-                                        <Field className={classes.field} as={TextField} name='firstname' label={t('input-form-Fname')} fullWidth
-                                            error={props.errors.firstname && props.touched.firstname}
-                                            helperText={<ErrorMessage name='firstname' />} required />
-
-                                        <Field className={classes.field} as={TextField} name='age' label='Age' type='number' fullWidth
-                                            />
-
-                                        <Field className={classes.field} as={TextField} name='email' label='Email' fullWidth
-                                            error={props.errors.email && props.touched.email}
-                                            helperText={<ErrorMessage name='email' />} required />
-
-                                        <Field className={classes.field} as={TextField} name='password' label={t('input-form-password')} type='password' fullWidth
-                                            error={props.errors.password && props.touched.password}
-                                            helperText={<ErrorMessage name='password' />} required />
-
-                                        <Field className={classes.field} as={TextField} name='confirmPassword' label={t('input-form-confirm-password')} type='password' fullWidth
-                                            error={props.errors.confirmPassword && props.touched.confirmPassword}
-                                            helperText={<ErrorMessage name='confirmPassword' />} required />
-
-                                        <Button   type='submit' style={btnStyle} variant='contained'
-                                            >{t('register-button')}</Button>
-                                    </Form>
-                                )}
-                            </Formik>
-                        </Paper>
-                    </Grid>  */}
+                          <Button
+                            sx={{ textTransform: "none" }}
+                            type="submit"
+                            style={btnStyle}
+                            variant="contained"
+                          >
+                            {t('register-button')}
+                          </Button>
+                          
+                        </Form>
+                    )}
+                </Formik>
+              </Paper>
+            </Grid> 
           </DialogContent>
         </div>
       </Dialog>
@@ -197,3 +218,5 @@ const RegistrationForm = ({ open, handleClose }) => {
 };
 
 export default RegistrationForm;
+
+

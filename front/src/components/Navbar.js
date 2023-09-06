@@ -20,7 +20,6 @@ const NavbarComponent = ({ page, setLanguageImage }) => {
       const id = decodedToken.id;
       const role = decodedToken.role;
       setRole(role);
-      console.log(role);
       let endpoint = `${apiUrl}/user/${id}`;
 
       if (role === "admin") {
@@ -35,7 +34,6 @@ const NavbarComponent = ({ page, setLanguageImage }) => {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log(response.data);
         setUser(response.data);
         setIsUserFetched(true);
       } catch (error) {

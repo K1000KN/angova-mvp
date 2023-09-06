@@ -96,33 +96,37 @@ export const updateManager = async (req, res) => {
   }
 };
 
-// export const resetPasswordManager = async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const { newPassword, confirmPassword } = req.body;
+export const resetPasswordManager = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { password, newPassword, confirmPassword } = req.body;
 
-//     if (newPassword !== confirmPassword) {
-//       return res.status(400).send({ message: "Passwords do not match" });
-//     }
+    if (newPassword !== confirmPassword) {
+      return res.status(400).send({ message: "Passwords do not match" });
+    }
 
-//     const user = await User.findById(id);
-//     if (!user) {
-//       return res.status(404).send({ message: "Manager not found" });
-//     }
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).send({ message: "Manager not found" });
+    }
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+ 
+    if (!isPasswordValid) {
+      return res.status(401).send({ message: "Invalid password" });
+    }
+    // Hash the new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-//     // Hash the new password
-//     const hashedPassword = await bcrypt.hash(newPassword, 10);
+    // Update the user's password
+    user.password = hashedPassword;
+    await user.save();
 
-//     // Update the user's password
-//     user.password = hashedPassword;
-//     await user.save();
-
-//     res.status(200).send({ message: "Password updated" });
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).send({ message: "Failed to update password" });
-//   }
-// };
+    res.status(200).send({ message: "Password updated" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ message: "Failed to update password" });
+  }
+};
 
 // function to get manager by id
 export const getManagerById = async (req, res) => {
