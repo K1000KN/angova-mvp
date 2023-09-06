@@ -39,12 +39,9 @@ const ImageS3 = ({ source }) => {
           src={imageUrl ?? "./images/placeholder.png"}
           alt="session"
           style={{
+            cursor: "pointer",
             height: imageUrl ? "100%" : "100px",
             transition: "all 0.2s ease",
-            "&:hover": {
-              backgroundSize: "120%",
-              cursor: "pointer",
-            },
           }}
         />
       )}
