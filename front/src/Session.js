@@ -8,6 +8,7 @@ import ProgressBar from "./components/ProgressBar";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { VolumeUp, VolumeOff } from "@mui/icons-material";
+import ReactHowler from 'react-howler';
 import {
   Dialog,
   DialogContent,
@@ -46,68 +47,29 @@ const Session = () => {
 
   const [showExplanation, setShowExplanation] = useState(false);
 
-// GESTION DES AUDIOS
-const [isPlaying, setIsPlaying] = useState(false);
-const [isPlayingExp, setIsPlayingExp] = useState(false);
-const [audioSrc, setAudioSrc] = useState("");
-const [expAudioSrc, setExpAudioSrc] = useState("");
+  // GESTION DES AUDIOS
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlayingExp, setIsPlayingExp] = useState(false);
+  const [audioSrc, setAudioSrc] = useState("");
+  const [expAudioSrc, setExpAudioSrc] = useState("");
 
-const handleToggleAudio = () => {
-  setIsPlaying(!isPlaying);
-};
-
-const handleToggleAudioExp = () => {
-  setIsPlayingExp(!isPlayingExp);
-};
-
-const handlePlayAudio = () => {
-  setIsPlaying(true);
-};
-const handleStopAudio = () => {
-  setIsPlaying(false);
-};
-const handlePlayAudioExp = () => {
-  setIsPlayingExp(true);
-};
-const handleStopAudioExp = () => {
-  setIsPlayingExp(false);
-};
-useEffect(() => {
-  const audio = new Audio(audioSrc);
-  const audioExp = new Audio(expAudioSrc);
-  audio.preload = "none";
-  audioExp.preload = "none";
-  audio.autoplay = false;
-  audioExp.autoplay = false;
-  audioExp.playsinline = false;
-
-  if (isPlaying) {
-    audio.play().catch((error) => {
-      console.error("Error playing audio:", error);
-    });
-  } else {
-    audio.pause();
-    audio.currentTime = 0;
-  }
-
-  if (isPlayingExp) {
-    audioExp.play().catch((error) => {
-      console.error("Error playing audio:", error);
-    });
-  } else {
-    audioExp.pause();
-    audioExp.currentTime = 0;
-  }
-
-  // Nettoyez les audios lorsque le composant est démonté
-  return () => {
-    audio.pause();
-    audio.currentTime = 0;
-    audioExp.pause();
-    audioExp.currentTime = 0;
+  const audioSources = {
+    src: [audioSrc], // Remplacez par le chemin de votre fichier audio
+    html5: true, // Active la lecture audio HTML5 pour la compatibilité avec Safari
   };
-}, [isPlaying, isPlayingExp, audioSrc, expAudioSrc]);
+  const expAudioSources = {
+    src: [expAudioSrc], // Remplacez par le chemin de votre fichier audio
+    html5: true, // Active la lecture audio HTML5 pour la compatibilité avec Safari
+  };
+  const handleToggleAudio = () => {
+    setIsPlaying(!isPlaying);
+  };
 
+  const handleToggleAudioExp = () => {
+    setIsPlayingExp(!isPlayingExp);
+  };
+
+  
   const navigate = useNavigate();
   const theme = createTheme({
     typography: {
@@ -457,17 +419,22 @@ useEffect(() => {
                   audioQuestion={assets.audio}
                   audioExplanation={assets.explanation}
                 />
+                
               </Grid>
               <Grid item xs={12} id="quizContainer">
                 <div style={{ width: "100%", paddingLeft: "94%" }}>
-                  {/* <button className={classes.orangeTonalBtn} onClick={handleToggleAudio}>
+                  <button className={classes.orangeTonalBtn} onClick={handleToggleAudio}>
                     {!isPlaying ? <VolumeOff /> : <VolumeUp />}
-                  </button> */}
-                  <button onClick={handlePlayAudio}>Lire l'audio</button>
-                  <button onClick={handlePlayAudioExp}>Lire l'audio Exp</button>
-                  <button onClick={handleStopAudio}>Stop l'audio</button>
-                  <button onClick={handleStopAudioExp}>Stop l'audio Exp</button>
+                  </button>
                 </div>
+                <ReactHowler
+                  {...audioSources}
+                  playing={isPlaying}
+                  onPlay={() => console.log('Lecture en cours')}
+                  onPause={() => console.log('Pause')}
+                  onStop={() => console.log('Arrêt')}
+                  onLoadError={(id, error) => console.error('Erreur de chargement', error)}
+                />
                 {questions && questions.length > 1 ? (
                   <>
                     <Typography variant="h6" id="questionQuizz">
@@ -709,7 +676,16 @@ useEffect(() => {
               className={classes.orangeTonalBtn}
             >
               {!isPlayingExp ? <VolumeOff /> : <VolumeUp />}
+
             </button>
+            <ReactHowler
+              {...expAudioSources}
+              playing={isPlayingExp}
+              onPlay={() => console.log('Lecture en cours')}
+              onPause={() => console.log('Pause')}
+              onStop={() => console.log('Arrêt')}
+              onLoadError={(id, error) => console.error('Erreur de chargement', error)}
+            />
             <button
               onClick={closeExplanationDialogAndNext}
               className={classes.orangeBtn}
