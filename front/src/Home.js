@@ -120,6 +120,7 @@ function Home() {
     }
   };
   const createLanguageSessionData = (language, jsonData) => {
+    
     return jsonData.map((session) => {
       return {
         id: session.id,
@@ -139,6 +140,7 @@ function Home() {
 
   switch (selectedLanguage) {
     case "fr":
+      
       sessions.push(...processSessions(sessionFR, batchSize, t));
       break;
     case "es":
@@ -148,7 +150,10 @@ function Home() {
       sessions.push(...processSessions(sessionEN, batchSize, t));
       break;
     case "ma":
+     
       sessions.push(...processSessions(sessionMA, batchSize, t));
+    
+     
       break;
     default:
       // Default case if the language doesn't match any of the above
@@ -207,7 +212,8 @@ function Home() {
     const handleMouseLeave = () => {
       setLanguageVisible(false);
     };
-
+    
+    
     return (
       <Grid
         item
@@ -287,7 +293,14 @@ function Home() {
       />
     );
   };
+  let displayedSessions = sessions; // Par défaut, toutes les sessions sont affichées
 
+  //if (selectedLanguage === "ma") {
+    // Si la langue sélectionnée est "ma", limitez à 3 sessions
+    displayedSessions = sessions.slice(0, 3);
+  // }else{
+
+  // }
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -335,7 +348,7 @@ function Home() {
           {component === "sessionCode" && (
             <ListSession
               classes={classes}
-              sessions={sessions}
+              sessions={displayedSessions}
               navigate={navigate}
               handleHover={handleHover}
               hoveredCard={hoveredCard}

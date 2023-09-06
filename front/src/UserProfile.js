@@ -566,7 +566,7 @@ const UserProfile = () => {
                 <Typography variant="h4" sx={{ marginTop: "30px" }}>
                   Ajouter un utilisateur
                 </Typography>
-                <Paper sx={{ marginTop: "30px", marginBottom: "30px" }}>
+                <Paper sx={{ marginTop: "30px", marginBottom: "60px" }}>
                   <TableContainer>
                     <Table>
                       <TableHead>
