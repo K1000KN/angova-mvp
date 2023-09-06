@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import ImageS3 from "./ImageS3";
 
 var PlayerSession = ({
   content,
@@ -28,8 +29,10 @@ var PlayerSession = ({
 
   let render;
 
-  const currentSource = content;
-  render = <img className="imgResponsive" alt="road" src={currentSource} />;
+  const currentSource = content.substring(1);
+
+  render = <ImageS3 source={currentSource} />;
+  // render = <img className="imgResponsive" alt="road" src={currentSource} />;
 
   return <>{render}</>;
 };
