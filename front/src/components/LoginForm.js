@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import Loader from "./Loader";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const theme = createTheme();
 
@@ -167,7 +167,7 @@ const LoginForm = ({ open, handleClose }) => {
                         variant="contained"
                       >
                         {isLoading ? (
-                          <Loader size="20px" color="#fff" />
+                          <CircularProgress size={50} />
                         ) : (
                           t("loginButton")
                         )}

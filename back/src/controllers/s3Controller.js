@@ -27,11 +27,14 @@ export async function getImage(req, res) {
     const key = req.body.key;
     const imageData = await getImageFromS3(key, bucketName);
 
-    // Send the image data in the response
-    // Set appropriate headers based on the image type
+    // Convert the image data to a Base64 string
+    const base64String = imageData.toString("base64");
 
-    res.writeHead(200, { "Content-Type": "image/jpeg" });
-    res.end(imageData);
+    // Set appropriate headers based on the image type
+    // res.setHeader("Content-Type", "image/jpeg"); // Change to the appropriate image type as needed
+
+    // Send the Base64 string in the response
+    res.send(base64String);
   } catch (error) {
     console.error("Error getting image from S3:", error);
     res.status(500).json({ message: "Failed to retrieve image" });

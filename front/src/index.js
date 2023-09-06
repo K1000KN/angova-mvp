@@ -20,9 +20,9 @@ import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 import "./i18n";
 import jwt_decode from "jwt-decode";
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
-import AddUserPage from './AddUser';
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import AddUserPage from "./AddUser";
 import DashboardAutoPage from "./dashboard/DashboardAuto";
 const theme = createTheme();
 
@@ -122,7 +122,9 @@ const PrivateRoute = ({ path, roles, children }) => {
   );
 };
 
-const stripePromise = loadStripe('pk_test_51NRF6LBHkhDIYYSvZevZHSy53ptC51mLinwuQDIQnMxY2N0jHFHHPuHgJsGIy0Txk8FnK9MgWjv2Ntn1ASHZ7R0a00len8pfxq');
+const stripePromise = loadStripe(
+  "pk_test_51NRF6LBHkhDIYYSvZevZHSy53ptC51mLinwuQDIQnMxY2N0jHFHHPuHgJsGIy0Txk8FnK9MgWjv2Ntn1ASHZ7R0a00len8pfxq"
+);
 
 const App = () => {
   // TODO RTL support
@@ -147,11 +149,10 @@ const App = () => {
               </PrivateRoute>
             }
           />
-           <Route
+          <Route
             path="/dashboard_auto"
             element={
               <PrivateRoute roles={["manager", "admin"]}>
-                
                 <DashboardAutoPage />
               </PrivateRoute>
             }
@@ -159,10 +160,10 @@ const App = () => {
           <Route
             path="/add_user"
             element={
-              <PrivateRoute roles={[ "manager", "admin"]}>
-                  <Elements stripe={stripePromise}>
-                    <AddUserPage />
-                  </Elements>
+              <PrivateRoute roles={["manager", "admin"]}>
+                <Elements stripe={stripePromise}>
+                  <AddUserPage />
+                </Elements>
               </PrivateRoute>
             }
           />

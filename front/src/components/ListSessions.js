@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import "../home.css";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
+import ImageS3 from "./ImageS3";
 import NoSessionMessage from "./NoSessionMessage";
-import axios from "axios";
 
 const ListSession = ({
   classes,
@@ -13,32 +12,6 @@ const ListSession = ({
   handleHover,
   hoveredCard,
 }) => {
-  const [sessionImages, setSessionImages] = useState({});
-
-  useEffect(() => {
-    const fetchSessionImages = async (key) => {
-      try {
-        const response = await axios.post("http://localhost:3001/api/v1/s3", {
-          key: key,
-        });
-        const updatedImages = { ...sessionImages };
-        updatedImages[key] = `data:image/jpeg;base64,${response.data.toString(
-          "base64"
-        )}`;
-        setSessionImages(updatedImages);
-      } catch (error) {
-        console.error("Error fetching image from S3:", error);
-      }
-    };
-
-    if (sessions.length > 0) {
-      sessions.forEach((session) => {
-        const imageKey = session.image;
-        fetchSessionImages(imageKey);
-      });
-    }
-  }, [sessions, sessionImages]);
-
   if (sessions.length === 0) {
     return <NoSessionMessage />;
   }
@@ -63,13 +36,7 @@ const ListSession = ({
               onMouseEnter={() => handleHover(session.id)}
               onMouseLeave={() => handleHover(null)}
             >
-              <CardMedia
-                component="img"
-                height="100%"
-                image={sessionImages[session.image]}
-                alt="session"
-                className={classes.cardMedia}
-              />
+              <ImageS3 source={session.image} />
               <div
                 className={`${classes.slide2} ${
                   hoveredCard === session.id ? "active" : ""
@@ -86,5 +53,4 @@ const ListSession = ({
     </Grid>
   );
 };
-
 export default ListSession;
