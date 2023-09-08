@@ -30,8 +30,6 @@ const PlayerSession = ({
   }, [audioExplanation, audioQuestion, content, setAudioSrc, setExpAudioSrc]);
 
   let render;
-  console.log(content);
-
   if (content.length > 1) {
     const currentSource = content[currentSourceIndex].substring(1);
     render = <ImageS3 source={currentSource} />;
