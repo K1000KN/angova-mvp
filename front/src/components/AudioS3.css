@@ -1,0 +1,13 @@
+.orangeTonalBtn {
+    background: #ffffff;
+    border-radius: 9px;
+    font-size: 18px;
+    color: #f49e4c;
+    width: 50px;
+    height: 40px;
+    max-width: 150px;
+    outline: none;
+    border: solid 1px #f49e4c;
+    cursor: pointer;
+  }
+  

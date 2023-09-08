@@ -28,7 +28,7 @@ s3.config.update({
 // }
 
 // Function to get an image from S3
-export async function getImageFromS3(key, bucketName) {
+export async function getAssetFromS3(key, bucketName) {
   try {
     const params = {
       Bucket: bucketName,

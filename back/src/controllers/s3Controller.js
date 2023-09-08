@@ -1,5 +1,5 @@
 // s3Controller.js
-import { getImageFromS3 } from "../services/s3Service.js";
+import { getAssetFromS3 } from "../services/s3Service.js";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -25,10 +25,10 @@ export async function getImage(req, res) {
   try {
     const bucketName = "assets-angova";
     const key = req.body.key;
-    const imageData = await getImageFromS3(key, bucketName);
+    const data = await getAssetFromS3(key, bucketName);
 
     // Convert the image data to a Base64 string
-    const base64String = imageData.toString("base64");
+    const base64String = data.toString("base64");
 
     // Set appropriate headers based on the image type
     // res.setHeader("Content-Type", "image/jpeg"); // Change to the appropriate image type as needed
@@ -36,7 +36,7 @@ export async function getImage(req, res) {
     // Send the Base64 string in the response
     res.send(base64String);
   } catch (error) {
-    console.error("Error getting image from S3:", error);
-    res.status(500).json({ message: "Failed to retrieve image" });
+    console.error("Error getting asset from S3:", error);
+    res.status(500).json({ message: "Failed to retrieve asset" });
   }
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ImageS3 from "./ImageS3";
-
+import AudioS3 from "./AudioS3";
+import Grid from "@mui/material/Grid";
 const PlayerSession = ({
   content,
   setAudioSrc,
@@ -32,16 +33,36 @@ const PlayerSession = ({
   let render;
   if (content.length > 1) {
     const currentSource = content[currentSourceIndex].substring(1);
-    render = <ImageS3 source={currentSource} />;
-
-    return <>{render}</>;
+    render = (
+      <>
+        <Grid>
+          <ImageS3 source={currentSource} />
+          {/* Render the AudioPlayer component with audioQuestion prop */}
+          <AudioS3 source={audioQuestion} />
+        </Grid>
+      </>
+    );
   } else {
     const currentSource = content[0].substring(1);
-
-    render = <ImageS3 source={currentSource} />;
-
-    return <>{render}</>;
+    render = (
+      <>
+        <Grid
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "flex-end",
+          }}
+        >
+          <ImageS3 source={currentSource} />
+          <br />
+          <AudioS3 source={audioQuestion} />
+        </Grid>
+      </>
+    );
   }
+
+  return <>{render}</>;
 };
 
 export default PlayerSession;
