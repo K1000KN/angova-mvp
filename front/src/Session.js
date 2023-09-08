@@ -28,6 +28,7 @@ import {
   processSessions,
   filterSessionsByLanguage,
 } from "./services/sessionService";
+import AudioS3 from "./components/AudioS3";
 
 const Session = () => {
   const { t } = useTranslation();
@@ -53,6 +54,9 @@ const Session = () => {
   const [audioSrc, setAudioSrc] = useState("");
   const [expAudioSrc, setExpAudioSrc] = useState("");
 
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+  const [isExpAudioPlaying, setIsExpAudioPlaying] = useState(false);
+
   const audioSources = {
     src: [audioSrc], // Remplacez par le chemin de votre fichier audio
     html5: true, // Active la lecture audio HTML5 pour la compatibilité avec Safari
@@ -61,15 +65,6 @@ const Session = () => {
     src: [expAudioSrc], // Remplacez par le chemin de votre fichier audio
     html5: true, // Active la lecture audio HTML5 pour la compatibilité avec Safari
   };
-  // const handleToggleAudio = () => {
-  //   setIsPlayingExp(false);
-  //   setIsPlaying(!isPlaying);
-  // };
-
-  // const handleToggleAudioExp = () => {
-  //   setIsPlaying(false);
-  //   setIsPlayingExp(!isPlayingExp);
-  // };
 
   const navigate = useNavigate();
   const theme = createTheme({
@@ -407,13 +402,15 @@ const Session = () => {
               </Grid>
 
               <Grid id="imgContainer" item xs={10}>
-                <PlayerSession
-                  content={assets.img}
-                  setAudioSrc={setAudioSrc}
-                  setExpAudioSrc={setExpAudioSrc}
-                  audioQuestion={assets.audio}
-                  audioExplanation={assets.explanation}
-                />
+                <div>
+                  <PlayerSession
+                    content={assets.img}
+                    setAudioSrc={setAudioSrc}
+                    setExpAudioSrc={setExpAudioSrc}
+                    audioQuestion={assets.audio}
+                    audioExplanation={assets.explanation}
+                  />
+                </div>
               </Grid>
               <Grid item xs={12} id="quizContainer">
                 {questions && questions.length > 1 ? (
@@ -668,6 +665,8 @@ const Session = () => {
                 console.error("Erreur de chargement", error)
               }
             /> */}
+
+            <AudioS3 source={assets.explanation} />
             <button
               onClick={closeExplanationDialogAndNext}
               className={classes.orangeBtn}

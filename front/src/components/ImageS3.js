@@ -3,6 +3,7 @@ import axios from "axios";
 import CircularProgress from "@mui/material/CircularProgress";
 import CardMedia from "@mui/material/CardMedia";
 import "./ImageS3.css";
+import Card from "@mui/material/Card";
 const ImageS3 = ({ source }) => {
   const [imageUrl, setImageUrl] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -33,17 +34,19 @@ const ImageS3 = ({ source }) => {
           <CircularProgress size={50} />
         </div>
       ) : (
-        <CardMedia
-          component="img"
-          height="100%"
-          src={imageUrl ?? "./images/placeholder.png"}
-          alt="session"
-          style={{
-            cursor: "pointer",
-            height: imageUrl ? "100%" : "100px",
-            transition: "all 0.2s ease",
-          }}
-        />
+        <Card className="card">
+          <CardMedia
+            component="img"
+            height="100%"
+            src={imageUrl ?? "./images/placeholder.png"}
+            alt="session"
+            style={{
+              cursor: "pointer",
+              height: imageUrl ? "100%" : "100px",
+              transition: "all 0.2s ease",
+            }}
+          />
+        </Card>
       )}
     </div>
   );
