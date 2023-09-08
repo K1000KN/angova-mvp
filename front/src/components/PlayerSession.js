@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ImageS3 from "./ImageS3";
 
-var PlayerSession = ({
+const PlayerSession = ({
   content,
   setAudioSrc,
   setExpAudioSrc,
@@ -14,6 +14,8 @@ var PlayerSession = ({
     let intervalId;
     setAudioSrc(audioQuestion);
     setExpAudioSrc(audioExplanation);
+
+    // Check if content has more than one element
     if (content.length > 1) {
       intervalId = setInterval(() => {
         setCurrentSourceIndex((prevIndex) => (prevIndex === 0 ? 1 : 0));
@@ -23,18 +25,25 @@ var PlayerSession = ({
     }
 
     return () => {
-      clearInterval(intervalId);
+      clearInterval(intervalId); // Clear the interval when the component unmounts
     };
   }, [audioExplanation, audioQuestion, content, setAudioSrc, setExpAudioSrc]);
 
   let render;
+  console.log(content);
 
-  const currentSource = content.substring(1);
+  if (content.length > 1) {
+    const currentSource = content[currentSourceIndex].substring(1);
+    render = <ImageS3 source={currentSource} />;
 
-  render = <ImageS3 source={currentSource} />;
-  // render = <img className="imgResponsive" alt="road" src={currentSource} />;
+    return <>{render}</>;
+  } else {
+    const currentSource = content[0].substring(1);
 
-  return <>{render}</>;
+    render = <ImageS3 source={currentSource} />;
+
+    return <>{render}</>;
+  }
 };
 
 export default PlayerSession;

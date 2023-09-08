@@ -27,7 +27,7 @@ import { useTranslation } from "react-i18next";
 import { processSessions } from "./services/sessionService";
 
 function Home() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const franceRoundedFlag = "./images/flag/rounded/france.png";
   const englishRoundedFlag = "./images/flag/rounded/uk.png";
   const algeriaRoundedFlag = "./images/flag/rounded/algeria.png";
@@ -120,6 +120,7 @@ function Home() {
     }
   };
   const createLanguageSessionData = (language, jsonData) => {
+    
     return jsonData.map((session) => {
       return {
         id: session.id,
@@ -139,6 +140,7 @@ function Home() {
 
   switch (selectedLanguage) {
     case "fr":
+      
       sessions.push(...processSessions(sessionFR, batchSize, t));
       break;
     case "es":
@@ -148,7 +150,10 @@ function Home() {
       sessions.push(...processSessions(sessionEN, batchSize, t));
       break;
     case "ma":
+     
       sessions.push(...processSessions(sessionMA, batchSize, t));
+    
+     
       break;
     default:
       // Default case if the language doesn't match any of the above
@@ -182,6 +187,7 @@ function Home() {
   const setLanguage = (language) => {
     localStorage.setItem("language", language);
     localStorage.setItem("hasChoosenLanguage", true);
+    i18n.changeLanguage(language);
     handleClose();
   };
   const [hoveredCard, setHoveredCard] = useState(null);
@@ -206,7 +212,8 @@ function Home() {
     const handleMouseLeave = () => {
       setLanguageVisible(false);
     };
-
+    
+    
     return (
       <Grid
         item
@@ -231,7 +238,7 @@ function Home() {
             isLanguageVisible ? classes.languageTextVisible : ""
           }`}
         >
-          {language}
+          {t(language)}
         </div>
       </Grid>
     );
@@ -279,13 +286,21 @@ function Home() {
         className="languageNavImg"
         onClick={() => {
           setShow(true);
+         
         }}
         src={src}
         alt={language}
       />
     );
   };
+  let displayedSessions = sessions; // Par défaut, toutes les sessions sont affichées
 
+  //if (selectedLanguage === "ma") {
+    // Si la langue sélectionnée est "ma", limitez à 3 sessions
+    displayedSessions = sessions.slice(0, 3);
+  // }else{
+
+  // }
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -312,7 +327,7 @@ function Home() {
                 alt=""
                 style={{ width: 40, marginRight: 15 }}
               />
-              <span className="btn-section-title">{t("code-de-la-route")}</span>
+              <span className="btn-section-title">{t("codeRoute")}</span>
             </button>
 
             <button
@@ -333,7 +348,7 @@ function Home() {
           {component === "sessionCode" && (
             <ListSession
               classes={classes}
-              sessions={sessions}
+              sessions={displayedSessions}
               navigate={navigate}
               handleHover={handleHover}
               hoveredCard={hoveredCard}

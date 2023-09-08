@@ -170,67 +170,35 @@ function generateRandomCode(length) {
   return code;
 }
 
-export const resetPassword = async (req, res) => {
+export const resetPasswordUser = async (req, res) => {
   try {
-    const { email } = req.body;
-    const user = await User.findOne({ email });
+    const { id } = req.params;
+    const { password, newPassword, confirmPassword } = req.body;
 
+    if (newPassword !== confirmPassword) {
+      return res.status(400).send({ message: "Passwords do not match" });
+    }
+
+    const user = await User.findById(id);
     if (!user) {
-      return res.status(404).send({ message: "User not found" });
+      return res.status(404).send({ message: "Manager not found" });
     }
-
-    const code = generateRandomCode(6);
-
-    // Store the code in the user object or any other desired location
-    user.resetCode = code;
-    await user.save();
-
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: emailSender,
-        pass: emailPassword,
-      },
-    });
-
-    const mailOptions = {
-      from: emailSender,
-      to: user.email,
-      subject: "Password Reset",
-      text: `Your password reset code is: ${code}`,
-    };
-
-    await transporter.sendMail(mailOptions);
-
-    res.status(200).send({ message: "Password reset code sent successfully" });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send({ message: "Failed to send password reset code" });
-  }
-};
-
-export const verifyResetPassword = async (req, res) => {
-  try {
-    const { email, code, password } = req.body;
-    const user = await User.findOne({ email });
-
-    if (!user) {
-      return res.status(404).send({ message: "User not found" });
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+ 
+    if (!isPasswordValid) {
+      return res.status(401).send({ message: "Invalid password" });
     }
-
-    // Verify the code against the stored code
-    if (code !== user.resetCode) {
-      return res.status(400).send({ message: "Invalid verification code" });
-    }
+    // Hash the new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
 
     // Update the user's password
-    user.password = password;
+    user.password = hashedPassword;
     await user.save();
 
-    res.status(200).send({ message: "Password reset successful" });
+    res.status(200).send({ message: "Password updated" });
   } catch (err) {
     console.error(err);
-    res.status(500).send({ message: "Failed to verify password reset" });
+    res.status(500).send({ message: "Failed to update password" });
   }
 };
 

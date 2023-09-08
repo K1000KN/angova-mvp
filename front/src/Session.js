@@ -4,11 +4,11 @@ import "./session.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Button, Grid } from "@mui/material";
-
 import ProgressBar from "./components/ProgressBar";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { VolumeUp, VolumeOff } from "@mui/icons-material";
+import ReactHowler from 'react-howler';
 import {
   Dialog,
   DialogContent,
@@ -22,7 +22,7 @@ import { useTranslation } from "react-i18next";
 
 import jsonDataFr from "./data/content_fr.json";
 import jsonDataEs from "./data/content_es.json";
-import jsonDataEn from "./data/content_en.json";
+//import jsonDataEn from "./data/content_en.json";
 import jsonDataMa from "./data/content_fr.json";
 import {
   processSessions,
@@ -46,37 +46,32 @@ const Session = () => {
   });
 
   const [showExplanation, setShowExplanation] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(true);
+
+  // GESTION DES AUDIOS
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlayingExp, setIsPlayingExp] = useState(false);
   const [audioSrc, setAudioSrc] = useState("");
   const [expAudioSrc, setExpAudioSrc] = useState("");
-  const [isPlayingExp, setIsPlayingExp] = useState(false);
 
-  useEffect(() => {
-    if (isPlaying && isPlayingExp === false) {
-      var audio = new Audio(audioSrc);
-      console.log("audioSrc", audioSrc);
-      audio.play().catch((error) => {
-        console.error("Error autoplaying audio:", error);
-        setIsPlaying(false);
-      });
-      return () => {
-        audio.pause();
-        audio.currentTime = 0;
-      };
-    }
-    if (isPlayingExp && isPlaying === false) {
-      var audioExp = new Audio(expAudioSrc);
-      audioExp.play().catch((error) => {
-        console.error("Error autoplaying audio:", error);
-        setIsPlayingExp(false);
-      });
-      return () => {
-        audioExp.pause();
-        audioExp.currentTime = 0;
-      };
-    }
-  }, [activeQuestion, isPlaying, audioSrc, isPlayingExp, expAudioSrc]);
+  const audioSources = {
+    src: [audioSrc], // Remplacez par le chemin de votre fichier audio
+    html5: true, // Active la lecture audio HTML5 pour la compatibilité avec Safari
+  };
+  const expAudioSources = {
+    src: [expAudioSrc], // Remplacez par le chemin de votre fichier audio
+    html5: true, // Active la lecture audio HTML5 pour la compatibilité avec Safari
+  };
+  const handleToggleAudio = () => {
+    setIsPlayingExp(false);
+    setIsPlaying(!isPlaying);
+  };
 
+  const handleToggleAudioExp = () => {
+    setIsPlaying(false);
+    setIsPlayingExp(!isPlayingExp);
+  };
+
+  
   const navigate = useNavigate();
   const theme = createTheme({
     typography: {
@@ -147,8 +142,7 @@ const Session = () => {
     setShowExplanation,
     setResult
   ) => {
-    console.log("indices", indices);
-    console.log("correctAnswer", correctAnswer);
+
     const isCorrect = arraysEqual(indices, correctAnswer);
 
     if (isCorrect) {
@@ -182,8 +176,20 @@ const Session = () => {
 
     return true;
   };
+
   const createSessionData = (language, jsonData) => {
     return jsonData.map((session) => {
+      const imgPaths = [];
+      
+      if (session.multiple && session.multiple === true) {
+        // Si session.multiple existe et est true
+        imgPaths.push(`/session/q${session.id}/q${session.id}_1.jpeg`);
+        imgPaths.push(`/session/q${session.id}/q${session.id}_2.jpeg`);
+      } else {
+        // Si session.multiple n'existe pas ou est false
+        imgPaths.push(`/session/q${session.id}/q${session.id}.jpeg`);
+      }
+      
       return {
         id: session.id,
         language: language,
@@ -192,7 +198,7 @@ const Session = () => {
         correctAnswer: session.correctAnswer,
         explanation: session.explanation,
         assets: {
-          img: `/session/q${session.id}/q${session.id}.jpeg`,
+          img: imgPaths,
           audio: `/session/q${session.id}/${language}/q${session.id}.mp3`,
           explanation: `/session/q${session.id}/${language}/exp${session.id}.mp3`,
         },
@@ -202,7 +208,6 @@ const Session = () => {
 
   const sessionFR = createSessionData("fr", jsonDataFr);
   const sessionES = createSessionData("es", jsonDataEs);
-  const sessionEN = createSessionData("en", jsonDataEn);
   const sessionMA = createSessionData("ma", jsonDataMa);
   const batchSize = 40;
   const sessions = [];
@@ -215,9 +220,9 @@ const Session = () => {
     case "es":
       sessions.push(...processSessions(sessionES, batchSize, t));
       break;
-    case "en":
-      sessions.push(...processSessions(sessionEN, batchSize, t));
-      break;
+    // case "en":
+    //   sessions.push(...processSessions(sessionEN, batchSize, t));
+    //   break;
     case "ma":
       sessions.push(...processSessions(sessionMA, batchSize, t));
       break;
@@ -229,9 +234,7 @@ const Session = () => {
       break;
     // ... cases for other languages ...
     default:
-      console.log("default");
-      console.log("selectedLanguage", selectedLanguage);
-      console.log("sessions", sessions);
+      
       break;
   }
 
@@ -244,7 +247,7 @@ const Session = () => {
   };
 
   const sessionData = getSessionData(id);
-
+  
   // Handle invalid session ID or language not supported
   if (!sessionData) {
     return (
@@ -281,14 +284,14 @@ const Session = () => {
             marginBottom: "40px",
           }}
         >
-          Coming Soon
+          Arrive bientot
         </Typography>
         <Button
           variant="contained"
           color="primary"
           onClick={() => navigate("/home")}
         >
-          Go Back
+          Retourner en arrière
         </Button>
       </div>
     );
@@ -324,7 +327,6 @@ const Session = () => {
       setSelectedAnswerIndex(null);
       setShowExplanation(false); // Hide the explanation
     } else {
-      console.log("Quiz completed!");
       setActiveQuestion(0);
       setShowResult(true);
     }
@@ -360,14 +362,8 @@ const Session = () => {
     onClickNext();
   };
 
-  const handleToggleAudio = () => {
-    setIsPlayingExp(false);
-    setIsPlaying(!isPlaying);
-  };
-  const handleToggleAudioExp = () => {
-    setIsPlaying(false);
-    setIsPlayingExp(!isPlayingExp);
-  };
+  
+
 
   const handleClose = () => {
     setOpenDialog(false);
@@ -424,17 +420,22 @@ const Session = () => {
                   audioQuestion={assets.audio}
                   audioExplanation={assets.explanation}
                 />
+                
               </Grid>
               <Grid item xs={12} id="quizContainer">
                 <div style={{ width: "100%", paddingLeft: "94%" }}>
-                  <button
-                    className={classes.orangeTonalBtn}
-                    onClick={handleToggleAudio}
-                  >
-                    {" "}
+                  <button className={classes.orangeTonalBtn} onClick={handleToggleAudio}>
                     {!isPlaying ? <VolumeOff /> : <VolumeUp />}
                   </button>
                 </div>
+                <ReactHowler
+                  {...audioSources}
+                  playing={isPlaying}
+                  onPlay={() => console.log('Lecture en cours')}
+                  onPause={() => console.log('Pause')}
+                  onStop={() => console.log('Arrêt')}
+                  onLoadError={(id, error) => console.error('Erreur de chargement', error)}
+                />
                 {questions && questions.length > 1 ? (
                   <>
                     <Typography variant="h6" id="questionQuizz">
@@ -676,7 +677,16 @@ const Session = () => {
               className={classes.orangeTonalBtn}
             >
               {!isPlayingExp ? <VolumeOff /> : <VolumeUp />}
+
             </button>
+            <ReactHowler
+              {...expAudioSources}
+              playing={isPlayingExp}
+              onPlay={() => console.log('Lecture en cours')}
+              onPause={() => console.log('Pause')}
+              onStop={() => console.log('Arrêt')}
+              onLoadError={(id, error) => console.error('Erreur de chargement', error)}
+            />
             <button
               onClick={closeExplanationDialogAndNext}
               className={classes.orangeBtn}

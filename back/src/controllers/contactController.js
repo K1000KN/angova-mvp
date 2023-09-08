@@ -1,8 +1,8 @@
 import sgMail from '@sendgrid/mail';
 
-// const emailSecretKey = process.env.API_SENDGRID;
+ const emailSecretKey = process.env.API_SENDGRID;
 
-sgMail.setApiKey('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');
+sgMail.setApiKey(emailSecretKey);
 
 /// fonction pour log les users
 /// return auth & role

@@ -74,8 +74,7 @@ const NewUserForm = ({ open, handleClose }) => {
       .min(8, `${t("password-input-verif")}`)
       .matches(
         passwordRegExp,
-        "Password must have one upper, lower case, number"
-      )
+        `${t("password-input-regex")}`)
       .required("Requis"),
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password")], "Mots de passe ne correspondent pas")
@@ -179,7 +178,6 @@ const NewUserForm = ({ open, handleClose }) => {
         handleClose();
         window.location.reload();
       } else {
-        console.log(response);
        
       }
 

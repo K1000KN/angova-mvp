@@ -1,4 +1,11 @@
 {
+    "fr": "Français",
+    "en": "Anglais",
+    "es": "Espagnol",
+    "dz": "Algérien",
+    "ma": "Marocain",
+    "tr": "Turc",
+    "tn": "Tunisien",
     "popup": "Langue du site :",
     "lgn1": "Francais",
     "lgn2": "Arabe",
@@ -31,11 +38,13 @@
     "input-form-password": "Mot de passe",
     "input-form-confirm-password": "Confirmation du mot de passe",
     "input-form-Fname": "Prénom",
+    "input-form-mail": "Email",
+    "input-form-auto-name": "Nom de l'auto-école",
     "input-form-Lname": "Nom",
     "register-title": "Inscription",
-    "register-button": "S'inscrire",
+    "register-button": "Envoyer",
     "video-title": "Session code n°1",
-    "register-content": "Pour vous inscrire, contactez-nous par mail ou par téléphone.",
+    "register-content": "En vu du nombre important de demande, merci de vous inscrire sur notre liste d'attente.",
     "footer-1": "Code de la route .",
     "footer-2": " Ce que nous faisons .",
     "footer-3": " Contactez-nous",
@@ -48,6 +57,10 @@
     "finir": "Finir",
     "valider": "Valider",
     "explications": "Explications",
-    "code-de-la-route": "Code de la route",
-    "choisir-la-langue-du-code-de-la-route": "Choisir la langue du code de la route"
+    "codeRoute": "Code de la route",
+    "choisir-la-langue-du-code-de-la-route": "Choisir la langue du code de la route",
+    "mdp-not-correspond": "Les mots de passe ne correspondent pas",
+    "password-input-regex": "Le mot de passe doit contenir un chiffre majuscule et minuscule."
+
+
 }

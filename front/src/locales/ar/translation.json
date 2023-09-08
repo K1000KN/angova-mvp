@@ -1,4 +1,11 @@
 {
+    "fr": "فرنسي",
+    "en": "إنجليزي",
+    "es": "الأسبانية",
+    "dz": "جزائري",
+    "ma": "مغربي",
+    "tr": "اللغة التركية",
+    "tn": "تونسي",
     "popup": "لغة الموقع:",
     "lgn1": "الفرنسية",
     "lgn2": "العربية",
@@ -31,10 +38,12 @@
     "input-form-confirm-password": "تأكيد كلمة المرور",
     "input-form-Fname": "الاسم الأول",
     "input-form-Lname": "الاسم الأخير",
+    "input-form-mail": "بريد إلكتروني",
+    "input-form-auto-name": "اسم مدرسة تعليم القيادة",
     "register-title": "التسجيل",
-    "register-button": "التسجيل",
+    "register-button": "يرسل",
     "video-title": "جلسة رمز رقم 1",
-    "register-content": "للتسجيل، اتصل بنا على ",
+    "register-content": "نظرا للعدد الكبير من الطلبات، يرجى التسجيل في قائمة الانتظار لدينا. ",
     "footer-1": "قواعد المرور .",
     "footer-2": " ما نقوم به .",
     "footer-3": " اتصل بنا",
@@ -47,6 +56,8 @@
     "finir": "إنهاء",
     "valider": "والتحقق",
     "explications": "الشرح",
-    "code-de-la-route": "قانون الطرق",
-    "choisir-la-langue-du-code-de-la-route": "اختر لغة قانون الطرق"
+    "codeRoute": "قانون الطرق",
+    "choisir-la-langue-du-code-de-la-route": "اختر لغة قانون الطرق",
+    "mdp-not-correspond": "كلمة المرور غير مطابقة",
+    "password-input-regex": "يجب أن تحتوي كلمة المرور على أرقام كبيرة وصغيرة."
 }

@@ -80,7 +80,8 @@
         ],
         "explanation": [
             "¿Por qué la persona detrás de mí está parpadeando sus faros?    Para que acelere. Me acerco a una curva peligrosa. A pesar de la presión del conductor de detrás, reduzco la velocidad para tomar la curva con seguridad."
-        ]
+        ],
+        "multiple": true
     },
     {
         "id": 6,
@@ -594,7 +595,8 @@
         ],
         "explanation": [
             "¿Qué indican las señales? Las flechas luminosas situadas sobre los carriles indican qué carriles están abiertos y cuáles están cerrados al tráfico. La flecha naranja indica que el carril de la derecha estará cerrado al tráfico. Y debo circular por el carril situado más a la derecha de mi sentido de la marcha. Permaneceré en el carril central."
-        ]
+        ],
+        "multiple": true
     },
     {
         "id": 35,
@@ -695,7 +697,8 @@
         ],
         "explanation": [
             "¿Qué debo hacer al cambiar de dirección? Advertir a los demás usuarios de la carretera. Adaptar la velocidad y colocarme en la posición correcta. Encender los intermitentes de la izquierda para señalar mi intención de cambiar de dirección a la persona que viene detrás de mí."
-        ]
+        ],
+        "multiple": true
     },
     {
         "id": 41,
@@ -1125,7 +1128,8 @@
         ],
         "explanation": [
             "¿Qué ocurre? El vehículo que me precede indica su intención de girar a la izquierda. Y un peatón a la derecha indica su intención de cruzar. Me detengo para dejar cruzar al peatón. Mientras tanto, el vehículo de delante puede maniobrar con seguridad."
-        ]
+        ],
+        "multiple": true
     },
     {
         "id": 64,
@@ -1438,7 +1442,8 @@
         ],
         "explanation": [
             "¿Cuál es la función de los vehículos quitanieves? Hacen más seguro el tráfico cuando la carretera está intransitable. Permanezco detrás del vehículo, respetando la distancia de seguridad."
-        ]
+        ],
+        "multiple": true
     },
     {
         "id": 81,

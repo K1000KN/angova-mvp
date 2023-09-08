@@ -76,7 +76,6 @@ const EditForm = ({ open, handleClose, userId, fetchUsers, user }) => {
           },
         }
       );
-      console.log("Status: ", response.status);
       handleClose();
       fetchUsers();
     } catch (error) {

@@ -7,10 +7,13 @@
     src: local('Raleway'), url("./fonts/Raleway-Light.ttf") format('truetype');;
 };
 
-
+body {
+    padding-bottom: env(safe-area-inset-bottom);
+    
+}
 
 span{
-    font-family: 'Raleway' !important;
+    font-family: 'IgraSans' !important;
 }
 .barItem {
     color:"#000" ;
@@ -173,14 +176,15 @@ button {
     justify-content: center !important;
 }
 
-/* .bottomNav{
+.bottomNav{
     position: -webkit-fixed;
     position: fixed;
     bottom: 0;
     width:100vw ; 
     border-top: 2px solid #dcdcdc;
     height: 58px !important;
-} */
+    font-family: 'IgraSans' !important;
+}
 .displayNavBott{
     display: none !important;
 }
@@ -358,7 +362,7 @@ button {
     .displayNavBott{
         display: flex !important;
         justify-content: center;
-        height: 100px!important;
+        height: 60px!important;
         background-color: #ffffff;
         position: fixed;
         width: -webkit-fill-available;
