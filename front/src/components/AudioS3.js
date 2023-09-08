@@ -1,39 +1,45 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import axios from "axios";
 import ReactHowler from "react-howler";
 import { VolumeOff, VolumeUp } from "@mui/icons-material";
 import "./AudioS3.css";
+const reactApiUrl = process.env.REACT_APP_API_URL;
 
 const AudioS3 = ({ source }) => {
   const [audioUrl, setAudioUrl] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
   const soundRef = useRef(null);
-  const reactApiUrl = process.env.REACT_APP_API_URL;
   source = source.substring(1);
 
-  useEffect(() => {
-    const fetchAudio = async () => {
-      try {
-        setIsPlaying(false); // Set isPlaying to false when audio is being fetched
-        const response = await axios.post(reactApiUrl + "/s3", {
-          key: source,
-        });
-        const audioData = response.data;
-        setAudioUrl(`data:audio/mpeg;base64,${audioData}`);
-      } catch (error) {
-        console.error("Error fetching audio from S3:", error);
-        setAudioUrl(null);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  const fetchAudio = async () => {
+    try {
+      const response = await axios.post(reactApiUrl + "/s3", {
+        key: source,
+      });
+      const audioData = response.data;
+      setAudioUrl(`data:audio/mpeg;base64,${audioData}`);
+    } catch (error) {
+      console.error("Error fetching audio from S3:", error);
+      setAudioUrl(null);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-    fetchAudio();
-  }, [source]);
+  fetchAudio();
 
   const handleToggleAudio = () => {
-    setIsPlaying(!isPlaying);
+    if (soundRef.current) {
+      if (isPlaying) {
+        // Pause the audio
+        soundRef.current.pause();
+      } else {
+        // Play the audio
+        soundRef.current.play();
+      }
+      setIsPlaying(!isPlaying); // Toggle the state
+    }
   };
 
   const handlePause = () => {

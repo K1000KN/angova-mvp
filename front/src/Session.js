@@ -7,8 +7,6 @@ import { Button, Grid } from "@mui/material";
 import ProgressBar from "./components/ProgressBar";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { VolumeUp, VolumeOff } from "@mui/icons-material";
-import ReactHowler from "react-howler";
 import {
   Dialog,
   DialogContent,
@@ -49,13 +47,10 @@ const Session = () => {
   const [showExplanation, setShowExplanation] = useState(false);
 
   // GESTION DES AUDIOS
-  // const [isPlaying, setIsPlaying] = useState(false);
-  // const [isPlayingExp, setIsPlayingExp] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlayingExp, setIsPlayingExp] = useState(false);
   const [audioSrc, setAudioSrc] = useState("");
   const [expAudioSrc, setExpAudioSrc] = useState("");
-
-  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
-  const [isExpAudioPlaying, setIsExpAudioPlaying] = useState(false);
 
   const audioSources = {
     src: [audioSrc], // Remplacez par le chemin de votre fichier audio
@@ -64,6 +59,15 @@ const Session = () => {
   const expAudioSources = {
     src: [expAudioSrc], // Remplacez par le chemin de votre fichier audio
     html5: true, // Active la lecture audio HTML5 pour la compatibilité avec Safari
+  };
+  const handleToggleAudio = () => {
+    setIsPlayingExp(false);
+    setIsPlaying(!isPlaying);
+  };
+
+  const handleToggleAudioExp = () => {
+    setIsPlaying(false);
+    setIsPlayingExp(!isPlayingExp);
   };
 
   const navigate = useNavigate();
@@ -403,13 +407,18 @@ const Session = () => {
 
               <Grid id="imgContainer" item xs={10}>
                 <div>
-                  <PlayerSession
-                    content={assets.img}
-                    setAudioSrc={setAudioSrc}
-                    setExpAudioSrc={setExpAudioSrc}
-                    audioQuestion={assets.audio}
-                    audioExplanation={assets.explanation}
-                  />
+                  <Grid
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "flex-end",
+                    }}
+                  >
+                    <PlayerSession content={assets.img} />
+                    <br />
+                    <AudioS3 source={assets.audio} />
+                  </Grid>
                 </div>
               </Grid>
               <Grid item xs={12} id="quizContainer">
@@ -649,23 +658,6 @@ const Session = () => {
           </DialogTitle>
           <DialogContent>{explanation}</DialogContent>
           <DialogActions>
-            {/* <button
-              onClick={handleToggleAudioExp}
-              className={classes.orangeTonalBtn}
-            >
-              {!isPlayingExp ? <VolumeOff /> : <VolumeUp />}
-            </button> */}
-            {/* <ReactHowler
-              {...expAudioSources}
-              playing={isPlayingExp}
-              onPlay={() => console.log("Lecture en cours")}
-              onPause={() => console.log("Pause")}
-              onStop={() => console.log("Arrêt")}
-              onLoadError={(id, error) =>
-                console.error("Erreur de chargement", error)
-              }
-            /> */}
-
             <AudioS3 source={assets.explanation} />
             <button
               onClick={closeExplanationDialogAndNext}
