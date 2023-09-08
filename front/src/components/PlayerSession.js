@@ -37,8 +37,7 @@ const PlayerSession = ({
       <>
         <Grid>
           <ImageS3 source={currentSource} />
-          {/* Render the AudioPlayer component with audioQuestion prop */}
-          <AudioS3 source={audioQuestion} />
+          <AudioS3 source={audioQuestion} expSource={audioExplanation} />
         </Grid>
       </>
     );
@@ -56,7 +55,7 @@ const PlayerSession = ({
         >
           <ImageS3 source={currentSource} />
           <br />
-          <AudioS3 source={audioQuestion} />
+          <AudioS3 source={audioQuestion} expSource={audioExplanation} />
         </Grid>
       </>
     );

@@ -8,7 +8,7 @@ import ProgressBar from "./components/ProgressBar";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { VolumeUp, VolumeOff } from "@mui/icons-material";
-import ReactHowler from 'react-howler';
+import ReactHowler from "react-howler";
 import {
   Dialog,
   DialogContent,
@@ -48,8 +48,8 @@ const Session = () => {
   const [showExplanation, setShowExplanation] = useState(false);
 
   // GESTION DES AUDIOS
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isPlayingExp, setIsPlayingExp] = useState(false);
+  // const [isPlaying, setIsPlaying] = useState(false);
+  // const [isPlayingExp, setIsPlayingExp] = useState(false);
   const [audioSrc, setAudioSrc] = useState("");
   const [expAudioSrc, setExpAudioSrc] = useState("");
 
@@ -61,17 +61,16 @@ const Session = () => {
     src: [expAudioSrc], // Remplacez par le chemin de votre fichier audio
     html5: true, // Active la lecture audio HTML5 pour la compatibilité avec Safari
   };
-  const handleToggleAudio = () => {
-    setIsPlayingExp(false);
-    setIsPlaying(!isPlaying);
-  };
+  // const handleToggleAudio = () => {
+  //   setIsPlayingExp(false);
+  //   setIsPlaying(!isPlaying);
+  // };
 
-  const handleToggleAudioExp = () => {
-    setIsPlaying(false);
-    setIsPlayingExp(!isPlayingExp);
-  };
+  // const handleToggleAudioExp = () => {
+  //   setIsPlaying(false);
+  //   setIsPlayingExp(!isPlayingExp);
+  // };
 
-  
   const navigate = useNavigate();
   const theme = createTheme({
     typography: {
@@ -142,7 +141,6 @@ const Session = () => {
     setShowExplanation,
     setResult
   ) => {
-
     const isCorrect = arraysEqual(indices, correctAnswer);
 
     if (isCorrect) {
@@ -180,7 +178,7 @@ const Session = () => {
   const createSessionData = (language, jsonData) => {
     return jsonData.map((session) => {
       const imgPaths = [];
-      
+
       if (session.multiple && session.multiple === true) {
         // Si session.multiple existe et est true
         imgPaths.push(`/session/q${session.id}/q${session.id}_1.jpeg`);
@@ -189,7 +187,7 @@ const Session = () => {
         // Si session.multiple n'existe pas ou est false
         imgPaths.push(`/session/q${session.id}/q${session.id}.jpeg`);
       }
-      
+
       return {
         id: session.id,
         language: language,
@@ -234,7 +232,6 @@ const Session = () => {
       break;
     // ... cases for other languages ...
     default:
-      
       break;
   }
 
@@ -247,7 +244,7 @@ const Session = () => {
   };
 
   const sessionData = getSessionData(id);
-  
+
   // Handle invalid session ID or language not supported
   if (!sessionData) {
     return (
@@ -362,9 +359,6 @@ const Session = () => {
     onClickNext();
   };
 
-  
-
-
   const handleClose = () => {
     setOpenDialog(false);
   };
@@ -420,22 +414,8 @@ const Session = () => {
                   audioQuestion={assets.audio}
                   audioExplanation={assets.explanation}
                 />
-                
               </Grid>
               <Grid item xs={12} id="quizContainer">
-                <div style={{ width: "100%", paddingLeft: "94%" }}>
-                  <button className={classes.orangeTonalBtn} onClick={handleToggleAudio}>
-                    {!isPlaying ? <VolumeOff /> : <VolumeUp />}
-                  </button>
-                </div>
-                <ReactHowler
-                  {...audioSources}
-                  playing={isPlaying}
-                  onPlay={() => console.log('Lecture en cours')}
-                  onPause={() => console.log('Pause')}
-                  onStop={() => console.log('Arrêt')}
-                  onLoadError={(id, error) => console.error('Erreur de chargement', error)}
-                />
                 {questions && questions.length > 1 ? (
                   <>
                     <Typography variant="h6" id="questionQuizz">
@@ -672,21 +652,22 @@ const Session = () => {
           </DialogTitle>
           <DialogContent>{explanation}</DialogContent>
           <DialogActions>
-            <button
+            {/* <button
               onClick={handleToggleAudioExp}
               className={classes.orangeTonalBtn}
             >
               {!isPlayingExp ? <VolumeOff /> : <VolumeUp />}
-
-            </button>
-            <ReactHowler
+            </button> */}
+            {/* <ReactHowler
               {...expAudioSources}
               playing={isPlayingExp}
-              onPlay={() => console.log('Lecture en cours')}
-              onPause={() => console.log('Pause')}
-              onStop={() => console.log('Arrêt')}
-              onLoadError={(id, error) => console.error('Erreur de chargement', error)}
-            />
+              onPlay={() => console.log("Lecture en cours")}
+              onPause={() => console.log("Pause")}
+              onStop={() => console.log("Arrêt")}
+              onLoadError={(id, error) =>
+                console.error("Erreur de chargement", error)
+              }
+            /> */}
             <button
               onClick={closeExplanationDialogAndNext}
               className={classes.orangeBtn}

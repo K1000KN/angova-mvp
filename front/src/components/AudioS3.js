@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import CircularProgress from "@mui/material/CircularProgress";
 import ReactHowler from "react-howler";
-import { VolumeOff, VolumeUp } from "@mui/icons-material"; // Import VolumeOff and VolumeUp icons
-import "./AudioS3.css";
+import { VolumeOff, VolumeUp } from "@mui/icons-material";
 
-const AudioPlayer = ({ source }) => {
+const AudioS3 = ({ source, expSource }) => {
   const [audioUrl, setAudioUrl] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(false); // State for audio playback
+  const [isPlaying, setIsPlaying] = useState(false);
   source = source.substring(1);
 
   useEffect(() => {
@@ -31,7 +30,7 @@ const AudioPlayer = ({ source }) => {
   }, [source]);
 
   const handleToggleAudio = () => {
-    setIsPlaying(!isPlaying); // Toggle audio playback
+    setIsPlaying(!isPlaying);
   };
 
   return (
@@ -41,7 +40,7 @@ const AudioPlayer = ({ source }) => {
           <CircularProgress size={50} />
         </div>
       ) : (
-        <div className="audio-player">
+        <>
           <ReactHowler
             src={audioUrl}
             playing={isPlaying}
@@ -52,20 +51,13 @@ const AudioPlayer = ({ source }) => {
               console.error("Erreur de chargement", error)
             }
           />
-
-          <button
-            className={"orangeTonalBtn"}
-            onClick={handleToggleAudio}
-            style={{
-              marginRight: "30px",
-            }}
-          >
+          <button className={"orangeTonalBtn"} onClick={handleToggleAudio}>
             {!isPlaying ? <VolumeOff /> : <VolumeUp />}
           </button>
-        </div>
+        </>
       )}
     </>
   );
 };
 
-export default AudioPlayer;
+export default AudioS3;
