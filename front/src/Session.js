@@ -47,8 +47,6 @@ const Session = () => {
   const [showExplanation, setShowExplanation] = useState(false);
 
   // GESTION DES AUDIOS
-  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
-
   const [activeSource, setActiveSource] = useState(null);
 
   const handleAudioToggle = (source) => {
@@ -58,7 +56,7 @@ const Session = () => {
     }
     // Set the currently active source
     setActiveSource(source);
-  };  
+  };
 
   const navigate = useNavigate();
   const theme = createTheme({
@@ -207,9 +205,9 @@ const Session = () => {
     case "es":
       sessions.push(...processSessions(sessionES, batchSize, t));
       break;
-    // case "en":
-    //   sessions.push(...processSessions(sessionEN, batchSize, t));
-    //   break;
+    case "en":
+      //   sessions.push(...processSessions(sessionEN, batchSize, t));
+      break;
     case "ma":
       sessions.push(...processSessions(sessionMA, batchSize, t));
       break;
@@ -401,24 +399,22 @@ const Session = () => {
                 }}
               >
                 <ImageSessionHandler content={assets.img} />
-                <Grid item xs={10}>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "flex-end",
-                      alignItems: "flex-end",
-                    }}
-                  >
-                    <AudioS3
-                      source={assets.audio}
-                      onAudioToggle={handleAudioToggle}
-                      activeSource={activeSource}
-                    />
-                  </div>
-                </Grid>
               </div>
 
               <Grid item xs={12} id="quizContainer">
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    alignItems: "flex-end",
+                  }}
+                >
+                  <AudioS3
+                    source={assets.audio}
+                    onAudioToggle={handleAudioToggle}
+                    activeSource={activeSource}
+                  />
+                </div>
                 {questions && questions.length > 1 ? (
                   <>
                     <Typography variant="h6" id="questionQuizz">

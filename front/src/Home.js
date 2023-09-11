@@ -120,7 +120,6 @@ function Home() {
     }
   };
   const createLanguageSessionData = (language, jsonData) => {
-    
     return jsonData.map((session) => {
       return {
         id: session.id,
@@ -131,7 +130,7 @@ function Home() {
 
   const sessionFR = createLanguageSessionData("fr", jsonDataFr);
   const sessionES = createLanguageSessionData("es", jsonDataEs);
-  const sessionEN = createLanguageSessionData("en", jsonDataEn);
+  // const sessionEN = createLanguageSessionData("en", jsonDataEn);
   const sessionMA = createLanguageSessionData("ma", jsonDataFr);
 
   const batchSize = 40;
@@ -140,20 +139,17 @@ function Home() {
 
   switch (selectedLanguage) {
     case "fr":
-      
       sessions.push(...processSessions(sessionFR, batchSize, t));
       break;
     case "es":
       sessions.push(...processSessions(sessionES, batchSize, t));
       break;
     case "en":
-      sessions.push(...processSessions(sessionEN, batchSize, t));
+      // sessions.push(...processSessions(sessionEN, batchSize, t));
       break;
     case "ma":
-     
       sessions.push(...processSessions(sessionMA, batchSize, t));
-    
-     
+
       break;
     default:
       // Default case if the language doesn't match any of the above
@@ -212,8 +208,7 @@ function Home() {
     const handleMouseLeave = () => {
       setLanguageVisible(false);
     };
-    
-    
+
     return (
       <Grid
         item
@@ -286,7 +281,6 @@ function Home() {
         className="languageNavImg"
         onClick={() => {
           setShow(true);
-         
         }}
         src={src}
         alt={language}
@@ -296,8 +290,8 @@ function Home() {
   let displayedSessions = sessions; // Par défaut, toutes les sessions sont affichées
 
   //if (selectedLanguage === "ma") {
-    // Si la langue sélectionnée est "ma", limitez à 3 sessions
-    displayedSessions = sessions.slice(0, 3);
+  // Si la langue sélectionnée est "ma", limitez à 3 sessions
+  displayedSessions = sessions.slice(0, 3);
   // }else{
 
   // }
