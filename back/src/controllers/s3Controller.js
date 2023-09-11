@@ -20,7 +20,7 @@ dotenv.config();
 // }
 
 // Controller function for getting an image from S3
-export async function getImage(req, res) {
+export async function getAsset(req, res) {
   try {
     const bucketName = "assets-angova";
     const key = req.body.key;

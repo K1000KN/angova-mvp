@@ -1,8 +1,8 @@
 import express from "express";
-import { getImage } from "../controllers/s3Controller.js";
+import { getAsset } from "../controllers/s3Controller.js";
 
 const router = express.Router();
 
-router.post("/s3", getImage);
+router.post("/s3", getAsset);
 
 export default router;
