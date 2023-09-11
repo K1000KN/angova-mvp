@@ -1,4 +1,3 @@
-// s3Controller.js
 import { getAssetFromS3 } from "../services/s3Service.js";
 import dotenv from "dotenv";
 dotenv.config();
