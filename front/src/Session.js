@@ -409,11 +409,13 @@ const Session = () => {
                     alignItems: "flex-end",
                   }}
                 >
-                  <AudioS3
-                    source={assets.audio}
-                    onAudioToggle={handleAudioToggle}
-                    activeSource={activeSource}
-                  />
+                  {assets.audio && (
+                    <AudioS3
+                      source={assets.audio}
+                      onAudioToggle={handleAudioToggle}
+                      activeSource={activeSource}
+                    />
+                  )}
                 </div>
                 {questions && questions.length > 1 ? (
                   <>
@@ -651,11 +653,14 @@ const Session = () => {
           </DialogTitle>
           <DialogContent>{explanation}</DialogContent>
           <DialogActions>
-            <AudioS3
-              source={assets.explanation}
-              onAudioToggle={handleAudioToggle}
-              activeSource={activeSource}
-            />
+            {assets.explanation && (
+              <AudioS3
+                source={assets.explanation}
+                onAudioToggle={handleAudioToggle}
+                activeSource={activeSource}
+              />
+            )}
+
             <button
               onClick={closeExplanationDialogAndNext}
               className={classes.orangeBtn}
