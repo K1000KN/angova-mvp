@@ -15,7 +15,7 @@ import {
   Typography,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import PlayerSession from "./components/PlayerSession";
+import ImageSessionHandler from "./components/ImageSessionHandler";
 import { useTranslation } from "react-i18next";
 
 import jsonDataFr from "./data/content_fr.json";
@@ -47,28 +47,18 @@ const Session = () => {
   const [showExplanation, setShowExplanation] = useState(false);
 
   // GESTION DES AUDIOS
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isPlayingExp, setIsPlayingExp] = useState(false);
-  const [audioSrc, setAudioSrc] = useState("");
-  const [expAudioSrc, setExpAudioSrc] = useState("");
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
 
-  const audioSources = {
-    src: [audioSrc], // Remplacez par le chemin de votre fichier audio
-    html5: true, // Active la lecture audio HTML5 pour la compatibilité avec Safari
-  };
-  const expAudioSources = {
-    src: [expAudioSrc], // Remplacez par le chemin de votre fichier audio
-    html5: true, // Active la lecture audio HTML5 pour la compatibilité avec Safari
-  };
-  const handleToggleAudio = () => {
-    setIsPlayingExp(false);
-    setIsPlaying(!isPlaying);
-  };
+  const [activeSource, setActiveSource] = useState(null);
 
-  const handleToggleAudioExp = () => {
-    setIsPlaying(false);
-    setIsPlayingExp(!isPlayingExp);
-  };
+  const handleAudioToggle = (source) => {
+    // Pause the previously active audio source
+    if (activeSource && activeSource !== source) {
+      setActiveSource(null);
+    }
+    // Set the currently active source
+    setActiveSource(source);
+  };  
 
   const navigate = useNavigate();
   const theme = createTheme({
@@ -404,23 +394,30 @@ const Session = () => {
                   </div>
                 </Grid>
               </Grid>
-
-              <Grid id="imgContainer" item xs={10}>
-                <div>
-                  <Grid
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <ImageSessionHandler content={assets.img} />
+                <Grid item xs={10}>
+                  <div
                     style={{
                       display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "center",
+                      justifyContent: "flex-end",
                       alignItems: "flex-end",
                     }}
                   >
-                    <PlayerSession content={assets.img} />
-                    <br />
-                    <AudioS3 source={assets.audio} />
-                  </Grid>
-                </div>
-              </Grid>
+                    <AudioS3
+                      source={assets.audio}
+                      onAudioToggle={handleAudioToggle}
+                      activeSource={activeSource}
+                    />
+                  </div>
+                </Grid>
+              </div>
+
               <Grid item xs={12} id="quizContainer">
                 {questions && questions.length > 1 ? (
                   <>
@@ -658,7 +655,11 @@ const Session = () => {
           </DialogTitle>
           <DialogContent>{explanation}</DialogContent>
           <DialogActions>
-            <AudioS3 source={assets.explanation} />
+            <AudioS3
+              source={assets.explanation}
+              onAudioToggle={handleAudioToggle}
+              activeSource={activeSource}
+            />
             <button
               onClick={closeExplanationDialogAndNext}
               className={classes.orangeBtn}

@@ -1,52 +1,54 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import axios from "axios";
 import ReactHowler from "react-howler";
 import { VolumeOff, VolumeUp } from "@mui/icons-material";
 import "./AudioS3.css";
 const reactApiUrl = process.env.REACT_APP_API_URL;
 
-const AudioS3 = ({ source }) => {
+const AudioS3 = ({ source, activeSource, onAudioToggle }) => {
   const [audioUrl, setAudioUrl] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
   const soundRef = useRef(null);
   source = source.substring(1);
 
-  const fetchAudio = async () => {
-    try {
-      const response = await axios.post(reactApiUrl + "/s3", {
-        key: source,
-      });
-      const audioData = response.data;
-      setAudioUrl(`data:audio/mpeg;base64,${audioData}`);
-    } catch (error) {
-      console.error("Error fetching audio from S3:", error);
-      setAudioUrl(null);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  useEffect(() => {
+    const fetchAudio = async () => {
+      try {
+        const response = await axios.post(reactApiUrl + "/s3", {
+          key: source,
+        });
+        const audioData = response.data;
+        setAudioUrl(`data:audio/mpeg;base64,${audioData}`);
+      } catch (error) {
+        console.error("Error fetching audio from S3:", error);
+        setAudioUrl(null);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  fetchAudio();
+    fetchAudio();
+  }, [source]);
+
+  useEffect(() => {
+    // Pause audio if it's not the active source
+    if (activeSource !== source) {
+      setIsPlaying(false);
+    }
+  }, [activeSource, source]);
 
   const handleToggleAudio = () => {
     if (soundRef.current) {
       if (isPlaying) {
-        // Pause the audio
         soundRef.current.pause();
       } else {
-        // Play the audio
+        soundRef.current.seek(0);
         soundRef.current.play();
       }
-      setIsPlaying(!isPlaying); // Toggle the state
+      setIsPlaying(!isPlaying);
+      onAudioToggle(source);
     }
-  };
-
-  const handlePause = () => {
-    if (soundRef.current) {
-      soundRef.current.seek(0);
-    }
-    setIsPlaying(false);
   };
 
   return (
@@ -61,7 +63,7 @@ const AudioS3 = ({ source }) => {
             preload={true}
             html5={true}
             format={["mp3"]}
-            onPause={handlePause}
+            onPause={() => setIsPlaying(false)}
             onPlay={() => setIsPlaying(true)}
             onEnd={() => setIsPlaying(false)}
             ref={soundRef}

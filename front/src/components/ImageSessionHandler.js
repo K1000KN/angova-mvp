@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ImageS3 from "./ImageS3";
-const PlayerSession = ({ content }) => {
+const ImageSessionHandler = ({ content }) => {
   const [currentSourceIndex, setCurrentSourceIndex] = useState(0);
-
-  // const handleToggleAudioExp = () => {
-  //   setIsPlaying(false);
-  //   setIsPlayingExp(!isPlayingExp);
-  // };
 
   useEffect(() => {
     let intervalId;
@@ -29,20 +24,20 @@ const PlayerSession = ({ content }) => {
   if (content.length > 1) {
     const currentSource = content[currentSourceIndex].substring(1);
     render = (
-      <>
-        <ImageS3 source={currentSource} />
-      </>
+      <div>
+        <ImageS3 id="imgContainer" source={currentSource} />
+      </div>
     );
   } else {
     const currentSource = content[0].substring(1);
     render = (
-      <>
-        <ImageS3 source={currentSource} />
-      </>
+      <div>
+        <ImageS3 id="imgContainer" source={currentSource} />
+      </div>
     );
   }
 
   return <>{render}</>;
 };
 
-export default PlayerSession;
+export default ImageSessionHandler;
