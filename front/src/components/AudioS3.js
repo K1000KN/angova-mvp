@@ -20,7 +20,7 @@ const AudioS3 = ({ source, activeSource, onAudioToggle }) => {
           headers: { Authorization: `Bearer ${token}` },
         };
         const response = await axios.post(
-          reactApiUrl + "/s3/audio",
+          reactApiUrl + "/s3",
           {
             key: source,
           },

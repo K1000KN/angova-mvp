@@ -18,7 +18,7 @@ const ImageS3 = ({ source }) => {
 
       try {
         const response = await axios.post(
-          reactApiUrl + "/s3/image",
+          reactApiUrl + "/s3",
           { key: source },
           config
         );

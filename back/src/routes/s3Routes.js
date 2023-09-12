@@ -1,5 +1,5 @@
 import express from "express";
-import { getAudio, getImage } from "../controllers/s3Controller.js";
+import { getAsset } from "../controllers/s3Controller.js";
 import {
   validateAdminToken,
   validateManagerToken,
@@ -9,14 +9,9 @@ import {
 const router = express.Router();
 
 router.post(
-  "/s3/image",
+  "/s3",
   validateAdminToken || validateManagerToken || validateUserToken,
-  getImage
-);
-router.post(
-  "/s3/audio",
-  validateAdminToken || validateManagerToken || validateUserToken,
-  getAudio
+  getAsset
 );
 
 export default router;
