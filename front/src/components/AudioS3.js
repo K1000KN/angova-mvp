@@ -12,6 +12,7 @@ const AudioS3 = ({ source, activeSource, onAudioToggle }) => {
   const soundRef = useRef(null);
   source = source.substring(1);
 
+  // Pause the audio on source change
   useEffect(() => {
     const fetchAudio = async () => {
       try {
@@ -24,7 +25,6 @@ const AudioS3 = ({ source, activeSource, onAudioToggle }) => {
           {
             key: source,
           },
-
           config
         );
         const audioData = response.data;
@@ -42,10 +42,11 @@ const AudioS3 = ({ source, activeSource, onAudioToggle }) => {
 
   useEffect(() => {
     // Pause audio if it's not the active source
-    if (activeSource !== source) {
+    if (activeSource !== source && isPlaying) {
+      soundRef.current.pause();
       setIsPlaying(false);
     }
-  }, [activeSource, source]);
+  }, [activeSource, source, isPlaying]);
 
   const handleToggleAudio = () => {
     if (soundRef.current) {

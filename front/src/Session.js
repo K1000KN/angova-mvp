@@ -577,6 +577,10 @@ const Session = () => {
                 <button
                   onClick={() => {
                     if (showExplanation) {
+                      // Mute the audio if it is playing
+                      if (activeSource) {
+                        setActiveSource(null);
+                      }
                       closeExplanationDialogAndNext();
                     } else {
                       verifyAnswer(
