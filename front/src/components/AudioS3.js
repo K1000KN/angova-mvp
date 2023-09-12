@@ -3,6 +3,7 @@ import axios from "axios";
 import ReactHowler from "react-howler";
 import { VolumeOff, VolumeUp } from "@mui/icons-material";
 import "./AudioS3.css";
+import { CircularProgress } from "@mui/material";
 const reactApiUrl = process.env.REACT_APP_API_URL;
 
 const AudioS3 = ({ source, activeSource, onAudioToggle }) => {
@@ -61,9 +62,16 @@ const AudioS3 = ({ source, activeSource, onAudioToggle }) => {
   }
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        marginRight: "20px",
+      }}
+    >
       {isLoading ? (
-        <div className="loader-container"></div>
+        <CircularProgress size={25} color="primary" />
       ) : (
         <>
           <ReactHowler
@@ -82,7 +90,7 @@ const AudioS3 = ({ source, activeSource, onAudioToggle }) => {
           </button>
         </>
       )}
-    </>
+    </div>
   );
 };
 
