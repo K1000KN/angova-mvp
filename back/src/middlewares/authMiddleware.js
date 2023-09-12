@@ -5,7 +5,7 @@ dotenv.config();
 
 const adminSecretKey = process.env.SALT_KEY;
 
-const validateToken = (req, res, next, requiredRole) => {
+export const validateToken = (req, res, next, requiredRole) => {
   const authorizationHeader = req.headers.authorization;
 
   if (!authorizationHeader) {
@@ -22,7 +22,9 @@ const validateToken = (req, res, next, requiredRole) => {
     const decoded = jwt.verify(token, adminSecretKey);
 
     if (decoded.role !== requiredRole) {
-      return res.status(403).json({ message: "You are not authorized to perform this action" });
+      return res
+        .status(403)
+        .json({ message: "You are not authorized to perform this action" });
     }
 
     req.userRole = decoded.role;
@@ -30,7 +32,9 @@ const validateToken = (req, res, next, requiredRole) => {
 
     next();
   } catch (err) {
-    return res.status(403).json({ message: "Invalid token", error: err.message });
+    return res
+      .status(403)
+      .json({ message: "Invalid token", error: err.message });
   }
 };
 

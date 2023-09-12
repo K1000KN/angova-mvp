@@ -1,5 +1,6 @@
 import { getAssetFromS3 } from "../services/s3Service.js";
 import dotenv from "dotenv";
+import { validateUserToken } from "../middlewares/authMiddleware.js";
 dotenv.config();
 
 // export async function uploadFile(req, res) {
@@ -20,7 +21,7 @@ dotenv.config();
 // }
 
 // Controller function for getting an image from S3
-export async function getAsset(req, res) {
+export async function getImage(req, res) {
   try {
     const bucketName = "assets-angova";
     const key = req.body.key;
@@ -29,6 +30,26 @@ export async function getAsset(req, res) {
     // Convert the image data to a Base64 string
     const base64String = data.toString("base64");
 
+    // Set appropriate headers based on the image type
+    // res.setHeader("Content-Type", "image/jpeg"); // Change to the appropriate image type as needed
+
+    // Send the Base64 string in the response
+
+    res.send(base64String);
+  } catch (error) {
+    console.error("Error getting asset from S3:", error);
+    res.status(500).json({ message: "Failed to retrieve asset" });
+  }
+}
+
+export async function getAudio(req, res) {
+  try {
+    const bucketName = "assets-angova";
+    const key = req.body.key;
+    const data = await getAssetFromS3(key, bucketName);
+
+    // Convert the image data to a Base64 string
+    const base64String = data.toString("base64");
     // Set appropriate headers based on the image type
     // res.setHeader("Content-Type", "image/jpeg"); // Change to the appropriate image type as needed
 

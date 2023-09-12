@@ -1,7 +1,22 @@
 import express from "express";
-import { getAsset } from "../controllers/s3Controller.js";
+import { getAudio, getImage } from "../controllers/s3Controller.js";
+import {
+  validateAdminToken,
+  validateManagerToken,
+  validateUserToken,
+} from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
-router.post("/s3", getAsset);
+router.post(
+  "/s3/image",
+  validateAdminToken || validateManagerToken || validateUserToken,
+  getImage
+);
+router.post(
+  "/s3/audio",
+  validateAdminToken || validateManagerToken || validateUserToken,
+  getAudio
+);
+
 export default router;

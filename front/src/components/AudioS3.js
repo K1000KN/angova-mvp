@@ -15,9 +15,18 @@ const AudioS3 = ({ source, activeSource, onAudioToggle }) => {
   useEffect(() => {
     const fetchAudio = async () => {
       try {
-        const response = await axios.post(reactApiUrl + "/s3", {
-          key: source,
-        });
+        const token = localStorage.getItem("token");
+        const config = {
+          headers: { Authorization: `Bearer ${token}` },
+        };
+        const response = await axios.post(
+          reactApiUrl + "/s3/audio",
+          {
+            key: source,
+          },
+
+          config
+        );
         const audioData = response.data;
         setAudioUrl(`data:audio/mpeg;base64,${audioData}`);
       } catch (error) {

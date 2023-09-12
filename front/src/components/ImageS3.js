@@ -11,20 +11,24 @@ const ImageS3 = ({ source }) => {
 
   useEffect(() => {
     const fetchData = async () => {
+      const token = localStorage.getItem("token");
+      const config = {
+        headers: { Authorization: `Bearer ${token}` },
+      };
+
       try {
-        const response = await axios.post(reactApiUrl + "/s3", {
-          key: source,
-        });
-        const imageData = response.data;
-        setImageUrl(`data:image/jpeg;base64,${imageData}`);
-      } catch (error) {
-        console.error("Error fetching image from S3:", error);
-        setImageUrl(null);
-      } finally {
+        const response = await axios.post(
+          reactApiUrl + "/s3/image",
+          { key: source },
+          config
+        );
+
+        setImageUrl(response.data);
         setIsLoading(false);
+      } catch (error) {
+        console.error(error);
       }
     };
-
     fetchData();
   }, [source]);
 
@@ -39,7 +43,11 @@ const ImageS3 = ({ source }) => {
           <CardMedia
             component="img"
             height="100%"
-            src={imageUrl ?? "./images/placeholder.png"}
+            src={
+              imageUrl
+                ? `data:image/jpeg;base64,${imageUrl}`
+                : "./images/placeholder.png"
+            }
             alt="session"
             style={{
               cursor: "pointer",
