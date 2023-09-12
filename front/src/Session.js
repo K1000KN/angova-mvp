@@ -362,7 +362,7 @@ const Session = () => {
                 direction="row"
                 style={{
                   position: "fixed",
-                  backgroundColor: "rgba(70, 145, 205, 0.8)",
+                  backgroundColor: "#FFFFFFE6",
                   borderRadius: "0px 0px 10px 10px",
                   height: "6vh",
                 }}
