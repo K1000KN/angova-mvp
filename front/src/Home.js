@@ -383,11 +383,11 @@ function Home() {
               >
                 <Flag src="./images/flag/rounded/france.png" language="fr" />
                 <Flag src="./images/flag/rounded/spain.png" language="es" />
-                <Flag src="./images/flag/rounded/uk.png" language="en" />
-                <Flag src="./images/flag/rounded/algeria.png" language="dz" />
+                {/* <Flag src="./images/flag/rounded/uk.png" language="en" /> */}
+                {/* <Flag src="./images/flag/rounded/algeria.png" language="dz" /> */}
                 <Flag src="./images/flag/rounded/morocco.png" language="ma" />
-                <Flag src="./images/flag/rounded/tunisia.png" language="tn" />
-                <Flag src="./images/flag/rounded/turkey.png" language="tr" />
+                {/* <Flag src="./images/flag/rounded/tunisia.png" language="tn" /> */}
+                {/* <Flag src="./images/flag/rounded/turkey.png" language="tr" /> */}
               </Grid>
             </DialogContent>
           </div>

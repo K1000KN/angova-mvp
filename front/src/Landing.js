@@ -26,11 +26,13 @@ import { useTranslation } from "react-i18next";
 
 function Landing() {
   const { t, i18n } = useTranslation();
-  const arabicSquaredFlag = "./images/flag/squared/arabic.png";
-  const englishSquaredFlag = "./images/flag/squared/uk.png";
-  const frenchSquaredFlag = "./images/flag/squared/france.png";
-  const spanishSquaredFlag = "./images/flag/squared/spain.png";
-  const turkeyFlagSquared = "./images/flag/squared/turkey.png";
+  // const arabicSquaredFlag = "./images/flag/squared/arabic.png";
+  // const trFlagSquared = "./images/flag/squared/tr.png";
+  const enSquaredFlag = "./images/flag/squared/en.png";
+  const frSquaredFlag = "./images/flag/squared/fr.png";
+  const esSquaredFlag = "./images/flag/squared/es.png";
+  const maSquaredFlag = "./images/flag/squared/ma.png";
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
@@ -103,7 +105,7 @@ function Landing() {
     document.getElementById("overlayLangue").style.display = "none";
   };
 
-  const FlagPopup = ({ src, language, lng }) => (
+  const FlagPopup = ({ src, language }) => (
     <div
       className="flagPopup"
       onClick={() => {
@@ -113,7 +115,9 @@ function Landing() {
       }}
     >
       <img style={{ width: 35, borderRadius: 3 }} src={src} alt="flag" />
-      <span style={{ color: "black", marginLeft: 24 }}> {t("lgn" + lng)}</span>
+      <div style={{ width: 10 }}></div>
+      <span style={{ color: "black", marginLeft: 24 }}> {t(language)}</span>
+      <div style={{ width: 10 }}></div>
     </div>
   );
 
@@ -121,29 +125,29 @@ function Landing() {
     let src = null;
     switch (language) {
       case "fr":
-        src = frenchSquaredFlag;
+        src = frSquaredFlag;
         break;
       case "en":
-        src = englishSquaredFlag;
+        src = enSquaredFlag;
         break;
       case "es":
-        src = spanishSquaredFlag;
+        src = esSquaredFlag;
         break;
-      case "ar":
-        src = arabicSquaredFlag;
-        break;
-      case "dz":
-        src = arabicSquaredFlag;
-        break;
+      // case "ar":
+      //   src = arabicSquaredFlag;
+      //   break;
+      // case "dz":
+      //   src = arabicSquaredFlag;
+      //   break;
       case "ma":
-        src = arabicSquaredFlag;
+        src = maSquaredFlag;
         break;
-      case "tn":
-        src = arabicSquaredFlag;
-        break;
-      case "tr":
-        src = turkeyFlagSquared;
-        break;
+      // case "tn":
+      //   src = arabicSquaredFlag;
+      //   break;
+      // case "tr":
+      //   src = trFlagSquared;
+      //   break;
       default:
         src = null;
         break;
@@ -207,7 +211,7 @@ function Landing() {
             sx={{ display: { xs: "none", lg: "flex" } }}
             style={{ alignItems: "center", justifyContent: "center" }}
           >
-            <div
+            <Grid
               onMouseOver={() => {
                 document.getElementById("overlayGrid").style.backgroundColor =
                   "rgba(216, 216, 216, 0.56)";
@@ -222,32 +226,37 @@ function Landing() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                width: "50%",
+                padding: 10,
+                marginRight: 10,
+                width: 300,
               }}
             >
-              <Toolbar>
-                {" "}
-                <Typography variant="h6" style={{ color: "black" }}>
-                  {t("popup")}
-                </Typography>
-              </Toolbar>
+              {/* <Toolbar> */}
+              <Typography
+                variant="h6"
+                style={{ color: "black", margin: 0, padding: 0 }}
+              >
+                {t("popup")}
+              </Typography>
+              {/* </Toolbar> */}
+              <div style={{ width: 10 }}></div>
               <img
                 alt="flag"
                 id="flagOfLanguage"
                 src={
                   localStorage.getItem("language") === null
-                    ? frenchSquaredFlag
+                    ? frSquaredFlag
                     : setLanguageImage(localStorage.getItem("language"))
                 }
               />
-            </div>
+            </Grid>
 
             <div id="overlayLangue">
-              <FlagPopup src={frenchSquaredFlag} language="fr" lng="1" />
-              <FlagPopup src={arabicSquaredFlag} language="ar" lng="2" />
-              <FlagPopup src={spanishSquaredFlag} language="es" lng="3" />
-              <FlagPopup src={englishSquaredFlag} language="en" lng="4" />
-              <FlagPopup src={turkeyFlagSquared} language="tr" lng="5" />
+              <FlagPopup src={frSquaredFlag} language="fr" lng="1" />
+              <FlagPopup src={maSquaredFlag} language="ma" lng="2" />
+              <FlagPopup src={esSquaredFlag} language="es" lng="3" />
+              <FlagPopup src={enSquaredFlag} language="en" lng="4" />
+              {/* <FlagPopup src={trFlagSquared} language="tr" lng="5" /> */}
             </div>
           </Grid>
 

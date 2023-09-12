@@ -255,8 +255,8 @@ const Session = () => {
           }}
         >
           {sessionData === undefined
-            ? "Invalid session ID"
-            : "Language not supported"}
+            ? t("invalid-session")
+            : t("forbidden-language")}
         </Typography>
         <Typography
           variant="h6"
