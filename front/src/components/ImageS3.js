@@ -4,8 +4,10 @@ import CircularProgress from "@mui/material/CircularProgress";
 import CardMedia from "@mui/material/CardMedia";
 import "./ImageS3.css";
 import Card from "@mui/material/Card";
+import { Skeleton } from "@mui/material";
+
 const reactApiUrl = process.env.REACT_APP_API_URL;
-const ImageS3 = ({ source }) => {
+const ImageS3 = ({ source, isSkeleton = false }) => {
   const [imageUrl, setImageUrl] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -35,9 +37,20 @@ const ImageS3 = ({ source }) => {
   return (
     <div>
       {isLoading ? (
-        <div className="loader-container">
-          <CircularProgress size={50} />
-        </div>
+        <>
+          {isSkeleton ? (
+            <Skeleton
+              variant="rectangular"
+              animation={"waves"}
+              width={350}
+              height={120}
+            />
+          ) : (
+            <div className="container-image">
+              <CircularProgress size={50} />
+            </div>
+          )}
+        </>
       ) : (
         <Card className="card">
           <CardMedia

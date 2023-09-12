@@ -357,7 +357,16 @@ const Session = () => {
         {!showResult ? (
           <div>
             <div className="scroll-container">
-              <Grid container direction="row">
+              <Grid
+                container
+                direction="row"
+                style={{
+                  position: "fixed",
+                  backgroundColor: "rgba(70, 145, 205, 0.8)",
+                  borderRadius: "0px 0px 10px 10px",
+                  height: "6vh",
+                }}
+              >
                 <Grid
                   item
                   sm={1.8}
@@ -396,6 +405,7 @@ const Session = () => {
                 style={{
                   display: "flex",
                   justifyContent: "center",
+                  marginTop: "80px",
                 }}
               >
                 <ImageSessionHandler content={assets.img} />
