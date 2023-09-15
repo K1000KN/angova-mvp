@@ -13,7 +13,7 @@ import { CssBaseline } from "@mui/material";
 import Landing from "./Landing";
 import Home from "./Home";
 import Session from "./Session";
-import UserProfile from "./UserProfile";
+import Profile from "./Profile";
 import Dashboard from "./backoffice/Dashboard";
 import NotFound from "./components/NotFound";
 import reportWebVitals from "./reportWebVitals";
@@ -179,7 +179,7 @@ const App = () => {
             path="/profil"
             element={
               <PrivateRoute roles={["user", "manager", "admin"]}>
-                <UserProfile />
+                <Profile />
               </PrivateRoute>
             }
           />

@@ -17,7 +17,7 @@ export function processSessions(sessionData, batchSize, t) {
     });
 
     sessionBatch.id = i / batchSize + 1;
-    sessionBatch.image = `session/q${counter}/q${counter}.jpeg`;
+    sessionBatch.image = `session/q${counter}/q${counter}.jpg`;
     sessionBatch.title = `Session ${sessionBatch.id}`;
     sessionBatch.description = t("code-de-la-route-description");
 

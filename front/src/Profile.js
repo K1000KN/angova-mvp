@@ -34,10 +34,10 @@ import { AddCircleOutline, Delete } from "@mui/icons-material";
 import { createTheme } from "@mui/material/styles";
 import NewUserForm from "./components/NewUserForm";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-
+import FlagPopUp from './components/FlagPopUp'
 const theme = createTheme();
 
-const UserProfile = () => {
+const Profile = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem("token");
   const decodedToken = decodeToken(token);
@@ -233,49 +233,7 @@ const UserProfile = () => {
   const classes = useStyles();
   const { t } = useTranslation();
 
-  const Flag = ({ src, language }) => {
-    const [isLanguageVisible, setLanguageVisible] = useState(false);
-
-    const handleClick = () => {
-      setLanguage(language);
-    };
-
-    const handleMouseEnter = () => {
-      setLanguageVisible(true);
-    };
-
-    const handleMouseLeave = () => {
-      setLanguageVisible(false);
-    };
-    return (
-      <Grid
-        item
-        xs={4}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          marginTop: 30,
-        }}
-      >
-        <img
-          className={classes.flagNav}
-          onClick={handleClick}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          src={src}
-          alt="flag"
-        />
-        <div
-          className={`${classes.languageText} ${
-            isLanguageVisible ? classes.languageTextVisible : ""
-          }`}
-        >
-          {language}
-        </div>
-      </Grid>
-    );
-  };
+ 
 
   /// List Manager Users
 
@@ -619,48 +577,7 @@ const UserProfile = () => {
         </Grid>
       )}
       {/* CHOSE LANGUAGE  */}
-      <Dialog fullWidth maxWidth="sm" open={show} onClose={handleClose}>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <DialogTitle>
-            <Typography variant="h5" style={{ fontWeight: 700 }}>
-              {t("choisir-la-langue-du-code-de-la-route")}
-            </Typography>
-            <IconButton
-              aria-label="close"
-              style={{
-                position: "absolute",
-                right: theme.spacing(1),
-                top: theme.spacing(1),
-                color: theme.palette.grey[500],
-              }}
-              onClick={handleClose}
-            >
-              <CloseIcon />
-            </IconButton>
-          </DialogTitle>
-          <DialogContent>
-            <Grid
-              container
-              direction="row"
-              style={{ alignItems: "center", marginBottom: 40 }}
-            >
-              <Flag src="./images/flag/rounded/france.png" language="fr" />
-              <Flag src="./images/flag/rounded/spain.png" language="es" />
-              <Flag src="./images/flag/rounded/uk.png" language="en" />
-              <Flag src="./images/flag/rounded/algeria.png" language="dz" />
-              <Flag src="./images/flag/rounded/morocco.png" language="ma" />
-              <Flag src="./images/flag/rounded/tunisia.png" language="tn" />
-              <Flag src="./images/flag/rounded/turkey.png" language="tr" />
-            </Grid>
-          </DialogContent>
-        </div>
-      </Dialog>{" "}
+      <FlagPopUp setLanguage={setLanguage} show={show} handleClose={handleClose}/>
       {/* NEW USER MODAL */}
       <NewUserForm open={openDialog} handleClose={handleCloseDialog} usersList={usersList} setUsers={setUsers} />
       {/* RESET PWD MY ACCOUNT MODAL */}
@@ -792,4 +709,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default Profile;

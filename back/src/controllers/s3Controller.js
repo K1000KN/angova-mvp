@@ -30,8 +30,6 @@ export async function getAsset(req, res) {
     // Convert the image data to a Base64 string
     const base64String = data.toString("base64");
 
-    // Set appropriate headers based on the image type
-    // res.setHeader("Content-Type", "image/jpeg"); // Change to the appropriate image type as needed
 
     // Send the Base64 string in the response
 

@@ -4,18 +4,12 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import BottomBar from "./components/BottomBar";
 import NavbarComponent from "./components/Navbar";
-import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import { IconButton } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { makeStyles } from "@mui/styles";
 import { filterSessionsByLanguage } from "./services/sessionService";
-
+import FlagPopUp from './components/FlagPopUp'
 import jsonDataFr from "./data/content_fr.json";
 import jsonDataEs from "./data/content_es.json";
 import jsonDataEn from "./data/content_en.json";
@@ -194,50 +188,7 @@ function Home() {
   const handleHover = (id) => {
     setHoveredCard(id);
   };
-  const Flag = ({ src, language }) => {
-    const [isLanguageVisible, setLanguageVisible] = useState(false);
-
-    const handleClick = () => {
-      setLanguage(language);
-    };
-
-    const handleMouseEnter = () => {
-      setLanguageVisible(true);
-    };
-
-    const handleMouseLeave = () => {
-      setLanguageVisible(false);
-    };
-
-    return (
-      <Grid
-        item
-        xs={4}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          marginTop: 30,
-        }}
-      >
-        <img
-          className={classes.flagNav}
-          onClick={handleClick}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          src={src}
-          alt="flag"
-        />
-        <div
-          className={`${classes.languageText} ${
-            isLanguageVisible ? classes.languageTextVisible : ""
-          }`}
-        >
-          {t(language)}
-        </div>
-      </Grid>
-    );
-  };
+ 
   const setLanguageImage = (language) => {
     let src = null;
     switch (language) {
@@ -349,48 +300,7 @@ function Home() {
           )}
           {component === "quizz" && <Quizz />}
         </Grid>
-        <Dialog fullWidth maxWidth="sm" open={show} onClose={handleClose}>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <DialogTitle>
-              <Typography style={{ fontWeight: 700 }}>
-                {t("choisir-la-langue-du-code-de-la-route")}
-              </Typography>
-              <IconButton
-                aria-label="close"
-                style={{
-                  position: "absolute",
-                  right: theme.spacing(1),
-                  top: theme.spacing(1),
-                  color: theme.palette.grey[500],
-                }}
-                onClick={handleClose}
-              >
-                <CloseIcon />
-              </IconButton>
-            </DialogTitle>
-            <DialogContent>
-              <Grid
-                container
-                direction="row"
-                style={{ alignItems: "center", marginBottom: 40 }}
-              >
-                <Flag src="./images/flag/rounded/france.png" language="fr" />
-                <Flag src="./images/flag/rounded/spain.png" language="es" />
-                {/* <Flag src="./images/flag/rounded/uk.png" language="en" /> */}
-                {/* <Flag src="./images/flag/rounded/algeria.png" language="dz" /> */}
-                <Flag src="./images/flag/rounded/morocco.png" language="ma" />
-                {/* <Flag src="./images/flag/rounded/tunisia.png" language="tn" /> */}
-                {/* <Flag src="./images/flag/rounded/turkey.png" language="tr" /> */}
-              </Grid>
-            </DialogContent>
-          </div>
-        </Dialog>
+        <FlagPopUp setLanguage={setLanguage} show={show} handleClose={handleClose}/>
         <BottomBar handleChange={handleChange} value={value} />
       </ThemeProvider>
     </>

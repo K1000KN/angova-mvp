@@ -10,7 +10,8 @@ const router = express.Router();
 
 router.post(
   "/s3",
-
+  
+  // validateAdminToken || validateManagerToken || validateUserToken,
   getAsset
 );
 

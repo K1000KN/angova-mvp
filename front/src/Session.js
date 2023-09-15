@@ -168,11 +168,11 @@ const Session = () => {
 
       if (session.multiple && session.multiple === true) {
         // Si session.multiple existe et est true
-        imgPaths.push(`/session/q${session.id}/q${session.id}_1.jpeg`);
-        imgPaths.push(`/session/q${session.id}/q${session.id}_2.jpeg`);
+        imgPaths.push(`/session/q${session.id}/q${session.id}_1.jpg`);
+        imgPaths.push(`/session/q${session.id}/q${session.id}_2.jpg`);
       } else {
         // Si session.multiple n'existe pas ou est false
-        imgPaths.push(`/session/q${session.id}/q${session.id}.jpeg`);
+        imgPaths.push(`/session/q${session.id}/q${session.id}.jpg`);
       }
 
       return {
