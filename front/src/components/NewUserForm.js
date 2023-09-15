@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Grid, Paper, Button, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 import { TextField } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import DialogContentText from "@mui/material/DialogContentText";
 import { makeStyles } from "@mui/styles";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
@@ -33,7 +34,7 @@ const useStyles = makeStyles({
     alignItems: "center",
   },
   field: {
-    marginTop: 8,
+    marginTop: "12px !important",
   },
 });
 const NewUserForm = ({ open, handleClose, usersList, setUsers }) => {
@@ -131,81 +132,80 @@ const NewUserForm = ({ open, handleClose, usersList, setUsers }) => {
           </DialogTitle>
 
           <DialogContent>
-            <Grid>
-              <Paper elevation={0} style={paperStyle}>
-                <Formik
-                  initialValues={initialValues}
-                  validationSchema={validationSchema}
-                  onSubmit={handleSubmit}
-                >
-                  {(props) => (
-                    <Form noValidate>
-                      <Field
-                        className={classes.field}
-                        as={TextField}
-                        name="username"
-                        label="Nom et prénom"
-                        type="username"
-                        fullWidth
-                        error={props.errors.username && props.touched.username}
-                        helperText={<ErrorMessage name="username" />}
-                        required
-                      />
+            <DialogContentText>
+              <Formik
+                initialValues={initialValues}
+                validationSchema={validationSchema}
+                onSubmit={handleSubmit}
+              >
+                {(props) => (
+                  <Form noValidate>
+                    <Field
+                      className={classes.field}
+                      as={TextField}
+                      name="username"
+                      label="Nom et prénom"
+                      type="username"
+                      fullWidth
+                      error={props.errors.username && props.touched.username}
+                      helperText={<ErrorMessage name="username" />}
+                      required
+                    />
 
-                      
-                      <Field
-                        className={classes.field}
-                        as={TextField}
-                        name="email"
-                        label="Email"
-                        type="email"
-                        fullWidth
-                        error={props.errors.email && props.touched.email}
-                        helperText={<ErrorMessage name="email" />}
-                        required
-                      />
-                      <Field
-                        className={classes.field}
-                        as={TextField}
-                        name="password"
-                        label="Mot de passe"
-                        type="password"
-                        fullWidth
-                        error={props.errors.password && props.touched.password}
-                        helperText={<ErrorMessage name="password" />}
-                        required
-                      />
-                      <Field
-                        className={classes.field}
-                        as={TextField}
-                        name="confirmPassword"
-                        label="Confirmer le mot de passe"
-                        type="password"
-                        fullWidth
-                        error={props.errors.confirmPassword && props.touched.confirmPassword}
-                        helperText={<ErrorMessage name="confirmPassword" />}
-                        required
-                      />
-                     
+                    
+                    <Field
+                      className={classes.field}
+                      as={TextField}
+                      name="email"
+                      label="Email"
+                      type="email"
+                      fullWidth
+                      error={props.errors.email && props.touched.email}
+                      helperText={<ErrorMessage name="email" />}
+                      required
+                    />
+                    <Field
+                      className={classes.field}
+                      as={TextField}
+                      name="password"
+                      label="Mot de passe"
+                      type="password"
+                      fullWidth
+                      error={props.errors.password && props.touched.password}
+                      helperText={<ErrorMessage name="password" />}
+                      required
+                    />
+                    <Field
+                      className={classes.field}
+                      as={TextField}
+                      name="confirmPassword"
+                      label="Confirmer le mot de passe"
+                      type="password"
+                      fullWidth
+                      error={props.errors.confirmPassword && props.touched.confirmPassword}
+                      helperText={<ErrorMessage name="confirmPassword" />}
+                      required
+                    />
+                    
 
-                      <Button
-                        sx={{ textTransform: "none" }}
-                        type="submit"
-                        style={btnStyle}
-                        variant="contained"
-                        disabled={isLoading} // Disable the button during loading
-                      >
-                        {isLoading ? (
-                          <Loader /> // Display the loader
-                        ) : (
-                          "Ajouter l'élève" // Display the button text
-                        )}
-                      </Button>
-                    </Form>
-                  )}
-                </Formik>
-              </Paper>
-            </Grid>
+                    <Button
+                      sx={{ textTransform: "none" }}
+                      type="submit"
+                      style={btnStyle}
+                      variant="contained"
+                      disabled={isLoading} // Disable the button during loading
+                    >
+                      {isLoading ? (
+                        <Loader /> // Display the loader
+                      ) : (
+                        "Ajouter l'élève" // Display the button text
+                      )}
+                    </Button>
+                  </Form>
+                )}
+              </Formik>
+             
+            </DialogContentText>
           </DialogContent>
         </div>
       </Dialog>

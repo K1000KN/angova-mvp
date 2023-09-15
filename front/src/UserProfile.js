@@ -494,7 +494,7 @@ const UserProfile = () => {
           id="sessionContainer"
           container
           direction="row"
-          style={{ height: "94vh", overflow: "auto", maxHeight: "90vh" }}
+          style={{  overflow: "auto"}}
         >
           <Box sx={{ maxWidth: "75%", mx: "auto" }}>
             <Typography variant="h4" gutterBottom sx={{ marginTop: "30px" }}>
