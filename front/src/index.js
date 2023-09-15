@@ -24,17 +24,26 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import AddUserPage from "./AddUser";
 import DashboardAutoPage from "./dashboard/DashboardAuto";
+
 const theme = createTheme();
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const PrivateRoute = ({ path, roles, children }) => {
   const token = localStorage.getItem("token");
-  const refreshToken = localStorage.getItem("refreshToken");
-  const isAuthenticated = !!token;
-  const userRole = token ? jwt_decode(token).role : null;
+  const isTokenExpired = useCallback(() => {
+    const decodedToken = jwt_decode(token);
+    const currentTime = Date.now() / 1000;
+    return decodedToken.exp < currentTime;
+  }, [token]);
 
+  console.log("PrivateRoute", isTokenExpired(), token);
+
+  const isAuthenticated = !!token;
   const navigate = useNavigate();
   const location = useLocation();
-  const apiUrl = process.env.REACT_APP_API_URL;
+
+  const refreshToken = localStorage.getItem("refreshToken");
+  const userRole = token ? jwt_decode(token).role : null;
 
   const refreshAccessToken = useCallback(async () => {
     try {
