@@ -504,7 +504,7 @@ const UserProfile = () => {
               fullWidth
               id="username"
               name="username"
-              label="Name"
+              label="Nom"
               value={user.username}
               onChange={handleInputChange}
               disabled={!isEditing}
