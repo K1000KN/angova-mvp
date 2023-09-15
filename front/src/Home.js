@@ -289,12 +289,11 @@ function Home() {
   };
   let displayedSessions = sessions; // Par défaut, toutes les sessions sont affichées
 
-  //if (selectedLanguage === "ma") {
-  // Si la langue sélectionnée est "ma", limitez à 3 sessions
-  displayedSessions = sessions.slice(0, 3);
-  // }else{
+  if (selectedLanguage === "ma") {
+    //Si la langue sélectionnée est "ma", limitez à 3 sessions
+    displayedSessions = sessions.slice(0, 3);
+  }
 
-  // }
   return (
     <>
       <ThemeProvider theme={theme}>

@@ -17,14 +17,13 @@ const ImageS3 = ({ source, isSkeleton = false }) => {
       const config = {
         headers: { Authorization: `Bearer ${token}` },
       };
-
+      
       try {
         const response = await axios.post(
           reactApiUrl + "/s3",
           { key: source },
           config
         );
-
         setImageUrl(response.data);
         setIsLoading(false);
       } catch (error) {
