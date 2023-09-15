@@ -89,7 +89,7 @@ function FlagPopUp({setLanguage, show, handleClose}) {
     },
     languageTextVisible: {
       opacity: 1,
-    },
+    }, 
   });
 
 
