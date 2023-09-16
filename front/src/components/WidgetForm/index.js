@@ -8,6 +8,7 @@ import ideaImage from "./idea.svg";
 import thoughtImage from "./thought.svg";
 
 import { useTranslation } from "react-i18next"; // Import useTranslation from react-i18next
+import { Typography } from "@mui/material";
 
 export const feedbackTypes = {
   BUG: {
@@ -33,7 +34,7 @@ export const feedbackTypes = {
   },
 };
 
-export function WidgetForm() {
+export const WidgetForm = ({ onClose }) => {
   const [feedbackType, setFeedbackType] = useState(null);
   const [feedbackSent, setFeedbackSent] = useState(false);
   const { t } = useTranslation(); // Use useTranslation hook to translate strings
@@ -44,7 +45,7 @@ export function WidgetForm() {
   }
 
   return (
-    <div className="dark:bg-zinc-900 p-4 relative rounded-2xl mb-4 flex flex-col items-center shadow-lg w-[calc(100vw-2rem)] md:w-auto">
+    <div>
       {feedbackSent ? (
         <FeedbackSuccessStep
           onFeedbackRestartRequested={handleRestartFeedback}
@@ -52,7 +53,10 @@ export function WidgetForm() {
       ) : (
         <>
           {!feedbackType ? (
-            <FeedbackTypeStep onFeedbackTypeChanged={setFeedbackType} />
+            <FeedbackTypeStep
+              onFeedbackTypeChanged={setFeedbackType}
+              onClose={onClose}
+            />
           ) : (
             <FeedbackContentStep
               feedbackType={feedbackType}
@@ -62,15 +66,25 @@ export function WidgetForm() {
           )}
         </>
       )}
-      <footer className="text-xs text-neutral-400">
+
+      <Typography
+        style={{
+          fontStyle: "italic",
+          marginTop: "16px",
+          textAlign: "center",
+        }}
+      >
         {t("Made with ♥ by")}{" "}
         <a
-          href="https://rocketseat.com.br"
-          className="underline underline-offset-2"
+          href="https://angova.io"
+          style={{
+            fontStyle: "italic",
+            color: "#fcb44d",
+          }}
         >
           Angova
         </a>
-      </footer>
+      </Typography>
     </div>
   );
-}
+};

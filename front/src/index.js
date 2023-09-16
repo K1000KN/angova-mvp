@@ -24,6 +24,8 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import AddUserPage from "./AddUser";
 import DashboardAutoPage from "./dashboard/DashboardAuto";
+import { Grid } from "@mui/material";
+import { FeedGet } from "./components/FeedGet";
 
 const theme = createTheme();
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -210,6 +212,18 @@ const App = () => {
 ReactDOM.render(
   <React.StrictMode>
     <App />
+    <Grid
+      sx={{
+        display: "flex",
+        bottom: 0,
+        position: "fixed",
+        width: "100%",
+        justifyContent: "flex-end",
+        alignItems: "flex-end",
+      }}
+    >
+      <FeedGet />
+    </Grid>
   </React.StrictMode>,
   document.getElementById("root")
 );
