@@ -40,7 +40,7 @@ const ImageS3 = ({ source, isSkeleton = false }) => {
           {isSkeleton ? (
             <Skeleton
               variant="rectangular"
-              animation={"waves"}
+              animation="wave"
               width={350}
               height={120}
             />

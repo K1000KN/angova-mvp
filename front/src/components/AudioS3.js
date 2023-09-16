@@ -67,7 +67,6 @@ const AudioS3 = ({ source, activeSource, onAudioToggle }) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        marginRight: "20px",
       }}
     >
       {isLoading ? (
