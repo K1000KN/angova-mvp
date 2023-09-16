@@ -6,6 +6,7 @@ import { CloseButton } from "../../CloseButton";
 import { CircularProgress } from "@mui/material";
 import { feedbackTypes } from "../index.js";
 import { useTranslation } from "react-i18next";
+import { TextField } from "@mui/material";
 
 export function FeedbackContentStep({
   feedbackType,
@@ -56,18 +57,18 @@ export function FeedbackContentStep({
       </header>
 
       <form className="my-4 w-full" onSubmit={handleSubmitFeedback}>
-        <textarea
-          className="min-w-[304px] w-full min-h-[112px] max-h-96 text-sm placeholder-zinc-500 text-zinc-800 border-zinc-300 dark:placeholder-zinc-400 dark:text-zinc-100 dark:border-zinc-600 bg-transparent rounded-md focus:border-brand-500 focus:ring-brand-500 focus:ring-1 focus:outline-none resize:none scrollbar scrollbar-thumb-zinc-200 dark:scrollbar-thumb-zinc-700 scrollbar-track-transparent"
+        <TextField
+          fullWidth
+          label="Votre message"
+          id="fullWidth"
           placeholder={t("feedback-placeholder")}
           onChange={(event) => setComment(event.target.value)}
         />
 
-        <footer className="flex gap-2 mt-2">
-          <ScreenshotButton
-            screenshot={screenshot}
-            onScreenshotTook={setScreenshot}
-          />
-        </footer>
+        <ScreenshotButton
+          screenshot={screenshot}
+          onScreenshotTook={setScreenshot}
+        />
       </form>
     </>
   );

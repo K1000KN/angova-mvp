@@ -516,7 +516,6 @@ function Landing() {
           <LinkedInIcon sx={{ color: "#FFFF", fontSize: 35 }} /> */}
         </Grid>
       </Grid>
-      <FeedGet />
     </ThemeProvider>
   );
 }
