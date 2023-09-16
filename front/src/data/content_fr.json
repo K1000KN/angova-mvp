@@ -1938,7 +1938,7 @@
     "type": "image",
     "id": 121,
     "questions": [
-      "droite, le marquage au sol indique :"
+      "À droite, le marquage au sol indique :"
     ],
     "choices": [
       "une place de stationnement temporaire",
@@ -1959,6 +1959,7 @@
     "type": "image",
     "id": 122,
     "questions": [
+      " ",
       "Je dépasse maintenant :",
       "Je roule au pas :"
     ],
@@ -2256,7 +2257,7 @@
     "type": "image",
     "id": 135,
     "questions": [
-      "La prise de certains médicaments :\r\n- modifie mon comportement",
+      "La prise de certains médicaments :"," - modifie mon comportement",
       "- est une cause d'accidents corporels en France"
     ],
     "choices": [
@@ -2322,7 +2323,7 @@
     "type": "image",
     "id": 138,
     "questions": [
-      "Mon véhicule est resté garé au soleil, je vais utiliser la climatisation. J'ouvre ma fenêtre :\r\n- avant de l'allumer",
+      "Mon véhicule est resté garé au soleil, je vais utiliser la climatisation. J'ouvre ma fenêtre :"," - avant de l'allumer",
       "- après l'avoir allumée"
     ],
     "choices": [
@@ -2411,7 +2412,7 @@
     "type": "image",
     "id": 142,
     "questions": [
-      "Ce panneau :\r\n- autorise l'accès",
+      "Ce panneau :"," - autorise l'accès",
       "- interdit le dépassement"
     ],
     "choices": [
@@ -2785,7 +2786,7 @@
     "type": "image",
     "id": 159,
     "questions": [
-      "Avant de partir, je vérifie l'absence d'obstacle :\r\n- devant mon véhicule",
+      "Avant de partir, je vérifie l'absence d'obstacle :"," - devant mon véhicule",
       "- derrière mon véhicule"
     ],
     "choices": [
@@ -2809,7 +2810,7 @@
     "type": "image",
     "id": 160,
     "questions": [
-      "La caméra de recul :\r\n- remplace les rétroviseurs",
+      "La caméra de recul :"," - remplace les rétroviseurs",
       "- m'évite de me retourner"
     ],
     "choices": [
@@ -2833,7 +2834,7 @@
     "type": "image",
     "id": 161,
     "questions": [
-      "Le parking sur la droite :\r\n- est accessible à tous les usagers",
+      "Le parking sur la droite :"," - est accessible à tous les usagers",
       "- est réservé aux véhicules de transport de marchandises"
     ],
     "choices": [
@@ -2881,7 +2882,7 @@
     "type": "image",
     "id": 163,
     "questions": [
-      "Sur les lieux d'un accident, je peux :\r\n- couvrir la victime d'une couverture de survie",
+      "Sur les lieux d'un accident, je peux :"," - couvrir la victime d'une couverture de survie",
       "- donner à boire à la victime si elle le demande"
     ],
     "choices": [
@@ -2905,7 +2906,7 @@
     "type": "image",
     "id": 164,
     "questions": [
-      "Le passage à niveau :\r\n- est muni de barrières à fonctionnement",
+      "Le passage à niveau :"," - est muni de barrières à fonctionnement",
       "- se situe à environ"
     ],
     "choices": [
@@ -3053,7 +3054,7 @@
     "type": "image",
     "id": 171,
     "questions": [
-      "Je souhaite téléphoner :\r\n- je m'arrête à droite, derrière le véhicule blanc",
+      "Je souhaite téléphoner :"," - je m'arrête à droite, derrière le véhicule blanc",
       "- je sors à la prochaine aire"
     ],
     "choices": [
@@ -3143,7 +3144,7 @@
     "type": "image",
     "id": 175,
     "questions": [
-      "Je suis obligé d'aller tout droit lorsque je rencontre :\r\n- le panneau 1",
+      "Je suis obligé d'aller tout droit lorsque je rencontre :"," - le panneau 1",
       "- le panneau 2"
     ],
     "choices": [
@@ -3231,7 +3232,7 @@
     "type": "image",
     "id": 179,
     "questions": [
-      "Les capacités de conduite peuvent :\r\n- diminuer avec l'âge",
+      "Les capacités de conduite peuvent :"," - diminuer avec l'âge",
       "- augmenter avec certaines maladies"
     ],
     "choices": [
@@ -3255,7 +3256,7 @@
     "type": "image",
     "id": 180,
     "questions": [
-      " J'achète une voiture en fonction :\r\n- des trajets habituels",
+      " J'achète une voiture en fonction :"," - des trajets habituels",
       "- des passagers habituels"
     ],
     "choices": [
@@ -3368,7 +3369,7 @@
     "type": "image",
     "id": 185,
     "questions": [
-      "En présence de verglas :\r\n- l'adhérence est presque nulle",
+      "En présence de verglas :"," - l'adhérence est presque nulle",
       "- pour stationner"
     ],
     "choices": [
@@ -3392,7 +3393,7 @@
     "type": "image",
     "id": 186,
     "questions": [
-      "Avoir le téléphone en main dans un embouteillage :\r\n- est sans risque",
+      "Avoir le téléphone en main dans un embouteillage :"," - est sans risque",
       "- est autorisé"
     ],
     "choices": [
@@ -3619,7 +3620,7 @@
     "type": "image",
     "id": 196,
     "questions": [
-      "Ma conduite peut être perturbée, si je discute :\r\n- avec mon passager",
+      "Ma conduite peut être perturbée, si je discute :"," - avec mon passager",
       "- avec quelqu'un au téléphone portable"
     ],
     "choices": [
@@ -3712,7 +3713,7 @@
     "type": "image",
     "id": 200,
     "questions": [
-      "Le type de pneumatique doit être identique :\r\n- sur l'ensemble du véhicule",
+      "Le type de pneumatique doit être identique :"," - sur l'ensemble du véhicule",
       "- sur un même essieu"
     ],
     "choices": [
@@ -3778,7 +3779,7 @@
     "type": "image",
     "id": 203,
     "questions": [
-      "L'été, il est préférable de rouler les vitres ouvertes plutôt qu'avec la climatisation :\r\n- en ville",
+      "L'été, il est préférable de rouler les vitres ouvertes plutôt qu'avec la climatisation :"," - en ville",
       "- sur autoroute"
     ],
     "choices": [
@@ -3848,7 +3849,7 @@
     "type": "image",
     "id": 206,
     "questions": [
-      "Pour tourner à gauche :\r\n- je m'arrête au feu",
+      "Pour tourner à gauche :"," - je m'arrête au feu",
       "- je cède le passage"
     ],
     "choices": [
@@ -3872,7 +3873,7 @@
     "type": "image",
     "id": 207,
     "questions": [
-      "Un délit :\r\n- est plus grave qu'une contravention",
+      "Un délit :"," - est plus grave qu'une contravention",
       "- peut entraîner une peine d'emprisonnement"
     ],
     "choices": [
@@ -3916,7 +3917,7 @@
     "type": "image",
     "id": 209,
     "questions": [
-      "L'embrayage :\r\n- est la pédale",
+      "L'embrayage :"," - est la pédale",
       "- sert à"
     ],
     "choices": [
@@ -3981,7 +3982,7 @@
     "type": "image",
     "id": 212,
     "questions": [
-      "Conduire un véhicule exige certaines capacités physiques comme :\r\n- une bonne motricité",
+      "Conduire un véhicule exige certaines capacités physiques comme :"," - une bonne motricité",
       "- une bonne audition"
     ],
     "choices": [
@@ -4049,7 +4050,7 @@
     "type": "image",
     "id": 215,
     "questions": [
-      "Un ami vient de me prêter son véhicule. Je m'assure :\r\n- qu'il y a bien un gilet haute visibilité à portée de mains",
+      "Un ami vient de me prêter son véhicule. Je m'assure :"," - qu'il y a bien un gilet haute visibilité à portée de mains",
       "- que le niveau de carburant est suffisant"
     ],
     "choices": [
@@ -4093,7 +4094,7 @@
     "type": "image",
     "id": 217,
     "questions": [
-      "Le pare-soleil, permet de limiter l'éblouissement :\r\n- de face",
+      "Le pare-soleil, permet de limiter l'éblouissement :"," - de face",
       "- sur le côté"
     ],
     "choices": [
@@ -4227,7 +4228,7 @@
     "type": "image",
     "id": 223,
     "questions": [
-      "Je suis en conduite accompagnée. En cas de contrôle routier, je présente :\r\n- mon livret d'apprentissage",
+      "Je suis en conduite accompagnée. En cas de contrôle routier, je présente :"," - mon livret d'apprentissage",
       "- le permis de conduire de mon accompagnateur"
     ],
     "choices": [
@@ -4466,7 +4467,7 @@
     "type": "image",
     "id": 234,
     "questions": [
-      "Je peux :\r\n- tourner à droite",
+      "Je peux :"," - tourner à droite",
       "- tourner à gauche"
     ],
     "choices": [
@@ -4514,7 +4515,7 @@
     "type": "image",
     "id": 236,
     "questions": [
-      "Pour faire des économies de carburant :\r\n- je contrôle la pression des pneus",
+      "Pour faire des économies de carburant :"," - je contrôle la pression des pneus",
       "- je m'informe des conditions de circulation sur mon trajet"
     ],
     "choices": [
@@ -4667,7 +4668,7 @@
     "type": "image",
     "id": 243,
     "questions": [
-      "En leçon de conduite :\r\n- je dois avoir avec moi",
+      "En leçon de conduite :"," - je dois avoir avec moi",
       "- mon enseignant doit avoir son autorisation d'enseigner sur lui"
     ],
     "choices": [
@@ -5321,7 +5322,7 @@
     "type": "image",
     "id": 273,
     "questions": [
-      "Dans ce passage étroit :\r\n- je suis prioritaire",
+      "Dans ce passage étroit :"," - je suis prioritaire",
       "- je passe"
     ],
     "choices": [
@@ -5477,7 +5478,7 @@
     "type": "image",
     "id": 280,
     "questions": [
-      "La consommation de carburant est plus importante :\r\n- à vitesse constante",
+      "La consommation de carburant est plus importante :"," - à vitesse constante",
       "- moteur froid"
     ],
     "choices": [
@@ -5783,7 +5784,7 @@
     "type": "image",
     "id": 294,
     "questions": [
-      "Lorsque les secours sont déjà présents sur le lieu de l'accident :\r\n- je m'arrête",
+      "Lorsque les secours sont déjà présents sur le lieu de l'accident :"," - je m'arrête",
       "- je ralentis"
     ],
     "choices": [
@@ -5867,7 +5868,7 @@
     "type": "image",
     "id": 298,
     "questions": [
-      "Avant de partir en circulation, je m'assure :\r\n- que le voyant n°1",
+      "Avant de partir en circulation, je m'assure :"," - que le voyant n°1",
       "- que le voyant n°2"
     ],
     "choices": [
@@ -6044,7 +6045,7 @@
     "type": "image",
     "id": 306,
     "questions": [
-      "La vigilance est plus faible :\r\n- le jour entre",
+      "La vigilance est plus faible :"," - le jour entre",
       "- la nuit entre"
     ],
     "choices": [
@@ -6090,7 +6091,7 @@
     "type": "image",
     "id": 308,
     "questions": [
-      "Je privilégie cette tenue de volant :\r\n- pour tourner",
+      "Je privilégie cette tenue de volant :"," - pour tourner",
       "- pour dépasser"
     ],
     "choices": [
@@ -6290,7 +6291,7 @@
     "type": "image",
     "id": 317,
     "questions": [
-      "Conduire avec :\r\n- un téléphone portable tenu en main",
+      "Conduire avec :"," - un téléphone portable tenu en main",
       "- un kit mains libres fixé à l'oreille"
     ],
     "choices": [
@@ -6378,7 +6379,7 @@
     "type": "image",
     "id": 321,
     "questions": [
-      "Mettre en route la climatisation augmente :\r\n- la consommation de carburant",
+      "Mettre en route la climatisation augmente :"," - la consommation de carburant",
       "- les émissions de gaz carbonique "
     ],
     "choices": [
@@ -6424,7 +6425,7 @@
     "type": "image",
     "id": 323,
     "questions": [
-      "L'hiver en montagne, je peux équiper mon véhicule de pneus neige \"thermogomme\" :\r\n- sur faible couche de neige",
+      "L'hiver en montagne, je peux équiper mon véhicule de pneus neige \"thermogomme\" :"," - sur faible couche de neige",
       "- par temps de pluie"
     ],
     "choices": [
@@ -6515,7 +6516,7 @@
     "type": "image",
     "id": 327,
     "questions": [
-      "Cet équipement :\r\n- est un système de sécurité enfants",
+      "Cet équipement :"," - est un système de sécurité enfants",
       "- permet de verrouiller"
     ],
     "choices": [
@@ -6563,7 +6564,7 @@
     "type": "image",
     "id": 329,
     "questions": [
-      "Les trajets quotidiens :\r\n- donnent un sentiment de plus grande sécurité",
+      "Les trajets quotidiens :"," - donnent un sentiment de plus grande sécurité",
       "- entraînent une diminution de la vigilance"
     ],
     "choices": [
@@ -6672,7 +6673,7 @@
     "type": "image",
     "id": 334,
     "questions": [
-      "Un chargement sur le toit peut dépasser d'1 m :\r\n- à l'avant",
+      "Un chargement sur le toit peut dépasser d'1 m :"," - à l'avant",
       "- à l'arrière"
     ],
     "choices": [
@@ -6720,7 +6721,7 @@
     "type": "image",
     "id": 336,
     "questions": [
-      "Lors de la 1ere année d'obtention du permis de conduire de ma 1ere catégorie de permis, le capital maximum de points est :\r\n- suite à la conduite accompagnée",
+      "Lors de la 1ere année d'obtention du permis de conduire de ma 1ere catégorie de permis, le capital maximum de points est :"," - suite à la conduite accompagnée",
       "- suite à la formation traditionnelle"
     ],
     "choices": [
@@ -6744,7 +6745,7 @@
     "type": "image",
     "id": 337,
     "questions": [
-      "Un rétroviseur électrochrome :\r\n- adapte automatiquement sa luminosité",
+      "Un rétroviseur électrochrome :"," - adapte automatiquement sa luminosité",
       "- évite d'être ébloui par l'arrière"
     ],
     "choices": [
@@ -6812,7 +6813,7 @@
     "type": "image",
     "id": 340,
     "questions": [
-      " La signalisation m'autorise :\r\n- à dépasser",
+      " La signalisation m'autorise :"," - à dépasser",
       "- à circuler au maximum"
     ],
     "choices": [
@@ -6939,7 +6940,7 @@
     "type": "image",
     "id": 346,
     "questions": [
-      "En quittant mon véhicule, je laisse à bord :\r\n- les papiers du véhicule dans la boîte à gants",
+      "En quittant mon véhicule, je laisse à bord :"," - les papiers du véhicule dans la boîte à gants",
       "- le support de mon téléphone visible"
     ],
     "choices": [
@@ -7355,7 +7356,7 @@
     "type": "image",
     "id": 365,
     "questions": [
-      "Ne pas porter secours à des victimes d'accident :\r\n- est considéré comme de la non-assistance à personne en danger",
+      "Ne pas porter secours à des victimes d'accident :"," - est considéré comme de la non-assistance à personne en danger",
       "- est puni"
     ],
     "choices": [
@@ -7380,7 +7381,7 @@
     "type": "image",
     "id": 366,
     "questions": [
-      "Avant de m'éloigner de mon véhicule :\r\n- j'appuie sur le bouton",
+      "Avant de m'éloigner de mon véhicule :"," - j'appuie sur le bouton",
       "- je laisse mes papiers dans la boîte à gants"
     ],
     "choices": [
@@ -7487,7 +7488,7 @@
     "type": "image",
     "id": 371,
     "questions": [
-      "Tracter une remorque :\r\n- a une incidence sur la conduite",
+      "Tracter une remorque :"," - a une incidence sur la conduite",
       "- peut dévier ma trajectoire"
     ],
     "choices": [
@@ -7579,7 +7580,7 @@
     "type": "image",
     "id": 375,
     "questions": [
-      "Lors d'un contrôle routier, le dépistage de drogues est positif :\r\n- j'ai commis",
+      "Lors d'un contrôle routier, le dépistage de drogues est positif :"," - j'ai commis",
       "- j'encours"
     ],
     "choices": [
@@ -7624,7 +7625,7 @@
     "type": "image",
     "id": 377,
     "questions": [
-      "Cette étiquette m'aide à choisir un véhicule :\r\n- adapté à mes besoins",
+      "Cette étiquette m'aide à choisir un véhicule :"," - adapté à mes besoins",
       "- peu polluant"
     ],
     "choices": [
@@ -8153,7 +8154,7 @@
     "type": "image",
     "id": 401,
     "questions": [
-      "Une \"galette\" :\r\n- permet de parcourir de longues distances",
+      "Une \"galette\" :"," - permet de parcourir de longues distances",
       "- doit être de la même marque que les autres pneus"
     ],
     "choices": [
@@ -8199,7 +8200,7 @@
     "type": "image",
     "id": 403,
     "questions": [
-      "Toutes les conditions sont réunies pour dépasser :\r\n- dans la situation 1",
+      "Toutes les conditions sont réunies pour dépasser :"," - dans la situation 1",
       "- dans la situation 2"
     ],
     "choices": [
@@ -8266,7 +8267,7 @@
     "type": "image",
     "id": 406,
     "questions": [
-      "L' aquaplanage :\r\n- c'est quand l'eau",
+      "L' aquaplanage :"," - c'est quand l'eau",
       "- entraîne"
     ],
     "choices": [
@@ -8358,7 +8359,7 @@
     "type": "image",
     "id": 410,
     "questions": [
-      "Toutes les femmes enceintes sont exemptées du port de la ceinture :\r\n- sans justificatif",
+      "Toutes les femmes enceintes sont exemptées du port de la ceinture :"," - sans justificatif",
       "- sur certificat médical"
     ],
     "choices": [
@@ -8517,7 +8518,7 @@
     "type": "image",
     "id": 417,
     "questions": [
-      "Je suis bien placé, si je circule :\r\n- dans la situation 1",
+      "Je suis bien placé, si je circule :"," - dans la situation 1",
       "- dans la situation 2"
     ],
     "choices": [
@@ -8566,7 +8567,7 @@
     "type": "image",
     "id": 419,
     "questions": [
-      "La notice du constructeur contient :\r\n- les spécificités des liquides à utiliser",
+      "La notice du constructeur contient :"," - les spécificités des liquides à utiliser",
       "- la préconisation de pression des pneus"
     ],
     "choices": [
@@ -8590,7 +8591,7 @@
     "type": "image",
     "id": 420,
     "questions": [
-      "25 cl de bière :\r\n- contiennent environ",
+      "25 cl de bière :"," - contiennent environ",
       "- donnent une alcoolémie d'environ"
     ],
     "choices": [
@@ -8833,7 +8834,7 @@
     "type": "image",
     "id": 431,
     "questions": [
-      "L'utilisation du régulateur de vitesse :\r\n- nécessite de garder les pieds près des pédales",
+      "L'utilisation du régulateur de vitesse :"," - nécessite de garder les pieds près des pédales",
       "- peut être utilisé en toutes circonstances"
     ],
     "choices": [
@@ -8901,7 +8902,7 @@
     "type": "image",
     "id": 434,
     "questions": [
-      "Il est préférable de parcourir 2 km en ville à vélo plutôt qu'en voiture, lorsque le trafic : \r\n- est fluide",
+      "Il est préférable de parcourir 2 km en ville à vélo plutôt qu'en voiture, lorsque le trafic : "," - est fluide",
       "- est dense"
     ],
     "choices": [
@@ -8994,7 +8995,7 @@
     "type": "image",
     "id": 438,
     "questions": [
-      "Lors de l'installation au poste de conduite, je règle dans un premier temps :\r\n- les rétroviseurs",
+      "Lors de l'installation au poste de conduite, je règle dans un premier temps :"," - les rétroviseurs",
       "- le dossier"
     ],
     "choices": [
@@ -9059,7 +9060,7 @@
     "type": "image",
     "id": 441,
     "questions": [
-      "Je vends mon véhicule. Le dernier contrôle technique :\r\n- doit dater de moins",
+      "Je vends mon véhicule. Le dernier contrôle technique :"," - doit dater de moins",
       "- est à la charge"
     ],
     "choices": [
@@ -9469,7 +9470,7 @@
     "type": "image",
     "id": 460,
     "questions": [
-      "Je risque la détérioration du moteur :\r\n- si l'entretien n'est pas effectué",
+      "Je risque la détérioration du moteur :"," - si l'entretien n'est pas effectué",
       "- si les niveaux sont corrects"
     ],
     "choices": [
@@ -9582,7 +9583,7 @@
     "type": "image",
     "id": 465,
     "questions": [
-      "Face à une victime inconsciente et qui ne respire pas normalement :\r\n- je la place en position latérale de sécurité (PLS)",
+      "Face à une victime inconsciente et qui ne respire pas normalement :"," - je la place en position latérale de sécurité (PLS)",
       "- je la déplace"
     ],
     "choices": [
@@ -9627,7 +9628,7 @@
     "type": "image",
     "id": 467,
     "questions": [
-      "L'énergie qui s'accumule lorsque je roule :\r\n- est l'énergie cinétique",
+      "L'énergie qui s'accumule lorsque je roule :"," - est l'énergie cinétique",
       "- est libérée"
     ],
     "choices": [
@@ -9651,7 +9652,7 @@
     "type": "image",
     "id": 468,
     "questions": [
-      "Je peux régler la profondeur de mon siège : \r\n- avant de partir",
+      "Je peux régler la profondeur de mon siège : "," - avant de partir",
       "- en circulant"
     ],
     "choices": [
@@ -9675,7 +9676,7 @@
     "type": "image",
     "id": 469,
     "questions": [
-      "Un GPS mal paramétré est source :\r\n- de distraction",
+      "Un GPS mal paramétré est source :"," - de distraction",
       "- de danger"
     ],
     "choices": [
@@ -9721,7 +9722,7 @@
     "type": "image",
     "id": 471,
     "questions": [
-      "Une ambulance en intervention :\r\n- utilise un gyrophare",
+      "Une ambulance en intervention :"," - utilise un gyrophare",
       " - fait partie des véhicules d’intervention d’urgence"
     ],
     "choices": [
@@ -9745,7 +9746,7 @@
     "type": "image",
     "id": 472,
     "questions": [
-      "Lorsque j'utilise la climatisation :\r\n- j'augmente les rejets de gaz carboniques",
+      "Lorsque j'utilise la climatisation :"," - j'augmente les rejets de gaz carboniques",
       "- je ne dépasse pas un écart de température (maximal) avec l'extérieur"
     ],
     "choices": [
@@ -9834,7 +9835,7 @@
     "type": "image",
     "id": 476,
     "questions": [
-      "Dans cette rue :\r\n- les automobilistes circulent à sens unique",
+      "Dans cette rue :"," - les automobilistes circulent à sens unique",
       "-  les cyclistes circulent à sens unique"
     ],
     "choices": [
@@ -9944,7 +9945,7 @@
     "type": "image",
     "id": 481,
     "questions": [
-      "Ce conducteur doit rajouter :\r\n- une plaque d'immatriculation",
+      "Ce conducteur doit rajouter :"," - une plaque d'immatriculation",
       "- un éclairage arrière supplémentaire"
     ],
     "choices": [
@@ -9968,7 +9969,7 @@
     "type": "image",
     "id": 482,
     "questions": [
-      "Avant de quitter mon véhicule stationné en pente, en plus de serrer mon frein à main :\r\n- je peux enclencher la 1ère vitesse",
+      "Avant de quitter mon véhicule stationné en pente, en plus de serrer mon frein à main :"," - je peux enclencher la 1ère vitesse",
       "- braquer les roues"
     ],
     "choices": [
@@ -9992,7 +9993,7 @@
     "type": "image",
     "id": 483,
     "questions": [
-      "Mon permis comporte le code \"01\". J'ai perdu une lentille. Je peux conduire :\r\n- avec une seule lentille",
+      "Mon permis comporte le code \"01\". J'ai perdu une lentille. Je peux conduire :"," - avec une seule lentille",
       "- en mettant des lunettes de vue"
     ],
     "choices": [
@@ -10016,7 +10017,7 @@
     "type": "image",
     "id": 484,
     "questions": [
-      "Je vais emprunter l'autoroute, si je vais en direction :\r\n- d'Angers",
+      "Je vais emprunter l'autoroute, si je vais en direction :"," - d'Angers",
       "- de Vannes"
     ],
     "choices": [
@@ -10040,7 +10041,7 @@
     "type": "image",
     "id": 485,
     "questions": [
-      "Le motocycliste est sûr d'être vu par le conducteur :\r\n- du véhicule rouge",
+      "Le motocycliste est sûr d'être vu par le conducteur :"," - du véhicule rouge",
       "- du camion"
     ],
     "choices": [
@@ -10104,7 +10105,7 @@
     "type": "image",
     "id": 488,
     "questions": [
-      "Le port de la ceinture de sécurité est obligatoire pour le passager installé :\r\n- à l'avant",
+      "Le port de la ceinture de sécurité est obligatoire pour le passager installé :"," - à l'avant",
       "- à l'arrière"
     ],
     "choices": [
@@ -10302,7 +10303,7 @@
     "type": "image",
     "id": 497,
     "questions": [
-      "Les feux de croisement :\r\n- ont une portée d'au moins",
+      "Les feux de croisement :"," - ont une portée d'au moins",
       "- éclairent plus loin"
     ],
     "choices": [
@@ -10350,7 +10351,7 @@
     "type": "image",
     "id": 499,
     "questions": [
-      "L'étiquette énergie est obligatoire pour l'achat :\r\n- d'un véhicule neuf",
+      "L'étiquette énergie est obligatoire pour l'achat :"," - d'un véhicule neuf",
       "- d'un véhicule d'occasion"
     ],
     "choices": [
@@ -10415,7 +10416,7 @@
     "type": "image",
     "id": 502,
     "questions": [
-      "La manche à air indique :\r\n- la puissance du vent",
+      "La manche à air indique :"," - la puissance du vent",
       "- la direction du vent"
     ],
     "choices": [
@@ -10525,7 +10526,7 @@
     "type": "image",
     "id": 507,
     "questions": [
-      "Dans les deux situations :\r\n- entrouvrir la portière est sans danger",
+      "Dans les deux situations :"," - entrouvrir la portière est sans danger",
       "- je contrôle"
     ],
     "choices": [
@@ -10659,7 +10660,7 @@
     "type": "image",
     "id": 513,
     "questions": [
-      "Le délai d'envoi du constat amiable à mon assureur est :\r\n- suite à un accident",
+      "Le délai d'envoi du constat amiable à mon assureur est :"," - suite à un accident",
       "- suite à un vol"
     ],
     "choices": [
@@ -10763,7 +10764,7 @@
     "type": "image",
     "id": 518,
     "questions": [
-      "Dans un embouteillage, il est recommandé d'éteindre le moteur :\r\n- dès 3 secondes d'arrêt",
+      "Dans un embouteillage, il est recommandé d'éteindre le moteur :"," - dès 3 secondes d'arrêt",
       "- dès 20 secondes d'arrêt"
     ],
     "choices": [
@@ -10810,7 +10811,7 @@
     "type": "image",
     "id": 520,
     "questions": [
-      "Ce témoin :\r\n- signale le fonctionnement des feux de brouillard",
+      "Ce témoin :"," - signale le fonctionnement des feux de brouillard",
       "- représente le faisceau lumineux des feux utilisés"
     ],
     "choices": [
@@ -10856,7 +10857,7 @@
     "type": "image",
     "id": 522,
     "questions": [
-      "La distance d'arrêt peut varier en fonction :\r\n- de la vitesse",
+      "La distance d'arrêt peut varier en fonction :"," - de la vitesse",
       "- de mon état psychologique"
     ],
     "choices": [
@@ -11037,7 +11038,7 @@
     "type": "image",
     "id": 530,
     "questions": [
-      "Je peux circuler :\r\n- dans la situation 1",
+      "Je peux circuler :"," - dans la situation 1",
       "- dans la situation 2"
     ],
     "choices": [
@@ -11062,7 +11063,7 @@
     "type": "image",
     "id": 531,
     "questions": [
-      "Un passager majeur, titulaire du permis de conduire, ne portant pas sa ceinture de sécurité encourt :\r\n- une amende",
+      "Un passager majeur, titulaire du permis de conduire, ne portant pas sa ceinture de sécurité encourt :"," - une amende",
       "- un retrait"
     ],
     "choices": [
@@ -11723,7 +11724,7 @@
     "type": "image",
     "id": 562,
     "questions": [
-      "En cas d'événement majeur dans un tunnel :\r\n- je me dirige vers",
+      "En cas d'événement majeur dans un tunnel :"," - je me dirige vers",
       "- je laisse les clés sur le contact"
     ],
     "choices": [
@@ -11796,7 +11797,7 @@
     "type": "image",
     "id": 565,
     "questions": [
-      "Pour signaler ma présence à cette intersection :\r\n- je klaxonne",
+      "Pour signaler ma présence à cette intersection :"," - je klaxonne",
       "- je fais un appel lumineux"
     ],
     "choices": [
@@ -11926,7 +11927,7 @@
     "type": "image",
     "id": 571,
     "questions": [
-      "Protéger les lieux d'un accident :\r\n- c'est installer le triangle de présignalisation à au moins",
+      "Protéger les lieux d'un accident :"," - c'est installer le triangle de présignalisation à au moins",
       "- c'est éviter un suraccident"
     ],
     "choices": [
@@ -12142,7 +12143,7 @@
     "type": "image",
     "id": 581,
     "questions": [
-      "Un bébé peut être installé dans un siège adapté dos à la route :\r\n- sur le siège avant",
+      "Un bébé peut être installé dans un siège adapté dos à la route :"," - sur le siège avant",
       "- sur le siège arrière"
     ],
     "choices": [
@@ -12250,7 +12251,7 @@
     "type": "image",
     "id": 586,
     "questions": [
-      "Placer mes mains sur la moitié supérieure du volant, à l'extérieur de la couronne permet :\r\n- un meilleur confort de conduite",
+      "Placer mes mains sur la moitié supérieure du volant, à l'extérieur de la couronne permet :"," - un meilleur confort de conduite",
       "- une meilleure manipulation du volant"
     ],
     "choices": [
@@ -12415,7 +12416,7 @@
     "type": "image",
     "id": 593,
     "questions": [
-      "Avant d'alerter les secours, je vérifie si la victime :\r\n- est consciente",
+      "Avant d'alerter les secours, je vérifie si la victime :"," - est consciente",
       "- respire"
     ],
     "choices": [
@@ -12596,7 +12597,7 @@
     "type": "image",
     "id": 601,
     "questions": [
-      "Je peux dépasser le camion :\r\n- dans la situation 1",
+      "Je peux dépasser le camion :"," - dans la situation 1",
       "- dans la situation 2"
     ],
     "choices": [
@@ -12620,7 +12621,7 @@
     "type": "image",
     "id": 602,
     "questions": [
-      "L'ABS :\r\n- évite le blocage des roues lors d'un freinage d'urgence",
+      "L'ABS :"," - évite le blocage des roues lors d'un freinage d'urgence",
       "- peut être complété de l'AFU"
     ],
     "choices": [
@@ -12806,7 +12807,7 @@
     "type": "image",
     "id": 611,
     "questions": [
-      "La limitation de vitesse :\r\n- prend effet",
+      "La limitation de vitesse :"," - prend effet",
       "- me concerne si je vais en direction de"
     ],
     "choices": [
@@ -12870,7 +12871,7 @@
     "type": "image",
     "id": 614,
     "questions": [
-      "Ma vigilance au volant peut baisser :\r\n- par excès d'émotion",
+      "Ma vigilance au volant peut baisser :"," - par excès d'émotion",
       "- par excès de confiance"
     ],
     "choices": [
@@ -12979,7 +12980,7 @@
     "type": "image",
     "id": 619,
     "questions": [
-      "Un accident vient de se produire, après avoir enfilé mon gilet :\r\n- je sors de mon véhicule de préférence du côté de la circulation",
+      "Un accident vient de se produire, après avoir enfilé mon gilet :"," - je sors de mon véhicule de préférence du côté de la circulation",
       "- je place le triangle"
     ],
     "choices": [
@@ -13091,7 +13092,7 @@
     "type": "image",
     "id": 624,
     "questions": [
-      "Des pneus sous-gonflés :\r\n- s'usent plus vite",
+      "Des pneus sous-gonflés :"," - s'usent plus vite",
       "- favorisent le risque d'éclatement"
     ],
     "choices": [
@@ -13311,7 +13312,7 @@
     "type": "image",
     "id": 634,
     "questions": [
-      "L'étiquette énergie :\r\n- est obligatoirement affichée lors de l'achat d'un véhicule neuf",
+      "L'étiquette énergie :"," - est obligatoirement affichée lors de l'achat d'un véhicule neuf",
       "- indique"
     ],
     "choices": [
@@ -13574,7 +13575,7 @@
     "type": "image",
     "id": 646,
     "questions": [
-      "Les feux de position à l'arrière :\r\n- sont",
+      "Les feux de position à l'arrière :"," - sont",
       "- sont au nombre de"
     ],
     "choices": [
@@ -13797,7 +13798,7 @@
     "type": "image",
     "id": 656,
     "questions": [
-      "Le marquage autorise le dépassement :\r\n- dans la situation 1",
+      "Le marquage autorise le dépassement :"," - dans la situation 1",
       "- dans la situation 2"
     ],
     "choices": [
@@ -13841,7 +13842,7 @@
     "type": "image",
     "id": 658,
     "questions": [
-      "La distance de sécurité :\r\n- à l'avant est suffisante",
+      "La distance de sécurité :"," - à l'avant est suffisante",
       "- doit être d'environ"
     ],
     "choices": [
@@ -14109,7 +14110,7 @@
     "type": "image",
     "id": 670,
     "questions": [
-      "Le radar de recul :\r\n- facilite les manœuvres",
+      "Le radar de recul :"," - facilite les manœuvres",
       "- évite de tourner la tête lors de la manœuvre"
     ],
     "choices": [
@@ -14177,7 +14178,7 @@
     "type": "image",
     "id": 673,
     "questions": [
-      "Je déménage dans une autre région. Mon véhicule est neuf. Je change :\r\n- les plaques d'immatriculation de mon véhicule",
+      "Je déménage dans une autre région. Mon véhicule est neuf. Je change :"," - les plaques d'immatriculation de mon véhicule",
       "- l'adresse sur le certificat d'immatriculation du véhicule"
     ],
     "choices": [
@@ -14467,7 +14468,7 @@
     "type": "image",
     "id": 686,
     "questions": [
-      "Je rajoute de l'huile moteur :\r\n- si je constate que le niveau se situe juste en-dessous de la marque \"maxi\"",
+      "Je rajoute de l'huile moteur :"," - si je constate que le niveau se situe juste en-dessous de la marque \"maxi\"",
       "- avec n'importe quel type d'huile"
     ],
     "choices": [
@@ -14555,7 +14556,7 @@
     "type": "image",
     "id": 690,
     "questions": [
-      "En présence de signalisation temporaire :\r\n- je ralentis",
+      "En présence de signalisation temporaire :"," - je ralentis",
       "- je conserve un intervalle de sécurité d'au moins 2 secondes"
     ],
     "choices": [
@@ -14914,7 +14915,7 @@
     "type": "image",
     "id": 706,
     "questions": [
-      "La conduite écocitoyenne c'est :\r\n- faire de la marche à pied ou du vélo sur les courts trajets",
+      "La conduite écocitoyenne c'est :"," - faire de la marche à pied ou du vélo sur les courts trajets",
       "- prendre les transports en commun en ville "
     ],
     "choices": [
@@ -14982,7 +14983,7 @@
     "type": "image",
     "id": 709,
     "questions": [
-      "Attraper un objet dans la boîte à gants :\r\n- peut détourner mon attention",
+      "Attraper un objet dans la boîte à gants :"," - peut détourner mon attention",
       "- dure"
     ],
     "choices": [
@@ -15066,7 +15067,7 @@
     "type": "image",
     "id": 713,
     "questions": [
-      "L'aide de freinage d'urgence (AFU) :\r\n- freine à la place du conducteur",
+      "L'aide de freinage d'urgence (AFU) :"," - freine à la place du conducteur",
       "- remplace l'ABS"
     ],
     "choices": [
@@ -15184,7 +15185,7 @@
     "type": "image",
     "id": 718,
     "questions": [
-      "L'intermodalité :\r\n- est l'utilisation lors d'un trajet de différents",
+      "L'intermodalité :"," - est l'utilisation lors d'un trajet de différents",
       "- permet de réduire les embouteillages"
     ],
     "choices": [
@@ -15482,7 +15483,7 @@
     "type": "image",
     "id": 731,
     "questions": [
-      "Suite à un accident ayant entraîné des dommages physiques :\r\n- j'appelle",
+      "Suite à un accident ayant entraîné des dommages physiques :"," - j'appelle",
       "- je donne de l'eau aux victimes"
     ],
     "choices": [
@@ -15571,7 +15572,7 @@
     "type": "image",
     "id": 735,
     "questions": [
-      "Cet équipement :\r\n- est",
+      "Cet équipement :"," - est",
       "- m'évite"
     ],
     "choices": [
@@ -16171,7 +16172,7 @@
     "type": "image",
     "id": 762,
     "questions": [
-      "Je signale ma présence en faisant des appels de phares :\r\n- dans la situation 1",
+      "Je signale ma présence en faisant des appels de phares :"," - dans la situation 1",
       "- dans la situation 2"
     ],
     "choices": [
@@ -16261,7 +16262,7 @@
     "type": "image",
     "id": 766,
     "questions": [
-      "Je peux :\r\n- continuer tout droit",
+      "Je peux :"," - continuer tout droit",
       "- tourner à droite"
     ],
     "choices": [
@@ -16409,7 +16410,7 @@
     "type": "image",
     "id": 773,
     "questions": [
-      "Cette commande permet :\r\n- de régler",
+      "Cette commande permet :"," - de régler",
       "- de contrôler l'angle mort"
     ],
     "choices": [
@@ -16453,7 +16454,7 @@
     "type": "image",
     "id": 775,
     "questions": [
-      "L'ESP :\r\n- aide à éviter les dérapages",
+      "L'ESP :"," - aide à éviter les dérapages",
       "- permet de rouler plus vite dans les virages"
     ],
     "choices": [
@@ -16838,7 +16839,7 @@
     "type": "image",
     "id": 793,
     "questions": [
-      "Lorsque je m'éloigne du véhicule :\r\n- je laisse le certificat d'immatriculation à l'intérieur",
+      "Lorsque je m'éloigne du véhicule :"," - je laisse le certificat d'immatriculation à l'intérieur",
       "- je retire tous les objets de valeurs apparents"
     ],
     "choices": [
@@ -17183,7 +17184,7 @@
     "type": "image",
     "id": 809,
     "questions": [
-      "Je peux tourner :\r\n- à droite",
+      "Je peux tourner :"," - à droite",
       "- à gauche"
     ],
     "choices": [
@@ -17231,7 +17232,7 @@
     "type": "image",
     "id": 811,
     "questions": [
-      "L'éblouissement :\r\n- peut survenir",
+      "L'éblouissement :"," - peut survenir",
       "- nécessite un temps d'adaptation d'une seconde"
     ],
     "choices": [
@@ -17276,7 +17277,7 @@
     "type": "image",
     "id": 813,
     "questions": [
-      "Lorsqu'un passager quitte mon véhicule :\r\n- je m'assure de sa sécurité en vérifiant mon rétroviseur",
+      "Lorsqu'un passager quitte mon véhicule :"," - je m'assure de sa sécurité en vérifiant mon rétroviseur",
       "- je lui demande de descendre côté trottoir"
     ],
     "choices": [
@@ -17411,7 +17412,7 @@
     "type": "image",
     "id": 819,
     "questions": [
-      "Si je ne fais pas réaliser le contrôle technique dans les temps, j'encours :\r\n- un retrait de points",
+      "Si je ne fais pas réaliser le contrôle technique dans les temps, j'encours :"," - un retrait de points",
       "- une amende"
     ],
     "choices": [
@@ -17435,7 +17436,7 @@
     "type": "image",
     "id": 820,
     "questions": [
-      "Le pic d'alcoolémie est atteint :\r\n-  après environ 1 heure",
+      "Le pic d'alcoolémie est atteint :"," -  après environ 1 heure",
       "- après environ 30 minutes"
     ],
     "choices": [
@@ -17549,7 +17550,7 @@
     "type": "image",
     "id": 825,
     "questions": [
-      "Pour faire demi-tour à ce carrefour à sens giratoire :\r\n- je suis bien placé",
+      "Pour faire demi-tour à ce carrefour à sens giratoire :"," - je suis bien placé",
       "- je me place à gauche"
     ],
     "choices": [
@@ -17748,7 +17749,7 @@
     "type": "image",
     "id": 834,
     "questions": [
-      "Certaines maladies :\r\n- sont incompatibles avec la conduite",
+      "Certaines maladies :"," - sont incompatibles avec la conduite",
       "- entraînent des restrictions de conduite"
     ],
     "choices": [
@@ -17794,7 +17795,7 @@
     "type": "image",
     "id": 836,
     "questions": [
-      "Les feux d'angle :\r\n- améliorent la visibilité",
+      "Les feux d'angle :"," - améliorent la visibilité",
       "- sont automatiques"
     ],
     "choices": [
@@ -17891,7 +17892,7 @@
     "type": "image",
     "id": 840,
     "questions": [
-      "Pour choisir un véhicule :\r\n- je me fie à l'étiquette énergie",
+      "Pour choisir un véhicule :"," - je me fie à l'étiquette énergie",
       "- à l'utilisation que je compte faire de ce véhicule"
     ],
     "choices": [
@@ -17981,7 +17982,7 @@
     "type": "image",
     "id": 844,
     "questions": [
-      "L'appui-tête bien réglé :\r\n- c'est le haut de la tête",
+      "L'appui-tête bien réglé :"," - c'est le haut de la tête",
       "- évite le coup du lapin"
     ],
     "choices": [
@@ -18114,7 +18115,7 @@
     "type": "image",
     "id": 850,
     "questions": [
-      "Je perds 3 points pendant la période probatoire. Le stage de sensibilisation à la sécurité routière :\r\n- est",
+      "Je perds 3 points pendant la période probatoire. Le stage de sensibilisation à la sécurité routière :"," - est",
       "- permet d'obtenir"
     ],
     "choices": [
@@ -18182,7 +18183,7 @@
     "type": "image",
     "id": 853,
     "questions": [
-      "La ceinture est obligatoire pour un trajet :\r\n- de plus de 5 km",
+      "La ceinture est obligatoire pour un trajet :"," - de plus de 5 km",
       "- de moins de 5 km"
     ],
     "choices": [
@@ -18294,7 +18295,7 @@
     "type": "image",
     "id": 858,
     "questions": [
-      "Dans ce tunnel :\r\n- j'allume",
+      "Dans ce tunnel :"," - j'allume",
       "- je peux dépasser une motocyclette"
     ],
     "choices": [
@@ -18503,7 +18504,7 @@
     "type": "image",
     "id": 868,
     "questions": [
-      "Le dépassement du cycliste est dangereux :\r\n- dans la situation 1",
+      "Le dépassement du cycliste est dangereux :"," - dans la situation 1",
       "- dans la situation 2"
     ],
     "choices": [
@@ -18889,7 +18890,7 @@
     "type": "image",
     "id": 886,
     "questions": [
-      "Sur route enneigée :\r\n- l'adhérence est",
+      "Sur route enneigée :"," - l'adhérence est",
       "- j'utilise de préférence"
     ],
     "choices": [
@@ -18977,7 +18978,7 @@
     "type": "image",
     "id": 890,
     "questions": [
-      "Le champ visuel d'un conducteur :\r\n- à l'arrêt est d'environ",
+      "Le champ visuel d'un conducteur :"," - à l'arrêt est d'environ",
       "- à 130 km/h est d'environ"
     ],
     "choices": [
@@ -19044,7 +19045,7 @@
     "type": "image",
     "id": 893,
     "questions": [
-      "À l'intersection :\r\n- je tourne à droite obligatoirement",
+      "À l'intersection :"," - je tourne à droite obligatoirement",
       "- je continue tout droit obligatoirement"
     ],
     "choices": [
@@ -19414,7 +19415,7 @@
     "type": "image",
     "id": 910,
     "questions": [
-      "Une mauvaise installation au poste de conduite :\r\n- augmente le risque de lésions corporelles en cas d'accident",
+      "Une mauvaise installation au poste de conduite :"," - augmente le risque de lésions corporelles en cas d'accident",
       "- gêne ma vision"
     ],
     "choices": [
@@ -19527,7 +19528,7 @@
     "type": "image",
     "id": 915,
     "questions": [
-      "Mon passager fait un malaise :\r\n- je m'arrête",
+      "Mon passager fait un malaise :"," - je m'arrête",
       "- je peux emprunter la borne d'appel d'urgence"
     ],
     "choices": [
@@ -19644,7 +19645,7 @@
     "type": "image",
     "id": 920,
     "questions": [
-      "Sur ces emplacements :\r\n- j'utilise le vélopartage",
+      "Sur ces emplacements :"," - j'utilise le vélopartage",
       "- je dépose mon vélo personnel"
     ],
     "choices": [
@@ -19668,7 +19669,7 @@
     "type": "image",
     "id": 921,
     "questions": [
-      "Arrivé le premier sur les lieux de l'accident :\r\n- je coupe le contact du véhicule",
+      "Arrivé le premier sur les lieux de l'accident :"," - je coupe le contact du véhicule",
       "- j'enlève la ceinture de sécurité de la victime"
     ],
     "choices": [
@@ -19847,7 +19848,7 @@
     "type": "image",
     "id": 929,
     "questions": [
-      "Les balises bleues et blanches indiquent :\r\n- une direction à suivre",
+      "Les balises bleues et blanches indiquent :"," - une direction à suivre",
       "- des virages dangereux"
     ],
     "choices": [
@@ -20307,7 +20308,7 @@
     "type": "image",
     "id": 951,
     "questions": [
-      "Ce panneau :\r\n- signale",
+      "Ce panneau :"," - signale",
       "- est temporaire"
     ],
     "choices": [
@@ -20674,7 +20675,7 @@
     "type": "image",
     "id": 968,
     "questions": [
-      "Avant de sortir de mon véhicule, je vérifie :\r\n- que le frein à main est serré",
+      "Avant de sortir de mon véhicule, je vérifie :"," - que le frein à main est serré",
       "- que l'anti-vol de direction est bloqué"
     ],
     "choices": [
@@ -21048,7 +21049,7 @@
     "type": "image",
     "id": 985,
     "questions": [
-      "À droite, je peux m'arrêter :\r\n- pour faire descendre mon passager",
+      "À droite, je peux m'arrêter :"," - pour faire descendre mon passager",
       "- le temps de consulter mes mails"
     ],
     "choices": [
@@ -21384,7 +21385,7 @@
     "type": "image",
     "id": 1000,
     "questions": [
-      "Être écomobile en voiture, c'est utiliser :\r\n- le covoiturage",
+      "Être écomobile en voiture, c'est utiliser :"," - le covoiturage",
       "- l'autopartage"
     ],
     "choices": [
@@ -22051,7 +22052,7 @@
     "type": "image",
     "id": 1031,
     "questions": [
-      "J'enfile mon gilet haute visibilité et place le triangle de signalisation pour signaler un accident :\r\n- de jour",
+      "J'enfile mon gilet haute visibilité et place le triangle de signalisation pour signaler un accident :"," - de jour",
       "- de nuit"
     ],
     "choices": [
@@ -22075,7 +22076,7 @@
     "type": "image",
     "id": 1032,
     "questions": [
-      "En conditions normales de circulation sur autoroute, un usager :\r\n- peut dépasser",
+      "En conditions normales de circulation sur autoroute, un usager :"," - peut dépasser",
       "- doit circuler dans la voie de gauche au minimum"
     ],
     "choices": [
@@ -22193,7 +22194,7 @@
     "type": "image",
     "id": 1037,
     "questions": [
-      "Le compte-tours :\r\n- permet de contrôler la vitesse de fonctionnement du moteur",
+      "Le compte-tours :"," - permet de contrôler la vitesse de fonctionnement du moteur",
       "- aide à la conduite économique"
     ],
     "choices": [
@@ -22217,7 +22218,7 @@
     "type": "image",
     "id": 1038,
     "questions": [
-      "À 70 km/h :\r\n- je parcours environ",
+      "À 70 km/h :"," - je parcours environ",
       "- pour m'arrêter, il me faut environ"
     ],
     "choices": [
@@ -22417,7 +22418,7 @@
     "type": "image",
     "id": 1047,
     "questions": [
-      "Un panneau :\r\n- d'indication de conduite est sur fond",
+      "Un panneau :"," - d'indication de conduite est sur fond",
       "- d'indication de services est sur fond"
     ],
     "choices": [
@@ -22465,7 +22466,7 @@
     "type": "image",
     "id": 1049,
     "questions": [
-      "Cette manche à air signale :\r\n- la direction du vent",
+      "Cette manche à air signale :"," - la direction du vent",
       "- l'intensité du vent"
     ],
     "choices": [
@@ -22725,7 +22726,7 @@
     "type": "image",
     "id": 1061,
     "questions": [
-      "Une bonne installation au volant permet :\r\n- une action rapide sur les commandes",
+      "Une bonne installation au volant permet :"," - une action rapide sur les commandes",
       "- de supprimer les angles morts"
     ],
     "choices": [
@@ -22860,7 +22861,7 @@
     "type": "image",
     "id": 1067,
     "questions": [
-      "Je suis autorisé à conduire une voiture manuelle si je suis titulaire :\r\n- du permis B à embrayage automatique seul (permis BEA)",
+      "Je suis autorisé à conduire une voiture manuelle si je suis titulaire :"," - du permis B à embrayage automatique seul (permis BEA)",
       "- du permis B"
     ],
     "choices": [
@@ -22948,7 +22949,7 @@
     "type": "image",
     "id": 1071,
     "questions": [
-      "Le compteur à gauche :\r\n- s'appelle",
+      "Le compteur à gauche :"," - s'appelle",
       "- est utile pour"
     ],
     "choices": [
@@ -23062,7 +23063,7 @@
     "type": "image",
     "id": 1076,
     "questions": [
-      "Le réglage du volant :\r\n- se fait en hauteur",
+      "Le réglage du volant :"," - se fait en hauteur",
       "- permet d'avoir une meilleure visibilité"
     ],
     "choices": [

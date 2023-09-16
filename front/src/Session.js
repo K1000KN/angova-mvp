@@ -483,8 +483,9 @@ const Session = () => {
                         ))}
                       </ul>
                       <br />
-
-                      <p id="questionQuizz">{questions[2]}</p>
+                      <Typography variant="h6" id="questionQuizz">
+                        {questions[2]}
+                      </Typography>
                       {questions && questions.length > 1 ? (
                         <ul className="quizList">
                           {choices.slice(2, 4).map((answer, index) => (
