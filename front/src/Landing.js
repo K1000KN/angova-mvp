@@ -23,6 +23,7 @@ import ReviewCard from "./components/ReviewCard";
 import BurgerMenu from "./components/BurgerMenu";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { FeedGet } from "./components/FeedGet";
 
 function Landing() {
   const { t, i18n } = useTranslation();
@@ -515,6 +516,7 @@ function Landing() {
           <LinkedInIcon sx={{ color: "#FFFF", fontSize: 35 }} /> */}
         </Grid>
       </Grid>
+      <FeedGet />
     </ThemeProvider>
   );
 }
