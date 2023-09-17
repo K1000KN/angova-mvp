@@ -24,6 +24,7 @@ import BurgerMenu from "./components/BurgerMenu";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { FeedGet } from "./components/FeedGet";
+import TokenService from "./services/TokenServices";
 
 function Landing() {
   const { t, i18n } = useTranslation();
@@ -262,7 +263,7 @@ function Landing() {
           </Grid>
 
           <Grid item xs={2} sx={{ display: { xs: "none", lg: "block" } }}>
-            {isLoggedIn ? (
+            {isLoggedIn && tokenVerified ? (
               <Button
                 onClick={handleGoToApp}
                 sx={{

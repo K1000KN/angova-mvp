@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { createTheme } from "@mui/material/styles";
+import TokenService from "../services/TokenServices";
 
 // const arabicSquaredFlag = "./images/flag/squared/arabic.png";
 // const trFlagSquared = "./images/flag/squared/tr.png";
@@ -37,6 +38,7 @@ export default forwardRef(
     ref
   ) => {
     const [openPopUp, setOpenPopUp] = useState(false);
+    const tokenVerified = TokenService.isTokenVerified();
 
     const handleClickOpenPopUp = () => {
       setOpenPopUp(true);
@@ -152,7 +154,7 @@ export default forwardRef(
           </div>
         </div>
 
-        {isLoggedIn ? (
+        {isLoggedIn && tokenVerified ? (
           <Button
             onClick={handleGoToApp}
             sx={{

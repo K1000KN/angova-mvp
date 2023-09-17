@@ -84,11 +84,6 @@ const PrivateRoute = ({ path, roles, children }) => {
   }, [token]);
 
   useEffect(() => {
-    if (isAuthenticated && roles && roles.includes(userRole)) {
-      return;
-    }
-    console.log("PrivateRoute", isAuthenticated, roles, userRole);
-
     if (!isAuthenticated) {
       // Redirect to login page if not authenticated
       navigate("/", { replace: true });
@@ -111,8 +106,11 @@ const PrivateRoute = ({ path, roles, children }) => {
       return;
     }
 
-    // User role not authorized
-    navigate("/", { replace: true });
+    if (roles && !roles.includes(userRole)) {
+      // User role not authorized
+      navigate("/", { replace: true });
+      return;
+    }
   }, [
     isAuthenticated,
     roles,
