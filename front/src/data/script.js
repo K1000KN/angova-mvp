@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 // Lire le fichier JSON existant
-fs.readFile('content_fr.json', 'utf8', (err, data) => {
+fs.readFile('content_en.json', 'utf8', (err, data) => {
   if (err) {
     console.error('Erreur de lecture du fichier JSON : ', err);
     return;
