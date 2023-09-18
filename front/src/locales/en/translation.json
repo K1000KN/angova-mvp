@@ -7,11 +7,6 @@
     "tr": "Turkish",
     "tn": "Tunisian",
     "popup": "Site language :",
-    "lgn1": "French",
-    "lgn2": "Arabic",
-    "lgn3": "Spanish",
-    "lgn4": "English",
-    "lgn5": "Turkish",
     "loginButton": "Login",
     "title-1.1.1": "Highway code",
     "title-1.1.2": "translated into the language of your choice",
@@ -59,5 +54,7 @@
     "codeRoute": "Highway code",
     "choisir-la-langue-du-code-de-la-route": "Choose the language of the highway code",
     "mdp-not-correspond": "Passwords don't match",
-    "password-input-regex": "The password must contain an upper- and lower-case number."
+    "password-input-regex": "The password must contain an upper- and lower-case number.",
+    "forbidden-language": "This language is not available",
+    "invalid-session": "Invalid session"
 }

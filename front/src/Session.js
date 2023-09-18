@@ -17,7 +17,7 @@ import {
   Typography,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import PlayerSession from "./components/PlayerSession";
+import ImageSessionHandler from "./components/ImageSessionHandler";
 import { useTranslation } from "react-i18next";
 
 import jsonDataFr from "./data/content_fr.json";
@@ -28,6 +28,7 @@ import {
   processSessions,
   filterSessionsByLanguage,
 } from "./services/sessionService";
+import AudioS3 from "./components/AudioS3";
 
 const Session = () => {
   const { t } = useTranslation();
@@ -48,28 +49,18 @@ const Session = () => {
   const [showExplanation, setShowExplanation] = useState(false);
 
   // GESTION DES AUDIOS
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isPlayingExp, setIsPlayingExp] = useState(false);
-  const [audioSrc, setAudioSrc] = useState("");
-  const [expAudioSrc, setExpAudioSrc] = useState("");
+  const [activeSource, setActiveSource] = useState(null);
 
-  const audioSources = {
-    src: [audioSrc], // Remplacez par le chemin de votre fichier audio
-    html5: true, // Active la lecture audio HTML5 pour la compatibilité avec Safari
-  };
-  const expAudioSources = {
-    src: [expAudioSrc], // Remplacez par le chemin de votre fichier audio
-    html5: true, // Active la lecture audio HTML5 pour la compatibilité avec Safari
-  };
-  const handleToggleAudio = () => {
-    setIsPlayingExp(false);
-    setIsPlaying(!isPlaying);
+  const handleAudioToggle = (source) => {
+    // Pause the previously active audio source
+    if (activeSource && activeSource !== source) {
+      setActiveSource(null);
+    }
+    // Set the currently active source
+    setActiveSource(source);
   };
 
-  const handleToggleAudioExp = () => {
-    setIsPlaying(false);
-    setIsPlayingExp(!isPlayingExp);
-  };
+ 
 
   
   const navigate = useNavigate();
@@ -180,16 +171,16 @@ const Session = () => {
   const createSessionData = (language, jsonData) => {
     return jsonData.map((session) => {
       const imgPaths = [];
-      
+
       if (session.multiple && session.multiple === true) {
         // Si session.multiple existe et est true
-        imgPaths.push(`/session/q${session.id}/q${session.id}_1.jpeg`);
-        imgPaths.push(`/session/q${session.id}/q${session.id}_2.jpeg`);
+        imgPaths.push(`/session/q${session.id}/q${session.id}_1.jpg`);
+        imgPaths.push(`/session/q${session.id}/q${session.id}_2.jpg`);
       } else {
         // Si session.multiple n'existe pas ou est false
-        imgPaths.push(`/session/q${session.id}/q${session.id}.jpeg`);
+        imgPaths.push(`/session/q${session.id}/q${session.id}.jpg`);
       }
-      
+
       return {
         id: session.id,
         language: language,
@@ -220,9 +211,9 @@ const Session = () => {
     case "es":
       sessions.push(...processSessions(sessionES, batchSize, t));
       break;
-    // case "en":
-    //   sessions.push(...processSessions(sessionEN, batchSize, t));
-    //   break;
+    case "en":
+      //   sessions.push(...processSessions(sessionEN, batchSize, t));
+      break;
     case "ma":
       sessions.push(...processSessions(sessionMA, batchSize, t));
       break;
@@ -234,7 +225,6 @@ const Session = () => {
       break;
     // ... cases for other languages ...
     default:
-      
       break;
   }
 
@@ -271,8 +261,8 @@ const Session = () => {
           }}
         >
           {sessionData === undefined
-            ? "Invalid session ID"
-            : "Language not supported"}
+            ? t("invalid-session")
+            : t("forbidden-language")}
         </Typography>
         <Typography
           variant="h6"
@@ -362,9 +352,6 @@ const Session = () => {
     onClickNext();
   };
 
-  
-
-
   const handleClose = () => {
     setOpenDialog(false);
   };
@@ -376,7 +363,16 @@ const Session = () => {
         {!showResult ? (
           <div>
             <div className="scroll-container">
-              <Grid container direction="row">
+              <Grid
+                container
+                direction="row"
+                style={{
+                  position: "fixed",
+                  backgroundColor: "#FFFFFFE6",
+                  borderRadius: "0px 0px 10px 10px",
+                  height: "6vh",
+                }}
+              >
                 <Grid
                   item
                   sm={1.8}
@@ -411,31 +407,33 @@ const Session = () => {
                   </div>
                 </Grid>
               </Grid>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: "80px",
+                }}
+              >
+                <ImageSessionHandler content={assets.img} />
+              </div>
 
-              <Grid id="imgContainer" item xs={10}>
-                <PlayerSession
-                  content={assets.img}
-                  setAudioSrc={setAudioSrc}
-                  setExpAudioSrc={setExpAudioSrc}
-                  audioQuestion={assets.audio}
-                  audioExplanation={assets.explanation}
-                />
-                
-              </Grid>
               <Grid item xs={12} id="quizContainer">
-                <div style={{ width: "100%", paddingLeft: "94%" }}>
-                  <button className={classes.orangeTonalBtn} onClick={handleToggleAudio}>
-                    {!isPlaying ? <VolumeOff /> : <VolumeUp />}
-                  </button>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    alignItems: "flex-end",
+                  }}
+                >
+                  {assets.audio && (
+                    <AudioS3
+                      source={assets.audio}
+                      onAudioToggle={handleAudioToggle}
+                      activeSource={activeSource}
+                    />
+                  )}
                 </div>
-                <ReactHowler
-                  {...audioSources}
-                  playing={isPlaying}
-                  onPlay={() => console.log('Lecture en cours')}
-                  onPause={() => console.log('Pause')}
-                  onStop={() => console.log('Arrêt')}
-                  onLoadError={(id, error) => console.error('Erreur de chargement', error)}
-                />
+                
                 {questions && questions.length > 1 ? (
                   <>
                     <Typography variant="h6" id="questionQuizz">
@@ -492,8 +490,9 @@ const Session = () => {
                         ))}
                       </ul>
                       <br />
-
-                      <p id="questionQuizz">{questions[2]}</p>
+                      <Typography variant="h6" id="questionQuizz">
+                        {questions[2]}
+                      </Typography>
                       {questions && questions.length > 1 ? (
                         <ul className="quizList">
                           {choices.slice(2, 4).map((answer, index) => (
@@ -596,6 +595,10 @@ const Session = () => {
                 <button
                   onClick={() => {
                     if (showExplanation) {
+                      // Mute the audio if it is playing
+                      if (activeSource) {
+                        setActiveSource(null);
+                      }
                       closeExplanationDialogAndNext();
                     } else {
                       verifyAnswer(
@@ -672,21 +675,14 @@ const Session = () => {
           </DialogTitle>
           <DialogContent>{explanation}</DialogContent>
           <DialogActions>
-            <button
-              onClick={handleToggleAudioExp}
-              className={classes.orangeTonalBtn}
-            >
-              {!isPlayingExp ? <VolumeOff /> : <VolumeUp />}
+            {assets.explanation && (
+              <AudioS3
+                source={assets.explanation}
+                onAudioToggle={handleAudioToggle}
+                activeSource={activeSource}
+              />
+            )}
 
-            </button>
-            <ReactHowler
-              {...expAudioSources}
-              playing={isPlayingExp}
-              onPlay={() => console.log('Lecture en cours')}
-              onPause={() => console.log('Pause')}
-              onStop={() => console.log('Arrêt')}
-              onLoadError={(id, error) => console.error('Erreur de chargement', error)}
-            />
             <button
               onClick={closeExplanationDialogAndNext}
               className={classes.orangeBtn}

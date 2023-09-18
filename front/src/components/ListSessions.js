@@ -2,7 +2,7 @@ import "../home.css";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
+import ImageS3 from "./ImageS3";
 import NoSessionMessage from "./NoSessionMessage";
 
 const ListSession = ({
@@ -36,13 +36,7 @@ const ListSession = ({
               onMouseEnter={() => handleHover(session.id)}
               onMouseLeave={() => handleHover(null)}
             >
-              <CardMedia
-                component="img"
-                height="100%"
-                image={session.image}
-                alt="session"
-                className={classes.cardMedia}
-              />
+              <ImageS3 source={session.image} isSkeleton={true} />
               <div
                 className={`${classes.slide2} ${
                   hoveredCard === session.id ? "active" : ""
