@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 // Lire le fichier JSON existant
-fs.readFile('content_en.json', 'utf8', (err, data) => {
+fs.readFile('content_fr.json', 'utf8', (err, data) => {
   if (err) {
     console.error('Erreur de lecture du fichier JSON : ', err);
     return;
@@ -13,10 +13,11 @@ fs.readFile('content_en.json', 'utf8', (err, data) => {
 
     // Boucle à travers chaque objet
     jsonArray.forEach((item) => {
-      // Vérifie si la longueur de questions est égale à 2
-      if (item.questions && item.questions.length === 2) {
-        // Ajoute une chaîne vide au début de l'array questions
-        item.questions.unshift('');
+      if (item.choices && Array.isArray(item.choices)) {
+        // Enlever les lettres "A", "B", "C" et "D" au début de chaque choix
+        item.choices = item.choices.map((choice) => {
+          return choice.replace(/^[A-D]\s+/i, '');
+        });
       }
     });
 
