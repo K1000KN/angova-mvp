@@ -7,11 +7,6 @@
     "tr": "Turco",
     "tn": "Tunecino",
     "popup": "Idioma del sitio:",
-    "lgn1": "Francés",
-    "lgn2": "Árabe",
-    "lgn3": "Español",
-    "lgn4": "Inglés",
-    "lgn5": "Turco",
     "loginButton": "Iniciar sesión",
     "title-1.1.1": "Código de circulación",
     "title-1.1.2": "traducido en el idioma de tu elección",
@@ -59,5 +54,7 @@
     "codeRoute": "Código de circulación",
     "choisir-la-langue-du-code-de-la-route": "Elija el idioma del código de circulación",
     "mdp-not-correspond": "Las contraseñas no coinciden",
-    "password-input-regex": "La contraseña debe contener mayúsculas y minúsculas."
+    "password-input-regex": "La contraseña debe contener mayúsculas y minúsculas.",
+    "forbidden-language": "Este idioma no está disponible",
+    "invalid-session": "Sesión no válida"
 }

@@ -5,10 +5,10 @@ import {
   createUserFromAdmin,
   getAdminById,
   testApi,
-  resetPasswordAdmin
+  resetPasswordAdmin,
 } from "../controllers/adminController.js";
 
-import { validateAdminToken } from "../middleware/authMiddleware.js";
+import { validateAdminToken } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 router.get("/admin/test", testApi);

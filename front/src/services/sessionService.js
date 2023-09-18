@@ -1,4 +1,5 @@
 export function processSessions(sessionData, batchSize, t) {
+  let counter = 1;
   const processedSessions = [];
   for (let i = 0; i < sessionData.length; i += batchSize) {
     const batch = sessionData.slice(i, i + batchSize);
@@ -16,11 +17,13 @@ export function processSessions(sessionData, batchSize, t) {
     });
 
     sessionBatch.id = i / batchSize + 1;
-    sessionBatch.image = `/session/q${sessionBatch.id}/q${sessionBatch.id}.jpeg`;
+    sessionBatch.image = `session/q${counter}/q${counter}.jpg`;
     sessionBatch.title = `Session ${sessionBatch.id}`;
     sessionBatch.description = t("code-de-la-route-description");
 
     processedSessions.push(sessionBatch);
+
+    counter = counter + 40;
   }
   return processedSessions;
 }

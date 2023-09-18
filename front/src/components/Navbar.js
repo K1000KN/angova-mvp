@@ -1,50 +1,33 @@
 import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import { decodeToken } from "react-jwt";
-import { Typography } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom"; // Import useNavigate instead of useHistory
 import { useTranslation } from "react-i18next";
+import { getCurrentUser } from "../services/userService";
 
 const NavbarComponent = ({ page, setLanguageImage }) => {
   const { t } = useTranslation();
-  const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem("token");
   const [user, setUser] = useState(null);
   const [isUserFetched, setIsUserFetched] = useState(false);
   const [role, setRole] = useState("");
+  const navigate = useNavigate(); // Use useNavigate to perform navigation
 
   useEffect(() => {
-    const getCurrentUser = async () => {
-      const decodedToken = decodeToken(token);
-      const id = decodedToken.id;
-      const role = decodedToken.role;
-      setRole(role);
-      let endpoint = `${apiUrl}/user/${id}`;
-
-      if (role === "admin") {
-        endpoint = `${apiUrl}/admin/${id}`;
-      } else if (role === "manager") {
-        endpoint = `${apiUrl}/manager/${id}`;
-      }
-
+    const fetchCurrentUser = async () => {
       try {
-        const response = await axios.get(endpoint, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setUser(response.data);
+        const user = await getCurrentUser(token, navigate);
+        setUser(user);
         setIsUserFetched(true);
+        setRole(user.role);
       } catch (error) {
         console.error("Error:", error);
       }
     };
 
     if (token && !isUserFetched) {
-      getCurrentUser();
+      fetchCurrentUser();
     }
-  }, [token, isUserFetched, apiUrl]);
+  }, [token, isUserFetched, navigate]);
 
   return (
     <div id="navContainer">

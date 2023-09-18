@@ -110,7 +110,7 @@ export const resetPasswordManager = async (req, res) => {
       return res.status(404).send({ message: "Manager not found" });
     }
     const isPasswordValid = await bcrypt.compare(password, user.password);
- 
+
     if (!isPasswordValid) {
       return res.status(401).send({ message: "Invalid password" });
     }
@@ -133,7 +133,10 @@ export const getManagerById = async (req, res) => {
   try {
     const { id } = req.params;
     const user = await User.findById(id).populate("roles", "name");
-    user.password = undefined;
+    if(user && user.password){
+      user.password = "";
+    }
+    
     if (!user) {
       return res.status(404).send({ message: "Manager not found" });
     }

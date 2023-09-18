@@ -59,6 +59,7 @@
 .quizList {
     margin: 0; /* To remove default bottom margin */ 
     padding: 0; /* To remove default left padding */
+    max-width: 800px;
 }
 .quizList>li {
   text-decoration: none;
