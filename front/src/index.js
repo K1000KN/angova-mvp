@@ -24,11 +24,8 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import AddUserPage from "./AddUser";
 import DashboardAutoPage from "./dashboard/DashboardAuto";
-import { Grid } from "@mui/material";
-import { FeedGet } from "./components/FeedGet";
-
+import TokenService from "./services/TokenServices";
 const theme = createTheme();
-const apiUrl = process.env.REACT_APP_API_URL;
 
 const PrivateRoute = ({ path, roles, children }) => {
   const token = localStorage.getItem("token");
@@ -43,6 +40,11 @@ const PrivateRoute = ({ path, roles, children }) => {
   const isAuthenticated = !!token;
   const navigate = useNavigate();
   const location = useLocation();
+  const apiUrl = process.env.REACT_APP_API_URL;
+  const userRole = TokenService.getUserRole();
+  const token = TokenService.getToken();
+  const refreshToken = localStorage.getItem("refreshToken");
+  const isAuthenticated = TokenService.isTokenVerified();
 
   const refreshToken = localStorage.getItem("refreshToken");
   const userRole = token ? jwt_decode(token).role : null;
@@ -84,6 +86,11 @@ const PrivateRoute = ({ path, roles, children }) => {
   }, [token]);
 
   useEffect(() => {
+    if (isAuthenticated && roles && roles.includes(userRole)) {
+      return;
+    }
+    console.log("PrivateRoute", isAuthenticated, roles, userRole);
+
     if (!isAuthenticated) {
       // Redirect to login page if not authenticated
       navigate("/", { replace: true });
@@ -106,11 +113,8 @@ const PrivateRoute = ({ path, roles, children }) => {
       return;
     }
 
-    if (roles && !roles.includes(userRole)) {
-      // User role not authorized
-      navigate("/", { replace: true });
-      return;
-    }
+    // User role not authorized
+    navigate("/", { replace: true });
   }, [
     isAuthenticated,
     roles,
@@ -210,18 +214,6 @@ const App = () => {
 ReactDOM.render(
   <React.StrictMode>
     <App />
-    <Grid
-      sx={{
-        display: "flex",
-        bottom: 0,
-        position: "fixed",
-        width: "100%",
-        justifyContent: "flex-end",
-        alignItems: "flex-end",
-      }}
-    >
-      <FeedGet />
-    </Grid>
   </React.StrictMode>,
   document.getElementById("root")
 );
