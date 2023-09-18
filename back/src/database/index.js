@@ -30,7 +30,6 @@ async function initializeDatabase() {
     const adminRole = await Role.findOne({ name: "admin" });
     if (!adminRole) {
       await new Role({ name: "admin" }).save();
-      console.log("Admin role created");
     }
     const hashedPassword = await bcrypt.hash(PASS_ADMIN, 10);
 
@@ -44,7 +43,7 @@ async function initializeDatabase() {
         roles: [adminRole._id],
       });
       await newUser.save();
-      console.log("Admin user created");
+      console.log("Admin initialized");
     }
   } catch (error) {
     console.error("Error creating admin user:", error);
