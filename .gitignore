@@ -20,6 +20,7 @@ Thumbs.db
 
 # Environment variables
 back/.env
+front/.env
 .env.local
 .env.development.local
 .env.test.local
