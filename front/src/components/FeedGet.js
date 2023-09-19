@@ -4,6 +4,7 @@ import Dialog from "@mui/material/Dialog";
 import Button from "@mui/material/Button";
 import { WidgetForm } from "./WidgetForm";
 import FeedbackIcon from "@mui/icons-material/Feedback";
+import "./FeedGet.css";
 
 const FeedGet = () => {
   const [open, setOpen] = React.useState(false);
@@ -42,6 +43,7 @@ const FeedGet = () => {
         sx={iconButtonStyles}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        className="feedback-button"
       >
         <FeedbackIcon
           sx={{
