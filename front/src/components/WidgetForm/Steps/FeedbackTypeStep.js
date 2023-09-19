@@ -4,7 +4,7 @@ import { feedbackTypes } from "../index";
 import { useTranslation } from "react-i18next";
 import Typography from "@mui/material/Typography";
 import "./FeedbackTypeStep.css";
-export function FeedbackTypeStep({ onFeedbackTypeChanged, handleClose }) {
+export function FeedbackTypeStep({ onFeedbackTypeChanged, onClose }) {
   const { t } = useTranslation();
 
   return (
@@ -30,7 +30,7 @@ export function FeedbackTypeStep({ onFeedbackTypeChanged, handleClose }) {
         <Typography variant="h5" component="span">
           {t("send-feedback")}
         </Typography>
-        <CloseButton onClick={handleClose} />
+        <CloseButton onClick={onClose} />
       </header>
 
       <div

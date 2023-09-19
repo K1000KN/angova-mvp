@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { ScreenshotButton } from "../ScreenshotButton";
-
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { CloseButton } from "../../CloseButton";
-import { CircularProgress } from "@mui/material";
 import { feedbackTypes } from "../index.js";
 import { useTranslation } from "react-i18next";
-import { TextField } from "@mui/material";
+import { TextareaAutosize, Box, IconButton } from "@mui/material";
+import Typography from "@mui/material/Typography";
 
 export function FeedbackContentStep({
   feedbackType,
@@ -19,6 +18,8 @@ export function FeedbackContentStep({
   const [isSendingFeedback, setIsSendingFeedback] = useState(false);
 
   const feedbackTypeInfo = feedbackTypes[feedbackType];
+
+  const addEmoji = (emoji) => () => setComment(`${comment}${emoji}`);
 
   async function handleSubmitFeedback(e) {
     e.preventDefault();
@@ -36,16 +37,38 @@ export function FeedbackContentStep({
 
   return (
     <>
-      <header>
+      <header
+        style={{
+          display: "flex",
+          padding: "16px",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
         <button
           type="button"
-          className="absolute top-5 left-5 text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-100"
           onClick={onFeedbackRestartRequested}
+          style={{
+            border: "none",
+            backgroundColor: "transparent",
+            cursor: "pointer",
+          }}
         >
-          <ArrowBackIcon weight="bold" className="w-4 h-4" />
+          <ArrowBackIcon
+            weight="bold"
+            style={{
+              color: "rgb(244, 158, 76)",
+            }}
+          />
         </button>
 
-        <span className="text-xl leading-6 flex items-center gap-2">
+        <span
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+          }}
+        >
           <img
             src={feedbackTypeInfo.image.source}
             alt={feedbackTypeInfo.image.alt}
@@ -53,22 +76,76 @@ export function FeedbackContentStep({
           />
           {feedbackTypeInfo.title}
         </span>
-        <CloseButton />
+        <div></div>
       </header>
 
-      <form className="my-4 w-full" onSubmit={handleSubmitFeedback}>
-        <TextField
-          fullWidth
-          label="Votre message"
-          id="fullWidth"
+      <form
+        onSubmit={handleSubmitFeedback}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "10px",
+          justifyContent: "space-between",
+          width: "90%",
+          margin: "0 auto",
+        }}
+      >
+        <TextareaAutosize
+          minRows={4}
           placeholder={t("feedback-placeholder")}
           onChange={(event) => setComment(event.target.value)}
+          autoCapitalize="sentences"
+          autoCorrect="on"
+          autoFocus={true}
+          resize="none"
+          style={{
+            width: "100%",
+            padding: "8px",
+            border: "1px solid #ccc",
+            resize: "none",
+          }}
+          value={comment}
         />
 
-        <ScreenshotButton
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 0.5,
+            justifyContent: "flex-end",
+          }}
+        >
+          <IconButton
+            variant="outlined"
+            color="neutral"
+            onClick={addEmoji("👎")}
+            style={{ marginRight: "8px", borderRadius: "5px" }}
+          >
+            👎
+          </IconButton>
+          <IconButton
+            variant="outlined"
+            color="neutral"
+            onClick={addEmoji("👍")}
+            style={{ marginRight: "8px", borderRadius: "5px" }}
+          >
+            👍
+          </IconButton>
+
+          <IconButton
+            variant="outlined"
+            color="neutral"
+            onClick={addEmoji("😍")}
+            style={{ marginRight: "8px", borderRadius: "5px" }}
+          >
+            😍
+          </IconButton>
+        </Box>
+
+        {/* <ScreenshotButton
           screenshot={screenshot}
           onScreenshotTook={setScreenshot}
-        />
+        /> */}
       </form>
     </>
   );
