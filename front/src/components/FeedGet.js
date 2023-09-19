@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import { WidgetForm } from "./WidgetForm";
 import FeedbackIcon from "@mui/icons-material/Feedback";
 
-export const FeedGet = () => {
+const FeedGet = () => {
   const [open, setOpen] = React.useState(false);
   const [isHovered, setIsHovered] = React.useState(false);
 
@@ -70,3 +70,5 @@ export const FeedGet = () => {
     </>
   );
 };
+
+export default FeedGet;

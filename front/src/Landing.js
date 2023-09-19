@@ -23,7 +23,6 @@ import ReviewCard from "./components/ReviewCard";
 import BurgerMenu from "./components/BurgerMenu";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { FeedGet } from "./components/FeedGet";
 import TokenService from "./services/TokenServices";
 
 function Landing() {
