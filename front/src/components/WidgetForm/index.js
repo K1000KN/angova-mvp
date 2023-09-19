@@ -34,7 +34,7 @@ export const feedbackTypes = {
   },
 };
 
-export const WidgetForm = ({ handleClose }) => {
+export const WidgetForm = ({ onClose }) => {
   const [feedbackType, setFeedbackType] = useState(null);
   const [feedbackSent, setFeedbackSent] = useState(false);
   const { t } = useTranslation();
@@ -55,13 +55,14 @@ export const WidgetForm = ({ handleClose }) => {
           {!feedbackType ? (
             <FeedbackTypeStep
               onFeedbackTypeChanged={setFeedbackType}
-              onClose={handleClose}
+              onClose={onClose}
             />
           ) : (
             <FeedbackContentStep
               feedbackType={feedbackType}
               onFeedbackRestartRequested={handleRestartFeedback}
               onFeedbackSent={() => setFeedbackSent(true)}
+              onClose={onClose}
             />
           )}
         </>
@@ -70,7 +71,7 @@ export const WidgetForm = ({ handleClose }) => {
       <Typography
         style={{
           fontStyle: "italic",
-          marginTop: "16px",
+          margin: "16px 0",
           textAlign: "center",
         }}
       >

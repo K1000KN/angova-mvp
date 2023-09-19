@@ -15,7 +15,7 @@ export function FeedbackSuccessStep({
           justifyContent: "space-between",
         }}
       >
-        <CloseButton onClick={handleClose} />
+        <CloseButton onClose={handleClose} />
       </header>
 
       <div className="flex flex-col items-center py-10 w-[304px]">
@@ -36,7 +36,7 @@ export function FeedbackSuccessStep({
           />
         </svg>
 
-        <span className="text-xl mt-2">Agradecemos o feedback</span>
+        <span className="text-xl mt-2">Merci pour votre retour ! 🙏</span>
 
         <button
           onClick={onFeedbackRestartRequested}
