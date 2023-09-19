@@ -10,16 +10,14 @@ export function CloseButton({ onClose }) {
   return (
     <IconButton
       onClick={handleClose}
-      sx={{
-        backgroundColor: "rgb(244, 158, 76)",
-        color: "white",
-        "&:hover": {
-          backgroundColor: "rgb(244, 158, 76, 0.8)",
-        },
-      }}
+      aria-label="close"
       style={{ margin: "16px" }}
     >
-      <CloseIcon />
+      <CloseIcon
+        style={{
+          color: "rgb(244, 158, 76)",
+        }}
+      />
     </IconButton>
   );
 }

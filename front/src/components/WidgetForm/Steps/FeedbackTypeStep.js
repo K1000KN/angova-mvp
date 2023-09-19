@@ -4,6 +4,8 @@ import { feedbackTypes } from "../index";
 import { useTranslation } from "react-i18next";
 import Typography from "@mui/material/Typography";
 import "./FeedbackTypeStep.css";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+
 export function FeedbackTypeStep({ onFeedbackTypeChanged, onClose }) {
   const { t } = useTranslation();
 
@@ -16,9 +18,7 @@ export function FeedbackTypeStep({ onFeedbackTypeChanged, onClose }) {
       style={{
         display: "flex",
         flexDirection: "column",
-        gap: "10px",
         justifyContent: "space-between",
-        width: "90%",
         margin: "0 auto",
       }}
     >
@@ -30,10 +30,30 @@ export function FeedbackTypeStep({ onFeedbackTypeChanged, onClose }) {
           justifyContent: "space-between",
         }}
       >
-        <div>{""}</div>
-        <Typography variant="h5" component="span">
-          {t("send-feedback")}
-        </Typography>
+        {/* Sorry but i've had to align center this text but it was late at night ..  */}
+        <div
+          type="button"
+          onClick={handleClose}
+          style={{
+            width: "60px",
+            border: "none",
+            backgroundColor: "transparent",
+            cursor: "pointer",
+          }}
+        ></div>
+        <div>
+          {" "}
+          <Typography
+            variant="h5"
+            component="span"
+            style={{
+              textAlign: "center",
+            }}
+          >
+            {t("send-feedback")}
+          </Typography>
+        </div>
+
         <CloseButton onClose={handleClose} />
       </header>
 
