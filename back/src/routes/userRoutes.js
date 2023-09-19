@@ -10,7 +10,7 @@ import {
   refreshUserToken,
 } from "../controllers/userController.js";
 
-import { validateAdminToken } from "../middleware/authMiddleware.js";
+import { validateAdminToken } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 router.post("/user/create", createUser);

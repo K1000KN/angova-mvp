@@ -7,11 +7,6 @@
     "tr": "Turc",
     "tn": "Tunisien",
     "popup": "Langue du site :",
-    "lgn1": "Francais",
-    "lgn2": "Arabe",
-    "lgn3": "Espagnol",
-    "lgn4": "Anglais",
-    "lgn5": "Turc",
     "loginButton": "Connexion",
     "AppButton": "Session code",
     "title-1.1.1": "Code de la route",
@@ -60,7 +55,7 @@
     "codeRoute": "Code de la route",
     "choisir-la-langue-du-code-de-la-route": "Choisir la langue du code de la route",
     "mdp-not-correspond": "Les mots de passe ne correspondent pas",
-    "password-input-regex": "Le mot de passe doit contenir un chiffre majuscule et minuscule."
-
-
+    "password-input-regex": "Le mot de passe doit contenir un chiffre majuscule et minuscule.",
+    "forbidden-language": "Cette langue n'est pas disponible",
+    "invalid-session": "Session invalide"
 }

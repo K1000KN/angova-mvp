@@ -25,6 +25,9 @@ const resources = {
   tr: {
     translation: translationTR,
   },
+  ma: {
+    translation: translationAR,
+  },
 }
 i18n
   .use(Backend)

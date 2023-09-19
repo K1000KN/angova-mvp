@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Grid, Paper, Button, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 import { TextField } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import DialogContentText from "@mui/material/DialogContentText";
 import { makeStyles } from "@mui/styles";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
@@ -33,7 +34,7 @@ const useStyles = makeStyles({
     alignItems: "center",
   },
   field: {
-    marginTop: 8,
+    marginTop: "12px !important",
   },
 });
 const NewUserForm = ({ open, handleClose, usersList, setUsers }) => {
@@ -55,6 +56,7 @@ const NewUserForm = ({ open, handleClose, usersList, setUsers }) => {
     marginLeft: "15%",
     backgroundColor: "#F49E4C",
   };
+  const passwordRegExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
 
   const initialValues = {
     username: "",
@@ -67,7 +69,13 @@ const NewUserForm = ({ open, handleClose, usersList, setUsers }) => {
       .email(`${t("email-input-verif")}`)
       .required("Requis"),
     password: Yup.string()
-      .min(0, "Le nombre de caractères minimum doit être de 8")
+      .min(8,`${t("password-input-verif")}`)
+      .required("Requis")
+      .matches(
+        passwordRegExp,
+        `${t("password-input-regex")}`),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref("password")], `${t("mdp-not-correspond")}`)
       .required("Requis"),
   });
 
@@ -124,97 +132,80 @@ const NewUserForm = ({ open, handleClose, usersList, setUsers }) => {
           </DialogTitle>
 
           <DialogContent>
-            <Grid>
-              <Paper elevation={0} style={paperStyle}>
-                <Formik
-                  initialValues={initialValues}
-                  validationSchema={validationSchema}
-                  onSubmit={handleSubmit}
-                >
-                  {(props) => (
-                    <Form noValidate>
-                      <Field
-                        as={TextField}
-                        id="username"
-                        name="username"
-                        label="Nom"
-                        variant="outlined"
-                        fullWidth
-                        required
-                        margin="normal"
-                      />
-                      <ErrorMessage
-                        name="username"
-                        component={Typography}
-                        variant="body2"
-                        color="error"
-                      />
+            <DialogContentText>
+              <Formik
+                initialValues={initialValues}
+                validationSchema={validationSchema}
+                onSubmit={handleSubmit}
+              >
+                {(props) => (
+                  <Form noValidate>
+                    <Field
+                      className={classes.field}
+                      as={TextField}
+                      name="username"
+                      label="Nom et prénom"
+                      type="username"
+                      fullWidth
+                      error={props.errors.username && props.touched.username}
+                      helperText={<ErrorMessage name="username" />}
+                      required
+                    />
 
-                      <Field
-                        as={TextField}
-                        id="email"
-                        name="email"
-                        label="Email"
-                        variant="outlined"
-                        fullWidth
-                        required
-                        margin="normal"
-                      />
-                      <ErrorMessage
-                        name="email"
-                        component={Typography}
-                        variant="body2"
-                        color="error"
-                      />
+                    
+                    <Field
+                      className={classes.field}
+                      as={TextField}
+                      name="email"
+                      label="Email"
+                      type="email"
+                      fullWidth
+                      error={props.errors.email && props.touched.email}
+                      helperText={<ErrorMessage name="email" />}
+                      required
+                    />
+                    <Field
+                      className={classes.field}
+                      as={TextField}
+                      name="password"
+                      label="Mot de passe"
+                      type="password"
+                      fullWidth
+                      error={props.errors.password && props.touched.password}
+                      helperText={<ErrorMessage name="password" />}
+                      required
+                    />
+                    <Field
+                      className={classes.field}
+                      as={TextField}
+                      name="confirmPassword"
+                      label="Confirmer le mot de passe"
+                      type="password"
+                      fullWidth
+                      error={props.errors.confirmPassword && props.touched.confirmPassword}
+                      helperText={<ErrorMessage name="confirmPassword" />}
+                      required
+                    />
+                    
 
-                      <Field
-                        as={TextField}
-                        id="password"
-                        name="password"
-                        label="Mot de passe"
-                        type="password"
-                        variant="outlined"
-                        fullWidth
-                        required
-                        margin="normal"
-                      />
-                      <ErrorMessage
-                        name="password"
-                        component={Typography}
-                        variant="body2"
-                        color="error"
-                      />
-
-                      <Field
-                        as={TextField}
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        label="Confirmer le mot de passe"
-                        type="password"
-                        variant="outlined"
-                        fullWidth
-                        required
-                        margin="normal"
-                      />
-
-                      <Button
-                        sx={{ textTransform: "none" }}
-                        type="submit"
-                        style={btnStyle}
-                        variant="contained"
-                        disabled={isLoading} // Disable the button during loading
-                      >
-                        {isLoading ? (
-                          <Loader /> // Display the loader
-                        ) : (
-                          "Ajouter l'élève" // Display the button text
-                        )}
-                      </Button>
-                    </Form>
-                  )}
-                </Formik>
-              </Paper>
-            </Grid>
+                    <Button
+                      sx={{ textTransform: "none" }}
+                      type="submit"
+                      style={btnStyle}
+                      variant="contained"
+                      disabled={isLoading} // Disable the button during loading
+                    >
+                      {isLoading ? (
+                        <Loader /> // Display the loader
+                      ) : (
+                        "Ajouter l'élève" // Display the button text
+                      )}
+                    </Button>
+                  </Form>
+                )}
+              </Formik>
+             
+            </DialogContentText>
           </DialogContent>
         </div>
       </Dialog>

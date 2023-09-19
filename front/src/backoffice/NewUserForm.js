@@ -138,7 +138,7 @@ const NewUserForm = ({ open, handleClose }) => {
   
       if (values.role === "admin") {
         response = await axios.post(
-          `${apiUrl}/admin/create`,
+          `${apiUrl}/admin/createAdmin`,
           {
             username: values.name,
             email: values.email,

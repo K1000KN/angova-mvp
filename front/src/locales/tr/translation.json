@@ -7,11 +7,6 @@
     "tr": "Türkçe",
     "tn": "Tunuslu",
     "popup": "Site Diliniz:",
-    "lgn1": "Fransızca",
-    "lgn2": "Arapça",
-    "lgn3": "İspanyolca",
-    "lgn4": "İngilizce",
-    "lgn5": "Türkçe",
     "loginButton": "Giriş",
     "title-1.1.1": "Trafik Kuralları",
     "title-1.1.2": "Seçtiğiniz dile çevrildi",
@@ -59,5 +54,7 @@
     "codeRoute": "Trafik kuralları",
     "choisir-la-langue-du-code-de-la-route": "Trafik kuralları dilini seçin",
     "mdp-not-correspond": "Parolalar eşleşmiyor",
-    "password-input-regex": "Parola hem büyük hem de küçük harf içermelidir."
+    "password-input-regex": "Parola hem büyük hem de küçük harf içermelidir.",
+    "forbidden-language": "Bu dil şu anda kullanılamıyor",
+    "invalid-session": "Oturumunuz geçersiz"
 }

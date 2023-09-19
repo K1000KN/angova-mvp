@@ -13,11 +13,12 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import { createTheme } from "@mui/material/styles";
 
-const arabicSquaredFlag = "./images/flag/squared/arabic.png";
-const englishSquaredFlag = "./images/flag/squared/uk.png";
-const frenchSquaredFlag = "./images/flag/squared/france.png";
-const spanishSquaredFlag = "./images/flag/squared/spain.png";
-const turkeyFlagSquared = "./images/flag/squared/turkey.png";
+// const arabicSquaredFlag = "./images/flag/squared/arabic.png";
+// const trFlagSquared = "./images/flag/squared/tr.png";
+const enSquaredFlag = "./images/flag/squared/en.png";
+const frSquaredFlag = "./images/flag/squared/fr.png";
+const esSquaredFlag = "./images/flag/squared/es.png";
+const maSquaredFlag = "./images/flag/squared/ma.png";
 const theme = createTheme();
 
 export default forwardRef(
@@ -54,10 +55,7 @@ export default forwardRef(
         }}
       >
         <img style={{ width: 35, borderRadius: 3 }} src={src} alt="flag" />
-        <span style={{ color: "black", marginLeft: 24 }}>
-          {" "}
-          {t("lgn" + lng)}
-        </span>
+        <span style={{ color: "black", marginLeft: 24 }}> {t(language)}</span>
       </div>
     );
     const setLanguage = (language) => {
@@ -109,7 +107,7 @@ export default forwardRef(
               id="flagOfLanguage"
               src={
                 localStorage.getItem("language") === null
-                  ? frenchSquaredFlag
+                  ? frSquaredFlag
                   : setLanguageImage(localStorage.getItem("language"))
               }
             />
@@ -125,11 +123,11 @@ export default forwardRef(
                 "none";
             }}
           >
-            <FlagPopup src={frenchSquaredFlag} language="fr" lng="1" />
-            <FlagPopup src={arabicSquaredFlag} language="ar" lng="2" />
-            <FlagPopup src={spanishSquaredFlag} language="es" lng="3" />
-            <FlagPopup src={englishSquaredFlag} language="en" lng="4" />
-            <FlagPopup src={turkeyFlagSquared} language="tr" lng="5" />
+            <FlagPopup src={frSquaredFlag} language="fr" />
+            <FlagPopup src={maSquaredFlag} language="ma" />
+            <FlagPopup src={esSquaredFlag} language="es" />
+            <FlagPopup src={enSquaredFlag} language="en" />
+            {/* <FlagPopup src={trFlagSquared} language="tr" lng="5" /> */}
           </div>
         </div>
         <div id="popUpBurgerWrapper" xs={5}>
@@ -147,7 +145,7 @@ export default forwardRef(
               id="flagOfLanguage"
               src={
                 localStorage.getItem("language") === null
-                  ? frenchSquaredFlag
+                  ? frSquaredFlag
                   : setLanguageImage(localStorage.getItem("language"))
               }
             />
@@ -223,11 +221,11 @@ export default forwardRef(
                 direction="row"
                 style={{ alignItems: "center", marginBottom: 40 }}
               >
-                <FlagPopup src={frenchSquaredFlag} language="fr" lng="1" />
-                <FlagPopup src={arabicSquaredFlag} language="ar" lng="2" />
-                <FlagPopup src={spanishSquaredFlag} language="es" lng="3" />
-                <FlagPopup src={englishSquaredFlag} language="en" lng="4" />
-                <FlagPopup src={turkeyFlagSquared} language="tr" lng="5" />
+                <FlagPopup src={frSquaredFlag} language="fr" lng="1" />
+                <FlagPopup src={maSquaredFlag} language="ma" lng="2" />
+                <FlagPopup src={esSquaredFlag} language="es" lng="3" />
+                <FlagPopup src={enSquaredFlag} language="en" lng="4" />
+                {/* <FlagPopup src={trFlagSquared} language="tr" lng="5" /> */}
               </Grid>
             </DialogContent>
           </div>
