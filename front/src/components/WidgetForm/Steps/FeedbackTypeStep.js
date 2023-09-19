@@ -7,6 +7,10 @@ import "./FeedbackTypeStep.css";
 export function FeedbackTypeStep({ onFeedbackTypeChanged, onClose }) {
   const { t } = useTranslation();
 
+  const handleClose = () => {
+    onClose();
+  };
+
   return (
     <div
       style={{
@@ -30,7 +34,7 @@ export function FeedbackTypeStep({ onFeedbackTypeChanged, onClose }) {
         <Typography variant="h5" component="span">
           {t("send-feedback")}
         </Typography>
-        <CloseButton onClick={onClose} />
+        <CloseButton onClose={handleClose} />
       </header>
 
       <div
@@ -50,7 +54,7 @@ export function FeedbackTypeStep({ onFeedbackTypeChanged, onClose }) {
             onClick={() => onFeedbackTypeChanged(key)}
             className="feedback-type"
             style={{
-              width: "30%",
+              width: "150px",
               height: "150px",
               display: "flex",
               flexDirection: "column",
@@ -60,6 +64,7 @@ export function FeedbackTypeStep({ onFeedbackTypeChanged, onClose }) {
               borderRadius: "5px",
               cursor: "pointer",
               transition: "all 0.2s ease-in-out",
+              margin: "0 auto",
             }}
           >
             <img

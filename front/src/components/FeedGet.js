@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import Dialog from "@mui/material/Dialog";
 import Button from "@mui/material/Button";
@@ -7,16 +7,17 @@ import FeedbackIcon from "@mui/icons-material/Feedback";
 import "./FeedGet.css";
 
 const FeedGet = () => {
-  const [open, setOpen] = React.useState(false);
-  const [isHovered, setIsHovered] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  function handleClose() {
     setOpen(false);
-  };
+    console.log("close");
+  }
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -54,20 +55,6 @@ const FeedGet = () => {
 
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
         <WidgetForm onClose={handleClose} />
-        <Button
-          variant="contained"
-          sx={{
-            backgroundColor: "rgb(244, 158, 76)",
-            color: "white",
-            "&:hover": {
-              backgroundColor: "rgb(244, 158, 76, 0.8)",
-            },
-          }}
-          onClick={handleClose}
-          style={{ margin: "16px" }}
-        >
-          Feedback
-        </Button>
       </Dialog>
     </>
   );

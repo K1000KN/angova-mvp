@@ -1,16 +1,15 @@
 import React, { useState } from "react";
-import { ScreenshotButton } from "../ScreenshotButton";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { CloseButton } from "../../CloseButton";
 import { feedbackTypes } from "../index.js";
 import { useTranslation } from "react-i18next";
-import { TextareaAutosize, Box, IconButton } from "@mui/material";
-import Typography from "@mui/material/Typography";
-
+import { TextareaAutosize, Box, IconButton, Typography } from "@mui/material";
+import Button from "@mui/material/Button";
+import { CloseButton } from "../../CloseButton";
 export function FeedbackContentStep({
   feedbackType,
   onFeedbackRestartRequested,
   onFeedbackSent,
+  onClose,
 }) {
   const { t } = useTranslation();
   const [screenshot, setScreenshot] = useState(null);
@@ -19,20 +18,31 @@ export function FeedbackContentStep({
 
   const feedbackTypeInfo = feedbackTypes[feedbackType];
 
-  const addEmoji = (emoji) => () => setComment(`${comment}${emoji}`);
+  const handleClose = () => {
+    onClose();
+  };
 
+  const addEmoji = (emoji) => () => setComment(`${comment}${emoji}`);
+  const minCharacters = 50;
   async function handleSubmitFeedback(e) {
     e.preventDefault();
 
     setIsSendingFeedback(true);
-    // await api.post("/feedbacks", {
-    //   type: feedbackType,
-    //   comment,
-    //   screenshot,
-    // });
-    console.log({ feedbackType, comment, screenshot });
 
-    onFeedbackSent();
+    // Sanitize comment
+    const sanitizedComment = comment.replace(/(<([^>]+)>)/gi, "").trim();
+
+    // Validate comment
+    const isValidComment = sanitizedComment.length >= minCharacters;
+
+    if (isValidComment) {
+      // Perform submission logic
+      console.log({ feedbackType, sanitizedComment, screenshot });
+      onFeedbackSent();
+    } else {
+      // Display error message or prevent submission
+      console.log("Comment is too short");
+    }
   }
 
   return (
@@ -67,16 +77,17 @@ export function FeedbackContentStep({
             display: "flex",
             alignItems: "center",
             gap: "10px",
+            fontWeight: "bold",
           }}
         >
           <img
             src={feedbackTypeInfo.image.source}
             alt={feedbackTypeInfo.image.alt}
-            className="w-6 h-6"
           />
           {feedbackTypeInfo.title}
         </span>
-        <div></div>
+
+        <CloseButton onClose={handleClose} />
       </header>
 
       <form
@@ -103,6 +114,7 @@ export function FeedbackContentStep({
             padding: "8px",
             border: "1px solid #ccc",
             resize: "none",
+            height: "150px",
           }}
           value={comment}
         />
@@ -141,6 +153,22 @@ export function FeedbackContentStep({
             😍
           </IconButton>
         </Box>
+
+        <Button
+          disabled={comment.trim().length < 10}
+          variant="contained"
+          sx={{
+            backgroundColor: "rgb(244, 158, 76)",
+            color: "white",
+            "&:hover": {
+              backgroundColor: "rgb(244, 158, 76, 0.8)",
+            },
+          }}
+          onClick={handleClose}
+          style={{ margin: "16px" }}
+        >
+          Feedback
+        </Button>
 
         {/* <ScreenshotButton
           screenshot={screenshot}
