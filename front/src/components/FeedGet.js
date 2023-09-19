@@ -4,7 +4,6 @@ import Dialog from "@mui/material/Dialog";
 import Button from "@mui/material/Button";
 import { WidgetForm } from "./WidgetForm";
 import FeedbackIcon from "@mui/icons-material/Feedback";
-import "./FeedGet.css";
 
 const FeedGet = () => {
   const [open, setOpen] = useState(false);
@@ -38,7 +37,14 @@ const FeedGet = () => {
   };
 
   return (
-    <>
+    <div
+      style={{
+        position: "fixed",
+        bottom: "0",
+        right: "0",
+        zIndex: "1000",
+      }}
+    >
       <IconButton
         onClick={handleClickOpen}
         sx={iconButtonStyles}
@@ -56,7 +62,7 @@ const FeedGet = () => {
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
         <WidgetForm onClose={handleClose} />
       </Dialog>
-    </>
+    </div>
   );
 };
 
