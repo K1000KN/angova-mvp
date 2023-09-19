@@ -3,23 +3,19 @@ import { CloseButton } from "../../CloseButton";
 import { feedbackTypes } from "../index";
 import { useTranslation } from "react-i18next";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-
-export function FeedbackTypeStep({ onFeedbackTypeChanged, onClose }) {
+import "./FeedbackTypeStep.css";
+export function FeedbackTypeStep({ onFeedbackTypeChanged, handleClose }) {
   const { t } = useTranslation();
-
-  const handleClose = () => {
-    // Call the onClose function to close the modal
-    onClose();
-  };
 
   return (
     <div
       style={{
         display: "flex",
         flexDirection: "column",
-        gap: "16px",
+        gap: "10px",
         justifyContent: "space-between",
+        width: "90%",
+        margin: "0 auto",
       }}
     >
       <header
@@ -41,40 +37,43 @@ export function FeedbackTypeStep({ onFeedbackTypeChanged, onClose }) {
         style={{
           display: "flex",
           padding: "16px",
-          gap: "16px",
+          gap: "18px",
           flexWrap: "wrap",
           justifyContent: "space-between",
           margin: "0 auto",
-          width: "80%",
+          width: "100%",
         }}
       >
         {Object.entries(feedbackTypes).map(([key, value]) => (
-          <Button
+          <div
             key={key}
-            variant="outlined"
             onClick={() => onFeedbackTypeChanged(key)}
+            className="feedback-type"
             style={{
-              width: "24%",
+              width: "30%",
+              height: "150px",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              border: "2px solid transparent",
-              "&:hover": {
-                border: "2px solid #fcb44d", // Change border color on hover
-              },
+              justifyContent: "center",
+              border: "2px solid #d9d9d9",
+              borderRadius: "5px",
+              cursor: "pointer",
+              transition: "all 0.2s ease-in-out",
             }}
           >
-            <img src={value.image.source} alt={value.image.alt} />
-            <Typography
-              variant="body1"
-              component="span"
-              sx={{
-                marginTop: "8px",
+            <img
+              src={value.image.source}
+              alt={value.image.alt}
+              style={{
+                marginTop: "20px",
               }}
-            >
+            />
+            <br />
+            <Typography variant="body1" component="span" sx={{}}>
               {value.title}
             </Typography>
-          </Button>
+          </div>
         ))}
       </div>
     </div>

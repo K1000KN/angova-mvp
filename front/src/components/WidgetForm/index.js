@@ -15,29 +15,29 @@ export const feedbackTypes = {
     title: "Bug",
     image: {
       source: bugImage,
-      alt: "Imagem de um inseto",
+      alt: "Image d'un insecte",
     },
   },
   IDEA: {
     title: "Ideas",
     image: {
       source: ideaImage,
-      alt: "Imagem de uma lâmpada",
+      alt: "Imagem d'une ampoule",
     },
   },
   OTHER: {
-    title: "Other", // Add the title for "OTHER" feedback type
+    title: "Other",
     image: {
       source: thoughtImage,
-      alt: "Imagem de um balão de pensamento",
+      alt: "Image d'une bulle de pensée",
     },
   },
 };
 
-export const WidgetForm = ({ onClose }) => {
+export const WidgetForm = ({ handleClose }) => {
   const [feedbackType, setFeedbackType] = useState(null);
   const [feedbackSent, setFeedbackSent] = useState(false);
-  const { t } = useTranslation(); // Use useTranslation hook to translate strings
+  const { t } = useTranslation();
 
   function handleRestartFeedback() {
     setFeedbackType(null);
@@ -55,7 +55,7 @@ export const WidgetForm = ({ onClose }) => {
           {!feedbackType ? (
             <FeedbackTypeStep
               onFeedbackTypeChanged={setFeedbackType}
-              onClose={onClose}
+              handleClose={handleClose}
             />
           ) : (
             <FeedbackContentStep
