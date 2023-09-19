@@ -25,7 +25,9 @@ import { loadStripe } from "@stripe/stripe-js";
 import AddUserPage from "./AddUser";
 import DashboardAutoPage from "./dashboard/DashboardAuto";
 import TokenService from "./services/TokenServices";
+import FeedGet from "./components/FeedGet";
 const theme = createTheme();
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const PrivateRoute = ({ path, roles, children }) => {
   const token = localStorage.getItem("token");
@@ -40,7 +42,6 @@ const PrivateRoute = ({ path, roles, children }) => {
   const isAuthenticated = !!token;
   const navigate = useNavigate();
   const location = useLocation();
-  const apiUrl = process.env.REACT_APP_API_URL;
   const userRole = TokenService.getUserRole();
   const token = TokenService.getToken();
   const refreshToken = localStorage.getItem("refreshToken");
@@ -214,6 +215,7 @@ const App = () => {
 ReactDOM.render(
   <React.StrictMode>
     <App />
+    <FeedGet />
   </React.StrictMode>,
   document.getElementById("root")
 );

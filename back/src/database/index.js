@@ -26,27 +26,67 @@ mongoose
   });
 async function initializeDatabase() {
   try {
-    // Create admin role if it does not exist
-    const adminRole = await Role.findOne({ name: "admin" });
-    if (!adminRole) {
-      await new Role({ name: "admin" }).save();
-    }
-    const hashedPassword = await bcrypt.hash(PASS_ADMIN, 10);
-
-    // Create admin user if it does not exist
-    const adminUser = await User.findOne({ email: "admin@example.com" });
-    if (!adminUser) {
-      const newUser = new User({
-        username: USERNAME_ADMIN,
+    const roles = ["admin", "manager", "user"];
+    const users = [
+      {
         email: EMAIL_ADMIN,
-        password: hashedPassword,
-        roles: [adminRole._id],
-      });
-      await newUser.save();
-      console.log("Admin initialized");
-    }
+        username: USERNAME_ADMIN,
+        password: PASS_ADMIN,
+        roles: ["admin"],
+      },
+      {
+        email: "manager@manager.com",
+        username: "Angova manager",
+        password: PASS_ADMIN,
+        roles: ["manager"],
+      },
+      {
+        email: "user@user.com",
+        username: "Angova user",
+        password: PASS_ADMIN,
+        roles: ["user"],
+        managerEmail: "manager@manager.com",
+      },
+    ];
+
+    // Create roles if they do not exist
+    const rolePromises = roles.map(async (role) => {
+      const existingRole = await Role.findOne({ name: role });
+      if (!existingRole) {
+        await new Role({ name: role }).save();
+      }
+    });
+    await Promise.all(rolePromises);
+
+    // Create users if they do not exist
+    const userPromises = users.map(async (user) => {
+      const existingUser = await User.findOne({ email: user.email });
+      if (!existingUser) {
+        const hashedPassword = await bcrypt.hash(user.password, 10);
+        const roles = await Role.find({ name: { $in: user.roles } });
+        const newUser = new User({
+          email: user.email,
+          username: user.username,
+          password: hashedPassword,
+          roles: roles.map((role) => role._id),
+        });
+        if (user.managerEmail) {
+          const manager = await User.findOne({ email: user.managerEmail });
+          if (manager) {
+            newUser.manager = manager._id;
+          } else {
+            console.log(
+              `Could not find manager with email ${user.managerEmail}`
+            );
+          }
+        }
+        await newUser.save();
+        console.log(`${user.username} initialized`);
+      }
+    });
+    await Promise.all(userPromises);
   } catch (error) {
-    console.error("Error creating admin user:", error);
+    console.error("Error initializing database:", error);
   }
 }
 
