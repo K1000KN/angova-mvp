@@ -55,7 +55,7 @@ export const WidgetForm = ({ handleClose }) => {
           {!feedbackType ? (
             <FeedbackTypeStep
               onFeedbackTypeChanged={setFeedbackType}
-              handleClose={handleClose}
+              onClose={handleClose}
             />
           ) : (
             <FeedbackContentStep

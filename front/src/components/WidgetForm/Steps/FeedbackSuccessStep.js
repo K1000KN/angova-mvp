@@ -1,11 +1,21 @@
 import React from "react";
 import { CloseButton } from "../../CloseButton";
 
-export function FeedbackSuccessStep({ onFeedbackRestartRequested }) {
+export function FeedbackSuccessStep({
+  onFeedbackRestartRequested,
+  handleClose,
+}) {
   return (
     <>
-      <header>
-        <CloseButton />
+      <header
+        style={{
+          display: "flex",
+          padding: "16px",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <CloseButton onClick={handleClose} />
       </header>
 
       <div className="flex flex-col items-center py-10 w-[304px]">
