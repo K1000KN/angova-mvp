@@ -20,6 +20,8 @@ mongoose
   })
   .then(() => {
     console.log("Connected to MongoDB");
+
+    // Export all collections on startup
     exportAllCollections();
 
     // Schedule the backup to run every day at midnight

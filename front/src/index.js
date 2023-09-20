@@ -215,7 +215,6 @@ const App = () => {
 ReactDOM.render(
   <React.StrictMode>
     <App />
-    <FeedGet />
   </React.StrictMode>,
   document.getElementById("root")
 );

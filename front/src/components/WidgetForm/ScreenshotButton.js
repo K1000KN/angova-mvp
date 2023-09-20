@@ -37,9 +37,9 @@ export const ScreenshotButton = ({ screenshot, onScreenshotTook }) => {
   if (screenshot) {
     return (
       <>
-        <IconButton onClick={() => onScreenshotTook(null)}>
+        <div onClick={() => onScreenshotTook(null)}>
           <div style={{ ...buttonStyle, ...backgroundImageStyle }}></div>
-        </IconButton>
+        </div>
       </>
     );
   }

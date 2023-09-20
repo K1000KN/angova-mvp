@@ -22,6 +22,8 @@ import { useTranslation } from "react-i18next";
 import { processSessions } from "./services/sessionService";
 import { getUserRole } from "./services/userService";
 
+import FeedGet from "./components/FeedGet";
+
 function Home() {
   const { t, i18n } = useTranslation();
   const franceRoundedFlag = "./images/flag/rounded/france.png";
@@ -365,6 +367,18 @@ function Home() {
         </Grid>
         <FlagPopUp setLanguage={setLanguage} show={show} handleClose={handleClose} />
         <BottomBar handleChange={handleChange} value={value} />
+        <div
+          style={{
+            position: "fixed",
+            bottom: "0",
+            right: "0",
+            zIndex: "1000",
+            marginRight: "20px",
+            marginBottom: "20px",
+          }}
+        >
+          <FeedGet />
+        </div>
       </ThemeProvider>
     </>
   );
