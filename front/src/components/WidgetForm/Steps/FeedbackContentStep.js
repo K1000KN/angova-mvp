@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { TextareaAutosize, Box, IconButton, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import { CloseButton } from "../../CloseButton";
+import { ScreenshotButton } from "../ScreenshotButton.js";
 export function FeedbackContentStep({
   feedbackType,
   onFeedbackRestartRequested,
@@ -154,6 +155,15 @@ export function FeedbackContentStep({
           </IconButton>
         </Box>
 
+        {/* create a typography to incitate user to take a screenshot of the page if necessary  */}
+        {/* <Typography variant="body2" sx={{ color: "text.secondary" }}>
+          {t("feedback-screenshot")}
+        </Typography>
+
+        <ScreenshotButton
+          screenshot={screenshot}
+          onScreenshotTook={setScreenshot}
+        /> */}
         <Button
           disabled={comment.trim().length < 10}
           variant="contained"
@@ -169,11 +179,6 @@ export function FeedbackContentStep({
         >
           Feedback
         </Button>
-
-        {/* <ScreenshotButton
-          screenshot={screenshot}
-          onScreenshotTook={setScreenshot}
-        /> */}
       </form>
     </>
   );
