@@ -1,4 +1,5 @@
 import React from "react";
+import { Button, Typography, Box, Paper } from "@mui/material";
 import { CloseButton } from "../../CloseButton";
 
 export function FeedbackSuccessStep({
@@ -6,19 +7,37 @@ export function FeedbackSuccessStep({
   handleClose,
 }) {
   return (
-    <>
+    <Paper
+      elevation={3}
+      style={{
+        padding: "16px",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        textAlign: "center",
+        position: "relative",
+      }}
+    >
       <header
         style={{
-          display: "flex",
+          position: "absolute",
+          top: 0,
+          right: 0,
           padding: "16px",
+          display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
         }}
       >
         <CloseButton onClose={handleClose} />
       </header>
 
-      <div className="flex flex-col items-center py-10 w-[304px]">
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        py={10}
+        width={304}
+      >
         <svg
           width="41"
           height="40"
@@ -36,15 +55,24 @@ export function FeedbackSuccessStep({
           />
         </svg>
 
-        <span className="text-xl mt-2">Merci pour votre retour ! 🙏</span>
+        <Typography variant="h4" mt={2}>
+          Thank you for your feedback! 🙏
+        </Typography>
 
-        <button
+        <Button
+          variant="contained"
           onClick={onFeedbackRestartRequested}
-          className="py-2 px-6 mt-6 bg-zinc-100 dark:bg-zinc-800 rounded-md border-transparent text-sm leading-6 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-zinc-900 focus:ring-brand-500"
+          sx={{
+            mt: 6,
+            textTransform: "none",
+            "&:hover": {
+              backgroundColor: "#f49e4c",
+            },
+          }}
         >
-          Quero enviar outro
-        </button>
-      </div>
-    </>
+          Send Another one
+        </Button>
+      </Box>
+    </Paper>
   );
 }

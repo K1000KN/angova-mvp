@@ -59,7 +59,7 @@ const Profile = () => {
   const [showDeleteProfileDialog, setShowDeleteProfileDialog] = useState(false);
   const [showResetPwdDialog, setShowResetPwdDialog] = useState(false);
   const [selectedUserToBeDeleted, setSelectedUserToBeDeleted] = useState(null);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const [showDeleteFromUsersDialog, setShowDeleteFromUsersDialog] =
     useState(false);
 
@@ -130,7 +130,6 @@ const Profile = () => {
     setShowResetPwdDialog(false);
   };
 
-
   const deleteProfile = async () => {
     const token = localStorage.getItem("token");
     const decodedToken = decodeToken(token);
@@ -151,7 +150,6 @@ const Profile = () => {
       console.log(error);
     }
   };
-
 
   const setLanguageImage = (language) => {
     let src = null;
@@ -250,7 +248,7 @@ const Profile = () => {
           user.roles.some((role) => role.name === "user") &&
           user.manager === managerId
       );
-     
+
       setUsers(userFromManager);
     } catch (error) {
       console.error("Error:", error);
@@ -299,16 +297,16 @@ const Profile = () => {
   };
 
   const resetPassword = async (values, props) => {
-    const {password, newPassword, confirmPassword} = values;
+    const { password, newPassword, confirmPassword } = values;
     if (newPassword !== confirmPassword) {
       setMessage("Les mots de passe ne correspondent pas");
       return;
     }
-  
+
     const id = decodedToken.id;
     const headers = {
       Authorization: `Bearer ${token}`,
-    };  
+    };
 
     let endpoint = `${apiUrl}/user/password-reset/${id}`;
 
@@ -318,13 +316,15 @@ const Profile = () => {
     if (roleUser === "admin") {
       endpoint = `${apiUrl}/admin/password-reset/${id}`;
     }
-    
-    
+
     try {
-      await axios.put(endpoint, {password, newPassword, confirmPassword }, { headers }); 
+      await axios.put(
+        endpoint,
+        { password, newPassword, confirmPassword },
+        { headers }
+      );
       setMessage("Mot de passe modifié avec succés");
       props.resetForm();
-     
     } catch (error) {
       props.resetForm();
       setMessage(error.response.data.message);
@@ -390,7 +390,7 @@ const Profile = () => {
   const handleCloseDialog = () => {
     setOpenDialog(false);
   };
-  
+
   const btnStyle = {
     marginTop: 10,
     width: "70%",
@@ -406,25 +406,20 @@ const Profile = () => {
   };
   const validationSchema = Yup.object().shape({
     password: Yup.string()
-    .min(8, `${t("password-input-verif")}`)
-    .required("Requis"),
+      .min(8, `${t("password-input-verif")}`)
+      .required("Requis"),
     newPassword: Yup.string()
-      .min(8,`${t("password-input-verif")}`)
+      .min(8, `${t("password-input-verif")}`)
       .required("Requis")
-      .matches(
-        passwordRegExp,
-        `${t("password-input-regex")}`),
+      .matches(passwordRegExp, `${t("password-input-regex")}`),
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("newPassword")], `${t("mdp-not-correspond")}`)
       .required("Requis"),
   });
 
-
-
   const deleteUser = async () => {
     const token = localStorage.getItem("token");
     try {
-      
       const response = await axios.delete(
         `${apiUrl}/user/delete/${selectedUserToBeDeleted}`,
         {
@@ -456,7 +451,7 @@ const Profile = () => {
           id="sessionContainer"
           container
           direction="row"
-          style={{  overflow: "auto"}}
+          style={{ overflow: "auto" }}
         >
           <Box sx={{ maxWidth: "75%", mx: "auto" }}>
             <Typography variant="h4" gutterBottom sx={{ marginTop: "30px" }}>
@@ -484,7 +479,6 @@ const Profile = () => {
               margin="normal"
               variant="outlined"
             />
-           
 
             <Grid
               container
@@ -507,7 +501,7 @@ const Profile = () => {
               <Button
                 variant="contained"
                 onClick={openResetPwdDialog}
-                sx={{backgroundColor: "#F49E4C"}}
+                sx={{ backgroundColor: "#F49E4C" }}
               >
                 Modifier le mot de passe
               </Button>
@@ -583,88 +577,89 @@ const Profile = () => {
       {/* CHOSE LANGUAGE  */}
       <FlagPopUp setLanguage={setLanguage} show={show} handleClose={handleClose}/>
       {/* NEW USER MODAL */}
-      <NewUserForm open={openDialog} handleClose={handleCloseDialog} usersList={usersList} setUsers={setUsers} />
+      <NewUserForm
+        open={openDialog}
+        handleClose={handleCloseDialog}
+        usersList={usersList}
+        setUsers={setUsers}
+      />
       {/* RESET PWD MY ACCOUNT MODAL */}
-     
-    <Dialog open={showResetPwdDialog} onClose={closeResetPwdDialog}>
-      <DialogTitle>Modifier le mot de passe 
-        <IconButton
-          aria-label="close"
-          className={classes.closeButton}
-          onClick={closeResetPwdDialog}
-        >
-          <CloseIcon />
-        </IconButton>
-      </DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={resetPassword}
+      <Dialog open={showResetPwdDialog} onClose={closeResetPwdDialog}>
+        <DialogTitle>
+          Modifier le mot de passe
+          <IconButton
+            aria-label="close"
+            className={classes.closeButton}
+            onClick={closeResetPwdDialog}
           >
-            {(props) => (
-              <Form noValidate>
-                
-                
-                <Field
-                  className={classes.field}
-                  as={TextField}
-                  name="password"
-                  label="Mot de passe actuel"
-                  type="password"
-                  fullWidth
-                  error={props.errors.password && props.touched.password}
-                  helperText={<ErrorMessage name="password" />}
-                  required
-                />
-                <Field
-                  className={classes.field}
-                  as={TextField}
-                  name="newPassword"
-                  label="Nouveau mot de passe"
-                  type="password"
-                  fullWidth
-                  error={props.errors.newPassword && props.touched.newPassword}
-                  helperText={<ErrorMessage name="newPassword" />}
-                  required
-                />
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            <Formik
+              initialValues={initialValues}
+              validationSchema={validationSchema}
+              onSubmit={resetPassword}
+            >
+              {(props) => (
+                <Form noValidate>
+                  <Field
+                    className={classes.field}
+                    as={TextField}
+                    name="password"
+                    label="Mot de passe actuel"
+                    type="password"
+                    fullWidth
+                    error={props.errors.password && props.touched.password}
+                    helperText={<ErrorMessage name="password" />}
+                    required
+                  />
+                  <Field
+                    className={classes.field}
+                    as={TextField}
+                    name="newPassword"
+                    label="Nouveau mot de passe"
+                    type="password"
+                    fullWidth
+                    error={
+                      props.errors.newPassword && props.touched.newPassword
+                    }
+                    helperText={<ErrorMessage name="newPassword" />}
+                    required
+                  />
 
-                <Field
-                  className={classes.field}
-                  as={TextField}
-                  name="confirmPassword"
-                  label="Confirmer le nouveau mot de passe"
-                  type="password"
-                  fullWidth
-                  error={props.errors.confirmPassword && props.touched.confirmPassword}
-                  helperText={<ErrorMessage name="confirmPassword" />}
-                  required
-                />
-                <Grid
-                  container
-                  direction="row"
-                  
-                >
-                 
-                  <Button
-                    sx={{ textTransform: "none" }}
-                    type="submit"
-                    style={btnStyle}
-                    variant="contained"
-                  >
-                    Modifier
-                  </Button>
-                </Grid>
-                
-              </Form>
-            )}
-          </Formik>
-          {message && <p>{message}</p>}
-        </DialogContentText>
-      </DialogContent>
-      
-    </Dialog>
+                  <Field
+                    className={classes.field}
+                    as={TextField}
+                    name="confirmPassword"
+                    label="Confirmer le nouveau mot de passe"
+                    type="password"
+                    fullWidth
+                    error={
+                      props.errors.confirmPassword &&
+                      props.touched.confirmPassword
+                    }
+                    helperText={<ErrorMessage name="confirmPassword" />}
+                    required
+                  />
+                  <Grid container direction="row">
+                    <Button
+                      sx={{ textTransform: "none" }}
+                      type="submit"
+                      style={btnStyle}
+                      variant="contained"
+                    >
+                      Modifier
+                    </Button>
+                  </Grid>
+                </Form>
+              )}
+            </Formik>
+            {message && <p>{message}</p>}
+          </DialogContentText>
+        </DialogContent>
+      </Dialog>
       {/* DELETE MY ACCOUNT MODAL */}
       <Dialog open={showDeleteProfileDialog} onClose={closeDeleteProfileDialog}>
         <DialogTitle>Suppression du compte</DialogTitle>

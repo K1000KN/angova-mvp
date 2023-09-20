@@ -5,7 +5,13 @@ import { useTranslation } from "react-i18next";
 import { TextareaAutosize, Box, IconButton, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import { CloseButton } from "../../CloseButton";
-import { ScreenshotButton } from "../ScreenshotButton.js";
+// import { ScreenshotButton } from "../ScreenshotButton.js";
+import MailService from "../../../services/mailService";
+import {
+  fetchCurrentUser,
+  fetchUsername,
+  fetchUserEmail,
+} from "../../../services/userService";
 export function FeedbackContentStep({
   feedbackType,
   onFeedbackRestartRequested,
@@ -13,7 +19,7 @@ export function FeedbackContentStep({
   onClose,
 }) {
   const { t } = useTranslation();
-  const [screenshot, setScreenshot] = useState(null);
+  // const [screenshot, setScreenshot] = useState(null);
   const [comment, setComment] = useState("");
   const [isSendingFeedback, setIsSendingFeedback] = useState(false);
 
@@ -37,9 +43,34 @@ export function FeedbackContentStep({
     const isValidComment = sanitizedComment.length >= minCharacters;
 
     if (isValidComment) {
-      // Perform submission logic
-      console.log({ feedbackType, sanitizedComment, screenshot });
-      onFeedbackSent();
+      try {
+        const token = localStorage.getItem("token");
+        // Fetch the current user's data
+        const currentUser = await fetchCurrentUser(token);
+
+        // Get username and user email
+        const username = fetchUsername(currentUser);
+        const userEmail = fetchUserEmail(currentUser);
+
+        // Perform submission logic
+        console.log({
+          feedbackType,
+          sanitizedComment,
+          username,
+          userEmail,
+        });
+
+        // You can use username and userEmail in your email service
+        MailService.sendFeedback({
+          name: username,
+          email: userEmail,
+          message: `${feedbackType}: ${sanitizedComment}`,
+        });
+
+        onFeedbackSent();
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
     } else {
       // Display error message or prevent submission
       console.log("Comment is too short");
@@ -119,7 +150,13 @@ export function FeedbackContentStep({
           }}
           value={comment}
         />
-
+        <Typography
+          variant="body2"
+          align="right"
+          sx={{ color: "text.secondary", fontStyle: "italic" }}
+        >
+          minimum characters {minCharacters}
+        </Typography>
         <Box
           sx={{
             display: "flex",
@@ -165,7 +202,7 @@ export function FeedbackContentStep({
           onScreenshotTook={setScreenshot}
         /> */}
         <Button
-          disabled={comment.trim().length < 10}
+          disabled={comment.trim().length < minCharacters}
           variant="contained"
           sx={{
             backgroundColor: "rgb(244, 158, 76)",
@@ -174,7 +211,7 @@ export function FeedbackContentStep({
               backgroundColor: "rgb(244, 158, 76, 0.8)",
             },
           }}
-          onClick={handleClose}
+          onClick={handleSubmitFeedback}
           style={{ margin: "16px" }}
         >
           Feedback

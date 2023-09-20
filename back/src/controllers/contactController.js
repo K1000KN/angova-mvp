@@ -15,6 +15,7 @@ export const contactForm = (req, res) => {
     subject: "contact depuis l'application web",
     text: `Nom: ${name}\nE-mail: ${email}\n\nMessage: ${message}`,
   };
+  console.log("msg", msg);
 
   sgMail
     .send(msg)
@@ -27,10 +28,8 @@ export const contactForm = (req, res) => {
         "Une erreur s'est produite lors de l'envoi de l'e-mail",
         error
       );
-      res
-        .status(500)
-        .json({
-          message: "Une erreur s'est produite lors de l'envoi de l'e-mail",
-        });
+      res.status(500).json({
+        message: "Une erreur s'est produite lors de l'envoi de l'e-mail",
+      });
     });
 };
