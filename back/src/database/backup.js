@@ -1,12 +1,14 @@
 import fs from "fs";
 import { MongoClient } from "mongodb";
-import env from "dotenv";
+import dotenv from "dotenv";
 import cron from "node-cron";
 
-env.config();
+dotenv.config();
+
 const uri = process.env.MONGODB_URI;
 
 const client = new MongoClient(uri, { useUnifiedTopology: true });
+const db = client.db();
 
 const convertDate = (dt) => {
   const year = dt.getFullYear();
@@ -20,7 +22,6 @@ export async function exportAllCollections() {
     const fileName =
       "./backup/backup_db_angova_" + `${convertDate(new Date())}.json`;
     await client.connect();
-    const db = client.db();
     const collections = await db.listCollections().toArray();
     const data = {};
 

@@ -284,7 +284,6 @@ const Profile = () => {
 
     const endpoint = `${apiUrl}/user/${id}`;
     const response = await axios.put(endpoint, user, { headers });
-    
   };
 
   const updateManager = async () => {
@@ -335,19 +334,16 @@ const Profile = () => {
 
 
   const [user, setUser] = useState(null);
-  const [isUserFetched, setIsUserFetched] = useState(false);
   const [roleUser, setRoleUser] = useState("");
 
-  useEffect(() => {
-    const user = fetchCurrentUser(token);
-    if (!user) {
-      return;
-    } else {
-      setUser(user);
-      setIsUserFetched(true);
-      setRoleUser(user.role);
+  // Fetch the current user only if token exists
+  if (token && !user) {
+    const fetchedUser = fetchCurrentUser(token);
+    if (fetchedUser) {
+      setUser(fetchedUser);
+      setRoleUser(fetchedUser.role);
     }
-  }, [token, isUserFetched]);
+  }
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

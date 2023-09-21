@@ -11,16 +11,19 @@ const NavbarComponent = ({ page, setLanguageImage }) => {
   const [isUserFetched, setIsUserFetched] = useState(false);
   const [role, setRole] = useState("");
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const currentUser = await fetchCurrentUser(token);
-      console.log(currentUser);
-      setUser(currentUser);
-      setIsUserFetched(true);
-      setRole(currentUser.role);
-    };
+  const fetchUser = async () => {
+    const currentUser = await fetchCurrentUser(token);
+    console.log(currentUser);
+    setUser(currentUser);
+    setIsUserFetched(true);
+    setRole(currentUser.role);
+  };
+
+  // Call fetchUser when token or isUserFetched changes
+  if (token && (!user || !isUserFetched)) {
     fetchUser();
-  }, [token, user, setUser, setIsUserFetched, setRole, isUserFetched]);
+  }
+
   return (
     <div id="navContainer">
       <Grid container className="navContent" style={{ width: "85%" }}>

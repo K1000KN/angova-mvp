@@ -9,7 +9,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { makeStyles } from "@mui/styles";
 import { filterSessionsByLanguage } from "./services/sessionService";
-import FlagPopUp from './components/FlagPopUp'
+import FlagPopUp from "./components/FlagPopUp";
 import jsonDataFr from "./data/content_fr.json";
 import jsonDataEs from "./data/content_es.json";
 import jsonDataEn from "./data/content_en.json";
@@ -190,7 +190,7 @@ function Home() {
   const handleHover = (id) => {
     setHoveredCard(id);
   };
- 
+
   const setLanguageImage = (language) => {
     let src = null;
     switch (language) {
@@ -303,7 +303,11 @@ function Home() {
           )}
           {component === "quizz" && <Quizz />}
         </Grid>
-        <FlagPopUp setLanguage={setLanguage} show={show} handleClose={handleClose}/>
+        <FlagPopUp
+          setLanguage={setLanguage}
+          show={show}
+          handleClose={handleClose}
+        />
         <BottomBar handleChange={handleChange} value={value} />
         <div
           style={{
