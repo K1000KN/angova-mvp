@@ -11,13 +11,13 @@ import {
 } from "@mui/material";
 import Button from "@mui/material/Button";
 import { CloseButton } from "../../CloseButton";
-// import { ScreenshotButton } from "../ScreenshotButton.js";
 import MailService from "../../../services/mailService";
 import {
   fetchCurrentUser,
   fetchUsername,
   fetchUserEmail,
 } from "../../../services/userService";
+
 export function FeedbackContentStep({
   feedbackType,
   onFeedbackRestartRequested,
@@ -25,9 +25,9 @@ export function FeedbackContentStep({
   onClose,
 }) {
   const { t } = useTranslation();
-  // const [screenshot, setScreenshot] = useState(null);
   const [comment, setComment] = useState("");
   const [isSendingFeedback, setIsSendingFeedback] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null); // Added state for error message
 
   const feedbackTypeInfo = feedbackTypes[feedbackType];
 
@@ -37,6 +37,7 @@ export function FeedbackContentStep({
 
   const addEmoji = (emoji) => () => setComment(`${comment}${emoji}`);
   const minCharacters = 50;
+
   async function handleSubmitFeedback(e) {
     e.preventDefault();
 
@@ -67,19 +68,41 @@ export function FeedbackContentStep({
         });
 
         // You can use username and userEmail in your email service
-        MailService.sendFeedback({
-          name: username,
-          email: userEmail,
-          message: `${feedbackType}: ${sanitizedComment}`,
-        });
+        const send = async () =>
+          await MailService.sendFeedback({
+            name: username,
+            email: userEmail,
+            message: `${feedbackType}: ${sanitizedComment}`,
+          });
+
+        await send();
+        if (send.response.status === 200) {
+          setErrorMessage(null);
+        } else {
+          setErrorMessage("Error sending feedback");
+        }
 
         onFeedbackSent();
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        // Handle specific errors
+        if (error.response && error.response.status === 403) {
+          setErrorMessage("You don't have permission to send feedback.");
+        } else if (error.message === "Network Error") {
+          setErrorMessage(
+            "Unable to reach the server. Please check your internet connection."
+          );
+        } else {
+          setErrorMessage(
+            "An unexpected error occurred. Please try again later."
+          );
+        }
+      } finally {
+        setIsSendingFeedback(false);
       }
     } else {
       // Display error message or prevent submission
-      console.log("Comment is too short");
+      setErrorMessage("Comment is too short");
+      setIsSendingFeedback(false);
     }
   }
 
@@ -198,15 +221,11 @@ export function FeedbackContentStep({
           </IconButton>
         </Box>
 
-        {/* create a typography to incitate user to take a screenshot of the page if necessary  */}
-        {/* <Typography variant="body2" sx={{ color: "text.secondary" }}>
-          {t("feedback-screenshot")}
-        </Typography>
-
-        <ScreenshotButton
-          screenshot={screenshot}
-          onScreenshotTook={setScreenshot}
-        /> */}
+        {errorMessage && ( // Render error message if present
+          <Typography variant="body2" sx={{ color: "error.main" }}>
+            {errorMessage}
+          </Typography>
+        )}
 
         {isSendingFeedback ? (
           <Box sx={{ display: "flex", justifyContent: "center" }}>
