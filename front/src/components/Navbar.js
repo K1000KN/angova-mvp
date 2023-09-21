@@ -10,34 +10,17 @@ const NavbarComponent = ({ page, setLanguageImage }) => {
   const [user, setUser] = useState(null);
   const [isUserFetched, setIsUserFetched] = useState(false);
   const [role, setRole] = useState("");
-  const navigate = useNavigate(); // Use useNavigate to perform navigation
 
   useEffect(() => {
-    const fetchCurrentUser = async () => {
-      try {
-        const user = await fetchCurrentUser(token);
-        setUser(user);
-        setIsUserFetched(true);
-        setRole(user.role);
-        if (user.role === "user") {
-          navigate("/profil");
-        }
-        if (user.role === "admin") {
-          navigate("/backoffice");
-        }
-        if (user.role === "manager") {
-          navigate("/backoffice");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
+    const fetchUser = async () => {
+      const currentUser = await fetchCurrentUser(token);
+      console.log(currentUser);
+      setUser(currentUser);
+      setIsUserFetched(true);
+      setRole(currentUser.role);
     };
-
-    if (token && !isUserFetched) {
-      fetchCurrentUser();
-    }
-  }, [token, isUserFetched, navigate]);
-
+    fetchUser();
+  }, [token, user, setUser, setIsUserFetched, setRole, isUserFetched]);
   return (
     <div id="navContainer">
       <Grid container className="navContent" style={{ width: "85%" }}>

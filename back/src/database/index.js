@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 ``;
 import { exportAllCollections } from "./backup.js";
 import cron from "node-cron";
+import seedDatabase from "./seed.js";
 
 dotenv.config();
 
@@ -21,6 +22,8 @@ mongoose
   .then(() => {
     console.log("Connected to MongoDB");
 
+    // Create users if they don't exist
+    seedDatabase();
     // Export all collections on startup
     exportAllCollections();
 
