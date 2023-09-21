@@ -25,20 +25,12 @@ import { loadStripe } from "@stripe/stripe-js";
 import AddUserPage from "./AddUser";
 import DashboardAutoPage from "./dashboard/DashboardAuto";
 import TokenService from "./services/TokenServices";
-import FeedGet from "./components/FeedGet";
+
 const theme = createTheme();
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const PrivateRoute = ({ path, roles, children }) => {
   const token = TokenService.getToken();
-  const isTokenExpired = useCallback(() => {
-    const decodedToken = jwt_decode(token);
-    const currentTime = Date.now() / 1000;
-    return decodedToken.exp < currentTime;
-  }, [token]);
-
-  console.log("PrivateRoute", isTokenExpired(), token);
-
   const navigate = useNavigate();
   const location = useLocation();
   const userRole = TokenService.getUserRole();

@@ -37,9 +37,9 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import FlagPopUp from "./components/FlagPopUp";
 import { fetchCurrentUser } from "./services/userService";
 const theme = createTheme();
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const Profile = () => {
-  const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem("token");
   const decodedToken = decodeToken(token);
 
@@ -284,6 +284,7 @@ const Profile = () => {
 
     const endpoint = `${apiUrl}/user/${id}`;
     const response = await axios.put(endpoint, user, { headers });
+    
   };
 
   const updateManager = async () => {
