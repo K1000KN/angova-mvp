@@ -40,7 +40,7 @@ const createUser = async (username, email, password, roleName) => {
 
 // Function to seed the database
 const seedDatabase = async () => {
-  await roles.forEach((role) => createRole(role.name));
+  roles.forEach((role) => createRole(role.name));
   await createUser("Admin", emailAdminPassword, adminPassword, "admin");
   await createUser("Manager", "manager@manager.com", adminPassword, "manager");
   await createUser("User", "user@user.com", adminPassword, "user");

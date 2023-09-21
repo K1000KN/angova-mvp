@@ -26,7 +26,7 @@ export const fetchCurrentUser = async (token) => {
       },
     });
 
-    return response.data; // Return the user data directly
+    return response.data;
   } catch (error) {
     console.error("Error:", error);
     throw error; // You can handle the error in the calling component
@@ -47,13 +47,9 @@ export const fetchUserEmail = (currentUser) => {
   return null;
 };
 
-export const getUserRole = (token) => {
-  try {
-    const decodedToken = decodeToken(token);
-    const role = decodedToken.role;
-    return role;
-  } catch (error) {
-    console.error("Error fetching user data:", error);
-    throw error;
+export const fetchUserRoles = (currentUser) => {
+  if (currentUser) {
+    return currentUser.roles;
   }
-}
+  return null;
+};

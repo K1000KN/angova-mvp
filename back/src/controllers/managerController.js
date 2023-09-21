@@ -3,14 +3,11 @@ import dotenv from "dotenv";
 import User from "../models/User.js";
 import Role from "../models/Role.js";
 import jwt from "jsonwebtoken";
-import Stripe from "stripe";
 dotenv.config();
 
 const adminSecretKey = process.env.SALT_KEY;
 
-const stripeInstance = new Stripe(
-  "sk_test_51NRF6LBHkhDIYYSv8MovkjYod1A4Q8rTUF9r51cVuivtz2UzCXBWCBOtYutiNK2chlavX04uxCsyXpo2OsmWHLP600cy1ZXdM3"
-);
+
 ///fonction to create user
 
 export const createUser = async (req, res) => {
@@ -130,16 +127,19 @@ export const resetPasswordManager = async (req, res) => {
 // function to get manager by id
 export const getManagerById = async (req, res) => {
   try {
+    const client = new MongoClient(uri, { useUnifiedTopology: true });
+    const db = client.db();
     const { id } = req.params;
-    const user = await User.findById(id).populate("roles", "name");
-    if (user && user.password) {
-      user.password = "";
+    const usersCollection = db.collection("users");
+    const manager = await usersCollection.findOne({ _id: new ObjectId(id) });
+    if (manager && manager.password) {
+      manager.password = "";
     }
 
-    if (!user) {
+    if (!manager) {
       return res.status(404).send({ message: "Manager not found" });
     }
-    res.status(200).send(user);
+    res.status(200).send(manager);
   } catch (err) {
     console.error(err);
     res.status(500).send({ message: "Failed to retrieve manager" });

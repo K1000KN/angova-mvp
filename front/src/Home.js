@@ -9,7 +9,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { makeStyles } from "@mui/styles";
 import { filterSessionsByLanguage } from "./services/sessionService";
-import FlagPopUp from './components/FlagPopUp'
+import FlagPopUp from "./components/FlagPopUp";
 import jsonDataFr from "./data/content_fr.json";
 import jsonDataEs from "./data/content_es.json";
 import jsonDataEn from "./data/content_en.json";
@@ -20,7 +20,7 @@ import ListSession from "./components/ListSessions";
 import Quizz from "./components/Quizz";
 import { useTranslation } from "react-i18next";
 import { processSessions } from "./services/sessionService";
-import { getUserRole } from "./services/userService";
+import { fetchUserRoles } from "./services/userService";
 
 import FeedGet from "./components/FeedGet";
 
@@ -35,7 +35,7 @@ function Home() {
   const earthFlag = "./images/flag/rounded/earth.png";
   const spainRoundedFlag = "./images/flag/rounded/spain.png";
   const ukraineRoundedFlag = "./images/flag/rounded/ukraine.png";
-  const role = getUserRole(localStorage.getItem("token"));
+  const role = fetchUserRoles();
 
   const theme = createTheme({
     typography: {
@@ -117,11 +117,10 @@ function Home() {
       backgroundColor: theme.palette.background.paper,
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
-
     },
     button: {
       color: "#fff",
-    }
+    },
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedSession, setSelectedSession] = useState(null);
@@ -156,7 +155,7 @@ function Home() {
       setSelectedSession(sessions);
       handleOpenModal();
     } else {
-      navigate(sessionId)
+      navigate(sessionId);
     }
   };
 
@@ -270,7 +269,6 @@ function Home() {
         className="languageNavImg"
         onClick={() => {
           setShow(true);
-
         }}
         src={src}
         alt={language}
@@ -345,17 +343,34 @@ function Home() {
             <div className={classes.paper}>
               {role === "manager" && (
                 <>
-                <img src="./images/annuler-40.svg" alt="stop" style={{width: 100, height: 100, display: 'block', margin: 'auto'}}/>
-                  <p style={{
-                    textAlign: 'center',
-                    lineBreak: 'normal',
-                    width: '100%'
-                  }}>{t("no-rights")}</p>
+                  <img
+                    src="./images/annuler-40.svg"
+                    alt="stop"
+                    style={{
+                      width: 100,
+                      height: 100,
+                      display: "block",
+                      margin: "auto",
+                    }}
+                  />
+                  <p
+                    style={{
+                      textAlign: "center",
+                      lineBreak: "normal",
+                      width: "100%",
+                    }}
+                  >
+                    {t("no-rights")}
+                  </p>
                   <Button
                     variant="contained"
                     className={classes.button}
                     onClick={handleCloseModal}
-                    style={{display: 'block', margin: 'auto', backgroundColor: "#f49e4c"}}
+                    style={{
+                      display: "block",
+                      margin: "auto",
+                      backgroundColor: "#f49e4c",
+                    }}
                   >
                     {t("close")}
                   </Button>
@@ -365,7 +380,11 @@ function Home() {
           </Modal>
           {component === "quizz" && <Quizz />}
         </Grid>
-        <FlagPopUp setLanguage={setLanguage} show={show} handleClose={handleClose} />
+        <FlagPopUp
+          setLanguage={setLanguage}
+          show={show}
+          handleClose={handleClose}
+        />
         <BottomBar handleChange={handleChange} value={value} />
         <div
           style={{
