@@ -30,7 +30,7 @@ const theme = createTheme();
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const PrivateRoute = ({ path, roles, children }) => {
-  const token = localStorage.getItem("token");
+  const token = TokenService.getToken();
   const isTokenExpired = useCallback(() => {
     const decodedToken = jwt_decode(token);
     const currentTime = Date.now() / 1000;
@@ -39,16 +39,11 @@ const PrivateRoute = ({ path, roles, children }) => {
 
   console.log("PrivateRoute", isTokenExpired(), token);
 
-  const isAuthenticated = !!token;
   const navigate = useNavigate();
   const location = useLocation();
   const userRole = TokenService.getUserRole();
-  const token = TokenService.getToken();
   const refreshToken = localStorage.getItem("refreshToken");
   const isAuthenticated = TokenService.isTokenVerified();
-
-  const refreshToken = localStorage.getItem("refreshToken");
-  const userRole = token ? jwt_decode(token).role : null;
 
   const refreshAccessToken = useCallback(async () => {
     try {

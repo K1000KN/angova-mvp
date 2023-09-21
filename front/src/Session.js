@@ -434,6 +434,7 @@ const Session = () => {
                       activeSource={activeSource}
                     />
                   )}
+                </div>
                 <div
                   style={{
                     display: "flex",
@@ -447,7 +448,6 @@ const Session = () => {
                       width: "20px",
                     }}
                   ></div>
-
                 </div>
                 
                 {questions && questions.length > 1 ? (

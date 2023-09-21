@@ -34,7 +34,8 @@ import { AddCircleOutline, Delete } from "@mui/icons-material";
 import { createTheme } from "@mui/material/styles";
 import NewUserForm from "./components/NewUserForm";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import FlagPopUp from './components/FlagPopUp'
+import FlagPopUp from "./components/FlagPopUp";
+import { fetchCurrentUser } from "./services/userService";
 const theme = createTheme();
 
 const Profile = () => {
@@ -231,8 +232,6 @@ const Profile = () => {
   const classes = useStyles();
   const { t } = useTranslation();
 
- 
-
   /// List Manager Users
 
   const fetchUsers = useCallback(async () => {
@@ -339,35 +338,13 @@ const Profile = () => {
   const [roleUser, setRoleUser] = useState("");
 
   useEffect(() => {
-    const getCurrentUser = async () => {
-      const decodedToken = decodeToken(token);
-      const id = decodedToken.id;
-      const role = decodedToken.role;
-
-      let endpoint = `${apiUrl}/user/${id}`;
-      setRoleUser(role);
-      if (role === "admin") {
-        endpoint = `${apiUrl}/admin/${id}`;
-      } else if (role === "manager") {
-        endpoint = `${apiUrl}/manager/${id}`;
-      }
-
-      try {
-        const response = await axios.get(endpoint, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        setUser(response.data);
-        setIsUserFetched(true);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
-
-    if (token && !isUserFetched) {
-      getCurrentUser();
+    const user = fetchCurrentUser(token);
+    if (!user) {
+      return;
+    } else {
+      setUser(user);
+      setIsUserFetched(true);
+      setRoleUser(user.role);
     }
   }, [token, isUserFetched]);
 
@@ -575,7 +552,11 @@ const Profile = () => {
         </Grid>
       )}
       {/* CHOSE LANGUAGE  */}
-      <FlagPopUp setLanguage={setLanguage} show={show} handleClose={handleClose}/>
+      <FlagPopUp
+        setLanguage={setLanguage}
+        show={show}
+        handleClose={handleClose}
+      />
       {/* NEW USER MODAL */}
       <NewUserForm
         open={openDialog}
