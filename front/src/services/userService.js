@@ -15,6 +15,9 @@ export const fetchCurrentUser = async (token) => {
   } else if (role === "manager") {
     endpoint = `${apiUrl}/manager/${id}`;
   }
+  if (role !== "user" && role !== "admin" && role !== "manager") {
+    throw new Error("Invalid attempt");
+  }
 
   try {
     const response = await axios.get(endpoint, {

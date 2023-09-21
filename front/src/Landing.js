@@ -36,6 +36,7 @@ function Landing() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const token = localStorage.getItem("token");
+  const tokenVerified = TokenService.isTokenVerified();
   const navigate = useNavigate();
   const refCode = useRef(null);
   const refDesc = useRef(null);

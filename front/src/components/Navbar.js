@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import { Link, useNavigate } from "react-router-dom"; // Import useNavigate instead of useHistory
 import { useTranslation } from "react-i18next";
-import { getCurrentUser } from "../services/userService";
+import { fetchCurrentUser } from "../services/userService";
 
 const NavbarComponent = ({ page, setLanguageImage }) => {
   const { t } = useTranslation();
@@ -15,10 +15,19 @@ const NavbarComponent = ({ page, setLanguageImage }) => {
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
-        const user = await getCurrentUser(token, navigate);
+        const user = await fetchCurrentUser(token);
         setUser(user);
         setIsUserFetched(true);
         setRole(user.role);
+        if (user.role === "user") {
+          navigate("/profil");
+        }
+        if (user.role === "admin") {
+          navigate("/backoffice");
+        }
+        if (user.role === "manager") {
+          navigate("/backoffice");
+        }
       } catch (error) {
         console.error("Error:", error);
       }
