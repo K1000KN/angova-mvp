@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { feedbackTypes } from "../index.js";
 import { useTranslation } from "react-i18next";
-import { TextareaAutosize, Box, IconButton, Typography } from "@mui/material";
+import {
+  TextareaAutosize,
+  Box,
+  IconButton,
+  Typography,
+  CircularProgress,
+} from "@mui/material";
 import Button from "@mui/material/Button";
 import { CloseButton } from "../../CloseButton";
 // import { ScreenshotButton } from "../ScreenshotButton.js";
@@ -201,21 +207,28 @@ export function FeedbackContentStep({
           screenshot={screenshot}
           onScreenshotTook={setScreenshot}
         /> */}
-        <Button
-          disabled={comment.trim().length < minCharacters}
-          variant="contained"
-          sx={{
-            backgroundColor: "rgb(244, 158, 76)",
-            color: "white",
-            "&:hover": {
-              backgroundColor: "rgb(244, 158, 76, 0.8)",
-            },
-          }}
-          onClick={handleSubmitFeedback}
-          style={{ margin: "16px" }}
-        >
-          Feedback
-        </Button>
+
+        {isSendingFeedback ? (
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <CircularProgress />
+          </Box>
+        ) : (
+          <Button
+            disabled={comment.trim().length < minCharacters}
+            variant="contained"
+            sx={{
+              backgroundColor: "rgb(244, 158, 76)",
+              color: "white",
+              "&:hover": {
+                backgroundColor: "rgb(244, 158, 76, 0.8)",
+              },
+            }}
+            onClick={handleSubmitFeedback}
+            style={{ margin: "16px" }}
+          >
+            Feedback
+          </Button>
+        )}
       </form>
     </>
   );

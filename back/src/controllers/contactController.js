@@ -1,4 +1,6 @@
 import sgMail from "@sendgrid/mail";
+import dotenv from "dotenv";
+dotenv.config();
 
 const emailSecretKey = process.env.API_SENDGRID;
 
@@ -10,7 +12,7 @@ export const contactForm = (req, res) => {
   const { name, email, message } = req.body;
 
   const msg = {
-    to: "contact.angova@gmail.com", // Votre adresse e-mail
+    to: "contact.angova@gmail.com",
     from: "contact.angova@gmail.com",
     subject: "contact depuis l'application web",
     text: `Nom: ${name}\nE-mail: ${email}\n\nMessage: ${message}`,
