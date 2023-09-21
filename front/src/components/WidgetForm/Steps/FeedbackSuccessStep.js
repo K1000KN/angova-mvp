@@ -2,10 +2,10 @@ import React from "react";
 import { Button, Typography, Box, Paper } from "@mui/material";
 import { CloseButton } from "../../CloseButton";
 
-export function FeedbackSuccessStep({
-  onFeedbackRestartRequested,
-  handleClose,
-}) {
+export function FeedbackSuccessStep({ onFeedbackRestartRequested, onClose }) {
+  function handleClose() {
+    onClose();
+  }
   return (
     <Paper
       elevation={3}

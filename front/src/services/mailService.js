@@ -12,7 +12,12 @@ const MailService = {
       });
       return response.data;
     } catch (error) {
-      throw error;
+      console.error("Error sending feedback:", error);
+
+      return {
+        success: false,
+        message: "Error sending feedback",
+      };
     }
   },
 };

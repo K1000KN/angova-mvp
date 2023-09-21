@@ -49,6 +49,7 @@ export const WidgetForm = ({ onClose }) => {
       {feedbackSent ? (
         <FeedbackSuccessStep
           onFeedbackRestartRequested={handleRestartFeedback}
+          onClose={onClose}
         />
       ) : (
         <>
