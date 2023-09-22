@@ -13,7 +13,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { createTheme } from "@mui/material/styles";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
-import { CircularProgress } from "@mui/material";
+import Loader from "./Loader";
 const theme = createTheme();
 
 const useStyles = makeStyles({
@@ -196,7 +196,7 @@ const NewUserForm = ({ open, handleClose, usersList, setUsers }) => {
                       disabled={isLoading} // Disable the button during loading
                     >
                       {isLoading ? (
-                        <CircularProgress /> // Display the loader
+                        <Loader /> // Display the loader
                       ) : (
                         "Ajouter l'élève" // Display the button text
                       )}

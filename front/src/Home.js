@@ -232,6 +232,7 @@ function Home() {
         className="languageNavImg"
         onClick={() => {
           setShow(true);
+         
         }}
         src={src}
         alt={language}

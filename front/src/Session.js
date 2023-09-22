@@ -7,6 +7,8 @@ import { Button, Grid } from "@mui/material";
 import ProgressBar from "./components/ProgressBar";
 import { IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { VolumeUp, VolumeOff } from "@mui/icons-material";
+import ReactHowler from 'react-howler';
 import {
   Dialog,
   DialogContent,
@@ -58,6 +60,9 @@ const Session = () => {
     setActiveSource(source);
   };
 
+ 
+
+  
   const navigate = useNavigate();
   const theme = createTheme({
     typography: {
@@ -128,6 +133,7 @@ const Session = () => {
     setShowExplanation,
     setResult
   ) => {
+
     const isCorrect = arraysEqual(indices, correctAnswer);
 
     if (isCorrect) {
@@ -231,7 +237,7 @@ const Session = () => {
   };
 
   const sessionData = getSessionData(id);
-
+  
   // Handle invalid session ID or language not supported
   if (!sessionData) {
     return (
@@ -427,6 +433,7 @@ const Session = () => {
                     />
                   )}
                 </div>
+                
                 {questions && questions.length > 1 ? (
                   <>
                     <Typography variant="h6" id="questionQuizz">
