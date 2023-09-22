@@ -7,10 +7,14 @@ import Card from "@mui/material/Card";
 import { Skeleton } from "@mui/material";
 
 const reactApiUrl = process.env.REACT_APP_API_URL;
-const ImageS3 = ({ source, isSkeleton = false }) => {
+const ImageS3 = ({ source, isSkeleton = false, height, width }) => {
   const [imageUrl, setImageUrl] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  let placeholderSource = "./images/placeholder.png";
 
+  if (!isSkeleton) {
+    placeholderSource = "../images/placeholder.png";
+  }
   useEffect(() => {
     const fetchData = async () => {
       const token = localStorage.getItem("token");
@@ -60,16 +64,16 @@ const ImageS3 = ({ source, isSkeleton = false }) => {
         <Card className="card">
           <CardMedia
             component="img"
-            height="100%"
             src={
               imageUrl
                 ? `data:image/jpeg;base64,${imageUrl}`
-                : "./images/placeholder.png"
+                : placeholderSource
             }
             alt="session"
             style={{
               cursor: "pointer",
-              height: imageUrl ? "100%" : "100px",
+              height: height,
+              width: width,
               transition: "all 0.2s ease",
             }}
             onError={handleImageError}

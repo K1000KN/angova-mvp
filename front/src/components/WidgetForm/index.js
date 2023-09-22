@@ -12,21 +12,21 @@ import { Typography } from "@mui/material";
 
 export const feedbackTypes = {
   BUG: {
-    title: "Bug",
+    title: "bug",
     image: {
       source: bugImage,
       alt: "Image d'un insecte",
     },
   },
   IDEA: {
-    title: "Ideas",
+    title: "idea",
     image: {
       source: ideaImage,
       alt: "Imagem d'une ampoule",
     },
   },
   OTHER: {
-    title: "Other",
+    title: "othe",
     image: {
       source: thoughtImage,
       alt: "Image d'une bulle de pensée",

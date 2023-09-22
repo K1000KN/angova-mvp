@@ -4,7 +4,6 @@ import { feedbackTypes } from "../index";
 import { useTranslation } from "react-i18next";
 import Typography from "@mui/material/Typography";
 import "./FeedbackTypeStep.css";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export function FeedbackTypeStep({ onFeedbackTypeChanged, onClose }) {
   const { t } = useTranslation();
@@ -96,7 +95,7 @@ export function FeedbackTypeStep({ onFeedbackTypeChanged, onClose }) {
             />
             <br />
             <Typography variant="body1" component="span" sx={{}}>
-              {value.title}
+              {t(value.title)}
             </Typography>
           </div>
         ))}

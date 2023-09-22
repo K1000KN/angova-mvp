@@ -56,5 +56,9 @@
     "mdp-not-correspond": "كلمة المرور غير مطابقة",
     "password-input-regex": "يجب أن تحتوي كلمة المرور على أرقام كبيرة وصغيرة.",
     "forbidden-language": "اللغة المحظورة",
-    "invalid-session": "جلسة غير صالحة"
+    "invalid-session": "جلسة غير صالحة",
+    "send-feedback": "إرسال ملاحظات",
+    "feedback-placeholder": "أدخل ملاحظاتك هنا",
+    "feedback-sent": "تم إرسال ملاحظاتك بنجاح",
+    "feedback-error": "حدث خطأ أثناء إرسال ملاحظاتك"
 }

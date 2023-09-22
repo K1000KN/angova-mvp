@@ -92,9 +92,7 @@ export function FeedbackContentStep({
             "Unable to reach the server. Please check your internet connection."
           );
         } else {
-          setErrorMessage(
-            "An unexpected error occurred. Please try again later."
-          );
+          setErrorMessage(t("feedback-error"));
         }
       } finally {
         setIsSendingFeedback(false);
@@ -145,7 +143,7 @@ export function FeedbackContentStep({
             src={feedbackTypeInfo.image.source}
             alt={feedbackTypeInfo.image.alt}
           />
-          {feedbackTypeInfo.title}
+          {t(feedbackTypeInfo.title)}
         </span>
 
         <CloseButton onClose={handleClose} />
@@ -245,7 +243,7 @@ export function FeedbackContentStep({
             onClick={handleSubmitFeedback}
             style={{ margin: "16px" }}
           >
-            Feedback
+            {t("send-feedback")}
           </Button>
         )}
       </form>
