@@ -243,7 +243,7 @@ function Home() {
 
   if (selectedLanguage === "ma") {
     //Si la langue sélectionnée est "ma", limitez à 3 sessions
-    displayedSessions = sessions.slice(0, 6);
+    displayedSessions = sessions.slice(0, 10);
   }
 
   return (
