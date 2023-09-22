@@ -60,4 +60,8 @@
     "error": "Error",
     "close": "Cerrar",
     "no-rights": "Por razones de seguridad, sólo los estudiantes pueden acceder a las series."
+    "send-feedback": "deja un comentario",
+    "feedback-placeholder": "Escribe tu comentario aquí",
+    "feedback-sent": "Comentario enviado",
+    "feedback-error": "Error al enviar el comentario"
 }

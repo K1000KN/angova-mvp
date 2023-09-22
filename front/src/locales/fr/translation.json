@@ -57,6 +57,10 @@
     "mdp-not-correspond": "Les mots de passe ne correspondent pas",
     "password-input-regex": "Le mot de passe doit contenir un chiffre majuscule et minuscule.",
     "forbidden-language": "Cette langue n'est pas disponible",
+    "send-feedback": "Envoyer un commentaire",
+    "feedback-placeholder": "Votre commentaire",
+    "feedback-sent": "Commentaire envoyé",
+    "feedback-error": "Erreur lors de l'envoi du commentaire"
     "invalid-session": "Session invalide",
     "error": "Erreur",
     "close": "Fermer",
