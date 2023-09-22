@@ -247,7 +247,6 @@ const Profile = () => {
           user.roles.some((role) => role.name === "user") &&
           user.manager === managerId
       );
-
       setUsers(userFromManager);
     } catch (error) {
       console.error("Error:", error);
@@ -338,10 +337,18 @@ const Profile = () => {
 
   // Fetch the current user only if token exists
   if (token && !user) {
-    const fetchedUser = fetchCurrentUser(token);
-    if (fetchedUser) {
-      setUser(fetchedUser);
-      setRoleUser(fetchedUser.role);
+    const fetchUser = async () => {
+      if (token && !user) {
+        console.log("Récupération de l'utilisateur");
+        const fetchedUser = await fetchCurrentUser(token);
+        if (fetchedUser) {
+          setUser(fetchedUser);
+          setRoleUser(fetchedUser.role);
+        }
+      }
+    };
+    if (token && !user) {
+      fetchUser();
     }
   }
 
@@ -420,134 +427,136 @@ const Profile = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <NavbarComponent page={value} setLanguageImage={setLanguageImage} />
-      {user && (
-        <Grid
-          id="sessionContainer"
-          container
-          direction="row"
-          style={{ overflow: "auto" }}
-        >
-          <Box sx={{ maxWidth: "75%", mx: "auto" }}>
-            <Typography variant="h4" gutterBottom sx={{ marginTop: "30px" }}>
-              {isEditing ? "Editer mon profil" : "Mon profil"}
-            </Typography>
-            <TextField
-              fullWidth
-              id="username"
-              name="username"
-              label="Nom"
-              value={user.username}
-              onChange={handleInputChange}
-              disabled={!isEditing}
-              margin="normal"
-              variant="outlined"
-            />
-            <TextField
-              fullWidth
-              id="email"
-              name="email"
-              label="Email"
-              value={user.email}
-              onChange={handleInputChange}
-              disabled={!isEditing}
-              margin="normal"
-              variant="outlined"
-            />
+      {user &&
+        (console.log(user),
+        (
+          <Grid
+            id="sessionContainer"
+            container
+            direction="row"
+            style={{ overflow: "auto" }}
+          >
+            <Box sx={{ maxWidth: "75%", mx: "auto" }}>
+              <Typography variant="h4" gutterBottom sx={{ marginTop: "30px" }}>
+                {isEditing ? "Editer mon profil" : "Mon profil"}
+              </Typography>
+              <TextField
+                fullWidth
+                id="username"
+                name="username"
+                label="Nom"
+                value={user.username}
+                onChange={handleInputChange}
+                disabled={!isEditing}
+                margin="normal"
+                variant="outlined"
+              />
+              <TextField
+                fullWidth
+                id="email"
+                name="email"
+                label="Email"
+                value={user.email}
+                onChange={handleInputChange}
+                disabled={!isEditing}
+                margin="normal"
+                variant="outlined"
+              />
 
-            <Grid
-              container
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginTop: 2,
-                gap: 2,
-              }}
-            >
-              {isEditing ? (
-                <Button variant="contained" onClick={handleSaveClick}>
-                  Sauvegarder
-                </Button>
-              ) : (
-                <Button variant="contained" onClick={handleEditClick}>
-                  Modifier
-                </Button>
-              )}
-              <Button
-                variant="contained"
-                onClick={openResetPwdDialog}
-                sx={{ backgroundColor: "#F49E4C" }}
+              <Grid
+                container
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginTop: 2,
+                  gap: 2,
+                }}
               >
-                Modifier le mot de passe
-              </Button>
-              <Button
-                variant="contained"
-                onClick={openDeleteProfileDialog}
-                color="error"
-              >
-                Suppression
-              </Button>
-              <Button variant="contained" onClick={logout} color="primary">
-                Deconnexion
-              </Button>
-            </Grid>
+                {isEditing ? (
+                  <Button variant="contained" onClick={handleSaveClick}>
+                    Sauvegarder
+                  </Button>
+                ) : (
+                  <Button variant="contained" onClick={handleEditClick}>
+                    Modifier
+                  </Button>
+                )}
+                <Button
+                  variant="contained"
+                  onClick={openResetPwdDialog}
+                  sx={{ backgroundColor: "#F49E4C" }}
+                >
+                  Modifier le mot de passe
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={openDeleteProfileDialog}
+                  color="error"
+                >
+                  Suppression
+                </Button>
+                <Button variant="contained" onClick={logout} color="primary">
+                  Deconnexion
+                </Button>
+              </Grid>
 
-            {roleUser === "manager" ? (
-              <>
-                <Typography variant="h4" sx={{ marginTop: "30px" }}>
-                  Ajouter un utilisateur
-                </Typography>
-                <Paper sx={{ marginTop: "30px", marginBottom: "60px" }}>
-                  <TableContainer>
-                    <Table>
-                      <TableHead>
-                        <TableRow>
-                          <TableCell>Nom</TableCell>
-                          <TableCell>Prénom</TableCell>
-                          <TableCell>Action</TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {usersList.map((element, index) => (
-                          <TableRow key={index}>
-                            <TableCell>{element.username}</TableCell>
-                            <TableCell>{element.email}</TableCell>
-                            <TableCell>
-                              <IconButton
-                                onClick={() =>
-                                  openDeleteFromUsersDialog(element._id)
-                                }
-                              >
-                                <Delete />
-                              </IconButton>
-                            </TableCell>
+              {roleUser === "manager" ? (
+                <>
+                  <Typography variant="h4" sx={{ marginTop: "30px" }}>
+                    Ajouter un utilisateur
+                  </Typography>
+                  <Paper sx={{ marginTop: "30px", marginBottom: "60px" }}>
+                    <TableContainer>
+                      <Table>
+                        <TableHead>
+                          <TableRow>
+                            <TableCell>Nom</TableCell>
+                            <TableCell>Prénom</TableCell>
+                            <TableCell>Action</TableCell>
                           </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      padding: "1rem",
-                    }}
-                  >
-                    <IconButton
-                      onClick={handleAddUser}
-                      variant="contained"
-                      color="primary"
+                        </TableHead>
+                        <TableBody>
+                          {usersList.map((element, index) => (
+                            <TableRow key={index}>
+                              <TableCell>{element.username}</TableCell>
+                              <TableCell>{element.email}</TableCell>
+                              <TableCell>
+                                <IconButton
+                                  onClick={() =>
+                                    openDeleteFromUsersDialog(element._id)
+                                  }
+                                >
+                                  <Delete />
+                                </IconButton>
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        padding: "1rem",
+                      }}
                     >
-                      <AddCircleOutline />
-                    </IconButton>
-                  </div>
-                </Paper>
-              </>
-            ) : (
-              <></>
-            )}
-          </Box>
-        </Grid>
-      )}
+                      <IconButton
+                        onClick={handleAddUser}
+                        variant="contained"
+                        color="primary"
+                      >
+                        <AddCircleOutline />
+                      </IconButton>
+                    </div>
+                  </Paper>
+                </>
+              ) : (
+                <></>
+              )}
+            </Box>
+          </Grid>
+        ))}
       {/* CHOSE LANGUAGE  */}
       <FlagPopUp
         setLanguage={setLanguage}

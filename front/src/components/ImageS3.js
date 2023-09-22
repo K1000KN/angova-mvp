@@ -17,7 +17,7 @@ const ImageS3 = ({ source, isSkeleton = false }) => {
       const config = {
         headers: { Authorization: `Bearer ${token}` },
       };
-      
+
       try {
         const response = await axios.post(
           reactApiUrl + "/s3",
@@ -28,10 +28,16 @@ const ImageS3 = ({ source, isSkeleton = false }) => {
         setIsLoading(false);
       } catch (error) {
         console.error(error);
+        setIsLoading(false); // Arrêter le chargement en cas d'erreur
       }
     };
     fetchData();
   }, [source]);
+
+  const handleImageError = () => {
+    // Gérer l'erreur de chargement de l'image en affichant une image de remplacement
+    setImageUrl(null); // Réinitialiser l'URL de l'image
+  };
 
   return (
     <div>
@@ -66,6 +72,7 @@ const ImageS3 = ({ source, isSkeleton = false }) => {
               height: imageUrl ? "100%" : "100px",
               transition: "all 0.2s ease",
             }}
+            onError={handleImageError}
           />
         </Card>
       )}
