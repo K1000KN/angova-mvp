@@ -339,14 +339,14 @@ function Home() {
             <div className={classes.paper}>
               {role === "manager" && (
                 <>
-                  <h2>Erreur</h2>
-                  <p>Les Managers ne peuvent pas accéder à cette session.</p>
+                  <h2>{t("error")}</h2>
+                  <p>{t("no-rights")}</p>
                   <Button
                     variant="contained"
                     color="secondary"
                     onClick={handleCloseModal}
                   >
-                    Fermer
+                    {t("close")}
                   </Button>
                 </>
               )}

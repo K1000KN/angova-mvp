@@ -56,5 +56,8 @@
     "mdp-not-correspond": "Las contraseñas no coinciden",
     "password-input-regex": "La contraseña debe contener mayúsculas y minúsculas.",
     "forbidden-language": "Este idioma no está disponible",
-    "invalid-session": "Sesión no válida"
+    "invalid-session": "Sesión no válida",
+    "error": "Error",
+    "close": "Cerrar",
+    "no-rights": "Los administradores no pueden accesar a esta sesión."
 }

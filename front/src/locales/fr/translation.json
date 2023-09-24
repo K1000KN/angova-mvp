@@ -57,5 +57,8 @@
     "mdp-not-correspond": "Les mots de passe ne correspondent pas",
     "password-input-regex": "Le mot de passe doit contenir un chiffre majuscule et minuscule.",
     "forbidden-language": "Cette langue n'est pas disponible",
-    "invalid-session": "Session invalide"
+    "invalid-session": "Session invalide",
+    "error": "Erreur",
+    "close": "Fermer",
+    "no-rights": "Les Managers ne peuvent pas accéder à cette session."
 }
