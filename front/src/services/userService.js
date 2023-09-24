@@ -36,3 +36,14 @@ export const getCurrentUser = async (token, navigate) => {
     throw error;
   }
 };
+
+export const getUserRole = (token) => {
+  try {
+    const decodedToken = decodeToken(token);
+    const role = decodedToken.role;
+    return role;
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    throw error;
+  }
+}

@@ -14,11 +14,13 @@ import jsonDataFr from "./data/content_fr.json";
 import jsonDataEs from "./data/content_es.json";
 import jsonDataEn from "./data/content_en.json";
 import jsonDataMa from "./data/content_fr.json";
+import { Modal, Button } from "@mui/material";
 
 import ListSession from "./components/ListSessions";
 import Quizz from "./components/Quizz";
 import { useTranslation } from "react-i18next";
 import { processSessions } from "./services/sessionService";
+import { getUserRole } from "./services/userService";
 
 function Home() {
   const { t, i18n } = useTranslation();
@@ -31,6 +33,7 @@ function Home() {
   const earthFlag = "./images/flag/rounded/earth.png";
   const spainRoundedFlag = "./images/flag/rounded/spain.png";
   const ukraineRoundedFlag = "./images/flag/rounded/ukraine.png";
+  const role = getUserRole(localStorage.getItem("token"));
 
   const theme = createTheme({
     typography: {
@@ -103,7 +106,19 @@ function Home() {
     languageTextVisible: {
       opacity: 1,
     },
+    modal: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    paper: {
+      backgroundColor: theme.palette.background.paper,
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing(2, 4, 3),
+    }
   });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedSession, setSelectedSession] = useState(null);
   const [show, setShow] = useState(false);
   const [value, setValue] = React.useState("code");
   const navigate = useNavigate();
@@ -120,6 +135,23 @@ function Home() {
         language: language,
       };
     });
+  };
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleSessionClick = (sessionId) => {
+    if (role === "manager") {
+      setSelectedSession(sessions);
+      handleOpenModal();
+    } else {
+      navigate(sessionId)
+    }
   };
 
   const sessionFR = createLanguageSessionData("fr", jsonDataFr);
@@ -188,7 +220,7 @@ function Home() {
   const handleHover = (id) => {
     setHoveredCard(id);
   };
- 
+
   const setLanguageImage = (language) => {
     let src = null;
     switch (language) {
@@ -232,7 +264,7 @@ function Home() {
         className="languageNavImg"
         onClick={() => {
           setShow(true);
-         
+
         }}
         src={src}
         alt={language}
@@ -294,14 +326,35 @@ function Home() {
             <ListSession
               classes={classes}
               sessions={displayedSessions}
-              navigate={navigate}
+              navigate={handleSessionClick}
               handleHover={handleHover}
               hoveredCard={hoveredCard}
             />
           )}
+          <Modal
+            open={isModalOpen}
+            onClose={handleCloseModal}
+            className={classes.modal}
+          >
+            <div className={classes.paper}>
+              {role === "manager" && (
+                <>
+                  <h2>{t("error")}</h2>
+                  <p>{t("no-rights")}</p>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={handleCloseModal}
+                  >
+                    {t("close")}
+                  </Button>
+                </>
+              )}
+            </div>
+          </Modal>
           {component === "quizz" && <Quizz />}
         </Grid>
-        <FlagPopUp setLanguage={setLanguage} show={show} handleClose={handleClose}/>
+        <FlagPopUp setLanguage={setLanguage} show={show} handleClose={handleClose} />
         <BottomBar handleChange={handleChange} value={value} />
       </ThemeProvider>
     </>

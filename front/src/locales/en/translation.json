@@ -56,5 +56,8 @@
     "mdp-not-correspond": "Passwords don't match",
     "password-input-regex": "The password must contain an upper- and lower-case number.",
     "forbidden-language": "This language is not available",
-    "invalid-session": "Invalid session"
+    "invalid-session": "Invalid session",
+    "error": "Error",
+    "close": "Close",
+    "no-rights": "Managers cannot access this session."
 }
