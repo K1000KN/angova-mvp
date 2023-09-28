@@ -31,10 +31,8 @@ export const contactRegisterForm = (req, res) => {
         "Une erreur s'est produite lors de l'envoi de l'e-mail",
         error
       );
-      res
-        .status(500)
-        .json({
-          message: "Une erreur s'est produite lors de l'envoi de l'e-mail",
-        });
+      res.status(500).json({
+        message: "Une erreur s'est produite lors de l'envoi de l'e-mail",
+      });
     });
 };
