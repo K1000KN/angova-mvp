@@ -60,5 +60,5 @@
     "invalid-session": "Session invalide",
     "error": "Erreur",
     "close": "Fermer",
-    "no-rights": "Les Managers ne peuvent pas accéder à cette session."
+    "no-rights": "Pour des raisons de sécurité, seul les élèves peuvent accéder aux séries."
 }

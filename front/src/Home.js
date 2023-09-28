@@ -115,6 +115,10 @@ function Home() {
       backgroundColor: theme.palette.background.paper,
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
+
+    },
+    button: {
+      color: "#fff",
     }
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -339,12 +343,17 @@ function Home() {
             <div className={classes.paper}>
               {role === "manager" && (
                 <>
-                  <h2>{t("error")}</h2>
-                  <p>{t("no-rights")}</p>
+                <img src="./images/annuler-40.svg" alt="stop" style={{width: 100, height: 100, display: 'block', margin: 'auto'}}/>
+                  <p style={{
+                    textAlign: 'center',
+                    lineBreak: 'normal',
+                    width: '100%'
+                  }}>{t("no-rights")}</p>
                   <Button
                     variant="contained"
-                    color="secondary"
+                    className={classes.button}
                     onClick={handleCloseModal}
+                    style={{display: 'block', margin: 'auto', backgroundColor: "#f49e4c"}}
                   >
                     {t("close")}
                   </Button>
