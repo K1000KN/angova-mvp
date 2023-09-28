@@ -24,6 +24,8 @@ import { fetchUserRoles } from "./services/userService";
 
 import FeedGet from "./components/FeedGet";
 
+import FeedGet from "./components/FeedGet";
+
 function Home() {
   const { t, i18n } = useTranslation();
   const franceRoundedFlag = "./images/flag/rounded/france.png";
