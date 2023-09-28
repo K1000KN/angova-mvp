@@ -60,5 +60,8 @@
     "send-feedback": "Send feedback",
     "feedback-placeholder": "Your feedback",
     "feedback-sent": "Feedback sent",
-    "feedback-error": "An error occurred while sending your feedback"
+    "feedback-error": "An error occurred while sending your feedback",
+    "bug": "A bug",
+    "idea": "An idea",
+    "other": "Other"
 }

@@ -3,36 +3,8 @@ import { FeedbackTypeStep } from "./Steps/FeedbackTypeStep";
 import { FeedbackContentStep } from "./Steps/FeedbackContentStep";
 import { FeedbackSuccessStep } from "./Steps/FeedbackSuccessStep";
 
-import bugImage from "./bug.svg";
-import ideaImage from "./idea.svg";
-import thoughtImage from "./thought.svg";
-
 import { useTranslation } from "react-i18next"; // Import useTranslation from react-i18next
 import { Typography } from "@mui/material";
-
-export const feedbackTypes = {
-  BUG: {
-    title: "bug",
-    image: {
-      source: bugImage,
-      alt: "Image d'un insecte",
-    },
-  },
-  IDEA: {
-    title: "idea",
-    image: {
-      source: ideaImage,
-      alt: "Imagem d'une ampoule",
-    },
-  },
-  OTHER: {
-    title: "othe",
-    image: {
-      source: thoughtImage,
-      alt: "Image d'une bulle de pensée",
-    },
-  },
-};
 
 export const WidgetForm = ({ onClose }) => {
   const [feedbackType, setFeedbackType] = useState(null);

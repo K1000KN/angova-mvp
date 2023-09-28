@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { feedbackTypes } from "../index.js";
+import FeedbackTypesData from "../feedbackTypes";
 import { useTranslation } from "react-i18next";
 import {
   TextareaAutosize,
@@ -28,6 +28,8 @@ export function FeedbackContentStep({
   const [comment, setComment] = useState("");
   const [isSendingFeedback, setIsSendingFeedback] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null); // Added state for error message
+
+  const feedbackTypes = FeedbackTypesData();
 
   const feedbackTypeInfo = feedbackTypes[feedbackType];
 
