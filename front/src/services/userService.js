@@ -53,10 +53,3 @@ export const fetchUserRoles = (currentUser) => {
   }
   return null;
 };
-
-export const fetchUserRoleName = (currentUser) => {
-  if (currentUser) {
-    return currentUser.roles[0].name;
-  }
-  return null;
-};
