@@ -62,8 +62,8 @@
     "feedback-sent": "Commentaire envoyé",
     "bug": "Un bug",
     "idea": "Une idée",
-    "other": "Autres"
-    "feedback-error": "Erreur lors de l'envoi du commentaire"
+    "other": "Autres",
+    "feedback-error": "Erreur lors de l'envoi du commentaire",
     "error": "Erreur",
     "close": "Fermer",
     "no-rights": "Pour des raisons de sécurité, seul les élèves peuvent accéder aux séries."
