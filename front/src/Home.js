@@ -45,7 +45,6 @@ function Home() {
   if (token && !user) {
     const fetchUser = async () => {
       if (token && !user) {
-        console.log("Récupération de l'utilisateur");
         const fetchedUser = await fetchCurrentUser(token);
         if (fetchedUser) {
           setUser(fetchedUser);

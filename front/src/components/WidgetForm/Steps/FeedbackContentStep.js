@@ -61,14 +61,6 @@ export function FeedbackContentStep({
         const username = fetchUsername(currentUser);
         const userEmail = fetchUserEmail(currentUser);
 
-        // Perform submission logic
-        console.log({
-          feedbackType,
-          sanitizedComment,
-          username,
-          userEmail,
-        });
-
         // You can use username and userEmail in your email service
         const send = async () => {
           const response = await MailService.sendFeedback({

@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Paper, Button, Typography} from "@mui/material";
+import { Grid, Paper, Button, Typography } from "@mui/material";
 import { TextField } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -58,7 +58,7 @@ const RegistrationForm = ({ open, handleClose }) => {
     name: "",
     firstname: "",
     nameAuto: "",
-    email: ""
+    email: "",
   };
   const validationSchema = Yup.object().shape({
     name: Yup.string()
@@ -73,22 +73,18 @@ const RegistrationForm = ({ open, handleClose }) => {
     email: Yup.string()
       .email(`${t("email-input-verif")}`)
       .required("Requis"),
-    
   });
   const handleSubmit = async (values, props) => {
-
-    axios.post(`${apiUrl}/contact/register`, values)
-    .then(response => {
-      //console.log(response);
-      
-      props.resetForm();
-    })
-    .catch(error => {
-      // La requête a échoué
-      console.error(error);
-     
-    });
-    props.resetForm()
+    axios
+      .post(`${apiUrl}/contact/register`, values)
+      .then((response) => {
+        props.resetForm();
+      })
+      .catch((error) => {
+        // La requête a échoué
+        console.error(error);
+      });
+    props.resetForm();
   };
   return (
     <div
@@ -127,89 +123,90 @@ const RegistrationForm = ({ open, handleClose }) => {
 
             <Grid>
               <Paper elevation={0} style={paperStyle}>
-              
-                <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
-                    {(props) => (
-                        <Form noValidate >
-                          <Field
-                            as={TextField}
-                            id="name"
-                            name="name"
-                            label={t('input-form-Lname')}
-                            className={classes.field}
-                            fullWidth
-                            required
-                          />
-                          <ErrorMessage
-                            name="name"
-                            component={Typography}
-                            variant="body2"
-                            color="error"
-                          />
-                         
-                          <Field
-                            as={TextField}
-                            id="firstname"
-                            name="firstname"
-                            label={t('input-form-Fname')}
-                            className={classes.field}
-                            fullWidth
-                            required
-                          />
-                          <ErrorMessage
-                            name="firstname"
-                            component={Typography}
-                            variant="body2"
-                            color="error"
-                          />
-                          
-                          <Field
-                            as={TextField}
-                            id="nameAuto"
-                            name="nameAuto"
-                            label={t('input-form-auto-name')}
-                            className={classes.field}
-                            fullWidth
-                            required
-                          />
-                          <ErrorMessage
-                            name="nameAuto"
-                            component={Typography}
-                            variant="body2"
-                            color="error"
-                          />
-                          
-                          <Field
-                            as={TextField}
-                            id="Email"
-                            name="email"
-                            label={t('input-form-mail')}
-                            className={classes.field}
-                            fullWidth
-                            required
-                          />
-                          <ErrorMessage
-                            name="email"
-                            component={Typography}
-                            variant="body2"
-                            color="error"
-                          />
-                          
+                <Formik
+                  initialValues={initialValues}
+                  validationSchema={validationSchema}
+                  onSubmit={handleSubmit}
+                >
+                  {(props) => (
+                    <Form noValidate>
+                      <Field
+                        as={TextField}
+                        id="name"
+                        name="name"
+                        label={t("input-form-Lname")}
+                        className={classes.field}
+                        fullWidth
+                        required
+                      />
+                      <ErrorMessage
+                        name="name"
+                        component={Typography}
+                        variant="body2"
+                        color="error"
+                      />
 
-                          <Button
-                            sx={{ textTransform: "none" }}
-                            type="submit"
-                            style={btnStyle}
-                            variant="contained"
-                          >
-                            {t('register-button')}
-                          </Button>
-                          
-                        </Form>
-                    )}
+                      <Field
+                        as={TextField}
+                        id="firstname"
+                        name="firstname"
+                        label={t("input-form-Fname")}
+                        className={classes.field}
+                        fullWidth
+                        required
+                      />
+                      <ErrorMessage
+                        name="firstname"
+                        component={Typography}
+                        variant="body2"
+                        color="error"
+                      />
+
+                      <Field
+                        as={TextField}
+                        id="nameAuto"
+                        name="nameAuto"
+                        label={t("input-form-auto-name")}
+                        className={classes.field}
+                        fullWidth
+                        required
+                      />
+                      <ErrorMessage
+                        name="nameAuto"
+                        component={Typography}
+                        variant="body2"
+                        color="error"
+                      />
+
+                      <Field
+                        as={TextField}
+                        id="Email"
+                        name="email"
+                        label={t("input-form-mail")}
+                        className={classes.field}
+                        fullWidth
+                        required
+                      />
+                      <ErrorMessage
+                        name="email"
+                        component={Typography}
+                        variant="body2"
+                        color="error"
+                      />
+
+                      <Button
+                        sx={{ textTransform: "none" }}
+                        type="submit"
+                        style={btnStyle}
+                        variant="contained"
+                      >
+                        {t("register-button")}
+                      </Button>
+                    </Form>
+                  )}
                 </Formik>
               </Paper>
-            </Grid> 
+            </Grid>
           </DialogContent>
         </div>
       </Dialog>
@@ -218,5 +215,3 @@ const RegistrationForm = ({ open, handleClose }) => {
 };
 
 export default RegistrationForm;
-
-
