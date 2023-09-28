@@ -3,17 +3,14 @@ import dotenv from "dotenv";
 import User from "../models/User.js";
 import Role from "../models/Role.js";
 import jwt from "jsonwebtoken";
-import stripe from "stripe";
 import { MongoClient, ObjectId } from "mongodb";
+
 const uri = process.env.MONGODB_URI;
 
 dotenv.config();
 
 const adminSecretKey = process.env.SALT_KEY;
 
-const stripeInstance = new stripe(
-  "sk_test_51NRF6LBHkhDIYYSv8MovkjYod1A4Q8rTUF9r51cVuivtz2UzCXBWCBOtYutiNK2chlavX04uxCsyXpo2OsmWHLP600cy1ZXdM3"
-);
 ///fonction to create user
 
 export const createUser = async (req, res) => {
