@@ -14,11 +14,13 @@ import jsonDataFr from "./data/content_fr.json";
 import jsonDataEs from "./data/content_es.json";
 import jsonDataEn from "./data/content_en.json";
 import jsonDataMa from "./data/content_fr.json";
+import { Modal, Button } from "@mui/material";
 
 import ListSession from "./components/ListSessions";
 import Quizz from "./components/Quizz";
 import { useTranslation } from "react-i18next";
 import { processSessions } from "./services/sessionService";
+import { fetchUserRoles } from "./services/userService";
 
 import FeedGet from "./components/FeedGet";
 
@@ -33,6 +35,7 @@ function Home() {
   const earthFlag = "./images/flag/rounded/earth.png";
   const spainRoundedFlag = "./images/flag/rounded/spain.png";
   const ukraineRoundedFlag = "./images/flag/rounded/ukraine.png";
+  const role = fetchUserRoles();
 
   const theme = createTheme({
     typography: {
@@ -105,7 +108,22 @@ function Home() {
     languageTextVisible: {
       opacity: 1,
     },
+    modal: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    paper: {
+      backgroundColor: theme.palette.background.paper,
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing(2, 4, 3),
+    },
+    button: {
+      color: "#fff",
+    },
   });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedSession, setSelectedSession] = useState(null);
   const [show, setShow] = useState(false);
   const [value, setValue] = React.useState("code");
   const navigate = useNavigate();
@@ -122,6 +140,23 @@ function Home() {
         language: language,
       };
     });
+  };
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleSessionClick = (sessionId) => {
+    if (role === "manager") {
+      setSelectedSession(sessions);
+      handleOpenModal();
+    } else {
+      navigate(sessionId);
+    }
   };
 
   const sessionFR = createLanguageSessionData("fr", jsonDataFr);
@@ -234,7 +269,6 @@ function Home() {
         className="languageNavImg"
         onClick={() => {
           setShow(true);
-         
         }}
         src={src}
         alt={language}
@@ -245,7 +279,7 @@ function Home() {
 
   if (selectedLanguage === "ma") {
     //Si la langue sélectionnée est "ma", limitez à 3 sessions
-    displayedSessions = sessions.slice(0, 6);
+    displayedSessions = sessions.slice(0, 10);
   }
 
   return (
@@ -296,11 +330,54 @@ function Home() {
             <ListSession
               classes={classes}
               sessions={displayedSessions}
-              navigate={navigate}
+              navigate={handleSessionClick}
               handleHover={handleHover}
               hoveredCard={hoveredCard}
             />
           )}
+          <Modal
+            open={isModalOpen}
+            onClose={handleCloseModal}
+            className={classes.modal}
+          >
+            <div className={classes.paper}>
+              {role === "manager" && (
+                <>
+                  <img
+                    src="./images/annuler-40.svg"
+                    alt="stop"
+                    style={{
+                      width: 100,
+                      height: 100,
+                      display: "block",
+                      margin: "auto",
+                    }}
+                  />
+                  <p
+                    style={{
+                      textAlign: "center",
+                      lineBreak: "normal",
+                      width: "100%",
+                    }}
+                  >
+                    {t("no-rights")}
+                  </p>
+                  <Button
+                    variant="contained"
+                    className={classes.button}
+                    onClick={handleCloseModal}
+                    style={{
+                      display: "block",
+                      margin: "auto",
+                      backgroundColor: "#f49e4c",
+                    }}
+                  >
+                    {t("close")}
+                  </Button>
+                </>
+              )}
+            </div>
+          </Modal>
           {component === "quizz" && <Quizz />}
         </Grid>
         <FlagPopUp
