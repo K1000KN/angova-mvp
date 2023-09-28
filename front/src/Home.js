@@ -8,19 +8,19 @@ import Grid from "@mui/material/Grid";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { makeStyles } from "@mui/styles";
-import { filterSessionsByLanguage } from "./services/sessionService";
 import FlagPopUp from "./components/FlagPopUp";
 import jsonDataFr from "./data/content_fr.json";
 import jsonDataEs from "./data/content_es.json";
-import jsonDataEn from "./data/content_en.json";
-import jsonDataMa from "./data/content_fr.json";
+// import jsonDataEn from "./data/content_en.json";
+// import jsonDataMa from "./data/content_fr.json";
 import { Modal, Button } from "@mui/material";
 
 import ListSession from "./components/ListSessions";
 import Quizz from "./components/Quizz";
 import { useTranslation } from "react-i18next";
 import { processSessions } from "./services/sessionService";
-import { fetchUserRoles } from "./services/userService";
+import { fetchCurrentUser } from "./services/userService";
+import { decodeToken } from "react-jwt";
 
 import FeedGet from "./components/FeedGet";
 
@@ -35,7 +35,26 @@ function Home() {
   const earthFlag = "./images/flag/rounded/earth.png";
   const spainRoundedFlag = "./images/flag/rounded/spain.png";
   const ukraineRoundedFlag = "./images/flag/rounded/ukraine.png";
-  const role = fetchUserRoles();
+
+  const token = localStorage.getItem("token");
+  const [user, setUser] = useState(null);
+  const decodedToken = decodeToken(token);
+  const role = decodedToken.role;
+
+  // Fetch the current user only if token exists
+  if (token && !user) {
+    const fetchUser = async () => {
+      if (token && !user) {
+        const fetchedUser = await fetchCurrentUser(token);
+        if (fetchedUser) {
+          setUser(fetchedUser);
+        }
+      }
+    };
+    if (token && !user) {
+      fetchUser();
+    }
+  }
 
   const theme = createTheme({
     typography: {
