@@ -34,11 +34,12 @@ import { AddCircleOutline, Delete } from "@mui/icons-material";
 import { createTheme } from "@mui/material/styles";
 import NewUserForm from "./components/NewUserForm";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import FlagPopUp from './components/FlagPopUp'
+import FlagPopUp from "./components/FlagPopUp";
+import { fetchCurrentUser } from "./services/userService";
 const theme = createTheme();
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const Profile = () => {
-  const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem("token");
   const decodedToken = decodeToken(token);
 
@@ -59,7 +60,7 @@ const Profile = () => {
   const [showDeleteProfileDialog, setShowDeleteProfileDialog] = useState(false);
   const [showResetPwdDialog, setShowResetPwdDialog] = useState(false);
   const [selectedUserToBeDeleted, setSelectedUserToBeDeleted] = useState(null);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const [showDeleteFromUsersDialog, setShowDeleteFromUsersDialog] =
     useState(false);
 
@@ -130,7 +131,6 @@ const Profile = () => {
     setShowResetPwdDialog(false);
   };
 
-
   const deleteProfile = async () => {
     const token = localStorage.getItem("token");
     const decodedToken = decodeToken(token);
@@ -151,7 +151,6 @@ const Profile = () => {
       console.log(error);
     }
   };
-
 
   const setLanguageImage = (language) => {
     let src = null;
@@ -233,8 +232,6 @@ const Profile = () => {
   const classes = useStyles();
   const { t } = useTranslation();
 
- 
-
   /// List Manager Users
 
   const fetchUsers = useCallback(async () => {
@@ -250,7 +247,6 @@ const Profile = () => {
           user.roles.some((role) => role.name === "user") &&
           user.manager === managerId
       );
-     
       setUsers(userFromManager);
     } catch (error) {
       console.error("Error:", error);
@@ -299,16 +295,16 @@ const Profile = () => {
   };
 
   const resetPassword = async (values, props) => {
-    const {password, newPassword, confirmPassword} = values;
+    const { password, newPassword, confirmPassword } = values;
     if (newPassword !== confirmPassword) {
       setMessage("Les mots de passe ne correspondent pas");
       return;
     }
-  
+
     const id = decodedToken.id;
     const headers = {
       Authorization: `Bearer ${token}`,
-    };  
+    };
 
     let endpoint = `${apiUrl}/user/password-reset/${id}`;
 
@@ -318,13 +314,15 @@ const Profile = () => {
     if (roleUser === "admin") {
       endpoint = `${apiUrl}/admin/password-reset/${id}`;
     }
-    
-    
+
     try {
-      await axios.put(endpoint, {password, newPassword, confirmPassword }, { headers }); 
+      await axios.put(
+        endpoint,
+        { password, newPassword, confirmPassword },
+        { headers }
+      );
       setMessage("Mot de passe modifié avec succés");
       props.resetForm();
-     
     } catch (error) {
       props.resetForm();
       setMessage(error.response.data.message);
@@ -335,41 +333,24 @@ const Profile = () => {
 
 
   const [user, setUser] = useState(null);
-  const [isUserFetched, setIsUserFetched] = useState(false);
   const [roleUser, setRoleUser] = useState("");
 
-  useEffect(() => {
-    const getCurrentUser = async () => {
-      const decodedToken = decodeToken(token);
-      const id = decodedToken.id;
-      const role = decodedToken.role;
-
-      let endpoint = `${apiUrl}/user/${id}`;
-      setRoleUser(role);
-      if (role === "admin") {
-        endpoint = `${apiUrl}/admin/${id}`;
-      } else if (role === "manager") {
-        endpoint = `${apiUrl}/manager/${id}`;
-      }
-
-      try {
-        const response = await axios.get(endpoint, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        setUser(response.data);
-        setIsUserFetched(true);
-      } catch (error) {
-        console.error("Error:", error);
+  // Fetch the current user only if token exists
+  if (token && !user) {
+    const fetchUser = async () => {
+      if (token && !user) {
+        console.log("Récupération de l'utilisateur");
+        const fetchedUser = await fetchCurrentUser(token);
+        if (fetchedUser) {
+          setUser(fetchedUser);
+          setRoleUser(fetchedUser.role);
+        }
       }
     };
-
-    if (token && !isUserFetched) {
-      getCurrentUser();
+    if (token && !user) {
+      fetchUser();
     }
-  }, [token, isUserFetched]);
+  }
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -390,7 +371,7 @@ const Profile = () => {
   const handleCloseDialog = () => {
     setOpenDialog(false);
   };
-  
+
   const btnStyle = {
     marginTop: 10,
     width: "70%",
@@ -406,25 +387,20 @@ const Profile = () => {
   };
   const validationSchema = Yup.object().shape({
     password: Yup.string()
-    .min(8, `${t("password-input-verif")}`)
-    .required("Requis"),
+      .min(8, `${t("password-input-verif")}`)
+      .required("Requis"),
     newPassword: Yup.string()
-      .min(8,`${t("password-input-verif")}`)
+      .min(8, `${t("password-input-verif")}`)
       .required("Requis")
-      .matches(
-        passwordRegExp,
-        `${t("password-input-regex")}`),
+      .matches(passwordRegExp, `${t("password-input-regex")}`),
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("newPassword")], `${t("mdp-not-correspond")}`)
       .required("Requis"),
   });
 
-
-
   const deleteUser = async () => {
     const token = localStorage.getItem("token");
     try {
-      
       const response = await axios.delete(
         `${apiUrl}/user/delete/${selectedUserToBeDeleted}`,
         {
@@ -451,220 +427,226 @@ const Profile = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <NavbarComponent page={value} setLanguageImage={setLanguageImage} />
-      {user && (
-        <Grid
-          id="sessionContainer"
-          container
-          direction="row"
-          style={{  overflow: "auto"}}
-        >
-          <Box sx={{ maxWidth: "75%", mx: "auto" }}>
-            <Typography variant="h4" gutterBottom sx={{ marginTop: "30px" }}>
-              {isEditing ? "Editer mon profil" : "Mon profil"}
-            </Typography>
-            <TextField
-              fullWidth
-              id="username"
-              name="username"
-              label="Nom"
-              value={user.username}
-              onChange={handleInputChange}
-              disabled={!isEditing}
-              margin="normal"
-              variant="outlined"
-            />
-            <TextField
-              fullWidth
-              id="email"
-              name="email"
-              label="Email"
-              value={user.email}
-              onChange={handleInputChange}
-              disabled={!isEditing}
-              margin="normal"
-              variant="outlined"
-            />
-           
-
-            <Grid
-              container
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginTop: 2,
-                gap: 2,
-              }}
-            >
-              {isEditing ? (
-                <Button variant="contained" onClick={handleSaveClick}>
-                  Sauvegarder
-                </Button>
-              ) : (
-                <Button variant="contained" onClick={handleEditClick}>
-                  Modifier
-                </Button>
-              )}
-              <Button
-                variant="contained"
-                onClick={openResetPwdDialog}
-                sx={{backgroundColor: "#F49E4C"}}
-              >
-                Modifier le mot de passe
-              </Button>
-              <Button
-                variant="contained"
-                onClick={openDeleteProfileDialog}
-                color="error"
-              >
-                Suppression
-              </Button>
-              <Button variant="contained" onClick={logout} color="primary">
-                Deconnexion
-              </Button>
-            </Grid>
-
-            {roleUser === "manager" ? (
-              <>
-                <Typography variant="h4" sx={{ marginTop: "30px" }}>
-                  Ajouter un utilisateur
-                </Typography>
-                <Paper sx={{ marginTop: "30px", marginBottom: "60px" }}>
-                  <TableContainer>
-                    <Table>
-                      <TableHead>
-                        <TableRow>
-                          <TableCell>Nom</TableCell>
-                          <TableCell>Prénom</TableCell>
-                          <TableCell>Action</TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {usersList.map((element, index) => (
-                          <TableRow key={index}>
-                            <TableCell>{element.username}</TableCell>
-                            <TableCell>{element.email}</TableCell>
-                            <TableCell>
-                              <IconButton
-                                onClick={() =>
-                                  openDeleteFromUsersDialog(element._id)
-                                }
-                              >
-                                <Delete />
-                              </IconButton>
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      padding: "1rem",
-                    }}
-                  >
-                    <IconButton
-                      onClick={handleAddUser}
-                      variant="contained"
-                      color="primary"
-                    >
-                      <AddCircleOutline />
-                    </IconButton>
-                  </div>
-                </Paper>
-              </>
-            ) : (
-              <></>
-            )}
-          </Box>
-        </Grid>
-      )}
-      {/* CHOSE LANGUAGE  */}
-      <FlagPopUp setLanguage={setLanguage} show={show} handleClose={handleClose}/>
-      {/* NEW USER MODAL */}
-      <NewUserForm open={openDialog} handleClose={handleCloseDialog} usersList={usersList} setUsers={setUsers} />
-      {/* RESET PWD MY ACCOUNT MODAL */}
-     
-    <Dialog open={showResetPwdDialog} onClose={closeResetPwdDialog}>
-      <DialogTitle>Modifier le mot de passe 
-        <IconButton
-          aria-label="close"
-          className={classes.closeButton}
-          onClick={closeResetPwdDialog}
-        >
-          <CloseIcon />
-        </IconButton>
-      </DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={resetPassword}
+      {user &&
+        (console.log(user),
+        (
+          <Grid
+            id="sessionContainer"
+            container
+            direction="row"
+            style={{ overflow: "auto" }}
           >
-            {(props) => (
-              <Form noValidate>
-                
-                
-                <Field
-                  className={classes.field}
-                  as={TextField}
-                  name="password"
-                  label="Mot de passe actuel"
-                  type="password"
-                  fullWidth
-                  error={props.errors.password && props.touched.password}
-                  helperText={<ErrorMessage name="password" />}
-                  required
-                />
-                <Field
-                  className={classes.field}
-                  as={TextField}
-                  name="newPassword"
-                  label="Nouveau mot de passe"
-                  type="password"
-                  fullWidth
-                  error={props.errors.newPassword && props.touched.newPassword}
-                  helperText={<ErrorMessage name="newPassword" />}
-                  required
-                />
+            <Box sx={{ maxWidth: "75%", mx: "auto" }}>
+              <Typography variant="h4" gutterBottom sx={{ marginTop: "30px" }}>
+                {isEditing ? "Editer mon profil" : "Mon profil"}
+              </Typography>
+              <TextField
+                fullWidth
+                id="username"
+                name="username"
+                label="Nom"
+                value={user.username}
+                onChange={handleInputChange}
+                disabled={!isEditing}
+                margin="normal"
+                variant="outlined"
+              />
+              <TextField
+                fullWidth
+                id="email"
+                name="email"
+                label="Email"
+                value={user.email}
+                onChange={handleInputChange}
+                disabled={!isEditing}
+                margin="normal"
+                variant="outlined"
+              />
 
-                <Field
-                  className={classes.field}
-                  as={TextField}
-                  name="confirmPassword"
-                  label="Confirmer le nouveau mot de passe"
-                  type="password"
-                  fullWidth
-                  error={props.errors.confirmPassword && props.touched.confirmPassword}
-                  helperText={<ErrorMessage name="confirmPassword" />}
-                  required
-                />
-                <Grid
-                  container
-                  direction="row"
-                  
-                >
-                 
-                  <Button
-                    sx={{ textTransform: "none" }}
-                    type="submit"
-                    style={btnStyle}
-                    variant="contained"
-                  >
+              <Grid
+                container
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginTop: 2,
+                  gap: 2,
+                }}
+              >
+                {isEditing ? (
+                  <Button variant="contained" onClick={handleSaveClick}>
+                    Sauvegarder
+                  </Button>
+                ) : (
+                  <Button variant="contained" onClick={handleEditClick}>
                     Modifier
                   </Button>
-                </Grid>
-                
-              </Form>
-            )}
-          </Formik>
-          {message && <p>{message}</p>}
-        </DialogContentText>
-      </DialogContent>
-      
-    </Dialog>
+                )}
+                <Button
+                  variant="contained"
+                  onClick={openResetPwdDialog}
+                  sx={{ backgroundColor: "#F49E4C" }}
+                >
+                  Modifier le mot de passe
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={openDeleteProfileDialog}
+                  color="error"
+                >
+                  Suppression
+                </Button>
+                <Button variant="contained" onClick={logout} color="primary">
+                  Deconnexion
+                </Button>
+              </Grid>
+
+              {roleUser === "manager" ? (
+                <>
+                  <Typography variant="h4" sx={{ marginTop: "30px" }}>
+                    Ajouter un utilisateur
+                  </Typography>
+                  <Paper sx={{ marginTop: "30px", marginBottom: "60px" }}>
+                    <TableContainer>
+                      <Table>
+                        <TableHead>
+                          <TableRow>
+                            <TableCell>Nom</TableCell>
+                            <TableCell>Prénom</TableCell>
+                            <TableCell>Action</TableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {usersList.map((element, index) => (
+                            <TableRow key={index}>
+                              <TableCell>{element.username}</TableCell>
+                              <TableCell>{element.email}</TableCell>
+                              <TableCell>
+                                <IconButton
+                                  onClick={() =>
+                                    openDeleteFromUsersDialog(element._id)
+                                  }
+                                >
+                                  <Delete />
+                                </IconButton>
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        padding: "1rem",
+                      }}
+                    >
+                      <IconButton
+                        onClick={handleAddUser}
+                        variant="contained"
+                        color="primary"
+                      >
+                        <AddCircleOutline />
+                      </IconButton>
+                    </div>
+                  </Paper>
+                </>
+              ) : (
+                <></>
+              )}
+            </Box>
+          </Grid>
+        ))}
+      {/* CHOSE LANGUAGE  */}
+      <FlagPopUp
+        setLanguage={setLanguage}
+        show={show}
+        handleClose={handleClose}
+      />
+      {/* NEW USER MODAL */}
+      <NewUserForm
+        open={openDialog}
+        handleClose={handleCloseDialog}
+        usersList={usersList}
+        setUsers={setUsers}
+      />
+      {/* RESET PWD MY ACCOUNT MODAL */}
+      <Dialog open={showResetPwdDialog} onClose={closeResetPwdDialog}>
+        <DialogTitle>
+          Modifier le mot de passe
+          <IconButton
+            aria-label="close"
+            className={classes.closeButton}
+            onClick={closeResetPwdDialog}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            <Formik
+              initialValues={initialValues}
+              validationSchema={validationSchema}
+              onSubmit={resetPassword}
+            >
+              {(props) => (
+                <Form noValidate>
+                  <Field
+                    className={classes.field}
+                    as={TextField}
+                    name="password"
+                    label="Mot de passe actuel"
+                    type="password"
+                    fullWidth
+                    error={props.errors.password && props.touched.password}
+                    helperText={<ErrorMessage name="password" />}
+                    required
+                  />
+                  <Field
+                    className={classes.field}
+                    as={TextField}
+                    name="newPassword"
+                    label="Nouveau mot de passe"
+                    type="password"
+                    fullWidth
+                    error={
+                      props.errors.newPassword && props.touched.newPassword
+                    }
+                    helperText={<ErrorMessage name="newPassword" />}
+                    required
+                  />
+
+                  <Field
+                    className={classes.field}
+                    as={TextField}
+                    name="confirmPassword"
+                    label="Confirmer le nouveau mot de passe"
+                    type="password"
+                    fullWidth
+                    error={
+                      props.errors.confirmPassword &&
+                      props.touched.confirmPassword
+                    }
+                    helperText={<ErrorMessage name="confirmPassword" />}
+                    required
+                  />
+                  <Grid container direction="row">
+                    <Button
+                      sx={{ textTransform: "none" }}
+                      type="submit"
+                      style={btnStyle}
+                      variant="contained"
+                    >
+                      Modifier
+                    </Button>
+                  </Grid>
+                </Form>
+              )}
+            </Formik>
+            {message && <p>{message}</p>}
+          </DialogContentText>
+        </DialogContent>
+      </Dialog>
       {/* DELETE MY ACCOUNT MODAL */}
       <Dialog open={showDeleteProfileDialog} onClose={closeDeleteProfileDialog}>
         <DialogTitle>Suppression du compte</DialogTitle>

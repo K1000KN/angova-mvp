@@ -56,5 +56,12 @@
     "mdp-not-correspond": "Passwords don't match",
     "password-input-regex": "The password must contain an upper- and lower-case number.",
     "forbidden-language": "This language is not available",
-    "invalid-session": "Invalid session"
+    "invalid-session": "Invalid session",
+    "send-feedback": "Send feedback",
+    "feedback-placeholder": "Your feedback",
+    "feedback-sent": "Feedback sent",
+    "feedback-error": "An error occurred while sending your feedback",
+    "bug": "A bug",
+    "idea": "An idea",
+    "other": "Other"
 }

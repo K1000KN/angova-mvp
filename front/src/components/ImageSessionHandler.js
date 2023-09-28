@@ -25,14 +25,24 @@ const ImageSessionHandler = ({ content }) => {
     const currentSource = content[currentSourceIndex].substring(1);
     render = (
       <div>
-        <ImageS3 id="imgContainer" source={currentSource} />
+        <ImageS3
+          id="imgContainer"
+          source={currentSource}
+          height={"40vh"}
+          width={"100%"}
+        />
       </div>
     );
   } else {
     const currentSource = content[0].substring(1);
     render = (
       <div>
-        <ImageS3 id="imgContainer" source={currentSource} />
+        <ImageS3
+          id="imgContainer"
+          source={currentSource}
+          height={"40vh"}
+          width={"100%"}
+        />
       </div>
     );
   }
