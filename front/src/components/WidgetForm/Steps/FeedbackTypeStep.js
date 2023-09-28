@@ -1,6 +1,6 @@
 import React from "react";
 import { CloseButton } from "../../CloseButton";
-import { feedbackTypes } from "../index";
+import FeedbackTypesData from "../feedbackTypes"; // Import the FeedbackTypesData component
 import { useTranslation } from "react-i18next";
 import Typography from "@mui/material/Typography";
 import "./FeedbackTypeStep.css";
@@ -11,6 +11,8 @@ export function FeedbackTypeStep({ onFeedbackTypeChanged, onClose }) {
   const handleClose = () => {
     onClose();
   };
+
+  const feedbackTypes = FeedbackTypesData();
 
   return (
     <div

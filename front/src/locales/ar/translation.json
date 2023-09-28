@@ -60,5 +60,8 @@
     "send-feedback": "إرسال ملاحظات",
     "feedback-placeholder": "أدخل ملاحظاتك هنا",
     "feedback-sent": "تم إرسال ملاحظاتك بنجاح",
-    "feedback-error": "حدث خطأ أثناء إرسال ملاحظاتك"
+    "feedback-error": "حدث خطأ أثناء إرسال ملاحظاتك",
+    "bug": "مشكلة",
+    "idea": "فكرة",
+    "other": "آخر"
 }

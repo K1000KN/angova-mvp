@@ -60,5 +60,8 @@
     "send-feedback": "Geri bildirim gönder",
     "feedback-placeholder": "Geri bildiriminizi buraya yazın",
     "feedback-sent": "Geri bildiriminiz gönderildi",
-    "feedback-error": "Geri bildiriminiz gönderilemedi"
+    "feedback-error": "Geri bildiriminiz gönderilemedi",
+    "bug": "Hata",
+    "idea": "Fikir",
+    "other": "Diğer"
 }
