@@ -59,6 +59,7 @@
     "forbidden-language": "Cette langue n'est pas disponible",
     "send-feedback": "Envoyer un commentaire",
     "feedback-placeholder": "Votre commentaire",
+    "invalid-session": "Session invalide",
     "feedback-sent": "Commentaire envoyé",
     "bug": "Un bug",
     "idea": "Une idée",
