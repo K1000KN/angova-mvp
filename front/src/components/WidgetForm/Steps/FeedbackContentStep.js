@@ -70,15 +70,17 @@ export function FeedbackContentStep({
         });
 
         // You can use username and userEmail in your email service
-        const send = async () =>
-          await MailService.sendFeedback({
+        const send = async () => {
+          const response = await MailService.sendFeedback({
             name: username,
             email: userEmail,
             message: `${feedbackType}: ${sanitizedComment}`,
           });
+          return response;
+        };
 
-        await send();
-        if (send.response.status === 200) {
+        const sendResponse = await send();
+        if (sendResponse.status === 200) {
           setErrorMessage(null);
         } else {
           setErrorMessage("Error sending feedback");

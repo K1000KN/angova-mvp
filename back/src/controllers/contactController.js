@@ -12,13 +12,11 @@ export const contactForm = (req, res) => {
   const { name, email, message } = req.body;
 
   const msg = {
-    to: "contact.angova@gmail.com",
+    to: "contact.angova@gmail.com", // Votre adresse e-mail
     from: "contact.angova@gmail.com",
     subject: "contact depuis l'application web",
     text: `Nom: ${name}\nE-mail: ${email}\n\nMessage: ${message}`,
   };
-  console.log("msg", msg);
-
   sgMail
     .send(msg)
     .then(() => {
