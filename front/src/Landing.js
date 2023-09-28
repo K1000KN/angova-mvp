@@ -23,6 +23,7 @@ import ReviewCard from "./components/ReviewCard";
 import BurgerMenu from "./components/BurgerMenu";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import TokenService from "./services/TokenServices";
 
 function Landing() {
   const { t, i18n } = useTranslation();
@@ -35,6 +36,7 @@ function Landing() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const token = localStorage.getItem("token");
+  const tokenVerified = TokenService.isTokenVerified();
   const navigate = useNavigate();
   const refCode = useRef(null);
   const refDesc = useRef(null);
@@ -261,7 +263,7 @@ function Landing() {
           </Grid>
 
           <Grid item xs={2} sx={{ display: { xs: "none", lg: "block" } }}>
-            {isLoggedIn ? (
+            {isLoggedIn && tokenVerified ? (
               <Button
                 onClick={handleGoToApp}
                 sx={{

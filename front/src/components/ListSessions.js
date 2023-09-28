@@ -36,7 +36,12 @@ const ListSession = ({
               onMouseEnter={() => handleHover(session.id)}
               onMouseLeave={() => handleHover(null)}
             >
-              <ImageS3 source={session.image} isSkeleton={true} />
+              <ImageS3
+                source={session.image}
+                isSkeleton={true}
+                height={"100px"}
+                width={"100%"}
+              />
               <div
                 className={`${classes.slide2} ${
                   hoveredCard === session.id ? "active" : ""

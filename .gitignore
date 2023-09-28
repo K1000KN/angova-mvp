@@ -1,7 +1,5 @@
-# Node.js
+# Backend
 back/node_modules/
-front/node_modules/
-front/build
 package-lock.json
 npm-debug.log
 yarn-error.log
@@ -10,6 +8,8 @@ yarn.lock
 # React
 /build
 /dist
+front/node_modules/
+front/build
 
 # Editor and IDE files
 .vscode/

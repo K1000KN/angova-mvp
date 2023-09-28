@@ -56,5 +56,12 @@
     "mdp-not-correspond": "Parolalar eşleşmiyor",
     "password-input-regex": "Parola hem büyük hem de küçük harf içermelidir.",
     "forbidden-language": "Bu dil şu anda kullanılamıyor",
-    "invalid-session": "Oturumunuz geçersiz"
+    "invalid-session": "Oturumunuz geçersiz",
+    "send-feedback": "Geri bildirim gönder",
+    "feedback-placeholder": "Geri bildiriminizi buraya yazın",
+    "feedback-sent": "Geri bildiriminiz gönderildi",
+    "feedback-error": "Geri bildiriminiz gönderilemedi",
+    "bug": "Hata",
+    "idea": "Fikir",
+    "other": "Diğer"
 }
