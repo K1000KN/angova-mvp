@@ -3,12 +3,12 @@ import dotenv from "dotenv";
 import User from "../models/User.js";
 import Role from "../models/Role.js";
 import jwt from "jsonwebtoken";
-import stripe from "stripe";
+import Stripe from "stripe";
 dotenv.config();
 
 const adminSecretKey = process.env.SALT_KEY;
 
-const stripeInstance = new stripe(
+const stripeInstance = new Stripe(
   "sk_test_51NRF6LBHkhDIYYSv8MovkjYod1A4Q8rTUF9r51cVuivtz2UzCXBWCBOtYutiNK2chlavX04uxCsyXpo2OsmWHLP600cy1ZXdM3"
 );
 ///fonction to create user
@@ -132,10 +132,10 @@ export const getManagerById = async (req, res) => {
   try {
     const { id } = req.params;
     const user = await User.findById(id).populate("roles", "name");
-    if(user && user.password){
+    if (user && user.password) {
       user.password = "";
     }
-    
+
     if (!user) {
       return res.status(404).send({ message: "Manager not found" });
     }
