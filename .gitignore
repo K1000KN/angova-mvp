@@ -1,6 +1,5 @@
 # Backend
 back/node_modules/
-back/backup/*
 package-lock.json
 npm-debug.log
 yarn-error.log
