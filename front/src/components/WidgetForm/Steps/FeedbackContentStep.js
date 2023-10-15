@@ -74,7 +74,10 @@ export function FeedbackContentStep({
           const response = await MailService.sendFeedback({
             name: username,
             email: userEmail,
-            message: `${feedbackType}: ${sanitizedComment}`,
+            message: `${feedbackType}: ${sanitizedComment}
+            "Page:"${window.location.href} Language: ${localStorage.getItem(
+              "language"
+            )}`,
           });
           return response;
         };
