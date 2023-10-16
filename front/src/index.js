@@ -131,9 +131,7 @@ const PrivateRoute = ({ path, roles, children }) => {
   );
 };
 
-const stripePromise = loadStripe(
-  "pk_test_51NRF6LBHkhDIYYSvZevZHSy53ptC51mLinwuQDIQnMxY2N0jHFHHPuHgJsGIy0Txk8FnK9MgWjv2Ntn1ASHZ7R0a00len8pfxq"
-);
+
 
 const App = () => {
   // TODO RTL support
@@ -166,16 +164,7 @@ const App = () => {
               </PrivateRoute>
             }
           />
-          <Route
-            path="/add_user"
-            element={
-              <PrivateRoute roles={["manager", "admin"]}>
-                <Elements stripe={stripePromise}>
-                  <AddUserPage />
-                </Elements>
-              </PrivateRoute>
-            }
-          />
+          
           <Route
             path="/session/:id"
             element={
