@@ -338,9 +338,13 @@ const Profile = () => {
       
       if (token && !user) {
         const fetchedUser = await fetchCurrentUser(token);
+
+        const decodedToken = decodeToken(token);
+        const role = decodedToken.role;
+        
         if (fetchedUser) {
           setUser(fetchedUser);
-          setRoleUser(fetchedUser.roles[0].name);
+          setRoleUser(role);
         }
       }
     };

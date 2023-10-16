@@ -77,8 +77,7 @@ const PrivateRoute = ({ path, roles, children }) => {
     if (isAuthenticated && roles && roles.includes(userRole)) {
       return;
     }
-    console.log("PrivateRoute", isAuthenticated, roles, userRole);
-
+    
     if (!isAuthenticated) {
       // Redirect to login page if not authenticated
       navigate("/", { replace: true });
