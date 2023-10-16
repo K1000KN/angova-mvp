@@ -1,11 +1,14 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import Role from "../models/Role.js";
-import User from "../models/User.js";
+import seedDatabase from "./seed.js";
 
 dotenv.config();
 
 const MONGODB_URI = process.env.MONGODB_URI;
+
+mongoose.set("useNewUrlParser", true);
+mongoose.set("useFindAndModify", false);
+mongoose.set("useCreateIndex", true);
 
 mongoose
   .connect(MONGODB_URI, {
@@ -15,29 +18,13 @@ mongoose
   })
   .then(() => {
     console.log("Connected to MongoDB");
-    initial();
+
+    // Create users if they don't exist
+    seedDatabase();
   })
   .catch((error) => {
     console.error("Failed to connect to MongoDB", error);
     process.exit();
   });
 
-function initial() {
-  Role.estimatedDocumentCount((err, count) => {
-    console.log("roles", count);
-    if (!err && count === 0) {
-      const roles = ["user", "manager", "admin"];
-
-      roles.forEach((role) => {
-        new Role({ name: role }).save((error) => {
-          if (error) {
-            console.error("Error creating role: ", error);
-          }
-          console.log(`Added ${role} to roles collection`);
-        });
-      });
-    }
-  });
-}
-
-export { Role, User };
+export default mongoose;

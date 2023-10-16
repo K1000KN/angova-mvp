@@ -1,33 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
-import { Link, useNavigate } from "react-router-dom"; // Import useNavigate instead of useHistory
-import { useTranslation } from "react-i18next";
-import { getCurrentUser } from "../services/userService";
+import { Link } from "react-router-dom"; // Import useNavigate instead of useHistory
+import { fetchCurrentUser } from "../services/userService";
 
 const NavbarComponent = ({ page, setLanguageImage }) => {
-  const { t } = useTranslation();
   const token = localStorage.getItem("token");
   const [user, setUser] = useState(null);
   const [isUserFetched, setIsUserFetched] = useState(false);
   const [role, setRole] = useState("");
-  const navigate = useNavigate(); // Use useNavigate to perform navigation
 
-  useEffect(() => {
-    const fetchCurrentUser = async () => {
-      try {
-        const user = await getCurrentUser(token, navigate);
-        setUser(user);
-        setIsUserFetched(true);
-        setRole(user.role);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
+  const fetchUser = async () => {
+    const currentUser = await fetchCurrentUser(token);
+    setUser(currentUser);
+    setIsUserFetched(true);
+    setRole(currentUser.role);
+  };
 
-    if (token && !isUserFetched) {
-      fetchCurrentUser();
-    }
-  }, [token, isUserFetched, navigate]);
+  // Call fetchUser when token or isUserFetched changes
+  if (token && (!user || !isUserFetched)) {
+    fetchUser();
+  }
 
   return (
     <div id="navContainer">

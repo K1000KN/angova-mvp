@@ -8,17 +8,21 @@ import Grid from "@mui/material/Grid";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { makeStyles } from "@mui/styles";
-import { filterSessionsByLanguage } from "./services/sessionService";
-import FlagPopUp from './components/FlagPopUp'
+import FlagPopUp from "./components/FlagPopUp";
 import jsonDataFr from "./data/content_fr.json";
 import jsonDataEs from "./data/content_es.json";
-import jsonDataEn from "./data/content_en.json";
-import jsonDataMa from "./data/content_fr.json";
+// import jsonDataEn from "./data/content_en.json";
+// import jsonDataMa from "./data/content_fr.json";
+import { Modal, Button } from "@mui/material";
 
 import ListSession from "./components/ListSessions";
 import Quizz from "./components/Quizz";
 import { useTranslation } from "react-i18next";
 import { processSessions } from "./services/sessionService";
+import { fetchCurrentUser } from "./services/userService";
+import { decodeToken } from "react-jwt";
+
+import FeedGet from "./components/FeedGet";
 
 function Home() {
   const { t, i18n } = useTranslation();
@@ -31,6 +35,26 @@ function Home() {
   const earthFlag = "./images/flag/rounded/earth.png";
   const spainRoundedFlag = "./images/flag/rounded/spain.png";
   const ukraineRoundedFlag = "./images/flag/rounded/ukraine.png";
+
+  const token = localStorage.getItem("token");
+  const [user, setUser] = useState(null);
+  const decodedToken = decodeToken(token);
+  const role = decodedToken.role;
+
+  // Fetch the current user only if token exists
+  if (token && !user) {
+    const fetchUser = async () => {
+      if (token && !user) {
+        const fetchedUser = await fetchCurrentUser(token);
+        if (fetchedUser) {
+          setUser(fetchedUser);
+        }
+      }
+    };
+    if (token && !user) {
+      fetchUser();
+    }
+  }
 
   const theme = createTheme({
     typography: {
@@ -103,7 +127,22 @@ function Home() {
     languageTextVisible: {
       opacity: 1,
     },
+    modal: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    paper: {
+      backgroundColor: theme.palette.background.paper,
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing(2, 4, 3),
+    },
+    button: {
+      color: "#fff",
+    },
   });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedSession, setSelectedSession] = useState(null);
   const [show, setShow] = useState(false);
   const [value, setValue] = React.useState("code");
   const navigate = useNavigate();
@@ -120,6 +159,23 @@ function Home() {
         language: language,
       };
     });
+  };
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleSessionClick = (sessionId) => {
+    if (role === "manager") {
+      setSelectedSession(sessions);
+      handleOpenModal();
+    } else {
+      navigate(sessionId);
+    }
   };
 
   const sessionFR = createLanguageSessionData("fr", jsonDataFr);
@@ -188,7 +244,7 @@ function Home() {
   const handleHover = (id) => {
     setHoveredCard(id);
   };
- 
+
   const setLanguageImage = (language) => {
     let src = null;
     switch (language) {
@@ -232,7 +288,6 @@ function Home() {
         className="languageNavImg"
         onClick={() => {
           setShow(true);
-         
         }}
         src={src}
         alt={language}
@@ -243,7 +298,7 @@ function Home() {
 
   if (selectedLanguage === "ma") {
     //Si la langue sélectionnée est "ma", limitez à 3 sessions
-    displayedSessions = sessions.slice(0, 6);
+    displayedSessions = sessions.slice(0, 10);
   }
 
   return (
@@ -294,15 +349,74 @@ function Home() {
             <ListSession
               classes={classes}
               sessions={displayedSessions}
-              navigate={navigate}
+              navigate={handleSessionClick}
               handleHover={handleHover}
               hoveredCard={hoveredCard}
             />
           )}
+          <Modal
+            open={isModalOpen}
+            onClose={handleCloseModal}
+            className={classes.modal}
+          >
+            <div className={classes.paper}>
+              {role === "manager" && (
+                <>
+                  <img
+                    src="./images/annuler-40.svg"
+                    alt="stop"
+                    style={{
+                      width: 100,
+                      height: 100,
+                      display: "block",
+                      margin: "auto",
+                    }}
+                  />
+                  <p
+                    style={{
+                      textAlign: "center",
+                      lineBreak: "normal",
+                      width: "100%",
+                    }}
+                  >
+                    {t("no-rights")}
+                  </p>
+                  <Button
+                    variant="contained"
+                    className={classes.button}
+                    onClick={handleCloseModal}
+                    style={{
+                      display: "block",
+                      margin: "auto",
+                      backgroundColor: "#f49e4c",
+                    }}
+                  >
+                    {t("close")}
+                  </Button>
+                </>
+              )}
+            </div>
+          </Modal>
           {component === "quizz" && <Quizz />}
         </Grid>
-        <FlagPopUp setLanguage={setLanguage} show={show} handleClose={handleClose}/>
+        <FlagPopUp
+          setLanguage={setLanguage}
+          show={show}
+          handleClose={handleClose}
+        />
         <BottomBar handleChange={handleChange} value={value} />
+        <div
+          style={{
+            position: "fixed",
+            bottom: "0",
+            right: "0",
+            zIndex: "1000",
+            marginRight: "20px",
+            marginBottom: "20px",
+          }}
+        >
+          <FeedGet />
+        </div>
       </ThemeProvider>
     </>
   );

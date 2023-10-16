@@ -144,10 +144,10 @@ export const resetPasswordAdmin = async (req, res) => {
 
     const user = await User.findById(id);
     if (!user) {
-      return res.status(404).send({ message: "Admin not found" });
+      return res.status(404).send({ message: "User not found" });
     }
     const isPasswordValid = await bcrypt.compare(password, user.password);
- 
+
     if (!isPasswordValid) {
       return res.status(401).send({ message: "Invalid password" });
     }
