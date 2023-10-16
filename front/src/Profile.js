@@ -335,11 +335,12 @@ const Profile = () => {
   // Fetch the current user only if token exists
   if (token && !user) {
     const fetchUser = async () => {
+      
       if (token && !user) {
         const fetchedUser = await fetchCurrentUser(token);
         if (fetchedUser) {
           setUser(fetchedUser);
-          setRoleUser(fetchedUser.role);
+          setRoleUser(fetchedUser.roles[0].name);
         }
       }
     };

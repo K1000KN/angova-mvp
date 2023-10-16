@@ -130,11 +130,11 @@ export const resetPasswordManager = async (req, res) => {
 export const getManagerById = async (req, res) => {
   try {
     const client = new MongoClient(uri, { useUnifiedTopology: true });
+    
     const db = client.db();
     const { id } = req.params;
-    const usersCollection = db.collection("users");
-    const manager = await usersCollection.findOne({ _id: new ObjectId(id) });
-    if (manager && manager.password) {
+    const manager = await User.findById(id).populate("roles", "name");
+   if (manager && manager.password) {
       manager.password = "";
     }
 
