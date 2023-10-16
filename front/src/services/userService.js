@@ -5,9 +5,10 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 export const fetchCurrentUser = async (token) => {
   const decodedToken = decodeToken(token);
+  
   const id = decodedToken.id;
   const role = decodedToken.role;
-
+  
   let endpoint = `${apiUrl}/user/${id}`;
 
   if (role === "admin") {
